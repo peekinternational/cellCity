@@ -628,8 +628,11 @@
 	.tp-banner{
 		height: 400px !important;
 	}
+	.bill-box{
+		padding: 10px 10px;
+	}
 	.bill-box img {
-	    margin-top: 1.5em;
+    	margin-top: 1.5em;
 	}
 	.shop-section.shop-page {
     	padding: 0px 0px;
@@ -653,7 +656,6 @@
 	.shop-item .inner-box .lower-content {
    		width: 75%;
    		padding-top: 0;
->>>>>>> 75c77370ba8ab5eb6f5759837e1442dd97722325
 	}
 }
 
