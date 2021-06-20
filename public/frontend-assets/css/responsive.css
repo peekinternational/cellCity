@@ -280,6 +280,9 @@
 		-webkit-border-radius:3px;
 		-o-border-radius:3px;
 		border-radius:3px;	
+		position: absolute;
+		width: 100%;
+		top: 0;
 	}
 	
 	.main-menu .navbar-header{
@@ -601,6 +604,7 @@
 	    color: #ffffff;
 	    font-weight: 700;
 	    line-height: 1.3em !important;
+	    margin-bottom: 40px;
 	}
 	.main-slider .text,.main-slider .offer{
 		display: none;
@@ -777,6 +781,7 @@
 	.slider-logo{
 		display: block;
 		margin-left: 25px !important;
+		margin-bottom: 20px;
 	}
 }
 @media(max-width: 390px){

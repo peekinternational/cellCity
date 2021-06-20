@@ -53,7 +53,7 @@
                 data-elementdelay="0.01"
                 data-endelementdelay="0.3"
                 data-endspeed="1200"
-                data-endeasing="Power4.easeIn"><div class="text">We offer repair many different types of devices including smartphones,<br> tablets etc...</div></div>
+                data-endeasing="Power4.easeIn"><div class="text">We offer repair many different types of devices including smartphones,<br> tablets etc...</div></div><br>
                 
                 <div class="tp-caption sfl sfb tp-resizeme"
                 data-x="left" data-hoffset="15"
@@ -106,7 +106,7 @@
                 data-endspeed="1200"
                 data-endeasing="Power4.easeIn"><div class="text text-left">Lorem ipsum dolor sit amet, consectetur adipisicing elit,<br> sed do eiusmod
                 tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim </div></div>
-                
+                <br><br><br>
                 <div class="tp-caption sfb sfb tp-resizeme"
                 data-x="left" data-hoffset="15"
                 data-y="center" data-voffset="100"
@@ -155,7 +155,7 @@
                 data-endspeed="1200"
                 data-endeasing="Power4.easeIn"><div class="offer text-left">Lorem ipsum dolor sit amet, consectetur adipisicing elit, <br> sed do eiusmod
                 tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</div></div>
-                
+                <br>
                 <div class="tp-caption sfr sfb tp-resizeme"
                 data-x="left" data-hoffset="-15"
                 data-y="center" data-voffset="130"
