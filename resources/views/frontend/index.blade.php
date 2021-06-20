@@ -42,7 +42,7 @@
                 </div>
                 <h2>Repair <span>your</span><br>Mobile Phone</h2></div>
                 
-                <div class="tp-caption sfl sfb tp-resizeme"
+                <!-- <div class="tp-caption sfl sfb tp-resizeme"
                 data-x="left" data-hoffset="15"
                 data-y="center" data-voffset="50"
                 data-speed="1500"
@@ -53,7 +53,7 @@
                 data-elementdelay="0.01"
                 data-endelementdelay="0.3"
                 data-endspeed="1200"
-                data-endeasing="Power4.easeIn"><div class="text">We offer repair many different types of devices including smartphones,<br> tablets etc...</div></div>
+                data-endeasing="Power4.easeIn"><div class="text">We offer repair many different types of devices including smartphones,<br> tablets etc...</div></div> --><br>
                 
                 <div class="tp-caption sfl sfb tp-resizeme"
                 data-x="left" data-hoffset="15"
@@ -92,8 +92,8 @@
                 	<img src="{{asset('frontend-assets/images/logo1.png')}}" alt="" title="Cell City">
                 </div>
                 <h2 class="text-uppercase">Buy <span> Mobile Phone </span><br>of your Choice</h2></div>
-                
-                <div class="tp-caption sfb sfb tp-resizeme"
+                <br>
+                <!-- <div class="tp-caption sfb sfb tp-resizeme"
                 data-x="left" data-hoffset="15"
                 data-y="center" data-voffset="30"
                 data-speed="1500"
@@ -105,8 +105,8 @@
                 data-endelementdelay="0.3"
                 data-endspeed="1200"
                 data-endeasing="Power4.easeIn"><div class="text text-left">Lorem ipsum dolor sit amet, consectetur adipisicing elit,<br> sed do eiusmod
-                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim </div></div>
-                
+                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim <br></div></div> -->
+                <br><br><br>
                 <div class="tp-caption sfb sfb tp-resizeme"
                 data-x="left" data-hoffset="15"
                 data-y="center" data-voffset="100"
@@ -142,7 +142,7 @@
                 </div>
                 <h2 class="computer-problem">Pay Your<br><span>Bills</span> </h2></div>
                 
-                <div class="tp-caption sfr sfb tp-resizeme"
+                <!-- <div class="tp-caption sfr sfb tp-resizeme"
                 data-x="left" data-hoffset="-15"
                 data-y="center" data-voffset="50"
                 data-speed="1500"
@@ -154,8 +154,8 @@
                 data-endelementdelay="0.3"
                 data-endspeed="1200"
                 data-endeasing="Power4.easeIn"><div class="offer text-left">Lorem ipsum dolor sit amet, consectetur adipisicing elit, <br> sed do eiusmod
-                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</div></div>
-                
+                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</div></div> -->
+                <br>
                 <div class="tp-caption sfr sfb tp-resizeme"
                 data-x="left" data-hoffset="-15"
                 data-y="center" data-voffset="130"
