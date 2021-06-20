@@ -6366,12 +6366,13 @@ ul,li{
     height: 140px;
     margin-bottom: 20px;
     box-shadow: 0 3px 15px #b7b6b6;
+    padding: 10 30px;
 }
 .bill-box:hover{
 	box-shadow: none;
 }
 .bill-box img{
-	margin-top: 1.5em;
+	/*margin-top: 1.5em;*/
 	width: 100%;
 }
 /*****Signup Page****/
