@@ -624,6 +624,9 @@
 	.tp-banner{
 		height: 400px !important;
 	}
+	.bill-box img {
+	    margin-top: 1.5em;
+	}
 }
 
 @media only screen and (max-width: 599px){
