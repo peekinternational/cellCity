@@ -26,7 +26,7 @@
 
               <div class="navbar-collapse collapse clearfix">
                 <ul class="navigation clearfix">
-                  <li class="dropdown"><a href="">Phone Repair</a>
+                  <li class="dropdown"><a href="{{url('repair')}}">Phone Repair</a>
                     <ul>
                       <li><a href="">Screen</a></li>
                       <li><a href="">Battery</a></li>
@@ -40,7 +40,7 @@
                   </li>
                   <li class=""><a href="{{url('buy-phone')}}">Buy Phones</a>
                   </li>
-                  <li><a href="">Buy Accessories</a></li>
+                  <li><a href="{{url('buy-accessories')}}">Buy Accessories</a></li>
                   <li><a href="{{url('pay-bills')}}">Pay Bills</a></li>
                   <li><a href="{{url('contact-us')}}">Contact Us</a></li>
                   <li><a href="{{url('signup')}}">Sign Up</a></li>
@@ -91,7 +91,7 @@
 
           <div class="navbar-collapse collapse clearfix">
             <ul class="navigation clearfix">
-              <li class="dropdown"><a href="">Phone Repair</a>
+              <li class="dropdown"><a href="{{url('repair')}}">Phone Repair</a>
                 <ul>
                   <li><a href="">Screen</a></li>
                   <li><a href="">Battery</a></li>
@@ -105,7 +105,7 @@
               </li>
               <li class=""><a href="#">Buy Phones</a>
               </li>
-              <li><a href="">Buy Accessories</a></li>
+              <li><a href="{{url('buy-accessories')}}">Buy Accessories</a></li>
               <li><a href="{{url('pay-bills')}}">Pay Bills</a></li>
               <li><a href="{{url('contact-us')}}">Contact Us</a></li>
               <li><a href="{{url('signup')}}">Sign Up</a></li>
