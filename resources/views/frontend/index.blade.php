@@ -38,7 +38,7 @@
                 data-endspeed="1200"
                 data-endeasing="Power4.easeIn">
                 <div class="slider-logo">
-                	<img src="{{asset('frontend-assets/images/logo1.png')}}" alt="" title="Cell City">
+                	<!-- <img src="{{asset('frontend-assets/images/logo1.png')}}" alt="" title="Cell City"> -->
                 </div>
                 <h2>Repair <span>your</span><br>Mobile Phone</h2></div>
                 
@@ -88,8 +88,8 @@
                 data-endelementdelay="0.3"
                 data-endspeed="1200"
                 data-endeasing="Power4.easeIn">
-                <<div class="slider-logo">
-                	<img src="{{asset('frontend-assets/images/logo1.png')}}" alt="" title="Cell City">
+                <div class="slider-logo">
+                	<!-- <img src="{{asset('frontend-assets/images/logo1.png')}}" alt="" title="Cell City"> -->
                 </div>
                 <h2 class="text-uppercase">Buy <span> Mobile Phone </span><br>of your Choice</h2></div>
                 <br>
@@ -138,7 +138,7 @@
                 data-endspeed="1200"
                 data-endeasing="Power4.easeIn">
                 <div class="slider-logo">
-                	<img src="{{asset('frontend-assets/images/logo1.png')}}" alt="" title="Cell City">
+                	<!-- <img src="{{asset('frontend-assets/images/logo1.png')}}" alt="" title="Cell City"> -->
                 </div>
                 <h2 class="computer-problem">Pay Your<br><span>Bills</span> </h2></div>
                 

@@ -6214,7 +6214,10 @@ ul,li{
 	padding: 0px 0px 20px 0px;
 }
 
-
+.puls-footer{
+	border-top: 1px solid #ddd;
+	padding-top: 3em;
+}
 .puls-footer-container, .puls-footer .puls-footer-container {
     z-index: 1;
     box-sizing: border-box;

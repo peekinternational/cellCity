@@ -22,6 +22,15 @@ Route::get('/contact-us', function () {
 Route::get('/buy-phone', function () {
     return view('frontend.buy-phone');
 });
+Route::get('/buy-accessories', function () {
+    return view('frontend.buy-accessories');
+});
+Route::get('/repair', function () {
+    return view('frontend.repair');
+});
+Route::get('/repair-step', function () {
+    return view('frontend.repair-steps');
+});
 Route::get('/single', function () {
     return view('frontend.single');
 });
