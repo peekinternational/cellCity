@@ -114,7 +114,7 @@
     font-weight: 500;
 }
 .filled-button, .filled-rounded, .primary-bg {
-    background-color: #7f5eff;
+    background-color: #00bfa5;
     color: #fff;
 }
 .filled-rounded, .rounded {
@@ -158,8 +158,152 @@
     border-top-left-radius: 0 !important;
     border-bottom-left-radius: 0 !important;
 }
-
-
+.font27-18 {
+    font-size: calc(1.125rem + (27 - 10) * ((100vw - 320px) / (1920 - 320)));
+    line-height: calc( 1.75rem + (37 - 28) * ((100vw - 320px) / (1920 - 320)));
+}
+.jss179 {
+    position: relative;
+    text-align: start;
+    padding-left: 20px;
+}
+.jss179.left-align::before {
+    top: 0px;
+    left: 0px;
+    width: 7px;
+    height: 100%;
+    content: "";
+    position: absolute;
+    background-color: rgb(66, 200, 183);
+}
+.pad-tb16 {
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+.slider-list-slider.jsx-146361224 {
+    position: relative;
+    margin-left: -5px;
+}
+.slider-list.jsx-146361224 .slide-next.jsx-146361224:first-child {
+    left: -42px;
+}
+.slider-list.jsx-146361224 .slide-next.jsx-146361224:last-child {
+    right: -42px;
+}
+.slider-list.jsx-2802770802 .slide-next.jsx-2802770802 {
+    z-index: 1;
+}
+.slider-list.jsx-146361224 .slide-next.jsx-146361224 {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+}
+.cursor {
+    cursor: pointer;
+}
+.scroll-horizon {
+    overflow-x: auto;
+}
+.slider-list.jsx-146361224 .box-pad.jsx-146361224 {
+    padding-left: 5px;
+}
+.post-slider-wrap.jsx-146361224 ul.jsx-146361224 {
+    margin: 0;
+}
+.list-none {
+    list-style-type: none;
+}
+.jss175 {
+    width: 160px;
+    height: 272px;
+}
+.layout.around-justified {
+    justify-content: space-around;
+}
+.jss176 {
+    max-width: 160px;
+    max-height: 220px;
+}
+.radius-10 {
+    border-radius: 10px;
+}
+.card-shadow {
+    background-color: #FFFFFF;
+    box-shadow: 0 0 10px 0 rgb(0 0 0 / 11%);
+}
+.jss177 {
+    width: 100px;
+    margin: 0 auto 8px;
+    overflow: hidden;
+    max-height: 100px;
+}
+.jss178 {
+    width: 100%;
+    max-height: 50px;
+}
+.font12-10 {
+    font-size: calc(1rem + (12 - 5) * ((100vw - 320px) / (1920 - 320)));
+    line-height: calc(0.75rem + (18 - 12) * ((100vw - 320px) / (1920 - 320)));
+}
+.scroll-horizon::-webkit-scrollbar {
+    display: none;
+}
+.arrowFilter.jsx-2211210346 {
+    filter: url(#rightShadow-19);
+}
+.arrow.primary-stroke.jsx-2211210346 {
+    stroke: rgb(127, 94, 255);
+}
+.mar-b40 {
+    margin-bottom: 40px;
+}
+.jss194 {
+    background-color: rgba(127, 94, 255, 0.1);
+}
+.pad-t16 {
+    padding-top: 16px;
+}
+.jss186.left-align::before {
+    top: 0px;
+    left: 0px;
+    width: 7px;
+    height: 100%;
+    content: "";
+    position: absolute;
+    background-color: rgb(66, 200, 183);
+}
+.layout.justified {
+    justify-content: space-between;
+}
+.layout.wrap {
+    flex-wrap: wrap;
+}
+.jss186 {
+    position: relative;
+    text-align: start;
+    padding-left: 20px;
+}
+.jss196 {
+    width: 33%;
+    padding: 16px;
+}
+.jss197 {
+    width: 70px;
+    height: 70px;
+    min-width: 70px;
+}
+.jss184 {
+    width: 70px;
+    height: 70px;
+    min-width: 70px;
+}
+.jss183 {
+    width: 33%;
+    padding: 16px;
+}
+.jss185 {
+    margin-left: 8px;
+}
 /*.app-container{
     height: 100%;
     background: #fff;
@@ -345,7 +489,7 @@
 
 /* When the checkbox is checked, add a blue background */
 .custom_check input:checked ~ .checkmark {
-  background-color: #2196F3;
+  background-color: #00bfa5;
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
@@ -383,7 +527,7 @@
     border-radius: 10px;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    background: #017aff;
+    background: #00bfa5;
     padding: 11px 50px;
     color: #fff;
     margin-top: 20px;
@@ -719,7 +863,7 @@
     text-align: center;
 }
 .day-active{
-    background: #017aff;
+    background: #00bfa5;
     color: #fff !important;
 }
 
@@ -762,7 +906,7 @@
 
 }
 .time-content-box-active{
-    background: #017aff;
+    background: #00bfa5;
     color : #fff;
 }
 
@@ -1091,6 +1235,14 @@
     }
     .chance-box-wrapper {
         padding-top: 40px;
+    }
+    .font16-12 {
+        font-size: calc(1.2rem + (16 - 5) * ((100vw - 320px) / (1920 - 320)));
+        line-height: calc(1.5rem + (24 - 5) * ((100vw - 320px) / (1920 - 320)));
+    }
+    .font22-14 {
+        font-size: calc(1.5rem + (22 - 6) * ((100vw - 320px) / (1920 - 320)));
+        line-height: 1.43;
     }
 }
 @media (max-width: 340px) {

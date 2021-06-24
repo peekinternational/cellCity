@@ -786,7 +786,8 @@ ul,li{
 	padding:0px;
 	z-index:100;
 	display:none;
-	background:#2e4c66;
+	/*background:#2e4c66;*/
+	background:#02907dc7;
 	border-top:3px solid #00bfa5;
 	transition:all 500ms ease;
 	-moz-transition:all 500ms ease;
