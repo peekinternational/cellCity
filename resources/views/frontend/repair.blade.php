@@ -9,24 +9,27 @@
   } */
 
   .panel-heading  a:before {
-     font-family: 'Glyphicons Halflings';
-     content: "\e114";
-     float: right;
-     transition: all 0.5s;
-     flex: 0 0 auto;
-     color: rgba(0, 0, 0, 0.54);
-     padding: 0px;
-     overflow: visible;
-     font-size: 1.5rem;
-     text-align: center;
-     transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-     border-radius: 50%;
+   font-family: 'Glyphicons Halflings';
+   content: "\e114";
+   float: right;
+   transition: all 0.5s;
+   flex: 0 0 auto;
+   color: rgba(0, 0, 0, 0.54);
+   padding: 0px;
+   overflow: visible;
+   font-size: 1.5rem;
+   text-align: center;
+   transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+   border-radius: 50%;
   }
   .panel-heading.active a:before {
     -webkit-transform: rotate(180deg);
     -moz-transform: rotate(180deg);
     transform: rotate(180deg);
   } 
+  .testimonial-block-two {
+    margin: 0 10px 0 0 !important;
+  }
 </style>
 @section('content')
 <!--Page Title-->
@@ -290,7 +293,7 @@
     </section>
   </div>	
     <!-- FAQ -->
-  <div class="frame-size">
+  <div class="frame-size mar-b40 mar-t20">
     <div class="jss96 jss100 layout vertical">
       <h2 class="jss95 jss99 font27-18 center mar0 font-medium left-align">FAQs</h2>
     </div>
