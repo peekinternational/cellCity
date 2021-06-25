@@ -186,16 +186,28 @@
 }
 .slider-list.jsx-146361224 .slide-next.jsx-146361224:first-child {
     left: -42px;
+    top: 36%;
+    background: white;
+    box-shadow: 1px 1px 1px 1px #ddd;
+    border-radius: 50%;
+    padding: 17px 21px;
+    color: #00bfa5;
 }
 .slider-list.jsx-146361224 .slide-next.jsx-146361224:last-child {
     right: -42px;
+    top: 36%;
+    background: white;
+    box-shadow: 1px 1px 1px 1px #ddd;
+    border-radius: 50%;
+    padding: 17px 21px;
+    color: #00bfa5;
 }
 .slider-list.jsx-2802770802 .slide-next.jsx-2802770802 {
     z-index: 1;
 }
 .slider-list.jsx-146361224 .slide-next.jsx-146361224 {
-    width: 100px;
-    height: 100px;
+    width: 50px;
+    height: 50px;
     position: absolute;
 }
 .cursor {
@@ -303,6 +315,71 @@
 }
 .jss185 {
     margin-left: 8px;
+}
+.jss100 {
+    margin: 15px 0px;
+}
+.jss101 {
+    padding: 24px;
+}
+.jss99 {
+    position: relative;
+    text-align: start;
+    padding-left: 20px;
+}
+.jss99.left-align::before {
+    top: 0px;
+    left: 0px;
+    width: 7px;
+    height: 100%;
+    content: "";
+    position: absolute;
+    background-color: rgb(66, 200, 183);
+}
+.card-shadow .panel {
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 0;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgb(0 0 0 / 5%);
+    box-shadow: none;
+}
+.card-shadow .panel.panel-default>.panel-heading {
+    color: #333;
+    background-color: transparent;
+    border-color: #ddd;
+    border-bottom: 1px solid rgba(0, 0, 0, .125);
+    /*display: flex;*/
+    padding: 15px 16px;
+    min-height: 48px;
+    transition: min-height 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    position: relative;
+}
+.jss114 {
+    position: relative;
+    text-align: start;
+    padding-left: 20px;
+}
+.jss114.left-align::before {
+    top: 0px;
+    left: 0px;
+    width: 7px;
+    height: 100%;
+    content: "";
+    position: absolute;
+    background-color: rgb(66, 200, 183);
+}
+.pad0 {
+    padding: 0;
+}
+.cls-1.jsx-1517982798 {
+    fill: rgb(255, 255, 255);
+}
+.jsx-1367467106.cls-1 {
+    fill: rgb(255, 255, 255);
+}
+.arrow.primary-stroke {
+    stroke: rgb(66 200 183);
 }
 /*.app-container{
     height: 100%;
@@ -1237,11 +1314,11 @@
         padding-top: 40px;
     }
     .font16-12 {
-        font-size: calc(1.2rem + (16 - 5) * ((100vw - 320px) / (1920 - 320)));
-        line-height: calc(1.5rem + (24 - 5) * ((100vw - 320px) / (1920 - 320)));
+        font-size: calc(1.5rem + (16 - 5) * ((100vw - 320px) / (1920 - 320)));
+        line-height: calc(3rem + (24 - 5) * ((100vw - 320px) / (1920 - 320)));
     }
     .font22-14 {
-        font-size: calc(1.5rem + (22 - 6) * ((100vw - 320px) / (1920 - 320)));
+        font-size: calc(2rem + (22 - 6) * ((100vw - 320px) / (1920 - 320)));
         line-height: 1.43;
     }
 }
@@ -1300,6 +1377,57 @@
 	.pad-lr-16-mob {
 	    padding-left: 16px;
 	    padding-right: 16px;
+	}
+	.font27-18 {
+	    font-size: calc(2rem + (27 - 3) * ((100vw - 320px) / (1920 - 320)));
+	    line-height: calc( 1.75rem + (37 - 28) * ((100vw - 320px) / (1920 - 320)));
+	}
+	.font45-22 {
+	    font-size: calc(2rem + (45 - 5) * ((100vw - 320px) / (1920 - 320)));
+	    line-height: 1.43;
+	}
+	.font12-10 {
+	    font-size: calc(1.2rem + (12 - 5) * ((100vw - 320px) / (1920 - 320)));
+	    line-height: calc(1.75rem + (18 - 12) * ((100vw - 320px) / (1920 - 320)));
+	}
+	.jss175 {
+	    width: 100px;
+	    height: 178px;
+	    margin-right: 10px;
+	    border-radius: 6px;
+	}
+	.jss176 {
+	    padding: 8px;
+	    max-width: 100px;
+	    max-height: 150px;
+	}
+	.jss177 {
+	    width: 70px;
+	    max-height: 70px;
+	}
+	.jss178 {
+	    height: 36px;
+	}
+	.jss183 {
+	    width: 50%;
+	    padding: 10px 20px 10px 10px;
+	}
+	.jss184 {
+	    width: 50px;
+	    height: 50px;
+	    min-width: 50px;
+	}
+	.jss185 {
+	    margin-top: 10px;
+	    margin-left: 0;
+	}
+	.jss185 .font22-14 {
+	    font-size: calc(1.5rem + (22 - 6) * ((100vw - 320px) / (1920 - 320)));
+	    line-height: 1.43;
+	}
+	.jss185  .font14-12 {
+	    font-size: calc(1.2rem + (14 - 5) * ((100vw - 320px) / (1920 - 320)));
+	    line-height: calc(1.7rem + (22 - 11) * ((100vw - 320px) / (1920 - 320)));
 	}
 }
 
