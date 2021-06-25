@@ -350,48 +350,28 @@
           </div>
           <div class="select-time-time-picker-wrapper">
             <label class="time-content-box time-content-box-active" for="9am-10am">
-              <p>9am - 10am</p>
+              <p>9am - 11am</p>
               <input type="radio" name="time" value="9am-10am" id="9am-10am" class="hidden">
             </label>
             <label class="time-content-box " for="10am-11am">
-              <p>10am - 11am</p>
+              <p>11am - 1pm</p>
               <input type="radio" name="time" value="10am-11am" id="10am-11am" class="hidden">
             </label>
             <label class="time-content-box " for="11am-12pm">
-              <p>11am - 12pm</p>
+              <p>1pm - 3pm</p>
               <input type="radio" name="time" value="11am-12pm" id="11am-12pm" class="hidden">
             </label>
             <label class="time-content-box " for="12pm-1pm">
-              <p>12pm - 1pm</p>
+              <p>3pm - 5pm</p>
               <input type="radio" name="time" value="12pm-1pm" id="12pm-1pm" class="hidden">
             </label>
             <label class="time-content-box " for="1pm-2pm">
-              <p>1pm - 2pm</p>
+              <p>5pm - 7pm</p>
               <input type="radio" name="time" value="1pm-2pm" id="1pm-2pm" class="hidden">
             </label>
             <label class="time-content-box " for="2pm-3pm">
-              <p>2pm - 3pm</p>
+              <p>7pm - 9pm</p>
               <input type="radio" name="time" value="2pm-3pm" id="2pm-3pm" class="hidden">
-            </label>
-            <label class="time-content-box " for="3pm-4pm">
-              <p>3pm - 4pm</p>
-              <input type="radio" name="time" value="3pm-4pm" id="3pm-4pm" class="hidden">
-            </label>
-            <label class="time-content-box " for="4pm-5pm">
-              <p>4pm - 5pm</p>
-              <input type="radio" name="time" value="4pm-5pm" id="4pm-5pm" class="hidden">
-            </label>
-            <label class="time-content-box " for="5pm-6pm">
-              <p>5pm - 6pm</p>
-              <input type="radio" name="time" value="5pm-6pm" id="5pm-6pm" class="hidden">
-            </label>
-            <label class="time-content-box " for="6pm-7pm">
-              <p>6pm - 7pm</p>
-              <input type="radio" name="time" value="6pm-7pm" id="6pm-7pm" class="hidden">
-            </label>
-            <label class="time-content-box " for="7pm-8pm">
-              <p>7pm - 8pm</p>
-              <input type="radio" name="time" value="7pm-8pm" id="7pm-8pm" class="hidden">
             </label>
           </div>
           <div id="time-height-spacer"></div>
