@@ -87,7 +87,7 @@
           <li class="layout horizontal center-center flex-1 flex-none-mob jss92">
             <div class="layout vertical horizontal-mob center flheight center-justified-mob  flwidth-mob">
               <i class="mar-b20 mar-b10-mob jss90">
-                <img class="img-resp" alt="Check Price" src="{{asset('frontend-assets/images/repair/repair-icon1.svg')}}">
+                <img class="img-resp" alt="Check Price" src="{{asset('frontend-assets/images/repair/repair-icon1.png')}}">
               </i>
               <div class="layout vertical center flex-1-mob  flwidth-mob">
                 <div class="layout horizontal center flwidth mar-b20 mar-b10-mob jss94">
@@ -103,7 +103,7 @@
           <li class="layout horizontal center-center flex-1 flex-none-mob jss92">
             <div class="layout vertical horizontal-mob center flheight center-justified-mob  flwidth-mob">
               <i class="mar-b20 mar-b10-mob jss90">
-                <img class="img-resp" alt="Schedule Service" src="{{asset('frontend-assets/images/repair/repair-icon2.svg')}}">
+                <img class="img-resp" alt="Schedule Service" src="{{asset('frontend-assets/images/repair/repair-icon2.png')}}">
               </i>
               <div class="layout vertical center flex-1-mob">
                 <div class="layout horizontal center flwidth mar-b20 mar-b10-mob jss94">
@@ -119,7 +119,7 @@
           <li class="layout horizontal center-center flex-1 flex-none-mob jss92">
             <div class="layout vertical horizontal-mob center flheight center-justified-mob  flwidth-mob">
               <i class="mar-b20 mar-b10-mob jss90">
-                <img class="img-resp" alt="Get Repaired" src="{{asset('frontend-assets/images/repair/repair-icon3.svg')}}">
+                <img class="img-resp" alt="Get Repaired" src="{{asset('frontend-assets/images/repair/repair-icon3.png')}}">
               </i>
               <div class="layout vertical center flex-1-mob">
                 <div class="layout horizontal center flwidth mar-b20 mar-b10-mob jss94">
@@ -235,7 +235,7 @@
           <ul class="layout horizontal wrap justified pad0 mar-b20 flwidth">
             <li class="layout horizontal vertical-mob jss183">
               <div class="layout horizontal center-center flwidth jss184">
-                <img class="img-resp" alt="Premium Repair" src="{{asset('frontend-assets/images/repair/whyus-1.svg')}}">
+                <img class="img-resp" alt="Premium Repair" src="{{asset('frontend-assets/images/repair/whyus-1.png')}}">
               </div>
               <div class="layout vertical flwidth jss185">
                 <span class="font-medium font22-14">Premium Repair</span>
@@ -244,7 +244,7 @@
             </li>
             <li class="layout horizontal vertical-mob jss183">
               <div class="layout horizontal center-center flwidth jss184">
-                <img class="img-resp" alt="Instant Mobile Repair" src="{{asset('frontend-assets/images/repair/whyus-2.svg')}}">
+                <img class="img-resp" alt="Instant Mobile Repair" src="{{asset('frontend-assets/images/repair/whyus-2.png')}}">
               </div>
               <div class="layout vertical flwidth jss185">
                 <span class="font-medium font22-14">Instant Mobile Repair</span>
@@ -253,7 +253,7 @@
             </li>
             <li class="layout horizontal vertical-mob jss183">
               <div class="layout horizontal center-center flwidth jss184">
-                <img class="img-resp" alt="Physical Protection Warranty" src="{{asset('frontend-assets/images/repair/whyus-3.svg')}}">
+                <img class="img-resp" alt="Physical Protection Warranty" src="{{asset('frontend-assets/images/repair/whyus-3.png')}}">
               </div>
               <div class="layout vertical flwidth jss185">
                 <span class="font-medium font22-14">Physical Protection Warranty</span>
@@ -262,7 +262,7 @@
             </li>
             <li class="layout horizontal vertical-mob jss183">
               <div class="layout horizontal center-center flwidth jss184">
-                <img class="img-resp" alt="6 Months Warranty" src="{{asset('frontend-assets/images/repair/whyus-4.svg')}}">
+                <img class="img-resp" alt="6 Months Warranty" src="{{asset('frontend-assets/images/repair/whyus-4.png')}}">
               </div>
               <div class="layout vertical flwidth jss185">
                 <span class="font-medium font22-14">6 Months Warranty</span>
@@ -271,7 +271,7 @@
             </li>
             <li class="layout horizontal vertical-mob jss183">
               <div class="layout horizontal center-center flwidth jss184">
-                <img class="img-resp" alt="Skilled Technicians" src="{{asset('frontend-assets/images/repair/whyus-5.svg')}}">
+                <img class="img-resp" alt="Skilled Technicians" src="{{asset('frontend-assets/images/repair/whyus-5.png')}}">
               </div>
               <div class="layout vertical flwidth jss185">
                 <span class="font-medium font22-14">Skilled Technicians</span>
@@ -280,7 +280,7 @@
             </li>
             <li class="layout horizontal vertical-mob jss183">
               <div class="layout horizontal center-center flwidth jss184">
-                <img class="img-resp" alt="Guaranteed Safety" src="{{asset('frontend-assets/images/repair/whyus-6.svg')}}">
+                <img class="img-resp" alt="Guaranteed Safety" src="{{asset('frontend-assets/images/repair/whyus-6.png')}}">
               </div>
               <div class="layout vertical flwidth jss185">
                 <span class="font-medium font22-14">Guaranteed Safety</span>
