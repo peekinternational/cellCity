@@ -40,9 +40,25 @@ Route::get('/single', function () {
 Route::get('/pay-bills', function () {
     return view('frontend.pay-bills');
 });
+
 // Route::get('/signup', function () {
 //     return view('frontend.signup');
 // });
 // Route::get('/signin', function () {
 //     return view('frontend.signin');
 // });
+
+
+Route::group(['prefix' => 'technician'], function () {
+    Route::get('/', function(){
+        return view('frontend.technician.index');
+    });
+    Route::get('/login', function(){
+        return view('frontend.technician.login-page');
+    });
+
+    Route::get('/orders', function(){
+        return view('frontend.technician.orders');
+    });
+});
+
