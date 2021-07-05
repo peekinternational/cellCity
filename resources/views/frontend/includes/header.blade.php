@@ -46,11 +46,11 @@
                   <li><a href="{{url('signup')}}">Sign Up</a></li>
                   <li class="dropdown"><a href="#">My Profile</a>
                     <ul>
-                      <li><a href="">Profile</a></li>
-                      <li><a href="">Repairs</a></li>
-                      <li><a href="">My Orders</a></li>
-                      <li><a href="">Bill Status</a></li>
-                      <li><a href="">Saved Address</a></li>
+                      <li><a href="{{url('profile#MyProfile')}}">Profile</a></li>
+                      <li><a href="{{url('profile#repairs')}}">Repairs</a></li>
+                      <li><a href="{{url('profile#myOrders')}}">My Orders</a></li>
+                      <li><a href="{{url('profile#billStatus')}}">Bill Status</a></li>
+                      <li><a href="{{url('profile#savedAddress')}}">Saved Address</a></li>
                     </ul>
                   </li>
                 </ul>

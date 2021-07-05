@@ -43,3 +43,19 @@ Route::get('/signup', function () {
 Route::get('/signin', function () {
     return view('frontend.signin');
 });
+Route::get('/profile', function () {
+    return view('frontend.profile');
+});
+
+Route::group(['prefix' => 'technician'], function () {
+    Route::get('/', function(){
+        return view('frontend.technician.index');
+    });
+    Route::get('/login', function(){
+        return view('frontend.technician.login-page');
+    });
+
+    Route::get('/orders', function(){
+        return view('frontend.technician.orders');
+    });
+});
