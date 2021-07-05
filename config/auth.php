@@ -46,6 +46,11 @@ return [
             'provider' => 'users',
             'hash' => false,
         ],
+
+        'tech' => [
+            'driver' => 'session',
+            'provider' => 'techs',
+        ]
     ],
 
     /*
@@ -70,6 +75,11 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
+
+            'techs' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Tech::class,
+        ]
 
         // 'users' => [
         //     'driver' => 'database',
@@ -98,6 +108,12 @@ return [
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,
+        ],
+        
+          'techs' => [
+            'provider' => 'techs',
+            'table' => 'password_resets',
+            'expire' => 60,
         ],
     ],
 

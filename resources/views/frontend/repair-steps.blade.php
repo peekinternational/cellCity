@@ -11,6 +11,7 @@
 
 <div class="app-container2">
   <div class="content-container container">
+   
     <div class="row d-flex justify-content-center" id="phone_model">
       <div class="col-md-5 text-center">
         <div class="chance-box-wrapper">
@@ -18,11 +19,15 @@
             <p class="medium-font">Select your iPhone device model</p>
           </div>
         </div>
+        <form id="repair_form">
+            
+           </form>
         <div class="select-issue-wrapper">
           <div>
             <div class="single-answer-component-wrapper">
               <div class="fade-on-mount normal-elemnt-active">
-                <button class="answer-content"><label>XS Max</label></button>
+                <button class="answer-content" ><label for="XS Max">XS Max</label></button>
+                <input type="radio" id="XS Max" name="phone_model" class="hidden">
               </div>
             </div>
           </div>
@@ -99,7 +104,8 @@
           <div>
             <div class="single-answer-component-wrapper">
               <div class="fade-on-mount normal-elemnt-active">
-                <button class="answer-content"><label>6</label></button>
+                <button class="answer-content"><label for="6">6</label></button>
+                <input type="radio" id="6" name="phone_model" class="hidden">
               </div>
             </div>
           </div>
@@ -166,87 +172,87 @@
                   <div class="select-time-day-item-wrapper">
                     <label class="select-time-day-item day-active" for="">
                         <div class="select-time-weekday"> Today </div>
-                        <input type="radio" name="date" id="today" value="today" class="hidden">
+                        <input type="radio" name="date" id="{{date('d') }}" value="today" class="hidden">
                     </label>
                   </div>
                   <div class="select-time-day-item-wrapper">
-                    <label class="select-time-day-item " for="24" tabindex="-1">
+                    <label class="select-time-day-item " for="{{ date('d', strtotime(date('Y-m-d', strtotime('+1 days')))) }}" tabindex="-1">
                       <div class="">
-                        <div class="select-time-weekday"> Thu </div>
-                        <div class="select-time-day-in-number"> 24 </div>
-                        <input type="radio" name="date" id="24" value="24" class="hidden">
+                        <div class="select-time-weekday"> <?php echo date('D', strtotime(date('Y-m-d', strtotime("+1 days")))) ;?> </div>
+                        <div class="select-time-day-in-number"> <?php echo date('d', strtotime(date('Y-m-d', strtotime("+1 days")))) ?> </div>
+                        <input type="radio" name="date" id="{{ date('d', strtotime(date('Y-m-d', strtotime('+1 days')))) }}" value="{{ date('d', strtotime(date('Y-m-d', strtotime('+1 days')))) }}" class="hidden">
                       </div>
                     </label>
                   </div>
                   <div class="select-time-day-item-wrapper">
-                    <label class="select-time-day-item " for="25" tabindex="-1">
+                    <label class="select-time-day-item " for="{{ date('d', strtotime(date('Y-m-d', strtotime('+2 days')))) }}" tabindex="-2">
                       <div class="">
-                        <div class="select-time-weekday"> Fri </div>
-                        <div class="select-time-day-in-number"> 25 </div>
-                        <input type="radio" name="date" id="25" value="25" class="hidden">
+                        <div class="select-time-weekday">  <?php echo date('D', strtotime(date('Y-m-d', strtotime("+2 days")))) ;?> </div>
+                        <div class="select-time-day-in-number"> <?php echo date('d', strtotime(date('Y-m-d', strtotime("+2 days")))) ?> </div>
+                        <input type="radio" name="date" id="{{ date('d', strtotime(date('Y-m-d', strtotime('+2 days')))) }}" value="{{ date('d', strtotime(date('Y-m-d', strtotime('+2 days')))) }}" class="hidden">
                       </div>
                     </label>
                   </div>
                   <div class="select-time-day-item-wrapper">
-                    <label class="select-time-day-item " for="26" tabindex="-1">
+                    <label class="select-time-day-item " for="{{ date('d', strtotime(date('Y-m-d', strtotime('+3 days')))) }}" tabindex="-3">
                       <div class="">
-                        <div class="select-time-weekday"> Sat </div>
-                        <div class="select-time-day-in-number"> 26 </div>
-                        <input type="radio" name="date" value="26" id="26" class="hidden">
+                        <div class="select-time-weekday">  <?php echo date('D', strtotime(date('Y-m-d', strtotime("+3 days")))) ;?> </div>
+                        <div class="select-time-day-in-number"> <?php echo date('d', strtotime(date('Y-m-d', strtotime("+3 days")))) ?> </div>
+                        <input type="radio" name="date" value="{{ date('d', strtotime(date('Y-m-d', strtotime('+3 days')))) }}" id="{{ date('d', strtotime(date('Y-m-d', strtotime('+3 days')))) }}" class="hidden">
                       </div>
                     </label>
                   </div>
                   <div class="select-time-day-item-wrapper">
-                    <label class="select-time-day-item " for="27" tabindex="-1">
+                    <label class="select-time-day-item " for="{{ date('d', strtotime(date('Y-m-d', strtotime('+4 days')))) }}" tabindex="-4">
                       <div class="">
-                        <div class="select-time-weekday"> Sun </div>
-                        <div class="select-time-day-in-number"> 27 </div>
-                        <input type="radio" name="date" value="27" id="27" class="hidden">
+                        <div class="select-time-weekday">  <?php echo date('D', strtotime(date('Y-m-d', strtotime("+4 days")))) ;?> </div>
+                        <div class="select-time-day-in-number"> <?php echo date('d', strtotime(date('Y-m-d', strtotime("+4 days")))) ?> </div>
+                        <input type="radio" name="date" value="{{ date('d', strtotime(date('Y-m-d', strtotime('+4 days')))) }}" id="{{ date('d', strtotime(date('Y-m-d', strtotime('+4 days')))) }}" class="hidden">
                       </div>
                     </label>
                   </div>
                   <div class="select-time-day-item-wrapper">
-                    <label class="select-time-day-item " for="28">
+                    <label class="select-time-day-item " for="{{ date('d', strtotime(date('Y-m-d', strtotime('+5 days')))) }}">
                       <div class="">
-                        <div class="select-time-weekday"> Mon </div>
-                        <div class="select-time-day-in-number"> 28 </div>
-                        <input type="radio" name="date" value="28" id="28" class="hidden">
+                        <div class="select-time-weekday">  <?php echo date('D', strtotime(date('Y-m-d', strtotime("+5 days")))) ;?> </div>
+                        <div class="select-time-day-in-number"> <?php echo date('d', strtotime(date('Y-m-d', strtotime("+5 days")))) ?> </div>
+                        <input type="radio" name="date" value="{{ date('d', strtotime(date('Y-m-d', strtotime('+5 days')))) }}" id="{{ date('d', strtotime(date('Y-m-d', strtotime('+5 days')))) }}" class="hidden">
                       </div>
                     </label>
                   </div>
                   <div class="select-time-day-item-wrapper">
-                    <label class="select-time-day-item " for="29">
+                    <label class="select-time-day-item " for="{{ date('d', strtotime(date('Y-m-d', strtotime('+6 days')))) }}">
                       <div class="">
-                        <div class="select-time-weekday"> Tue </div>
-                        <div class="select-time-day-in-number"> 29 </div>
-                        <input type="radio" name="date" value="29" id="29" class="hidden">
+                        <div class="select-time-weekday">  <?php echo date('D', strtotime(date('Y-m-d', strtotime("+6 days")))) ;?> </div>
+                        <div class="select-time-day-in-number"> <?php echo date('d', strtotime(date('Y-m-d', strtotime("+6 days")))) ?> </div>
+                        <input type="radio" name="date" value="{{ date('d', strtotime(date('Y-m-d', strtotime('+6 days')))) }}" id="{{ date('d', strtotime(date('Y-m-d', strtotime('+6 days')))) }}" class="hidden">
                       </div>
                     </label>
                   </div>
                   <div class="select-time-day-item-wrapper">
-                    <label class="select-time-day-item " for="30">
+                    <label class="select-time-day-item " for="{{ date('d', strtotime(date('Y-m-d', strtotime('+7 days')))) }}">
                       <div class="">
-                        <div class="select-time-weekday"> Wed </div>
-                        <div class="select-time-day-in-number"> 30 </div>
-                        <input type="radio" name="date" value="30" id="30" class="hidden">
+                        <div class="select-time-weekday">  <?php echo date('D', strtotime(date('Y-m-d', strtotime("+7 days")))) ;?> </div>
+                        <div class="select-time-day-in-number"> <?php echo date('d', strtotime(date('Y-m-d', strtotime("+7 days")))) ?> </div>
+                        <input type="radio" name="date" value="{{ date('d', strtotime(date('Y-m-d', strtotime('+7 days')))) }}" id="{{ date('d', strtotime(date('Y-m-d', strtotime('+7 days')))) }}" class="hidden">
                       </div>
                     </label>
                   </div>
                   <div class="select-time-day-item-wrapper">
-                    <label class="select-time-day-item " for="01">
+                    <label class="select-time-day-item " for="{{ date('d', strtotime(date('Y-m-d', strtotime('+8 days')))) }}">
                       <div class="">
-                        <div class="select-time-weekday"> Thu </div>
-                        <div class="select-time-day-in-number"> 01 </div>
-                        <input type="radio" name="date" value="01" id="01" class="hidden">
+                        <div class="select-time-weekday"> <?php echo date('D', strtotime(date('Y-m-d', strtotime("+8 days")))) ;?> </div>
+                        <div class="select-time-day-in-number"> <?php echo date('d', strtotime(date('Y-m-d', strtotime("+8 days")))) ?> </div>
+                        <input type="radio" name="date" value="{{ date('d', strtotime(date('Y-m-d', strtotime('+8 days')))) }}" id="{{ date('d', strtotime(date('Y-m-d', strtotime('+8 days')))) }}" class="hidden">
                       </div>
                     </label>
                   </div>
                   <div class="select-time-day-item-wrapper">
-                    <label class="select-time-day-item " for="02">
+                    <label class="select-time-day-item " for="{{ date('d', strtotime(date('Y-m-d', strtotime('+9 days')))) }}">
                       <div class="">
-                        <div class="select-time-weekday"> Fri </div>
-                        <div class="select-time-day-in-number"> 02 </div>
-                        <input type="radio" name="date" value="02" id="02" class="hidden">
+                        <div class="select-time-weekday"> <?php echo date('D', strtotime(date('Y-m-d', strtotime("+9 days")))) ;?> </div>
+                        <div class="select-time-day-in-number"> <?php echo date('d', strtotime(date('Y-m-d', strtotime("+9 days")))) ?> </div>
+                        <input type="radio" name="date" value="{{ date('d', strtotime(date('Y-m-d', strtotime('+9 days')))) }}" id="{{ date('d', strtotime(date('Y-m-d', strtotime('+9 days')))) }}" class="hidden">
                       </div>
                     </label>
                   </div>
@@ -256,7 +262,7 @@
                 <img src="{{('frontend-assets/images/repair/arrow-right.png')}}" alt="">
               </div>
             </div>
-            <div class="select-time-day-selector-container-mobile">
+           <!--  <div class="select-time-day-selector-container-mobile">
               <div class="select-time-day-selector-content-mobile" id="no-scorll-bar-time">
                 <div class="select-time-day-item-wrapper">
                   <label class="select-time-day-item" for="today_m">
@@ -346,7 +352,7 @@
                   </label>
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
           <div class="select-time-time-picker-wrapper">
             <label class="time-content-box time-content-box-active" for="9am-10am">
