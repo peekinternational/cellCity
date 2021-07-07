@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TechController;
+use App\Http\Controllers\RepairController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ZipController;
 
@@ -114,6 +115,7 @@ Route::namespace('Auth')->middleware('guest:web')->group(function(){
     return view('frontend.profile');
 
     });
+    Route::resource('/shipAddress', '\App\Http\Controllers\ShippingAddress');
 
     Route::get('/logout',function(){
             Auth::guard('web')->logout();
@@ -124,6 +126,9 @@ Route::namespace('Auth')->middleware('guest:web')->group(function(){
         })->name('logout');
 
     });
+
+
+Route::post('/checkZipcode', [RepairController::class, 'checkZip']);
 
 Route::get('/', function () {
     return view('frontend.index');
@@ -140,9 +145,8 @@ Route::get('/buy-accessories', function () {
 Route::get('/repair', function () {
     return view('frontend.repair');
 });
-Route::get('/repair-step', function () {
-    return view('frontend.repair-steps');
-});
+
+Route::get('//repair-step/{id}', [RepairController::class, 'getBrands']);
 Route::get('/single', function () {
     return view('frontend.single');
 });

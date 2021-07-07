@@ -13,8 +13,14 @@
 <!--End Page Title-->
 <section class="shop-section shop-page profile-page">
 	<div class="auto-container">
+		 @if(Session::has('message'))
+                  <div class="col-12">
+                      {!!Session::get('message')!!}
+                  </div>
+                  @endif
 		<div role="tabpanel">
 			<div class="row">
+
 				<div class="col-md-3">
 					<!-- Nav tabs -->
 					<ul class="nav nav-pills nav-stacked profile-tabs nav-tabs-dropdown" role="tablist">
@@ -148,24 +154,31 @@
 						</div>
 						<div role="tabpanel" class="tab-pane" id="savedAddress">
 							<div class="d-flex justify-content-between title-section">
-								<h3>My Orders</h3><br>
+								<h3>My Address</h3><br>
 								<a class="btn btn-primary btn-style-one" data-toggle="modal" href='#modal-addAddress'>Add New Address</a>
 								
 							</div>
 							<div class="row">
+								@foreach(Auth::guard('web')->user()->shippingaddress as $shipingAdd)
 								<div class="col-md-6">
 									<div class="address-box">
-										<h6><strong>Zeeshan Masood</strong></h6>
-										<p><i class="fa fa-phone"></i> +92339954545</p>
-										<p><i class="fa fa-map-marker"></i> Flat # 304 3rd Floor Noor Mobile Mall 6th Road Rawalpindi</p>
-										<p>Rawalpindi, Punjab, Pakistan,46000</p>
+										<h6><strong>{{$shipingAdd->name}}</strong></h6>
+										<p><i class="fa fa-phone"></i> {{$shipingAdd->mobileNo}}</p>
+										<p><i class="fa fa-map-marker"></i> {{$shipingAdd->shipaddress}}</p>
+										<p>{{$shipingAdd->city}}, {{$shipingAdd->state}}, {{$shipingAdd->country}},{{$shipingAdd->zipcode}}</p>
 
 										<div class="action-btn text-center">
-											<button class="btn" data-toggle="modal" href='#modal-editAddress'><i class="fa fa-edit"></i> Edit</button>
-											<button class="btn btn-danger"><i class="fa fa-trash"></i> Delete</button>
+											<button class="btn" data-toggle="modal" href='#modal-editAddress{{$shipingAdd->id}}'><i class="fa fa-edit"></i> Edit</button>
+											<form action="{{url('shipAddress/'.$shipingAdd->id)}}" method="post" style="display: contents;">
+                                            {{csrf_field()}}
+                                               @method('DELETE')
+                                                                      
+											<button class="btn btn-danger" type="submit"><i class="fa fa-trash"></i> Delete</button>
+										</form>
 										</div>
 									</div>
 								</div>
+								@endforeach
 							</div>
 							<!-- Add New Address Modal -->
 
@@ -176,29 +189,31 @@
 											<h4 class="modal-title"><strong>Add New Address</strong></h4>
 											<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 										</div>
+										<form action="{{url('shipAddress')}}" method="post">
 										<div class="modal-body">
-											<form method="post">
+											
+												 {{csrf_field()}}
 												<div class="form-group">
 													<label>Full name</label>
-													<input type="text" name="full_name" class="form-control" placeholder="Full Name">
+													<input type="text" name="name" class="form-control" placeholder="Full Name" required="">
 												</div>
 												<div class="form-group">
 													<label>Phone Number</label>
-													<input type="text" name="phone_name" class="form-control" placeholder="Phone Number">
+													<input type="text" name="mobileNo" class="form-control" placeholder="Phone Number" required>
 												</div>
 												<div class="form-group">
 													<label>Full address</label>
-													<input type="text" name="full_address" class="form-control" placeholder="Full address">
+													<input type="text" name="shipaddress" class="form-control" placeholder="Full address" required>
 												</div>
 												<div class="form-group">
 													<div class="row">
 														<div class="col-md-6">
 															<label>Country</label>
-															<input type="text" name="country" placeholder="Country" class="form-control">
+															<input type="text" name="country" placeholder="Country" class="form-control" required>
 														</div>
 														<div class="col-md-6">
 															<label>State</label>
-															<input type="text" name="state" placeholder="State" class="form-control">
+															<input type="text" name="state" placeholder="State" class="form-control" required>
 														</div>
 													</div>
 												</div>
@@ -206,56 +221,60 @@
 													<div class="row">
 														<div class="col-md-6">
 															<label>City</label>
-															<input type="text" placeholder="City" name="city" class="form-control">
+															<input type="text" placeholder="City" name="city" class="form-control" required>
 														</div>
 														<div class="col-md-6">
 															<label class="control-label">Zip Code</label>
-															<input type="text" name="zip_code" placeholder="Zip Code" class="form-control">
+															<input type="text" name="zipcode" placeholder="Zip Code" class="form-control" required>
 														</div>
 													</div>
 												</div>
-											</form>
+											
 										</div>
 										<div class="modal-footer">
 											<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-											<button type="button" class="btn btn-primary btn-style-one">Save</button>
+											<button type="submit" class="btn btn-primary btn-style-one">Save</button>
 										</div>
+										</form>
 									</div>
 								</div>
 							</div>
 							<!-- End Add New Address -->
 							<!-- Add New Address Modal -->
-
-							<div class="modal fade" id="modal-editAddress">
+                @foreach(Auth::guard('web')->user()->shippingaddress as $shipingAdd)
+							<div class="modal fade" id="modal-editAddress{{$shipingAdd->id}}">
 								<div class="modal-dialog">
 									<div class="modal-content">
 										<div class="modal-header d-flex justify-content-between">
 											<h4 class="modal-title"><strong>Edit Address</strong></h4>
 											<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 										</div>
+										<form action="{{route('shipAddress.update',$shipingAdd->id)}}" method="post">
+                                            {{csrf_field()}}
+                                            @method('PUT')
 										<div class="modal-body">
-											<form method="post">
+											  
 												<div class="form-group">
 													<label>Full name</label>
-													<input type="text" name="full_name" class="form-control" placeholder="Full Name">
+													<input type="text" name="name" class="form-control" value="{{$shipingAdd->name}}" placeholder="Full Name">
 												</div>
 												<div class="form-group">
 													<label>Phone Number</label>
-													<input type="text" name="phone_name" class="form-control" placeholder="Phone Number">
+													<input type="text" name="mobileNo" class="form-control" value="{{$shipingAdd->mobileNo}}" placeholder="Phone Number">
 												</div>
 												<div class="form-group">
 													<label>Full address</label>
-													<input type="text" name="full_address" class="form-control" placeholder="Full address">
+													<input type="text" name="shipaddress" class="form-control" value="{{$shipingAdd->shipaddress}}" placeholder="Full address">
 												</div>
 												<div class="form-group">
 													<div class="row">
 														<div class="col-md-6">
 															<label>Country</label>
-															<input type="text" name="country" placeholder="Country" class="form-control">
+															<input type="text" name="country" placeholder="Country" value="{{$shipingAdd->country}}" class="form-control">
 														</div>
 														<div class="col-md-6">
 															<label>State</label>
-															<input type="text" name="state" placeholder="State" class="form-control">
+															<input type="text" name="state" placeholder="State" value="{{$shipingAdd->state}}" class="form-control">
 														</div>
 													</div>
 												</div>
@@ -263,23 +282,26 @@
 													<div class="row">
 														<div class="col-md-6">
 															<label>City</label>
-															<input type="text" placeholder="City" name="city" class="form-control">
+															<input type="text" placeholder="City" name="city" value="{{$shipingAdd->city}}" class="form-control">
 														</div>
 														<div class="col-md-6">
 															<label class="control-label">Zip Code</label>
-															<input type="text" name="zip_code" placeholder="Zip Code" class="form-control">
+															<input type="text" name="zipcode" placeholder="Zip Code" value="{{$shipingAdd->zipcode}}" class="form-control">
 														</div>
 													</div>
 												</div>
-											</form>
+											
 										</div>
 										<div class="modal-footer">
 											<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-											<button type="button" class="btn btn-primary btn-style-one">Save</button>
+											<button type="submit" class="btn btn-primary btn-style-one">Save</button>
 										</div>
+										</form>
 									</div>
 								</div>
 							</div>
+
+							@endforeach
 							<!-- End Add New Address -->
 						</div>
 					</div>

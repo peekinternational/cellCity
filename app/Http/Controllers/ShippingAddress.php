@@ -8,11 +8,12 @@ use Illuminate\Support\Facades\Auth;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use App\Models\Tech;
-use App\Models\ShippingAddress;
-use Hash;
+use App\Models\Admin;
+use App\Models\ZipCode;
+use App\Models\Alert;
+use App\Models\ShippingAddr;
 
-
-class UserController extends Controller
+class ShippingAddress extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,28 +35,6 @@ class UserController extends Controller
         //
     }
 
-
-
-  public function accountLogin(Request $request)
-    {
-        if($request->isMethod('post')){
-           
-           if(Auth::guard('web')->attempt(['email' => $request->email, 'password' => $request->password, 'role' => 'user'])){
-        
-        if(Auth::guard('web')->check()){
-            // dd(Auth::guard('web')->user()->shippingaddress);
-           // $user= User::find(Auth::guard('web')->user()->id);
-           //  dd($user->shippingaddress->name);
-            return redirect(RouteServiceProvider::HOME);
-
-                }
-            }
-        }
-  
-
-     return view('frontend.signin');
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -64,24 +43,17 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-       
-        if($request->isMethod('post')){
-            // dd($request->all());
-            
-                $user = new User;
-                $user->name = $request->name;
-                $user->email =  $request->email;
-                $user->address =  $request->address;
-                $user->phoneno =  $request->phoneno;
-                $user->role = $request->role;
-                $user->password = Hash::make($request->password);
-                $user->save();
-            
-           
-        }
-        
-        return view('frontend.signup');
-      
+        $ship= New ShippingAddr;
+        $ship->userId=  Auth::guard('web')->user()->id;
+        $ship->name= $request->name;
+        $ship->mobileNo= $request->mobileNo;
+        $ship->shipaddress= $request->shipaddress;
+        $ship->country= $request->country;
+        $ship->state= $request->state;
+        $ship->city= $request->city;
+        $ship->zipcode= $request->zipcode;
+        $ship->save();
+        return redirect('/profile')->with('message', Alert::_message('success', 'Address Added Successfully.'));
     }
 
     /**
@@ -115,7 +87,16 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+         $ship= ShippingAddr::find($id);
+        $ship->name= $request->name;
+        $ship->mobileNo= $request->mobileNo;
+        $ship->shipaddress= $request->shipaddress;
+        $ship->country= $request->country;
+        $ship->state= $request->state;
+        $ship->city= $request->city;
+        $ship->zipcode= $request->zipcode;
+        $ship->save();
+        return redirect('/profile')->with('message', Alert::_message('success', 'Address Updated Successfully.'));
     }
 
     /**
@@ -126,6 +107,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $ship= ShippingAddr::find($id);
+        $ship->delete();
+      return redirect('/profile')->with('message', Alert::_message('success', 'Address Delete Successfully.'));
     }
 }

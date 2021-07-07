@@ -20,20 +20,16 @@
           </div>
         </div>
         <div class="select-issue-wrapper">
+          @foreach($brands as $brand)
           <div>
             <div class="single-answer-component-wrapper brand">
               <div class="fade-on-mount normal-elemnt-active">
-                <button class="answer-content"><label>Apple</label></button>
+                <button class="answer-content"><label>{{$brand->brand_name}}</label></button>
               </div>
             </div>
           </div>
-          <div>
-            <div class="single-answer-component-wrapper brand">
-              <div class="fade-on-mount normal-elemnt-active">
-                <button class="answer-content"><label>Samsung</label></button>
-              </div>
-            </div>
-          </div>
+          @endforeach
+        
         </div>
       </div>
     </div>
