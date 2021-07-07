@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
+use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use App\Models\Tech;
 use Hash;
@@ -32,20 +33,22 @@ class UserController extends Controller
         //
     }
 
-     public function accountLogin(Request $request)
+
+
+  public function accountLogin(Request $request)
     {
         if($request->isMethod('post')){
-           if(Auth::guard('tech')->attempt(['email' => $request->email, 'password' => $request->password, 'role' => 'tech'])){
-        //Authentication passed...
-        if(Auth::guard('tech')->check()){
-            // dd(Auth::guard('tech')->user()->name );
-            return redirect('/repair');
+           
+           if(Auth::guard('web')->attempt(['email' => $request->email, 'password' => $request->password, 'role' => 'user'])){
+        
+        if(Auth::guard('web')->check()){
+          
+            return redirect(RouteServiceProvider::HOME);
 
                 }
             }
         }
-        // dd(Auth::guard('tech')->check());
-         // dd(Auth::guard('tech'));
+  
 
      return view('frontend.signin');
     }
@@ -61,8 +64,7 @@ class UserController extends Controller
        
         if($request->isMethod('post')){
             // dd($request->all());
-            if($request->role == 'user')
-            {
+            
                 $user = new User;
                 $user->name = $request->name;
                 $user->email =  $request->email;
@@ -71,21 +73,10 @@ class UserController extends Controller
                 $user->role = $request->role;
                 $user->password = Hash::make($request->password);
                 $user->save();
-            }else{
-                $user = new Tech;
-                $user->name = $request->name;
-                $user->email =  $request->email;
-                $user->address =  $request->address;
-                $user->phoneno =  $request->phoneno;
-                $user->role = $request->role;
-                $user->password = Hash::make($request->password);
-                $user->save();
-
-            }
+            
            
-            dd($user);
         }
-         Auth::guard('web')->logout();
+        
         return view('frontend.signup');
       
     }

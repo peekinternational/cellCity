@@ -14,7 +14,7 @@
               <h2 class="text-center"><span class="dot"></span> Login</h2>
             </div>
            </div>
-           <form class="login-form" method="post" action="{{url('signin')}}" id="login-form">
+           <form class="login-form" method="post" action="{{url('/signin')}}" id="login-form">
             {{csrf_field()}}
             <div class="form-group">
               <label>EMAIL</label>

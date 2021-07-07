@@ -33,6 +33,9 @@
 						<li role="presentation">
 							<a href="#savedAddress" aria-controls="savedAddress" role="tab" data-toggle="tab">Saved Address</a>
 						</li>
+						<li role="presentation">
+							<a href="{{url('/logout')}}" >Logout</a>
+						</li>
 					</ul>	
 				</div>
 				<div class="col-md-9">

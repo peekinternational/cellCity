@@ -24,11 +24,7 @@
               <label>EMAIL <span class="steric">*</span></label>
               <input type="email" class="form-control" placeholder="Enter your email" id="register-email" name="email" value="" required="">
             </div>
-             <div class="form-group">
-              <label>Role <span class="steric">*</span></label>
-              <input type="radio" class="form-control" id="" name="role" value="user" checked>
-              <input type="radio" class="form-control" id="" name="role" value="tech" >
-            </div>
+             
             <div class="form-group">
               <label>Address</label>
               <input type="text" class="form-control" placeholder="Enter your Address" id="register-address" name="address" value="">

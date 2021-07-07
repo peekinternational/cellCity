@@ -15,7 +15,7 @@
     <body>
     <div class="login">
         <div class="login-body">
-            <a class="login-brand" href="{{ url('admin/login') }}">
+            <a class="login-brand" href="{{ url('tech/login') }}">
                 <img class="img-responsive" src="{{asset('frontend-assets/static-images/header/search1.png')}}" alt="">
             </a>
             <div class="login-form">

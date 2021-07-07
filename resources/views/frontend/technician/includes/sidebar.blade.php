@@ -25,11 +25,13 @@
           </li>
           
           <li>
-            <a href="{{url('technician/orders')}}">
+            <a href="{{url('tech/orders')}}">
               <i class="nc-icon nc-bell-55"></i>
               <p>Orders</p>
             </a>
           </li>
+
+       
           
           <!-- <li>
 
@@ -116,6 +118,12 @@
             <a href="{{url('technician/help-menu')}}">
               <i class="nc-icon nc-single-02"></i>
               <p>Help Menu</p>
+            </a>
+          </li>
+             <li>
+            <a href="{{url('tech/logout')}}">
+              <i class="nc-icon nc-bell-55"></i>
+              <p>Logout</p>
             </a>
           </li>
         </ul>
