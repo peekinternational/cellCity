@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::match(['get','post'],'/signin', [UserController::class, 'accountLogin']);
+Route::match(['get','post'],'/signup', [UserController::class, 'store']);
 
 Route::get('/', function () {
     return view('frontend.index');
@@ -37,15 +40,14 @@ Route::get('/single', function () {
 Route::get('/pay-bills', function () {
     return view('frontend.pay-bills');
 });
-Route::get('/signup', function () {
-    return view('frontend.signup');
-});
-Route::get('/signin', function () {
-    return view('frontend.signin');
-});
-Route::get('/profile', function () {
-    return view('frontend.profile');
-});
+
+// Route::get('/signup', function () {
+//     return view('frontend.signup');
+// });
+// Route::get('/signin', function () {
+//     return view('frontend.signin');
+// });
+
 
 Route::group(['prefix' => 'technician'], function () {
     Route::get('/', function(){
@@ -59,3 +61,4 @@ Route::group(['prefix' => 'technician'], function () {
         return view('frontend.technician.orders');
     });
 });
+

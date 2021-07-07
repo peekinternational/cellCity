@@ -43,8 +43,19 @@
                   <li><a href="{{url('buy-accessories')}}">Buy Accessories</a></li>
                   <li><a href="{{url('pay-bills')}}">Pay Bills</a></li>
                   <li><a href="{{url('contact-us')}}">Contact Us</a></li>
-                  <li><a href="{{url('signup')}}">Sign Up</a></li>
-                  <li class="dropdown"><a href="#">My Profile</a>
+                  
+                  @if(Auth::guard('tech')->check())
+                  <li class="dropdown"><a href="#">Tech Profile</a>
+                    <ul>
+                      <li><a href="">Profile</a></li>
+                      <li><a href="">Repairs</a></li>
+                      <li><a href="">My Orders</a></li>
+                      <li><a href="">Bill Status</a></li>
+                      <li><a href="">Saved Address</a></li>
+                    </ul>
+                  </li>
+                  @elseif(Auth::guard('web')->check())
+                   <li class="dropdown"><a href="#">My Profile</a>
                     <ul>
                       <li><a href="{{url('profile#MyProfile')}}">Profile</a></li>
                       <li><a href="{{url('profile#repairs')}}">Repairs</a></li>
@@ -53,6 +64,10 @@
                       <li><a href="{{url('profile#savedAddress')}}">Saved Address</a></li>
                     </ul>
                   </li>
+                  @else
+                  <li><a href="{{url('signup')}}">Sign Up</a></li>
+                  @endif
+                
                 </ul>
               </div>
             </nav><!-- Main Menu End-->
