@@ -14,7 +14,8 @@
               <h2 class="text-center"><span class="dot"></span> Login</h2>
             </div>
            </div>
-           <form class="login-form" method="post" action="" id="login-form">
+           <form class="login-form" method="post" action="{{url('/signin')}}" id="login-form">
+            {{csrf_field()}}
             <div class="form-group">
               <label>EMAIL</label>
               <input type="email" class="form-control" placeholder="Enter your email" id="login-email" name="email" value="" required="">

@@ -64,14 +64,16 @@
           </ul>
         </div>
         <div class="jsx-4182953111 jsx-3431082034 flwidth layout vertical list-search">
-          <a class="jsx-4182953111 jsx-3431082034 flwidth" href="{{url('repair-step')}}">
+          
             <label class="layout horizontal center pad10 flwidth drill-search card-shadow radius-10">
-              <input type="text" placeholder="Enter Zip Code" class="form-control zipcode">
-              <button type="button" class="search-icon btn submit-btn">
+              <input type="text" placeholder="Enter Zip Code" id="zipcode" class="form-control zipcode">
+
+              <button type="button" onclick="checkZip()" class="search-icon btn submit-btn">
                 Submit
               </button>
             </label>
-          </a>
+            <span id="msgZip" style="display:none;color:#00bfa5"> SORRY! We do not cover that area... yet! </span>
+          
           <div id="pd_list_search_container" class="jsx-4182953111 jsx-3431082034 flwidth list-container card radius-6 hide">
             <ul id="pd_list_search_ul" class="jsx-4182953111 jsx-3431082034 layout vertical"></ul>
           </div>
@@ -481,6 +483,29 @@
 @endsection
 @section('script')
 <script>
+function checkZip(){
+ 
+  let zipcode= $('#zipcode').val();
+  let _token   = $('meta[name="csrf-token"]').attr('content');
+
+      $.ajax({
+        url: "{{url('/checkZipcode')}}",
+        type:"POST",
+        data:{
+          zipcode:zipcode,
+          _token: _token
+        },
+        success:function(response){
+          
+          if(response.status == 0) {
+            $('#msgZip').show();
+          }else{
+            window.location.href = "{{url('repair-step')}}/"+zipcode;
+          }
+        },
+       });
+}
+
   $('.panel-collapse').on('show.bs.collapse', function () {
      $(this).siblings('.panel-heading').addClass('active');
    });

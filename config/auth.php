@@ -46,6 +46,16 @@ return [
             'provider' => 'users',
             'hash' => false,
         ],
+
+        'tech' => [
+            'driver' => 'session',
+            'provider' => 'techs',
+        ],
+
+         'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
+        ]
     ],
 
     /*
@@ -70,6 +80,16 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
+
+            'techs' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Tech::class,
+        ],
+
+          'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Admin::class,
+        ]
 
         // 'users' => [
         //     'driver' => 'database',
@@ -98,6 +118,18 @@ return [
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,
+        ],
+        
+          'techs' => [
+            'provider' => 'techs',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ],
+
+          'admins' => [
+            'provider' => 'admins',
+            'table' => 'password_resets',
+            'expire' => 60,
         ],
     ],
 

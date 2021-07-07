@@ -6437,3 +6437,33 @@ ul,li{
 .slider-logo{
 	display: none;
 }
+
+/* Profile Section  */
+.profile-tabs>li.active>a, .profile-tabs>li.active>a:focus, .profile-tabs>li.active>a:hover {
+    color: #fff;
+    background-color: #00bfa5;
+}
+.address-box{
+	margin-bottom: 15px;
+    border: 1px solid #eee;
+    box-shadow: 1px 1px 8px 0 rgb(0 0 0 / 12%);
+    background: #fff;
+    line-height: 18px;
+    padding: 24px 16px 16px; 
+}
+.address-box h6{
+	margin-bottom: 10px;
+}
+#MyProfile .form-control, #modal-addAddress .form-control,#modal-editAddress .form-control{
+	height: 45px;
+    border: 0; 
+    border-radius: 6px;
+    -webkit-box-shadow: 0px 0px 2px 2px rgb(0 0 0 / 8%);
+    box-shadow: 0px 0px 2px 2px rgb(0 0 0 / 8%);
+}
+#modal-addAddress .btn-default,#modal-editAddress .btn-default{
+	padding: 14px 30px;
+	font-size: 13px;
+	line-height: 1em;
+	border-color: #ddd;
+}

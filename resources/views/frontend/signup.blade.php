@@ -14,22 +14,24 @@
         <div class="login-with-credentials">
           <div class="section-title">
                                   </div>
-          <form class="signup-form" method="post" action="" id="register-form">
+          <form class="signup-form" method="post" action="{{url('signup')}}" id="register-form">
+            {{csrf_field()}}
             <div class="form-group">
-              <label>NAME <span class="steric">*</span></label>
-              <input type="text" class="form-control" placeholder="Enter your first name" id="register-first-name" name="first_name" value="" required="">
+              <label>NAME  <span class="steric">*</span></label>
+              <input type="text" class="form-control" placeholder="Enter your first name" id="register-first-name" name="name" value="" required="">
             </div>
             <div class="form-group">
               <label>EMAIL <span class="steric">*</span></label>
               <input type="email" class="form-control" placeholder="Enter your email" id="register-email" name="email" value="" required="">
             </div>
+             
             <div class="form-group">
               <label>Address</label>
               <input type="text" class="form-control" placeholder="Enter your Address" id="register-address" name="address" value="">
             </div>
             <div class="form-group">
               <label>Phone Number</label>
-              <input type="number" class="form-control" placeholder="Enter your Phone" id="register-phone" name="phone" value="">
+              <input type="number" class="form-control" placeholder="Enter your Phone" id="register-phone" name="phoneno" value="">
             </div>
             <div class="form-group">
               <label>PASSWORD <span class="steric">*</span></label>
