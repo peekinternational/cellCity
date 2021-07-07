@@ -25,12 +25,12 @@
                 <form data-toggle="validator" class="login-form" method="post">
                     {{ csrf_field() }}
                     <div class="form-group">
-                        <label for="email">Email Or Username</label>
-                        <input class="form-control" name="email" autocomplete="off" data-msg-required="Please enter your username / email." required>
+                        <label for="email">Email</label>
+                        <input class="form-control" value="tech@gmail.com"  name="email" autocomplete="off" data-msg-required="Please enter your username / email." required>
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
-                        <input id="password" class="form-control" type="password" name="password" minlength="6" data-msg-minlength="Password must be 6 characters or more." data-msg-required="Please enter your password." required>
+                        <input id="password" class="form-control" type="password" name="password" minlength="6" value="123456" data-msg-minlength="Password must be 6 characters or more." data-msg-required="Please enter your password." required>
                     </div>
                     <div class="form-group">
                         <label class="custom-control custom-control-primary custom-checkbox">

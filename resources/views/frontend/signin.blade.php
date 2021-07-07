@@ -18,11 +18,11 @@
             {{csrf_field()}}
             <div class="form-group">
               <label>EMAIL</label>
-              <input type="email" class="form-control" placeholder="Enter your email" id="login-email" name="email" value="" required="">
+              <input type="email" class="form-control" placeholder="Enter your email" id="login-email" name="email" value="customer@gmail.com" required="">
             </div>
             <div class="form-group">
               <label>PASSWORD</label>
-              <input type="password" class="form-control" placeholder="Enter your password" id="login-password" name="password" value="" required="">
+              <input type="password" class="form-control" placeholder="Enter your password" id="login-password" name="password" value="123456" required="">
             </div>
             <button type="submit" class="btn btn-primary bg-black">LOGIN</button>
             <div class="d-flex justify-content-between">
