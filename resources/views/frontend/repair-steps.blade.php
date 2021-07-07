@@ -11,8 +11,35 @@
 
 <div class="app-container2">
   <div class="content-container container">
-   
-    <div class="row d-flex justify-content-center" id="phone_model">
+    <!-- Brands -->
+    <div class="row d-flex justify-content-center" id="brand_model">
+      <div class="col-md-5 text-center">
+        <div class="chance-box-wrapper">
+          <div>
+            <p class="medium-font">Select your Brand</p>
+          </div>
+        </div>
+        <div class="select-issue-wrapper">
+          <div>
+            <div class="single-answer-component-wrapper brand">
+              <div class="fade-on-mount normal-elemnt-active">
+                <button class="answer-content"><label>Apple</label></button>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="single-answer-component-wrapper brand">
+              <div class="fade-on-mount normal-elemnt-active">
+                <button class="answer-content"><label>Samsung</label></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Phone Model -->
+    <div class="row d-flex justify-content-center" id="phone_model" style="display: none;">
+
       <div class="col-md-5 text-center">
         <div class="chance-box-wrapper">
           <div>
@@ -24,7 +51,7 @@
            </form>
         <div class="select-issue-wrapper">
           <div>
-            <div class="single-answer-component-wrapper">
+            <div class="single-answer-component-wrapper model">
               <div class="fade-on-mount normal-elemnt-active">
                 <button class="answer-content" ><label for="XS Max">XS Max</label></button>
                 <input type="radio" id="XS Max" name="phone_model" class="hidden">
@@ -32,70 +59,70 @@
             </div>
           </div>
           <div>
-            <div class="single-answer-component-wrapper">
+            <div class="single-answer-component-wrapper model">
               <div class="fade-on-mount normal-elemnt-active">
                 <button class="answer-content"><label>XR</label></button>
               </div>
             </div>
           </div>
           <div>
-            <div class="single-answer-component-wrapper">
+            <div class="single-answer-component-wrapper model">
               <div class="fade-on-mount normal-elemnt-active">
                 <button class="answer-content"><label>XS</label></button>
               </div>
             </div>
           </div>
           <div>
-            <div class="single-answer-component-wrapper">
+            <div class="single-answer-component-wrapper model">
               <div class="fade-on-mount normal-elemnt-active">
                 <button class="answer-content"><label>X</label></button>
               </div>
             </div>
           </div>
           <div>
-            <div class="single-answer-component-wrapper">
+            <div class="single-answer-component-wrapper model">
               <div class="fade-on-mount normal-elemnt-active">
                 <button class="answer-content"><label>8 Plus</label></button>
               </div>
             </div>
           </div>
           <div>
-            <div class="single-answer-component-wrapper">
+            <div class="single-answer-component-wrapper model">
               <div class="fade-on-mount normal-elemnt-active">
                 <button class="answer-content"><label>8</label></button>
               </div>
             </div>
           </div>
           <div>
-            <div class="single-answer-component-wrapper">
+            <div class="single-answer-component-wrapper model">
               <div class="fade-on-mount normal-elemnt-active">
                 <button class="answer-content"><label>7 Plus</label></button>
               </div>
             </div>
           </div>
           <div>
-            <div class="single-answer-component-wrapper">
+            <div class="single-answer-component-wrapper model">
               <div class="fade-on-mount normal-elemnt-active">
                 <button class="answer-content"><label>7</label></button>
               </div>
             </div>
           </div>
           <div>
-            <div class="single-answer-component-wrapper">
+            <div class="single-answer-component-wrapper model">
               <div class="fade-on-mount normal-elemnt-active">
                 <button class="answer-content"><label>6s Plus</label></button>
               </div>
             </div>
           </div>
           <div>
-            <div class="single-answer-component-wrapper">
+            <div class="single-answer-component-wrapper model">
               <div class="fade-on-mount normal-elemnt-active">
                 <button class="answer-content"><label>6s</label></button>
               </div>
             </div>
           </div>
           <div>
-            <div class="single-answer-component-wrapper">
+            <div class="single-answer-component-wrapper model">
               <div class="fade-on-mount normal-elemnt-active">
                 <button class="answer-content"><label>6 Plus</label></button>
               </div>
@@ -476,7 +503,11 @@
 @endsection
 @section('script')
 <script>
-  $('.single-answer-component-wrapper').click(function(){
+  $('.brand').click(function(){
+    $('#phone_model').show();
+    $('#brand_model').hide();
+  });
+  $('.model').click(function(){
     $('#repair_type').show();
     $('#phone_model').hide();
   });
