@@ -5,8 +5,7 @@
         <script src="{{ URL::asset('admin-assets/libs/metismenu/metisMenu.min.js')}}"></script>
         <script src="{{ URL::asset('admin-assets/libs/simplebar/simplebar.min.js')}}"></script>
         <script src="{{ URL::asset('admin-assets/libs/node-waves/node-waves.min.js')}}"></script>
-       
-
+       <script src="{{ URL::asset('admin-assets/js/select2.min.js')}}"></script>
         @yield('script')
 
         <!-- App js -->

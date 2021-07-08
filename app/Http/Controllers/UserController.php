@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use App\Models\Tech;
-use App\Models\ShippingAddress;
+use App\Models\ShippingAddr;
 use Hash;
 
 
@@ -67,7 +67,21 @@ class UserController extends Controller
        
         if($request->isMethod('post')){
             // dd($request->all());
-            
+                $this->validate($request,[
+                'name' => 'required|min:5|max:50',
+                'phoneno' => 'min:2|max:17',
+                'email' => 'required|email|unique:users,email',
+                'password' => 'required|min:5|max:50'
+
+              ],[
+
+                'name.required' =>'Enter Name',
+                'email.unique' => 'Email must be unique',
+                'email.required' => 'Enter Email',
+                'phoneno.required' => 'Enter Mobile Number',
+                'password.required' => 'Enter password',
+              ]);
+                
                 $user = new User;
                 $user->name = $request->name;
                 $user->email =  $request->email;

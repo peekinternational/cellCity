@@ -56,14 +56,20 @@
                         <span>Repair</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="ecommerce-products">Products</a></li>
+                        <li><a href="{{url('admin/brands/create')}}">Add Brand</a></li>
+                        <li><a href="{{url('admin/brands')}}">Brands List</a></li>
+                        <li><a href="{{url('admin/models/create')}}">Add Model</a></li>
+                        <li><a href="{{url('admin/models')}}">Model List</a></li>
+                        <li><a href="{{url('admin/repairTypes/create')}}">Add Repair Types</a></li>
+                        <li><a href="{{url('admin/repairTypes')}}">Repair Types List</a></li>
+                      <!--   <li><a href="ecommerce-products">Products</a></li>
                         <li><a href="ecommerce-product-detail">Product Detail</a></li>
                         <li><a href="ecommerce-orders">Orders</a></li>
                         <li><a href="ecommerce-customers">Customers</a></li>
                         <li><a href="ecommerce-cart">Cart</a></li>
                         <li><a href="ecommerce-checkout">Checkout</a></li>
                         <li><a href="ecommerce-shops">Shops</a></li>
-                        <li><a href="ecommerce-add-product">Add Product</a></li>
+                        <li><a href="ecommerce-add-product">Add Product</a></li> -->
                     </ul>
                 </li>
 
@@ -73,6 +79,7 @@
                         <span>Products</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
+                        
                         <li><a href="ecommerce-products">Products</a></li>
                         <li><a href="ecommerce-product-detail">Product Detail</a></li>
                         <li><a href="ecommerce-orders">Orders</a></li>
@@ -95,7 +102,7 @@
                     </ul>
                 </li>
 
-                <li>
+           <!--      <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="bx bxs-user-detail"></i>
                         <span>Contacts</span>
@@ -106,7 +113,7 @@
                         <li><a href="contacts-profile">Profile</a></li>
                     </ul>
                 </li>
-
+ -->
                 <li class="menu-title">Pages</li>
 
                 <li>
