@@ -52,6 +52,9 @@ Route::name('admin.')->namespace('Admin')->prefix('admin')->group(function(){
     //////////////////////////////// ZIP CODE //////////////////////////////////
 
      Route::resource('/zipCode', '\App\Http\Controllers\Admin\ZipController');
+     Route::resource('/brands', '\App\Http\Controllers\Admin\BrandController');
+     Route::resource('/models', '\App\Http\Controllers\Admin\ModelController');
+     Route::resource('/repairTypes', '\App\Http\Controllers\Admin\RepairController');
 
      Route::post('/logout',function(){
             Auth::guard('admin')->logout();
@@ -146,7 +149,15 @@ Route::get('/repair', function () {
     return view('frontend.repair');
 });
 
-Route::get('//repair-step/{id}', [RepairController::class, 'getBrands']);
+Route::get('/repair-step/{id}', [RepairController::class, 'getBrands']);
+Route::get('/getModels/{id}', [RepairController::class, 'getModels']);
+Route::get('/getrepairTypes/{id}', [RepairController::class, 'getrepairTypes']);
+Route::post('/saverepairType', [RepairController::class, 'saverepairType']);
+
+Route::get('/repairorder-completed', function () {
+    return view('frontend.order-completed');
+});
+
 Route::get('/single', function () {
     return view('frontend.single');
 });

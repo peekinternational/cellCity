@@ -11,6 +11,11 @@
 
                         <div class="row">
                             <div class="col-12">
+                                  @if(Session::has('message'))
+                              <div class="col-12">
+                                  {!!Session::get('message')!!}
+                              </div>
+                              @endif
                                 <div class="card">
                                     <div class="card-body">
                                         <form action="{{route('admin.techcreate')}}" method="post">

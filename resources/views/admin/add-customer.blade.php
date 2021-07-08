@@ -10,6 +10,11 @@
      @endcomponent
 
                         <div class="row">
+                              @if(Session::has('message'))
+                              <div class="col-12">
+                                  {!!Session::get('message')!!}
+                              </div>
+                              @endif
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">

@@ -24,7 +24,7 @@
           <div>
             <div class="single-answer-component-wrapper brand">
               <div class="fade-on-mount normal-elemnt-active">
-                <button class="answer-content"><label>{{$brand->brand_name}}</label></button>
+                <button class="answer-content" onclick="getModels('{{$brand->id}}')"><label>{{$brand->brand_name}}</label></button>
               </div>
             </div>
           </div>
@@ -45,97 +45,15 @@
         <form id="repair_form">
             
            </form>
-        <div class="select-issue-wrapper">
-          <div>
-            <div class="single-answer-component-wrapper model">
-              <div class="fade-on-mount normal-elemnt-active">
-                <button class="answer-content" ><label for="XS Max">XS Max</label></button>
-                <input type="radio" id="XS Max" name="phone_model" class="hidden">
-              </div>
-            </div>
-          </div>
-          <div>
-            <div class="single-answer-component-wrapper model">
-              <div class="fade-on-mount normal-elemnt-active">
-                <button class="answer-content"><label>XR</label></button>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div class="single-answer-component-wrapper model">
-              <div class="fade-on-mount normal-elemnt-active">
-                <button class="answer-content"><label>XS</label></button>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div class="single-answer-component-wrapper model">
-              <div class="fade-on-mount normal-elemnt-active">
-                <button class="answer-content"><label>X</label></button>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div class="single-answer-component-wrapper model">
-              <div class="fade-on-mount normal-elemnt-active">
-                <button class="answer-content"><label>8 Plus</label></button>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div class="single-answer-component-wrapper model">
-              <div class="fade-on-mount normal-elemnt-active">
-                <button class="answer-content"><label>8</label></button>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div class="single-answer-component-wrapper model">
-              <div class="fade-on-mount normal-elemnt-active">
-                <button class="answer-content"><label>7 Plus</label></button>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div class="single-answer-component-wrapper model">
-              <div class="fade-on-mount normal-elemnt-active">
-                <button class="answer-content"><label>7</label></button>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div class="single-answer-component-wrapper model">
-              <div class="fade-on-mount normal-elemnt-active">
-                <button class="answer-content"><label>6s Plus</label></button>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div class="single-answer-component-wrapper model">
-              <div class="fade-on-mount normal-elemnt-active">
-                <button class="answer-content"><label>6s</label></button>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div class="single-answer-component-wrapper model">
-              <div class="fade-on-mount normal-elemnt-active">
-                <button class="answer-content"><label>6 Plus</label></button>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div class="single-answer-component-wrapper">
-              <div class="fade-on-mount normal-elemnt-active">
-                <button class="answer-content"><label for="6">6</label></button>
-                <input type="radio" id="6" name="phone_model" class="hidden">
-              </div>
-            </div>
-          </div>
+        <div class="select-issue-wrapper" id="showModels">
+          
         </div>
       </div>
     </div>
     <!-- Repair Type -->
+    <form action="{{url('saverepairType')}}" method="post" id="repairType">
+      {{csrf_field()}}
+    </form>
     <div class="row d-flex justify-content-center" id="repair_type" style="display: none;">
       <div class="col-md-5 text-center">
         <div class="chance-box-wrapper">
@@ -143,33 +61,10 @@
             <p class="medium-font">What can we fix for you?</p>
           </div>
         </div>
-        <div class="question-comp-wrapper">
-          <div>
-            <div class="fade-on-mount normal-elemnt-active">
-              <button class="multiple-answer-component-wrapper">
-                <label class="custom_check">
-                  <div class="selection-inidicator">
-                    <input type="checkbox">
-                    <span class="checkmark"></span>
-                  </div>
-                  <div class="answer-content">LCD install<span class="price">+($349.99)</span></div>
-                </label>
-              </button>
-            </div>
-          </div>
-          <div>
-            <div class="fade-on-mount normal-elemnt-active">
-              <button class="multiple-answer-component-wrapper">
-                <label class="custom_check">
-                  <div class="selection-inidicator">
-                    <input type="checkbox">
-                    <span class="checkmark"></span>
-                  </div>
-                  <div class="answer-content">Battery<span class="price">+($109.99)</span></div>
-                </label>
-              </button>
-            </div>
-          </div>
+        <div class="question-comp-wrapper" >
+         <div id="RepairTypes"> 
+
+         </div>
           <div class="question-action-button-wrapper fixed-to-bottom-right" id="continue_btn" style="display: none;">
             <button class="new-action-button new-action-button-blocklevel new-action-button-disable-top-on-valid">Continue</button>
           </div>
@@ -195,7 +90,7 @@
                   <div class="select-time-day-item-wrapper">
                     <label class="select-time-day-item day-active" for="">
                         <div class="select-time-weekday"> Today </div>
-                        <input type="radio" name="date" id="{{date('d') }}" value="today" class="hidden">
+                        <input type="radio"  form="repairType" name="date" id="{{date('d') }}" value="{{ date('Y-m-d') }}" class="hidden">
                     </label>
                   </div>
                   <div class="select-time-day-item-wrapper">
@@ -203,7 +98,7 @@
                       <div class="">
                         <div class="select-time-weekday"> <?php echo date('D', strtotime(date('Y-m-d', strtotime("+1 days")))) ;?> </div>
                         <div class="select-time-day-in-number"> <?php echo date('d', strtotime(date('Y-m-d', strtotime("+1 days")))) ?> </div>
-                        <input type="radio" name="date" id="{{ date('d', strtotime(date('Y-m-d', strtotime('+1 days')))) }}" value="{{ date('d', strtotime(date('Y-m-d', strtotime('+1 days')))) }}" class="hidden">
+                        <input type="radio"  form="repairType" name="date" id="{{ date('d', strtotime(date('Y-m-d', strtotime('+1 days')))) }}" value="{{ date('Y-m-d', strtotime(date('Y-m-d', strtotime('+1 days')))) }}" class="hidden">
                       </div>
                     </label>
                   </div>
@@ -212,7 +107,7 @@
                       <div class="">
                         <div class="select-time-weekday">  <?php echo date('D', strtotime(date('Y-m-d', strtotime("+2 days")))) ;?> </div>
                         <div class="select-time-day-in-number"> <?php echo date('d', strtotime(date('Y-m-d', strtotime("+2 days")))) ?> </div>
-                        <input type="radio" name="date" id="{{ date('d', strtotime(date('Y-m-d', strtotime('+2 days')))) }}" value="{{ date('d', strtotime(date('Y-m-d', strtotime('+2 days')))) }}" class="hidden">
+                        <input type="radio" form="repairType" name="date" id="{{ date('d', strtotime(date('Y-m-d', strtotime('+2 days')))) }}" value="{{ date('Y-m-d', strtotime(date('Y-m-d', strtotime('+2 days')))) }}" class="hidden">
                       </div>
                     </label>
                   </div>
@@ -221,7 +116,7 @@
                       <div class="">
                         <div class="select-time-weekday">  <?php echo date('D', strtotime(date('Y-m-d', strtotime("+3 days")))) ;?> </div>
                         <div class="select-time-day-in-number"> <?php echo date('d', strtotime(date('Y-m-d', strtotime("+3 days")))) ?> </div>
-                        <input type="radio" name="date" value="{{ date('d', strtotime(date('Y-m-d', strtotime('+3 days')))) }}" id="{{ date('d', strtotime(date('Y-m-d', strtotime('+3 days')))) }}" class="hidden">
+                        <input type="radio" form="repairType" name="date" value="{{ date('Y-m-d', strtotime(date('Y-m-d', strtotime('+3 days')))) }}" id="{{ date('d', strtotime(date('Y-m-d', strtotime('+3 days')))) }}" class="hidden">
                       </div>
                     </label>
                   </div>
@@ -230,7 +125,7 @@
                       <div class="">
                         <div class="select-time-weekday">  <?php echo date('D', strtotime(date('Y-m-d', strtotime("+4 days")))) ;?> </div>
                         <div class="select-time-day-in-number"> <?php echo date('d', strtotime(date('Y-m-d', strtotime("+4 days")))) ?> </div>
-                        <input type="radio" name="date" value="{{ date('d', strtotime(date('Y-m-d', strtotime('+4 days')))) }}" id="{{ date('d', strtotime(date('Y-m-d', strtotime('+4 days')))) }}" class="hidden">
+                        <input type="radio" form="repairType" name="date" value="{{ date('Y-m-d', strtotime(date('Y-m-d', strtotime('+4 days')))) }}" id="{{ date('d', strtotime(date('Y-m-d', strtotime('+4 days')))) }}" class="hidden">
                       </div>
                     </label>
                   </div>
@@ -239,7 +134,7 @@
                       <div class="">
                         <div class="select-time-weekday">  <?php echo date('D', strtotime(date('Y-m-d', strtotime("+5 days")))) ;?> </div>
                         <div class="select-time-day-in-number"> <?php echo date('d', strtotime(date('Y-m-d', strtotime("+5 days")))) ?> </div>
-                        <input type="radio" name="date" value="{{ date('d', strtotime(date('Y-m-d', strtotime('+5 days')))) }}" id="{{ date('d', strtotime(date('Y-m-d', strtotime('+5 days')))) }}" class="hidden">
+                        <input type="radio" form="repairType" name="date" value="{{ date('Y-m-d', strtotime(date('Y-m-d', strtotime('+5 days')))) }}" id="{{ date('d', strtotime(date('Y-m-d', strtotime('+5 days')))) }}" class="hidden">
                       </div>
                     </label>
                   </div>
@@ -248,7 +143,7 @@
                       <div class="">
                         <div class="select-time-weekday">  <?php echo date('D', strtotime(date('Y-m-d', strtotime("+6 days")))) ;?> </div>
                         <div class="select-time-day-in-number"> <?php echo date('d', strtotime(date('Y-m-d', strtotime("+6 days")))) ?> </div>
-                        <input type="radio" name="date" value="{{ date('d', strtotime(date('Y-m-d', strtotime('+6 days')))) }}" id="{{ date('d', strtotime(date('Y-m-d', strtotime('+6 days')))) }}" class="hidden">
+                        <input type="radio" form="repairType" name="date" value="{{ date('Y-m-d', strtotime(date('Y-m-d', strtotime('+6 days')))) }}" id="{{ date('d', strtotime(date('Y-m-d', strtotime('+6 days')))) }}" class="hidden">
                       </div>
                     </label>
                   </div>
@@ -257,7 +152,7 @@
                       <div class="">
                         <div class="select-time-weekday">  <?php echo date('D', strtotime(date('Y-m-d', strtotime("+7 days")))) ;?> </div>
                         <div class="select-time-day-in-number"> <?php echo date('d', strtotime(date('Y-m-d', strtotime("+7 days")))) ?> </div>
-                        <input type="radio" name="date" value="{{ date('d', strtotime(date('Y-m-d', strtotime('+7 days')))) }}" id="{{ date('d', strtotime(date('Y-m-d', strtotime('+7 days')))) }}" class="hidden">
+                        <input type="radio" form="repairType" name="date" value="{{ date('Y-m-d', strtotime(date('Y-m-d', strtotime('+7 days')))) }}" id="{{ date('d', strtotime(date('Y-m-d', strtotime('+7 days')))) }}" class="hidden">
                       </div>
                     </label>
                   </div>
@@ -266,7 +161,7 @@
                       <div class="">
                         <div class="select-time-weekday"> <?php echo date('D', strtotime(date('Y-m-d', strtotime("+8 days")))) ;?> </div>
                         <div class="select-time-day-in-number"> <?php echo date('d', strtotime(date('Y-m-d', strtotime("+8 days")))) ?> </div>
-                        <input type="radio" name="date" value="{{ date('d', strtotime(date('Y-m-d', strtotime('+8 days')))) }}" id="{{ date('d', strtotime(date('Y-m-d', strtotime('+8 days')))) }}" class="hidden">
+                        <input type="radio" form="repairType" name="date" value="{{ date('Y-m-d', strtotime(date('Y-m-d', strtotime('+8 days')))) }}" id="{{ date('d', strtotime(date('Y-m-d', strtotime('+8 days')))) }}" class="hidden">
                       </div>
                     </label>
                   </div>
@@ -275,7 +170,7 @@
                       <div class="">
                         <div class="select-time-weekday"> <?php echo date('D', strtotime(date('Y-m-d', strtotime("+9 days")))) ;?> </div>
                         <div class="select-time-day-in-number"> <?php echo date('d', strtotime(date('Y-m-d', strtotime("+9 days")))) ?> </div>
-                        <input type="radio" name="date" value="{{ date('d', strtotime(date('Y-m-d', strtotime('+9 days')))) }}" id="{{ date('d', strtotime(date('Y-m-d', strtotime('+9 days')))) }}" class="hidden">
+                        <input type="radio" form="repairType" name="date" value="{{ date('Y-m-d', strtotime(date('Y-m-d', strtotime('+9 days')))) }}" id="{{ date('d', strtotime(date('Y-m-d', strtotime('+9 days')))) }}" class="hidden">
                       </div>
                     </label>
                   </div>
@@ -285,122 +180,32 @@
                 <img src="{{('frontend-assets/images/repair/arrow-right.png')}}" alt="">
               </div>
             </div>
-           <!--  <div class="select-time-day-selector-container-mobile">
-              <div class="select-time-day-selector-content-mobile" id="no-scorll-bar-time">
-                <div class="select-time-day-item-wrapper">
-                  <label class="select-time-day-item" for="today_m">
-                      <div class="select-time-weekday"> Today </div>
-                      <input type="radio" name="date" id="today_m" value="today" class="hidden">
-                  </label>
-                </div>
-                <div class="select-time-day-item-wrapper">
-                  <label class="select-time-day-item " for="24_m" tabindex="-1">
-                    <div class="">
-                      <div class="select-time-weekday"> Thu </div>
-                      <div class="select-time-day-in-number"> 24 </div>
-                      <input type="radio" name="date" id="24_m" value="24" class="hidden">
-                    </div>
-                  </label>
-                </div>
-                <div class="select-time-day-item-wrapper">
-                  <label class="select-time-day-item " for="25_m" tabindex="-1">
-                    <div class="">
-                      <div class="select-time-weekday"> Fri </div>
-                      <div class="select-time-day-in-number"> 25 </div>
-                      <input type="radio" name="date" id="25_m" value="25" class="hidden">
-                    </div>
-                  </label>
-                </div>
-                <div class="select-time-day-item-wrapper">
-                  <label class="select-time-day-item " for="26_m" tabindex="-1">
-                    <div class="">
-                      <div class="select-time-weekday"> Sat </div>
-                      <div class="select-time-day-in-number"> 26 </div>
-                      <input type="radio" name="date" value="26" id="26_m" class="hidden">
-                    </div>
-                  </label>
-                </div>
-                <div class="select-time-day-item-wrapper">
-                  <label class="select-time-day-item " for="27_m" tabindex="-1">
-                    <div class="">
-                      <div class="select-time-weekday"> Sun </div>
-                      <div class="select-time-day-in-number"> 27 </div>
-                      <input type="radio" name="date" value="27" id="27_m" class="hidden">
-                    </div>
-                  </label>
-                </div>
-                <div class="select-time-day-item-wrapper">
-                  <label class="select-time-day-item " for="28_m">
-                    <div class="">
-                      <div class="select-time-weekday"> Mon </div>
-                      <div class="select-time-day-in-number"> 28 </div>
-                      <input type="radio" name="date" value="28" id="28_m" class="hidden">
-                    </div>
-                  </label>
-                </div>
-                <div class="select-time-day-item-wrapper">
-                  <label class="select-time-day-item " for="29_m">
-                    <div class="">
-                      <div class="select-time-weekday"> Tue </div>
-                      <div class="select-time-day-in-number"> 29 </div>
-                      <input type="radio" name="date" value="29" id="29_m" class="hidden">
-                    </div>
-                  </label>
-                </div>
-                <div class="select-time-day-item-wrapper">
-                  <label class="select-time-day-item " for="30_m">
-                    <div class="">
-                      <div class="select-time-weekday"> Wed </div>
-                      <div class="select-time-day-in-number"> 30 </div>
-                      <input type="radio" name="date" value="30" id="30_m" class="hidden">
-                    </div>
-                  </label>
-                </div>
-                <div class="select-time-day-item-wrapper">
-                  <label class="select-time-day-item " for="01_m">
-                    <div class="">
-                      <div class="select-time-weekday"> Thu </div>
-                      <div class="select-time-day-in-number"> 01 </div>
-                      <input type="radio" name="date" value="01" id="01_m" class="hidden">
-                    </div>
-                  </label>
-                </div>
-                <div class="select-time-day-item-wrapper">
-                  <label class="select-time-day-item " for="02_m">
-                    <div class="">
-                      <div class="select-time-weekday"> Fri </div>
-                      <div class="select-time-day-in-number"> 02 </div>
-                      <input type="radio" name="date" value="02" id="02_m" class="hidden">
-                    </div>
-                  </label>
-                </div>
-              </div>
-            </div> -->
+          
           </div>
           <div class="select-time-time-picker-wrapper">
             <label class="time-content-box time-content-box-active" for="9am-10am">
               <p>9am - 11am</p>
-              <input type="radio" name="time" value="9am-10am" id="9am-10am" class="hidden">
+              <input type="radio" form="repairType" name="time" value="9am-10am" id="9am-10am" class="hidden">
             </label>
             <label class="time-content-box " for="10am-11am">
               <p>11am - 1pm</p>
-              <input type="radio" name="time" value="10am-11am" id="10am-11am" class="hidden">
+              <input type="radio" form="repairType" name="time" value="10am-11am" id="10am-11am" class="hidden">
             </label>
             <label class="time-content-box " for="11am-12pm">
               <p>1pm - 3pm</p>
-              <input type="radio" name="time" value="11am-12pm" id="11am-12pm" class="hidden">
+              <input type="radio" form="repairType" name="time" value="11am-12pm" id="11am-12pm" class="hidden">
             </label>
             <label class="time-content-box " for="12pm-1pm">
               <p>3pm - 5pm</p>
-              <input type="radio" name="time" value="12pm-1pm" id="12pm-1pm" class="hidden">
+              <input type="radio" form="repairType" name="time" value="12pm-1pm" id="12pm-1pm" class="hidden">
             </label>
             <label class="time-content-box " for="1pm-2pm">
               <p>5pm - 7pm</p>
-              <input type="radio" name="time" value="1pm-2pm" id="1pm-2pm" class="hidden">
+              <input type="radio" form="repairType" name="time" value="1pm-2pm" id="1pm-2pm" class="hidden">
             </label>
             <label class="time-content-box " for="2pm-3pm">
               <p>7pm - 9pm</p>
-              <input type="radio" name="time" value="2pm-3pm" id="2pm-3pm" class="hidden">
+              <input type="radio" form="repairType" name="time" value="2pm-3pm" id="2pm-3pm" class="hidden">
             </label>
           </div>
           <div id="time-height-spacer"></div>
@@ -423,14 +228,14 @@
             <div class="form-group">
               <div class="new-input-comp">
                 <div>
-                  <input placeholder="Your Name" type="text" id="name" class="form-control" value="">
+                  <input placeholder="Your Name" form="repairType" type="text" name="name" id="name" class="form-control" value="" required>
                 </div>
               </div>
             </div>
             <div class="form-group">
               <div class="new-input-comp">
                 <div>
-                  <input placeholder="Address" types="address" type="text" id="address" class="form-control" value="">
+                  <input placeholder="Address" form="repairType"  name="address"  type="text" id="address" class="form-control" value="" required>
                 </div>
               </div>
             </div>
@@ -438,7 +243,7 @@
             <div class="form-group">
               <div class="new-input-comp">
                 <div>
-                  <input placeholder="Phone Number" type="number" id="phone" class="form-control" value="">
+                  <input placeholder="Phone Number" form="repairType" type="number" id="phone" class="form-control" name="phone" value="" required>
                 </div>
               </div>
             </div>
@@ -446,18 +251,28 @@
             <div class="form-group">
               <div class="new-input-comp">
                 <div>
-                  <input placeholder="Email" type="email" id="email" class="form-control" value="">
+                  <input placeholder="Email" name="email" form="repairType" type="email" id="email" class="form-control" value="" required>
                 </div>
               </div>
             </div>
+
+            @if(!Auth::guard('web')->check())
+             <div class="form-group">
+              <div class="new-input-comp">
+                <div>
+                  <input placeholder="Password" name="password" form="repairType" type="password" id="password" class="form-control" value="">
+                </div>
+              </div>
+            </div>
+            @endif
             <!-- <div style="height: 10px;"></div> -->
             <div class="form-group">
               <div class="new-input-comp">
-                <textarea type="text" class="form-control" placeholder="Add address instructions (optional)" id="instructions"></textarea>
+                <textarea type="text" form="repairType" class="form-control" placeholder="Add address instructions (optional)" name="instructions" id="instructions"></textarea>
               </div>
             </div>
             <div class="select-address-continue-button-wrapper">
-              <button class="new-action-button">Continue</button>
+              <button type="submit" form="repairType" class="new-action-button">Continue</button>
             </div>
           </div>
         </div>
@@ -499,18 +314,57 @@
 @endsection
 @section('script')
 <script>
-  $('.brand').click(function(){
-    $('#phone_model').show();
-    $('#brand_model').hide();
-  });
-  $('.model').click(function(){
-    $('#repair_type').show();
-    $('#phone_model').hide();
-  });
-  $('.custom_check').click(function(){
-    $('#continue_btn').show();
-  });
-  $('#continue_btn').click(function(){
+  // $('.brand').click(function(){
+    
+  // });
+
+  function getModels(id){
+    
+      $.ajax({
+        url: "{{url('/getModels')}}/"+id,
+        type:"get",
+        success:function(response){
+          console.log(response);
+          $('#showModels').html(response);
+          $('#phone_model').show();
+          $('#brand_model').hide();
+
+        },
+
+       });
+  
+
+  }
+
+    function getrepairTypes(id){
+    
+      $.ajax({
+        url: "{{url('/getrepairTypes')}}/"+id,
+        type:"get",
+        success:function(response){
+          // console.log(response);
+          $('#RepairTypes').html(response);
+          $('#repair_type').show();
+          $('#phone_model').hide();
+
+        },
+
+       });
+  
+
+  }
+  
+
+  // $('.model').click(function(){
+    
+  // });
+     function custom_check()
+     {
+
+        $('#continue_btn').show();
+     }
+
+   $('#continue_btn').click(function(){
     $('#time_select').show();
     $('#repair_type').hide();
 

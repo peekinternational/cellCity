@@ -4,9 +4,36 @@ use DB;
 use Session;
 
 use App\Models\User;
+use App\Models\Tech;
+use App\Models\ShippingAddr;
+use App\Models\Brand;
+use App\Models\Pmodel;
+use App\Models\RepairType;
+use App\Models\ZipCode;
+use App\Models\RepairOrder;
+use App\Models\RepairOrderType;
+use App\Models\Admin;
+use App\Models\Alert;
+
 
 
 class CityClass {
-	
+
+	function brands(){
+	 return Brand::orderBy('brand_name','asc')->get();
+	}
+
+	function brandName($id){
+	 return Brand::whereId($id)->first()->brand_name;
+	}
+
+	function allModels(){
+	return Pmodel::orderBy('model_name','asc')->get();
+	}
+
+	function modelName($id){
+	 return Pmodel::whereId($id)->first()->model_name;
+	}
 }
+
 ?>
