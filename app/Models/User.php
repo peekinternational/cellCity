@@ -44,8 +44,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function shippingaddress()
+
+      public function shippingaddress()
           {
             return $this->hasMany(ShippingAddr::class, 'userId');
           }
+
+      public function repairorders()
+      {
+        return $this->hasMany(RepairOrder::class, 'userId');
+      }
 }

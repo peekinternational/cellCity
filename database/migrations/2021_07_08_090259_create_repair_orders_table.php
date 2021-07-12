@@ -16,11 +16,14 @@ class CreateRepairOrdersTable extends Migration
         Schema::create('repair_orders', function (Blueprint $table) {
             $table->id();
             $table->integer('userId');
+            $table->integer('techId')->nullable();
             $table->integer('model_Id');
             $table->string('date');
             $table->string('time');
             $table->string('name');
             $table->string('price');
+            $table->enum('pay_status', ['unpaid','paid']);
+            $table->string('pay_method');
             $table->string('address');
             $table->string('phone');
             $table->string('email');

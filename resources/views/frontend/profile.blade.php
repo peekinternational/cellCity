@@ -11,6 +11,8 @@
     </div>
 </section> -->
 <!--End Page Title-->
+
+
 <section class="shop-section shop-page profile-page">
 	<div class="auto-container">
 		 @if(Session::has('message'))
@@ -82,18 +84,28 @@
 											<th>Repair Type</th>
 											<th>Time & Date</th>
 											<th>Price</th>
-											<th>Action</th>
+											<!-- <th>Action</th> -->
 										</tr>
 									</thead>
 									<tbody>
+										@foreach(Auth::guard('web')->user()->repairorders as $index => $order)
 										<tr>
-											<td>1</td>
-											<td>Iphone XS</td>
-											<td>LCD Issue</td>
-											<td>12-07-21 9am-11am</td>
-											<td>$120</td>
-											<td><a href=""><i class="fa fa-trash text-danger"></i></a></td>
+											<td>{{$index + 1}}</td>
+											<td>{{CityClass::modelName($order->model_Id)}}</td>
+											<td>
+												@foreach($order->repairorderstypes as $repair)
+												   {{$repair->repair_type}}<br>
+                                                @endforeach
+											</td>
+											<td>{{$order->date}} {{$order->time}}</td>
+											<td>
+												@foreach($order->repairorderstypes as $repair)
+												   ${{$repair->price}}<br>
+                                                @endforeach
+											</td>
+											<!-- <td><a href=""><i class="fa fa-eye text-danger"></i></a></td> -->
 										</tr>
+										@endforeach
 									</tbody>
 								</table>
 							</div>

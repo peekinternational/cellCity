@@ -24,7 +24,7 @@
           <div>
             <div class="single-answer-component-wrapper brand">
               <div class="fade-on-mount normal-elemnt-active">
-                <button class="answer-content" onclick="getModels('{{$brand->id}}')"><label>{{$brand->brand_name}}</label></button>
+                <button class="answer-content" onclick="getModels('{{$brand->id}}','{{$brand->brand_name}}')"><label>{{$brand->brand_name}}</label></button>
               </div>
             </div>
           </div>
@@ -228,22 +228,14 @@
             <div class="form-group">
               <div class="new-input-comp">
                 <div>
-                  <input placeholder="Your Name" form="repairType" type="text" name="name" id="name" class="form-control" value="" required>
+                  <input placeholder="Your Name" form="repairType" type="text" name="name" id="name" class="form-control" @if(Auth::guard('web')->check()) value="{{Auth::guard('web')->user()->name}}" @else value="" @endif required>
                 </div>
               </div>
             </div>
             <div class="form-group">
               <div class="new-input-comp">
                 <div>
-                  <input placeholder="Address" form="repairType"  name="address"  type="text" id="address" class="form-control" value="" required>
-                </div>
-              </div>
-            </div>
-            <!-- <div style="height: 10px;"></div> -->
-            <div class="form-group">
-              <div class="new-input-comp">
-                <div>
-                  <input placeholder="Phone Number" form="repairType" type="number" id="phone" class="form-control" name="phone" value="" required>
+                  <input placeholder="Address" form="repairType"   name="address"  type="text" id="address" class="form-control" @if(Auth::guard('web')->check()) value="{{Auth::guard('web')->user()->address}}" @else value="" @endif required>
                 </div>
               </div>
             </div>
@@ -251,7 +243,15 @@
             <div class="form-group">
               <div class="new-input-comp">
                 <div>
-                  <input placeholder="Email" name="email" form="repairType" type="email" id="email" class="form-control" value="" required>
+                  <input placeholder="Phone Number" form="repairType" type="number" id="phone" class="form-control" name="phone" @if(Auth::guard('web')->check()) value="{{Auth::guard('web')->user()->phoneno}}" @else value="" @endif required>
+                </div>
+              </div>
+            </div>
+            <!-- <div style="height: 10px;"></div> -->
+            <div class="form-group">
+              <div class="new-input-comp">
+                <div>
+                  <input placeholder="Email" name="email" form="repairType" type="email" id="email" class="form-control" @if(Auth::guard('web')->check()) value="{{Auth::guard('web')->user()->email}}" @else value="" @endif required>
                 </div>
               </div>
             </div>
@@ -280,28 +280,24 @@
     </div>
   </div>
   <div>
-    <div class="my-cart-desktop">
+    <div class="my-cart-desktop" id="priceCart" style="display: none;">
       <!-- <div class="my-cart-wrapper-not-fixed "></div> -->
       <div class="my-cart-wrapper ">
         <div class="my-cart-content-wrapper">
           <div class="my-cart-device-section-wrapper">
             <div class="my-cart-device-section-header">
               <div class="my-cart-device-section-header-image-title">
-                <div><span>iPhone Repair</span></div>
+                <div id="brandName"></div>
               </div>
             </div>
             <div class="services-aggregation-details-wrapper">
-              <h3><b>XR</b></h3>
-              <div class="services-aggregation-details">
-                <div class="aggregate-service">
-                  <span class="service-name">LCD install </span>
-                  <span class="service-price"><b>$279</b></span>
-                </div>
+             <div id="modelName">  </div>
+              <div class="services-aggregation-details" id="priceDetails">
+                
               </div>
             </div>
-            <div class="subtotal-container">
-              <span>Estimated</span>
-              <span class="my-cart-small-text-bold"> $279</span>
+            <div class="subtotal-container" id="totalCost" style="display: none">
+              
             </div>
             <div class="disclaimer-container"></div>
           </div>
@@ -318,8 +314,8 @@
     
   // });
 
-  function getModels(id){
-    
+  function getModels(id,name){
+    $('#brandName').html('<span>'+name+' Repair</span>');
       $.ajax({
         url: "{{url('/getModels')}}/"+id,
         type:"get",
@@ -336,8 +332,9 @@
 
   }
 
-    function getrepairTypes(id){
-    
+    function getrepairTypes(id,name){
+      $('#priceCart').show();
+      $('#modelName').html('<h3><b>'+name+'</b></h3>')
       $.ajax({
         url: "{{url('/getrepairTypes')}}/"+id,
         type:"get",
@@ -358,10 +355,34 @@
   // $('.model').click(function(){
     
   // });
-     function custom_check()
+    var total=0;
+     function custom_check(id,repair_type,price)
      {
+          if($('#check'+id).is(":checked")){
+                // consol("Checkbox is checked.");
+             $('#continue_btn').show();
+              var html ='<div class="aggregate-service" id="'+id+'">'
+                  +'<span class="service-name">'+repair_type+' </span>'
+                  +'<span class="service-price"><b>$'+price+'</b></span>'
+                  +'</div>';
+                  $('#priceDetails').append(html);
+                  total = total + parseInt(price);
+                  console.log(total);
+                  $('#totalCost').show();
+                  $('#totalCost').html('<span>Estimated</span><span class="my-cart-small-text-bold"> $'+total+'</span>');
+            }
+            else{
+                  console.log('uncheck');
+                  // $('#continue_btn').hide();
+                  console.log($('#check'+id).val());
+                   total = total - parseInt(price);
+                   $('#totalCost').html('<span>Estimated</span><span class="my-cart-small-text-bold"> $'+total+'</span>');
+                  $('#'+id).remove();
+               
+            }
 
-        $('#continue_btn').show();
+      // alert(price);
+
      }
 
    $('#continue_btn').click(function(){

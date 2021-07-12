@@ -34,6 +34,11 @@ class CityClass {
 	function modelName($id){
 	 return Pmodel::whereId($id)->first()->model_name;
 	}
+
+	function allTech(){
+
+		return User::whereRole('tech')->where('jobStatus','available')->get();
+	}
 }
 
 ?>

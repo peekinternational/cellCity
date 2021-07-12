@@ -13,13 +13,18 @@ class RepairOrder extends Model
         'model_Id','date','time','name','address','phone','email','instructions'
     ];
 
- //    public function brand()
-	// 	  {
-	// 	    return $this->belongsTo(Brand::class, 'id');
-	// 	  }
+     public function user()
+		  {
+		    return $this->belongsTo(User::class, 'id');
+		  }
 
-	// public function repairTypes()
- //          {
- //            return $this->hasMany(RepairType::class, 'model_Id');
- //          }
+	 public function repairorderstypes()
+      {
+        return $this->hasMany(RepairOrderType::class, 'order_Id');
+      }
+
+    //   public function model()
+		  // {
+		  //   return $this->belongsTo(Pmodel::class, 'id');
+		  // }
 }

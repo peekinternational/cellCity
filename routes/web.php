@@ -6,6 +6,7 @@ use App\Http\Controllers\TechController;
 use App\Http\Controllers\RepairController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ZipController;
+use App\Http\Controllers\Admin\AdminRepairController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,7 +55,8 @@ Route::name('admin.')->namespace('Admin')->prefix('admin')->group(function(){
      Route::resource('/zipCode', '\App\Http\Controllers\Admin\ZipController');
      Route::resource('/brands', '\App\Http\Controllers\Admin\BrandController');
      Route::resource('/models', '\App\Http\Controllers\Admin\ModelController');
-     Route::resource('/repairTypes', '\App\Http\Controllers\Admin\RepairController');
+     Route::resource('/repairTypes', '\App\Http\Controllers\Admin\AdminRepairController');
+     Route::get('/repairOrders',  [AdminRepairController::class, 'repairOrders']);
 
      Route::post('/logout',function(){
             Auth::guard('admin')->logout();

@@ -16,7 +16,7 @@ use App\Models\RepairOrderType;
 use App\Models\Admin;
 use App\Models\Alert;
 
-class RepairController extends Controller
+class AdminRepairController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -28,6 +28,14 @@ class RepairController extends Controller
         $RepairTypes= RepairType::orderBy('id','desc')->get();
         return view('admin.repair-list',compact('RepairTypes'));
     }
+
+
+    public function repairOrders()
+    {
+        $RepairOrders= RepairOrder::orderBy('id','desc')->get();
+        return view('admin.repair-orders',compact('RepairOrders'));
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -64,7 +72,8 @@ class RepairController extends Controller
      */
     public function show($id)
     {
-        //
+        $order= RepairOrder::find($id);
+        return view('admin.repair-order-model',compact('order'));
     }
 
     /**
@@ -109,5 +118,9 @@ class RepairController extends Controller
         $repair = RepairType::find($id);
         $repair->delete();
         return redirect('/admin/repairTypes')->with('message', Alert::_message('success', 'Repair Type Delete Successfully.'));
+    }
+
+    public function assignTech(Request $request){
+        
     }
 }
