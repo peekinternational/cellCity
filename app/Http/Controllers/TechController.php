@@ -16,22 +16,25 @@ class TechController extends Controller
       public function techLogin(Request $request)
     {
         if($request->isMethod('post')){
-           if(Auth::guard('tech')->attempt(['email' => $request->email, 'password' => $request->password, 'role' => 'tech'])){
-        //Authentication passed...
-        if(Auth::guard('tech')->check()){
-            // dd(Auth::guard('tech')->user()->name );
-            return redirect(RouteServiceProvider::TECH);
 
+           if(Auth::guard('tech')->attempt(['email' => $request->email, 'password' => $request->password, 'role' => 'tech']))
+           {
+            //Authentication passed...
+            if(Auth::guard('tech')->check()){
+                // dd(Auth::guard('tech')->user()->name );
+                return redirect(RouteServiceProvider::TECH);
+
+                    }
                 }
+                return back()->with('loginError','MisMatch the email and password');
             }
-        }
-        // dd(Auth::guard('tech')->check());
-         // dd(Auth::guard('tech'));
+            // dd(Auth::guard('tech')->check());
+            // dd(Auth::guard('tech'));
 
      return view('frontend.technician.login-page');
     }
 
     public function  showTechnicians(){
-    	
+
     }
 }

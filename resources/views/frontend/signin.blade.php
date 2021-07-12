@@ -10,7 +10,13 @@
         <div class="login-with-credentials">
           <div class="row">
           <div class="section-title">
+            @if(Session::has('message'))
+            <div class="alert alert-danger">
+                {!!Session::get('message')!!}
+            </div>
+            @endif
             <div class="login-signup-header">
+
               <h2 class="text-center"><span class="dot"></span> Login</h2>
             </div>
            </div>

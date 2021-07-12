@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Support\Facades\Auth;
-use App\Providers\RouteServiceProvider;
-use App\Models\User;
+use Carbon\Carbon;
 use App\Models\Tech;
+use App\Models\User;
+use App\Mail\VerifyMail;
+use App\Models\VerifyUser;
 use App\Models\ShippingAddr;
-use Hash;
-
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use App\Providers\RouteServiceProvider;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class UserController extends Controller
 {
@@ -39,9 +42,10 @@ class UserController extends Controller
   public function accountLogin(Request $request)
     {
         if($request->isMethod('post')){
-           
-           if(Auth::guard('web')->attempt(['email' => $request->email, 'password' => $request->password, 'role' => 'user'])){
-        
+
+        if(Auth::guard('web')->attempt(['email' => $request->email, 'password' => $request->password, 'role' => 'user','verified'=>1]))
+        {
+
         if(Auth::guard('web')->check()){
             // dd(Auth::guard('web')->user()->shippingaddress);
            // $user= User::find(Auth::guard('web')->user()->id);
@@ -50,10 +54,14 @@ class UserController extends Controller
 
                 }
             }
+            else
+            {
+                return back()->with('message','MisMatch the email and password');
+            }
         }
-  
 
-     return view('frontend.signin');
+
+     return view('frontend.signin')->with('message','Please check email verification');
     }
 
     /**
@@ -64,7 +72,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-       
+
         if($request->isMethod('post')){
             // dd($request->all());
                 $this->validate($request,[
@@ -81,21 +89,29 @@ class UserController extends Controller
                 'phoneno.required' => 'Enter Mobile Number',
                 'password.required' => 'Enter password',
               ]);
-                
+
                 $user = new User;
                 $user->name = $request->name;
                 $user->email =  $request->email;
                 $user->address =  $request->address;
                 $user->phoneno =  $request->phoneno;
-                $user->role = $request->role;
+                $user->role = 'user';
                 $user->password = Hash::make($request->password);
                 $user->save();
-            
-           
+
+                $verifyUser = VerifyUser::create([
+                    'userId' => $user->id,
+                    'token' => sha1(time())
+                  ]);
+                  \Mail::to($user->email)->send(new VerifyMail($user));
+                  return back()->with('message','Please check your email for verification');
+                //   return $user;
+
+
         }
-        
+
         return view('frontend.signup');
-      
+
     }
 
     /**
@@ -129,7 +145,12 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $updated_at = Carbon::now();
+        $request->merge(['updated_at'=>$updated_at]);
+
+        $user = User::find($id);
+        $user->update($request->only($user->getFillable()));
+        return back()->with('success','Updated Successfully');
     }
 
     /**
@@ -141,5 +162,28 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function verifyUserByEmail($token)
+    {
+        // dd($token);
+    $verifyUser = VerifyUser::where('token', $token)->first();
+    if(isset($verifyUser) ){
+
+        $user = User::where('id',$verifyUser->userId)->first();
+        // $user = $verifyUser->user;
+        // dd($user->verified);
+        if(!$user->verified) {
+            // dd($user->verified);
+        $user->verified = 1;
+        $user->update();
+        $status = "Your e-mail is verified. You can now login.";
+        } else {
+        $status = "Your e-mail is already verified. You can now login.";
+        }
+    } else {
+        return redirect()->route('signin')->with('warning', "Sorry your email cannot be identified.");
+    }
+    return redirect()->route('signin')->with('status', $status);
     }
 }
