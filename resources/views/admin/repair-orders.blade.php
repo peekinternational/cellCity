@@ -83,7 +83,7 @@
                                                         </select>
                                                         </td>
                                                         <td>
-                                                            <a href="javascript:void(0);" data-toggle="modal" data-target=".exampleModal" onclick="viewDetail('{{$order->id}}')" class="mr-3 text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="View Detail"><i class="mdi mdi-eye font-size-18"></i></a><a href="javascript:void(0);" class="mr-3 text-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="mdi mdi-pencil font-size-18"></i></a>
+                                                            <a href="javascript:void(0);" data-toggle="modal" data-target="#exampleModal{{$order->id}}" onclick="viewDetail('{{$order->id}}')" class="mr-3 text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="View Detail"><i class="mdi mdi-eye font-size-18"></i></a><a href="javascript:void(0);" class="mr-3 text-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="mdi mdi-pencil font-size-18"></i></a>
                                                             <a href="javascript:void(0);" class="text-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="mdi mdi-close font-size-18"></i></a>
                                                         </td>
                                                     </tr>
@@ -135,22 +135,24 @@
         success:function(response){
           console.log(response);
           $('#showModels').html(response);
-          $('.exampleModal').modal('show');
+          $('#exampleModal'+id).modal('show');
         },
 
        });
     }
+
     function selectTech(event,id){
 
+    var value=$(event).val()
      let _token   = $('meta[name="csrf-token"]').attr('content');
         $.ajax({
         url: "{{url('admin/assignTech')}}",
         type:"post",
         data:{
             orderId:id,
-            techid:$(event).val(),
+            techid:value,
             _token:_token
-        }
+        },
         success:function(response){
           console.log(response);
           $('#or'+id).empty();

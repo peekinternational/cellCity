@@ -121,6 +121,9 @@ class AdminRepairController extends Controller
     }
 
     public function assignTech(Request $request){
-        
+
+        $user = User::whereId($request->techid)->update(['jobStatus' => 'busy']);
+        $order = RepairOrder::whereId($request->orderId)->update(['techId' => $request->techid]);
+        return $user;
     }
 }

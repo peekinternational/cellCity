@@ -42,13 +42,13 @@ class UserController extends Controller
            
            if(Auth::guard('web')->attempt(['email' => $request->email, 'password' => $request->password, 'role' => 'user'])){
         
-        if(Auth::guard('web')->check()){
-            // dd(Auth::guard('web')->user()->shippingaddress);
-           // $user= User::find(Auth::guard('web')->user()->id);
-           //  dd($user->shippingaddress->name);
-            return redirect(RouteServiceProvider::HOME);
+                if(Auth::guard('web')->check()){
+                    // dd(Auth::guard('web')->user()->shippingaddress);
+                   // $user= User::find(Auth::guard('web')->user()->id);
+                   //  dd($user->shippingaddress->name);
+                    return redirect(RouteServiceProvider::HOME);
 
-                }
+                        }
             }
         }
   

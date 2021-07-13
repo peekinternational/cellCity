@@ -57,6 +57,7 @@ Route::name('admin.')->namespace('Admin')->prefix('admin')->group(function(){
      Route::resource('/models', '\App\Http\Controllers\Admin\ModelController');
      Route::resource('/repairTypes', '\App\Http\Controllers\Admin\AdminRepairController');
      Route::get('/repairOrders',  [AdminRepairController::class, 'repairOrders']);
+     Route::post('/assignTech',  [AdminRepairController::class, 'assignTech']);
 
      Route::post('/logout',function(){
             Auth::guard('admin')->logout();

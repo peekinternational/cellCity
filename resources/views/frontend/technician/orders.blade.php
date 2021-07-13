@@ -56,7 +56,7 @@
                 <div class="table-responsive">
                   <table class="table">
                     <thead class=" text-primary">
-                      <th colspan="2">Sr#</th>
+                      <th colspan="2">Order ID#</th>
                       <th colspan="3">Modal</th>
                       <th colspan="2">Repair Type</th>
                       <th colspan="3">Order By</th>
@@ -64,17 +64,23 @@
                       <th>Action</th>
                     </thead>
                     <tbody>
+                      @foreach(Auth::guard('tech')->user()->repairorders as $index => $order)
                       <tr>
-                        <td colspan="2"> 1</td>
-                        <td colspan="2"> IPhone XS</td>
-                        <td colspan="3"> LCD</td>
+                        <td colspan="2">#{{$order->id}}</td>
+                        <td colspan="2">{{CityClass::modelName($order->model_Id)}}</td>
+                        <td colspan="3">
+                          @foreach($order->repairorderstypes as $repair)
+                             {{$repair->repair_type}}<br>
+                           @endforeach
+                         </td>
                         <td colspan="3"> XYZ</td>
-                        <td colspan="3"> 9am-11am 27-July</td>
+                        <td colspan="3">{{$order->date}} {{$order->time}}</td>
                         <td>
                          <a href="{{ url('')}}" onclick="myFunction()"> <i class="fa fa-trash text-danger"></i> </a>
                           <i class="fa fa-eye text-success"></i>
                         </td>
                       </tr>
+                      @endforeach
                      
                     </tbody>
                   </table>
