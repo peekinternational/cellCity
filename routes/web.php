@@ -1,11 +1,12 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\TechController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\RepairController;
-use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ZipController;
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminRepairController;
 
 /*
@@ -79,7 +80,7 @@ Route::name('tech.')->namespace('Tech')->prefix('tech')->group(function(){
     Route::namespace('Auth')->middleware('guest:tech')->group(function(){
 
     Route::match(['get','post'],'/login', [TechController::class, 'techLogin']);
-    
+
 
 });
 
@@ -88,7 +89,7 @@ Route::name('tech.')->namespace('Tech')->prefix('tech')->group(function(){
        Route::get('/', function(){
             return view('frontend.technician.index');
         });
-      
+
         Route::get('/orders', function(){
             return view('frontend.technician.orders');
         });
@@ -115,13 +116,16 @@ Route::namespace('Auth')->middleware('guest:web')->group(function(){
     Route::match(['get','post'],'/signup', [UserController::class, 'store']);
 });
 
-  Route::namespace('Auth')->middleware('auth:web')->group(function(){
+Route::namespace('Auth')->middleware('auth:web')->group(function(){
 
     Route::get('/profile', function () {
     return view('frontend.profile');
 
     });
     Route::resource('/shipAddress', '\App\Http\Controllers\ShippingAddress');
+    //user profile update route
+    Route::put('update/{id}',[UserController::class,'update'])->name('update.profile');
+
 
     Route::get('/logout',function(){
             Auth::guard('web')->logout();
@@ -133,8 +137,11 @@ Route::namespace('Auth')->middleware('guest:web')->group(function(){
 
     });
 
-
+   //verify email
+   Route::get('/userVerify/{token}', [UserController::class,'verifyUserByEmail'])->name('user.verify');
 Route::post('/checkZipcode', [RepairController::class, 'checkZip']);
+
+
 
 Route::get('/', function () {
     return view('frontend.index');
@@ -177,6 +184,6 @@ Route::get('/pay-bills', function () {
 
 
 Route::group(['prefix' => 'technician'], function () {
-  
+
 });
 

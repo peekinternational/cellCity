@@ -22,7 +22,9 @@ class User extends Authenticatable
         'email',
         'password',
         'address',
-        'phoneno'
+        'phoneno',
+        'created_at',
+        'updated_at'
     ];
 
     /**
@@ -54,4 +56,8 @@ class User extends Authenticatable
       {
         return $this->hasMany(RepairOrder::class, 'userId');
       }
+      public function verifyUser()
+        {
+        return $this->hasOne(VerifyUser::class, 'userId');
+        }
 }

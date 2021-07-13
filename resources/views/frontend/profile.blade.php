@@ -44,33 +44,42 @@
 						<li role="presentation">
 							<a href="{{url('/logout')}}" >Logout</a>
 						</li>
-					</ul>	
+					</ul>
 				</div>
+
 				<div class="col-md-9">
 					<!-- Tab panes -->
+
 					<div class="tab-content">
+                        @if(Session::has('success'))
+                    <div class="alert alert-success">
+                       {!!Session::get('success')!!}
+                    </div>
+                    @endif
 						<div role="tabpanel" class="tab-pane active" id="MyProfile">
 							<h3 class="title-section">My Profile</h3><br>
-							<form>
+							<form action="{{route('update.profile',Auth::guard('web')->user()->id)}}" method="POST">
+                                @csrf
+                                @method('PUT')
 								<div class="form-group">
 									<label>Name</label>
-									<input type="text" name="name" class="form-control">
+									<input type="text" name="name" class="form-control" value="{{Auth::guard('web')->user()->name}}">
 								</div>
 								<div class="form-group">
 									<label>Phone</label>
-									<input type="number" name="phone" class="form-control">
+									<input type="number" name="phoneno" class="form-control" value="{{Auth::guard('web')->user()->phoneno}}" >
 								</div>
 								<div class="form-group">
 									<label>Email</label>
-									<input type="email" name="email" class="form-control">
+									<input type="email" name="email" class="form-control" value="{{Auth::guard('web')->user()->email}}">
 								</div>
 								<div class="form-group">
 									<label>Address</label>
-									<textarea cols="4" rows="4" class="form-control"></textarea>
+									<textarea cols="4" rows="4" name="address" class="form-control">{{Auth::guard('web')->user()->address}}</textarea>
 								</div>
 								<div class="form-group text-right">
 									<input type="submit" name="submit" class="btn btn-style-one" value="Edit Profile">
-								</div> 
+								</div>
 							</form>
 						</div>
 						<div role="tabpanel" class="tab-pane" id="repairs">
@@ -168,7 +177,7 @@
 							<div class="d-flex justify-content-between title-section">
 								<h3>My Address</h3><br>
 								<a class="btn btn-primary btn-style-one" data-toggle="modal" href='#modal-addAddress'>Add New Address</a>
-								
+
 							</div>
 							<div class="row">
 								@foreach(Auth::guard('web')->user()->shippingaddress as $shipingAdd)
@@ -184,7 +193,7 @@
 											<form action="{{url('shipAddress/'.$shipingAdd->id)}}" method="post" style="display: contents;">
                                             {{csrf_field()}}
                                                @method('DELETE')
-                                                                      
+
 											<button class="btn btn-danger" type="submit"><i class="fa fa-trash"></i> Delete</button>
 										</form>
 										</div>
@@ -203,7 +212,7 @@
 										</div>
 										<form action="{{url('shipAddress')}}" method="post">
 										<div class="modal-body">
-											
+
 												 {{csrf_field()}}
 												<div class="form-group">
 													<label>Full name</label>
@@ -241,7 +250,7 @@
 														</div>
 													</div>
 												</div>
-											
+
 										</div>
 										<div class="modal-footer">
 											<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -265,7 +274,7 @@
                                             {{csrf_field()}}
                                             @method('PUT')
 										<div class="modal-body">
-											  
+
 												<div class="form-group">
 													<label>Full name</label>
 													<input type="text" name="name" class="form-control" value="{{$shipingAdd->name}}" placeholder="Full Name">
@@ -302,7 +311,7 @@
 														</div>
 													</div>
 												</div>
-											
+
 										</div>
 										<div class="modal-footer">
 											<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -318,7 +327,7 @@
 						</div>
 					</div>
 				</div>
-				
+
 			</div>
 		</div>
 	</div>
@@ -334,5 +343,5 @@
     .on("click", "li.active a", function(event) {        $(this).closest('ul').toggleClass("open");
     });
 </script>
-    
+
 @endsection
