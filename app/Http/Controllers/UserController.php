@@ -43,6 +43,7 @@ class UserController extends Controller
     {
         if($request->isMethod('post')){
 
+
         if(Auth::guard('web')->attempt(['email' => $request->email, 'password' => $request->password, 'role' => 'user','verified'=>1]))
         {
 
@@ -52,7 +53,8 @@ class UserController extends Controller
            //  dd($user->shippingaddress->name);
             return redirect(RouteServiceProvider::HOME);
 
-                }
+
+                        }
             }
             else
             {
