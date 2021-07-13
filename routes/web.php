@@ -141,7 +141,6 @@ Route::namespace('Auth')->middleware('auth:web')->group(function(){
 Route::post('/checkZipcode', [RepairController::class, 'checkZip']);
 
 
-
 Route::get('/', function () {
     return view('frontend.index');
 });
