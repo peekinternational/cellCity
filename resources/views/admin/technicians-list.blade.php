@@ -21,7 +21,7 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="table-responsive">
-                                            <table class="table table-centered table-nowrap table-hover">
+                                            <table id="example" class="table table-centered table-nowrap table-hover">
                                                 <thead class="thead-light">
                                                     <tr>
                                                         <th scope="col" style="width: 70px;">#</th>
@@ -44,13 +44,13 @@
                                                         </td>
                                                         <td>
                                                             <h5 class="font-size-14 mb-1"><a href="#" class="text-dark">{{$customer->name}}</a></h5>
-                                                           
+
                                                         </td>
                                                         <td>{{$customer->email}}</td>
                                                         <td>
                                                             <div>
                                                                 <a href="#" class="badge badge-soft-primary font-size-11 m-1">{{$customer->role}}</a>
-                                                               
+
                                                             </div>
                                                         </td>
                                                         <td>

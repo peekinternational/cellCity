@@ -21,7 +21,7 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="table-responsive">
-                                            <table class="table table-centered table-nowrap table-hover">
+                                            <table id="example" class="table table-centered table-nowrap table-hover">
                                                 <thead class="thead-light">
                                                     <tr>
                                                         <th scope="col" style="width: 70px;">#</th>
@@ -41,9 +41,9 @@
                                                         </td>
                                                         <td>
                                                             <h5 class="font-size-14 mb-1"><a href="#" class="text-dark">{{$zipcode->zipcode}}</a></h5>
-                                                           
+
                                                         </td>
-                                                       
+
                                                         <td>
                                                             <ul class="list-inline font-size-20 contact-links mb-0">
                                                                 <li class="list-inline-item px-2">
@@ -53,11 +53,11 @@
                                                                    <form action="{{url('admin/zipCode/'.$zipcode->id)}}" method="post">
                                                                     {{csrf_field()}}
                                                                        @method('DELETE')
-                                                                      
+
                                                                        <label for="delZip" data-toggle="tooltip" data-placement="top" title="Delete" style="cursor: pointer;"><i class="mdi mdi-delete-circle-outline"></i></label>
                                                                        <input id="delZip" type="submit" name="" style="display: none">
                                                                    </form>
-                                                                  
+
                                                                 </li>
                                                               <!--   <li class="list-inline-item px-2">
                                                                     <a href="" data-toggle="tooltip" data-placement="top" title="Profile"><i class="mdi mdi-account-circle-outline"></i></a>

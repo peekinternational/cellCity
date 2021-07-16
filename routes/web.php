@@ -8,6 +8,7 @@ use App\Http\Controllers\RepairController;
 use App\Http\Controllers\Admin\ZipController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminRepairController;
+use App\Models\RepairOrder;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,6 +52,8 @@ Route::name('admin.')->namespace('Admin')->prefix('admin')->group(function(){
      Route::get('/deleteTechnician/{id}', [AdminController::class, 'deleteTechnician']);
 
 
+     Route::get('rejectOrder/{id}', [AdminController::class, 'rejectOrder'] );
+
     //////////////////////////////// ZIP CODE //////////////////////////////////
 
      Route::resource('/zipCode', '\App\Http\Controllers\Admin\ZipController');
@@ -67,6 +70,22 @@ Route::name('admin.')->namespace('Admin')->prefix('admin')->group(function(){
                 'adminLogin'
             ]);
         })->name('logout');
+
+      /// Admin Create Repair Order
+        Route::get('repair-steps',[AdminRepairController::class,'repairStep'])->name('repair.steps');
+
+        //Ajax call Repair Order
+        Route::get('/getModels/{id}',[AdminRepairController::class,'getModels']);
+        // Dynamically get repair types check boxes using Model id
+        Route::get('/getRepair/{id}',[AdminRepairController::class,'getRepair']);
+        /// create repair order by admin
+        Route::post('/repairModel-store', [AdminRepairController::class,'repairModelStore']);
+
+        //modify repair order
+        Route::get('/modify-order/{id}',[AdminRepairController::class,'modifyOrder'])->name('modify.order');
+        //Repair Order Update Route
+        Route::post('/repairModel-update/{id}',[AdminRepairController::class,'modifyOrderUpdate']);
+
 
     });
 
@@ -104,6 +123,15 @@ Route::name('tech.')->namespace('Tech')->prefix('tech')->group(function(){
 
     });
 
+    //Ajax call order view
+    Route::get('orderView/{id}',[TechController::class, 'orderView']);
+    Route::get('acceptOrder/{id}',[TechController::class, 'acceptOrder']);
+    Route::get('penddingOrder/{id}',[TechController::class, 'penddingOrder']);
+    Route::get('rejectOrder/{id}',[TechController::class, 'rejectOrder']);
+
+    //Order Modification
+    Route::get('order-modify/{id}',[TechController::class,'orderModify']);
+    Route::post('/repairOrder-update/{id}',[TechController::class,'repairOrderUpdate']);
 });
 
 
@@ -184,5 +212,10 @@ Route::get('/pay-bills', function () {
 
 Route::group(['prefix' => 'technician'], function () {
 
+});
+
+Route::get('/checkout',function()
+{
+  return view('frontend.checkout');
 });
 

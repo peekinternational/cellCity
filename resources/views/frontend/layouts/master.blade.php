@@ -9,11 +9,14 @@
 		<meta name="csrf-token" content="{{ csrf_token() }}" />
 		<meta name="keywords" content="s">
 		<title>Cell City</title>
-		
+
 		<link rel='stylesheet' href="{{asset('frontend-assets/css/bootstrap.css')}}" media='' />
 		<link rel='stylesheet' href="{{asset('frontend-assets/css/revolution-slider.css')}}" media='' />
 		<link rel='stylesheet' href="{{asset('frontend-assets/css/style.css')}}" media='' />
 		<link rel='stylesheet' href="{{asset('frontend-assets/css/responsive.css')}}" media='' />
+
+        <link href="{{asset('admin-assets/datatable/dataTables.bootstrap4.min.css')}}" rel="stylesheet" />
+         <link href="{{asset('admin-assets/datatable/jquery.dataTables.min.css')}}" rel="stylesheet" />
 		@yield('styling')
 	</head>
 
@@ -22,10 +25,10 @@
 		@include('frontend.includes.header')
 			<!-- Main Content-->
 			@yield('content')
-			
+
 		<!-- End Page -->
 		@include('frontend.includes.footer')
-		</div>	
+		</div>
 		<!--Scroll to top-->
 <div class="scroll-to-top scroll-to-target" data-target=".main-header"><span class="icon fa fa-long-arrow-up"></span></div>
 
@@ -33,7 +36,7 @@
 <div id="search-popup" class="search-popup">
 	<div class="close-search theme-btn"><span class="flaticon-unchecked"></span></div>
 	<div class="popup-inner">
-    
+
     	<div class="search-form">
         	<form method="post" action="">
             	<div class="form-group">
@@ -46,6 +49,7 @@
         </div>
     </div>
 </div>
+
 		<script src="{{asset('frontend-assets/js/jquery.js')}}"></script>
 		<script src="{{asset('frontend-assets/js/bootstrap.min.js')}}"></script>
 		<script src="{{asset('frontend-assets/js/revolution.min.js')}}"></script>
@@ -56,6 +60,10 @@
 		<script src="{{asset('frontend-assets/js/jquery.easing.min.js')}}"></script>
 		<script src="{{asset('frontend-assets/js/wow.js')}}"></script>
 		<script src="{{asset('frontend-assets/js/script.js')}}"></script>
+{{-- //datatable --}}
+        <script src="{{asset('admin-assets/datatable/jquery.dataTables.min.js')}}"></script>
+        <script src="{{asset('admin-assets/datatable/dataTables.bootstrap4.min.js')}}"></script>
+        <script src="{{asset('admin-assets/js/datatable.js')}}"></script>
 		@yield('script')
 	</body>
 </html>

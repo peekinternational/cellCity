@@ -21,9 +21,9 @@
             <span class="navbar-toggler-bar navbar-kebab"></span>
           </button>
             <div class="collapse navbar-collapse justify-content-end" id="navigation">
-         
+
             <ul class="navbar-nav">
-              
+
               <li class="nav-item btn-rotate dropdown">
                 <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <p>
@@ -34,7 +34,7 @@
                   <a class="dropdown-item" href="{{ url('technician/logout') }}">Logout</a>
                 </div>
               </li>
-            
+
             </ul>
           </div>
         </div>
@@ -54,14 +54,16 @@
 
               <div class="card-body">
                 <div class="table-responsive">
-                  <table class="table">
+                    <table id="example" class="table" >
                     <thead class=" text-primary">
                       <th colspan="2">Order ID#</th>
                       <th colspan="3">Modal</th>
                       <th colspan="2">Repair Type</th>
                       <th colspan="3">Order By</th>
                       <th colspan="3">Order Time</th>
+                      <th>Status</th>
                       <th>Action</th>
+
                     </thead>
                     <tbody>
                       @foreach(Auth::guard('tech')->user()->repairorders as $index => $order)
@@ -76,12 +78,30 @@
                         <td colspan="3"> XYZ</td>
                         <td colspan="3">{{$order->date}} {{$order->time}}</td>
                         <td>
-                         <a href="{{ url('')}}" onclick="myFunction()"> <i class="fa fa-trash text-danger"></i> </a>
-                          <i class="fa fa-eye text-success"></i>
+                            @if ($order->order_status == 3)
+
+                            <a href="#" onclick="acceptOrder('{{$order->id}}')" title="Accept"> <i class="fa fa-check text-primary"></i> </a>
+                            <a href="#"  onclick="penddingOrder('{{$order->id}}')" title="Pendding"> <i class="fa fa-clock-o text-info"></i></a>
+                            <a href="#" onclick="rejectOrder('{{$order->id}}')" title="Reject"> <i class="fa fa-times text-danger"></i></a>
+
+                            @elseif ($order->order_status == 1)
+                            <span class="badge badge-pill badge-primary">Accept</span>
+                            @elseif ($order->order_status == 0)
+                            <span class="badge badge-pill badge-secondary">Pendding</span>
+                            <a href="#" onclick="acceptOrder('{{$order->id}}')" title="Accept"> <i class="fa fa-check text-primary"></i> </a>
+                            <a href="#" onclick="rejectOrder('{{$order->id}}')" title="Reject"> <i class="fa fa-times text-danger"></i></a>
+
+                            @endif
+                        </td>
+                        <td>
+
+                            <a href="javascript:void(0);" data-toggle="modal" data-target="#exampleModal{{$order->id}}" onclick="viewModal('{{$order->id}}')" class="mr-3 text-success" data-toggle="tooltip" data-placement="top" title="View Detail" data-original-title="View Detail"> <i class="fa fa-eye text-success"></i></a>
+                            <a href="{{url('tech/order-modify',$order->id)}}" title="Edit Order" > <i class="fa fa-pencil text-warning"></i></a>
+
                         </td>
                       </tr>
                       @endforeach
-                     
+
                     </tbody>
                   </table>
                 </div>
@@ -92,10 +112,71 @@
       </div>
     </div>
   </div>
+{{-- View modal --}}
+<div id="showModels"></div>
+
 @endsection
+
+
 
 @section('script')
 <script>
+    function acceptOrder(id)
+    {
+        $.ajax({
+        url: "{{url('tech/acceptOrder')}}/"+id,
+        type:"get",
+        success:function(response){
+          console.log(response);
+         alert(response);
+         location.reload();
+        },
 
+       });
+    }
+    function viewModal(id)
+    {
+        $.ajax({
+        url: "{{url('tech/orderView')}}/"+id,
+        type:"get",
+        success:function(response){
+          console.log(response);
+          $('#showModels').html(response);
+          $('#exampleModal'+id).modal('show');
+        },
+
+       });
+    }
+
+    function penddingOrder(id)
+    {
+        alert(id);
+        $.ajax({
+        url: "{{url('tech/penddingOrder')}}/"+id,
+        type:"get",
+        success:function(response){
+          console.log(response);
+
+          location.reload();
+          alert(response);
+        },
+
+       });
+    }
+
+    function rejectOrder(id)
+    {
+        $.ajax({
+        url: "{{url('tech/rejectOrder')}}/"+id,
+        type:"get",
+        success:function(response){
+          console.log(response);
+
+          location.reload();
+          alert(response);
+        },
+
+       });
+    }
 </script>
 @endsection

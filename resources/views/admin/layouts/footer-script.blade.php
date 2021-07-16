@@ -10,5 +10,8 @@
 
         <!-- App js -->
         <script src="{{ URL::asset('admin-assets/js/app.js')}}"></script>
-        
+
+         <script src="{{asset('admin-assets/datatable/jquery.dataTables.min.js')}}"></script>
+         <script src="{{asset('admin-assets/datatable/dataTables.bootstrap4.min.js')}}"></script>
+         <script src="{{asset('admin-assets/js/datatable.js')}}"></script>
         @yield('script-bottom')

@@ -29,7 +29,7 @@
             </div>
           </div>
           @endforeach
-        
+
         </div>
       </div>
     </div>
@@ -39,14 +39,14 @@
       <div class="col-md-5 text-center">
         <div class="chance-box-wrapper">
           <div>
-            <p class="medium-font">Select your iPhone device model</p>
+            <p class="medium-font">Select your Phone device model</p>
           </div>
         </div>
         <form id="repair_form">
-            
+
            </form>
         <div class="select-issue-wrapper" id="showModels">
-          
+
         </div>
       </div>
     </div>
@@ -62,7 +62,7 @@
           </div>
         </div>
         <div class="question-comp-wrapper" >
-         <div id="RepairTypes"> 
+         <div id="RepairTypes">
 
          </div>
           <div class="question-action-button-wrapper fixed-to-bottom-right" id="continue_btn" style="display: none;">
@@ -83,7 +83,7 @@
           <div>
             <div class="select-time-day-selector-container-desktop">
               <button class="select-time-day-selector-triangle left" style="display: none;">
-                <img class="triangle-reverse" src="{{('frontend-assets/images/repair/arrow-right.png')}}" alt="">
+                <img class="triangle-reverse" src="{{asset('frontend-assets/images/repair/arrow-right.png')}}" alt="">
               </button>
               <div class="select-time-day-selector-box">
                 <div class="select-time-day-selector-wrapper">
@@ -177,10 +177,10 @@
                 </div>
               </div>
               <div class="select-time-day-selector-triangle right">
-                <img src="{{('frontend-assets/images/repair/arrow-right.png')}}" alt="">
+                <img src="{{asset('frontend-assets/images/repair/arrow-right.png')}}" alt="">
               </div>
             </div>
-          
+
           </div>
           <div class="select-time-time-picker-wrapper">
             <label class="time-content-box time-content-box-active" for="9am-10am">
@@ -293,11 +293,11 @@
             <div class="services-aggregation-details-wrapper">
              <div id="modelName">  </div>
               <div class="services-aggregation-details" id="priceDetails">
-                
+
               </div>
             </div>
             <div class="subtotal-container" id="totalCost" style="display: none">
-              
+
             </div>
             <div class="disclaimer-container"></div>
           </div>
@@ -311,7 +311,7 @@
 @section('script')
 <script>
   // $('.brand').click(function(){
-    
+
   // });
 
   function getModels(id,name){
@@ -328,7 +328,7 @@
         },
 
        });
-  
+
 
   }
 
@@ -347,13 +347,13 @@
         },
 
        });
-  
+
 
   }
-  
+
 
   // $('.model').click(function(){
-    
+
   // });
     var total=0;
      function custom_check(id,repair_type,price)
@@ -378,7 +378,7 @@
                    total = total - parseInt(price);
                    $('#totalCost').html('<span>Estimated</span><span class="my-cart-small-text-bold"> $'+total+'</span>');
                   $('#'+id).remove();
-               
+
             }
 
       // alert(price);
@@ -413,5 +413,5 @@
     $('#user_info').show();
   });
 </script>
-    
+
 @endsection

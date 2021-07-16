@@ -20,11 +20,11 @@ class RepairOrder extends Model
 
 	 public function repairorderstypes()
       {
-        return $this->hasMany(RepairOrderType::class, 'order_Id');
+        return $this->hasMany(RepairOrderType::class,'order_Id');
       }
 
-    //   public function model()
-		  // {
-		  //   return $this->belongsTo(Pmodel::class, 'id');
-		  // }
+      public function pModel()
+		  {
+		    return $this->belongsTo(Pmodel::class,'model_Id','id');
+		  }
 }

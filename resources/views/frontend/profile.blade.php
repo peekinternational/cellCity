@@ -85,7 +85,7 @@
 						<div role="tabpanel" class="tab-pane" id="repairs">
 							<h3 class="title-section">Repairs</h3><br>
 							<div class="table-responsive">
-								<table class="table table-bordered table-hover">
+								<table id="example" class="table table-bordered table-hover" >
 									<thead>
 										<tr>
 											<th>Sr#</th>
@@ -93,7 +93,7 @@
 											<th>Repair Type</th>
 											<th>Time & Date</th>
 											<th>Price</th>
-											<!-- <th>Action</th> -->
+											<th>Status</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -112,6 +112,16 @@
 												   ${{$repair->price}}<br>
                                                 @endforeach
 											</td>
+											<td> @if ($order->order_status == 3 && $order->techId !== null)
+                                                <span class="badge badge-pill badge-warning">Assign</span>
+                                                @elseif ($order->order_status == 1  && $order->techId !== null)
+                                                <span class="badge badge-pill badge-success">Accept</span>
+
+                                                @elseif ($order->order_status == 0  && $order->techId !== null)
+                                                <span class="badge badge-pill badge-secondary">Pendding</span>
+                                                @else
+                                                <span class="badge badge-pill badge-info">Not Assign</span>
+                                                @endif</td>
 											<!-- <td><a href=""><i class="fa fa-eye text-danger"></i></a></td> -->
 										</tr>
 										@endforeach
@@ -122,7 +132,7 @@
 						<div role="tabpanel" class="tab-pane" id="myOrders">
 							<h3 class="title-section">My Orders</h3><br>
 							<div class="table-responsive">
-								<table class="table table-bordered table-hover">
+                                <table id="example" class="table table-bordered table-hover">
 									<thead>
 										<tr>
 											<th>Sr#</th>
@@ -149,7 +159,7 @@
 						<div role="tabpanel" class="tab-pane" id="billStatus">
 							<h3 class="title-section">Bill Status</h3><br>
 							<div class="table-responsive">
-								<table class="table table-bordered table-hover">
+                                <table id="example" class="table table-bordered table-hover" >
 									<thead>
 										<tr>
 											<th>Sr#</th>
@@ -336,6 +346,12 @@
 
 @endsection
 @section('script')
+<script src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready( function () {
+    $('#myTable').DataTable();
+} );
+</script>
 <script>
   $('.nav-tabs-dropdown')
     .on("click", "li:not('.active') a", function(event) {  $(this).closest('ul').removeClass("open");

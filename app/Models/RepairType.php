@@ -16,4 +16,8 @@ class RepairType extends Model
 		  {
 		    return $this->belongsTo(Pmodel::class, 'id');
 		  }
+          public function repairOrderType()
+          {
+            return $this->hasMany(RepairOrderType::class,'id','repair_type');
+          }
 }

@@ -30,7 +30,7 @@ class RepairController extends Controller
 	    		return response()->json(['status' => 0]);
 	    	}
     	}
-  
+
   public function getBrands(){
 
   	$brands = Brand::get();
@@ -49,15 +49,15 @@ class RepairController extends Controller
   	$RepairTypes = RepairType::whereModelId($id)->get();
   	// dd($models);
   	return view('frontend.repair-type',compact('RepairTypes'));
-  } 
+  }
 
-  public function saverepairType(Request $request){
+
+public function saverepairType(Request $request){
 // dd(Auth::guard('web')->check());
 	if(Auth::guard('web')->user()){
 
-		
-
-	}else{
+	}
+    else{
 	    $this->validate($request,[
 	        'name' => 'required|min:5|max:50',
 	        'phoneno' => 'min:2|max:17',
@@ -112,7 +112,7 @@ class RepairController extends Controller
      	 $ordertype->save();
      }
      return redirect('repairorder-completed');
-  	
+
   }
 
 

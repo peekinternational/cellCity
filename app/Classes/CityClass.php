@@ -39,6 +39,14 @@ class CityClass {
 
 		return User::whereRole('tech')->where('jobStatus','available')->get();
 	}
+    function ZipCode()
+    {
+      return ZipCode::orderBy('id','desc')->get();
+    }
+    function allUser()
+    {
+      return User::whereRole('user')->get();
+    }
 }
 
 ?>

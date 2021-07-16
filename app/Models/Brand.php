@@ -13,7 +13,7 @@ class Brand extends Model
         'brand_name',
     ];
 
-    public function models()
+        public function models()
           {
             return $this->hasMany(Pmodel::class, 'brand_Id');
           }

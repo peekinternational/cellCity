@@ -21,14 +21,14 @@ class CreateRepairOrdersTable extends Migration
             $table->string('date');
             $table->string('time');
             $table->string('name');
-            $table->string('price');
             $table->enum('pay_status', ['unpaid','paid']);
             $table->string('pay_method');
             $table->string('address');
             $table->string('phone');
             $table->string('email');
-            $table->string('instructions');
-
+            $table->string('instructions')->nullable();
+            $table->enum('order_status', ['0','1','2','3'])->default('3');
+            $table->enum('order_create', ['admin','customer'])->default('customer');
             $table->timestamps();
         });
     }
