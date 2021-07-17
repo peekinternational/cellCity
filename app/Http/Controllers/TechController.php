@@ -2,17 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\TechMail;
 use Hash;
 use App\Models\Tech;
 use App\Models\User;
 use App\Models\Alert;
 use App\Models\Pmodel;
+use Twilio\Rest\Client;
+use App\Models\Temporary;
 use App\Models\RepairType;
 use App\Models\RepairOrder;
 use Illuminate\Http\Request;
 use App\Models\RepairOrderType;
+use App\Models\TemporaryOrderType;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -98,29 +103,53 @@ class TechController extends Controller
         $model = explode(',',$request->model_Id);
         $model_Id = $model[0];
 
-        // dd($model_Id);
+        // dd($request);
         $RepairOrders =RepairOrder::find($id);
-        $RepairOrders->userId = $request->userId;
-        $RepairOrders->model_Id = $model_Id;
-        $RepairOrders->date = $request->date;
-        $RepairOrders->time = $request->time;
-        $RepairOrders->name = $customer->name;
-        $RepairOrders->address = $customer->address;
-        $RepairOrders->phone = $customer->phoneno;
-        $RepairOrders->email = $customer->email;
-        $RepairOrders->instructions = $request->instruction;
-        $RepairOrders->update();
+        // dd($RepairOrders);
+        if($temporary =Temporary::where('orderId',$RepairOrders->id)->first())
+        {
+            $temporary->userId = $request->userId;
+            $temporary->techId = $RepairOrders->techId;
+            $temporary->orderId = $RepairOrders->id;
+            $temporary->model_Id = $model_Id;
+            $temporary->date = $request->date;
+            $temporary->time = $request->time;
+            $temporary->name = $customer->name;
+            $temporary->address = $customer->address;
+            $temporary->phone = $customer->phoneno;
+            $temporary->email = $customer->email;
+            $temporary->reason = $request->instruction;
+            $temporary->order_status = $RepairOrders->order_status;
+            $temporary->update();
+        }
+        else
+        {
+        $temporary = new Temporary;
+        $temporary->userId = $request->userId;
+        $temporary->techId = $RepairOrders->techId;
+        $temporary->orderId = $RepairOrders->id;
+        $temporary->model_Id = $model_Id;
+        $temporary->date = $request->date;
+        $temporary->time = $request->time;
+        $temporary->name = $customer->name;
+        $temporary->address = $customer->address;
+        $temporary->phone = $customer->phoneno;
+        $temporary->email = $customer->email;
+        $temporary->reason = $request->instruction;
+        $temporary->order_status = $RepairOrders->order_status;
+        $temporary->save();
+        }
+        $q = "DELETE pp FROM `temporary_order_types` pp
+              join temporaries pd on pp.order_Id = pd.orderId
+              WHERE pd.orderId = ?";
+        //  $sql = "DELETE FROM temporary_order_types as pp join temporaries as pd WHERE pp.order_Id=pd.";
 
-        $q = "DELETE pp FROM `repair_order_types` pp
-              join repair_orders pd on pp.order_Id = pd.id
-              WHERE pd.id = ?";
 
-
-        $status = \DB::delete($q, array($id));
+        $status = \DB::delete($q, array($RepairOrders->id));
         // dd($q);
         // dd($request->repair_type);
         foreach ($request->repair_type as $key => $value) {
-            $ordertype = new RepairOrderType;
+            $ordertype = new TemporaryOrderType;
             $ordertype->order_Id= $RepairOrders->id;
             if($request->check == 'check')
             {
@@ -135,7 +164,33 @@ class TechController extends Controller
             $ordertype->save();
        }
 
-      return back()->with('message', Alert::_message('success', 'Repair Order Update Successfully.'));
+       $details = [
+        'title' => 'Mail from PeekInternational.com',
+        'subject' => 'Update the repair order',
+        'message' => 'Techician updated the customer order'
+    ];
+
+
+     \Mail::to("admin@gmail.com")->send(new TechMail($details));
+    //   $mail = mail ("admin@gmail.com",$subject,$message);
+
+      return back()->with('message', Alert::_message('success', 'Repair Order Update Successfully. Please wait for verify by admin'));
+    }
+    ///messages twelio
+    public function message($phoneno)
+    {
+           $phone ='+'.$phoneno;
+        //    dd($phone);
+           $message =" hello this sms is for test";
+
+        $account_sid = "ACad62fedb0f642dc64068c2852a8f0fb3";
+        $auth_token = "9e7cff902f36db9363ecca0512faa94e";
+        $twilio_number = +19793416597;
+        $client = new Client($account_sid, $auth_token);
+        $client->messages->create($phone,
+            ['from' => $twilio_number, 'body' => $message] );
+
+            return back();
     }
 
 }

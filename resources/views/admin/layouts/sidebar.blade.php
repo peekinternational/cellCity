@@ -48,14 +48,16 @@
                         <span>Repair</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{url('admin/repairOrders')}}">Orders</a></li>
+                        <li><a href="{{url('admin/repair-steps')}}">Create Repair Order</a></li>
+                        <li><a href="{{url('admin/repairOrders')}}">Orders List</a></li>
+                        <li><a href="{{url('admin/checkOrders')}}">Check Update Orders</a></li>
                         <li><a href="{{url('admin/brands/create')}}">Add Brand</a></li>
                         <li><a href="{{url('admin/brands')}}">Brands List</a></li>
                         <li><a href="{{url('admin/models/create')}}">Add Model</a></li>
                         <li><a href="{{url('admin/models')}}">Model List</a></li>
                         <li><a href="{{url('admin/repairTypes/create')}}">Add Repair Types</a></li>
                         <li><a href="{{url('admin/repairTypes')}}">Repair Types List</a></li>
-                        <li><a href="{{url('admin/repair-steps')}}">Create Repair Order</a></li>
+
 
                     </ul>
                 </li>

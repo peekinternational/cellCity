@@ -93,7 +93,9 @@
 											<th>Repair Type</th>
 											<th>Time & Date</th>
 											<th>Price</th>
+                                            <th>Payment Method</th>
 											<th>Status</th>
+                                            <th>Action</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -112,6 +114,7 @@
 												   ${{$repair->price}}<br>
                                                 @endforeach
 											</td>
+                                            <td><span class="badge badge-pill badge-success">{{$order->pay_method}}</span></td>
 											<td> @if ($order->order_status == 3 && $order->techId !== null)
                                                 <span class="badge badge-pill badge-warning">Assign</span>
                                                 @elseif ($order->order_status == 1  && $order->techId !== null)
@@ -119,10 +122,19 @@
 
                                                 @elseif ($order->order_status == 0  && $order->techId !== null)
                                                 <span class="badge badge-pill badge-secondary">Pendding</span>
+                                                @elseif ($order->order_status == 4 && $order->techId !== null)
+                                                <span class="badge badge-pill badge-success">Complete</span>
                                                 @else
                                                 <span class="badge badge-pill badge-info">Not Assign</span>
                                                 @endif</td>
 											<!-- <td><a href=""><i class="fa fa-eye text-danger"></i></a></td> -->
+                                            <td>
+                                                @if ($order->order_status == 1  && $order->techId !== null)
+                                                <a href="{{route('complete.order',$order->id)}}" title="paid the Order"><i class="fa fa-pencil"></i></a>
+                                                @endif
+                                                <a href="{{route('view.order',$order->id)}}" ><i class="fa fa-eye"></i></a>
+
+                                            </td>
 										</tr>
 										@endforeach
 									</tbody>

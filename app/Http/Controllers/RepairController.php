@@ -109,7 +109,7 @@ public function saverepairType(Request $request){
      	 $ordertype->order_Id= $order->id;
      	 $ordertype->repair_type= RepairType::whereId($value)->first()->repair_type;
      	 $ordertype->price= RepairType::whereId($value)->first()->price;
-     	 $ordertype->save();
+     	 $ordertype->save();    
      }
      return redirect('repairorder-completed');
 

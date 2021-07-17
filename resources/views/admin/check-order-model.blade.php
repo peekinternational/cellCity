@@ -8,17 +8,11 @@
                 </button>
             </div>
             <div class="modal-body">
-                @php
-                $user = App\Models\User::find($order->userId);
-
-            @endphp
-                <p class="mb-2">Order id: <span class="text-primary">#{{$order->id}}</span>  <a href="mailto:{{$user->email}}" style="float: right"><i class="fa fa-envelope"></i> {{$user->email}}</a> </p>
-                <p class="mb-4">Billing Name: <span class="text-primary">{{$order->name}}</span> <a href="tel:{{$user->phoneno}}" style="float: right"><i class="fa fa-phone"></i> {{$user->phoneno}}</a></p>
-                <p class="mb-4">Message To: <span class="text-primary">{{$order->name}}</span> <a href="{{url('tech/message',$user->phoneno)}}" style="float: right"><i class="fa fa-envelope"></i> {{$user->phoneno}}</a></p>
-
+                <p class="mb-2">Order id: <span class="text-primary">#{{$order->id}}</span></p>
+                <p class="mb-4">Billing Name: <span class="text-primary">{{$order->name}}</span></p>
 
                 <div class="table-responsive">
-                    <table class="table table-centered table-nowrap" id="example" >
+                    <table class="table table-centered table-nowrap">
                         <thead>
                             <tr>
                             <th scope="col">Repair Type</th>
@@ -28,11 +22,14 @@
                         </thead>
                         <tbody>
                             <tr>
-
+                                @php
+                                $repairOrderType = App\Models\TemporaryOrderType::where('order_Id',$order->orderId)->get();
+                                  // dd($repairOrderType);
+                              @endphp
                                 <td>
-                                  @foreach($order->repairorderstypes as $type)
+                                  @foreach($repairOrderType as $type)
                                     <div>
-                                        <h5 class="text-truncate font-size-14" >{{$type->repair_type}}</h5>
+                                        <h5 class="text-truncate font-size-14">{{$type->repair_type}}</h5>
                                     </div>
                                      @endforeach
                                 </td>
@@ -40,9 +37,9 @@
                                 <td></td>
 
                                 <td>
-                                @foreach($order->repairorderstypes as $rprice)
+                                @foreach($repairOrderType as $rprice)
 
-                                  <span  style="float: right">  ${{$rprice->price}}</span><br>
+                                  <span>  ${{$rprice->price}}</span><br>
 
                                  @endforeach
                                 </td>
@@ -52,8 +49,8 @@
                                 <td colspan="2">
                                     <h6 class="m-0 text-right">Sub Total:</h6>
                                 </td>
-                                <td  style="float: right">
-                                    ${{$order->repairorderstypes->sum('price')}}
+                                <td>
+                                    ${{$repairOrderType->sum('price')}}
                                 </td>
                             </tr>
 
@@ -61,9 +58,19 @@
                                 <td colspan="2">
                                     <h6 class="m-0 text-right">Total:</h6>
                                 </td>
-                                <td  style="float: right">
-                                    ${{$order->repairorderstypes->sum('price')}}
+                                <td>
+                                    ${{$repairOrderType->sum('price')}}
                                 </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                  <p>  <h5 class="m-0 text-right"></b>Reason:</b></h5></p>
+
+                                 <p> {{$order->reason}}</p>
+                                </td>
+
+
                             </tr>
                         </tbody>
                     </table>

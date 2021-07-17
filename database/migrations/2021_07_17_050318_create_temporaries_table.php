@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRepairOrdersTable extends Migration
+class CreateTemporariesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateRepairOrdersTable extends Migration
      */
     public function up()
     {
-        Schema::create('repair_orders', function (Blueprint $table) {
+        Schema::create('temporaries', function (Blueprint $table) {
             $table->id();
             $table->integer('userId');
+            $table->integer('orderId');
             $table->integer('techId')->nullable();
             $table->integer('model_Id');
             $table->string('date');
@@ -26,8 +27,8 @@ class CreateRepairOrdersTable extends Migration
             $table->string('address');
             $table->string('phone');
             $table->string('email');
-            $table->string('instructions')->nullable();
-            $table->enum('order_status', ['0','1','2','3','4'])->default('3');
+            $table->string('reason');
+            $table->enum('order_status', ['0','1','2','3'])->default('3');
             $table->enum('order_create', ['admin','customer'])->default('customer');
             $table->timestamps();
         });
@@ -40,6 +41,6 @@ class CreateRepairOrdersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('repair_orders');
+        Schema::dropIfExists('temporaries');
     }
 }

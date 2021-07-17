@@ -227,7 +227,7 @@ function getModel(event)
 
 
     $("#checkId").val('check');
-    $("#detailCart").remove();
+    $("#detailCart").empty();
     $("#PmodelName").empty();
     $("#totalCost").empty();
         $('#model-repair').hide();
@@ -258,7 +258,7 @@ function getRepair(event)
     $("#totalCost").empty();
     var model = $(event).val().split(',');
     // alert(model);
-    $("#detailCart").remove();
+    // $("#detailCart").remove();
     var id = model[0];
     var  modelName = model[1];
     $('#model-repair').show();

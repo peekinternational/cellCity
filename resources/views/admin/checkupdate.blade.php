@@ -2,28 +2,7 @@
 
 @section('title') Orders @endsection
 @section('css')
-<style>
-    .loader {
-      border: 16px solid #f3f3f3;
-      border-radius: 50%;
-      border-top: 16px solid #3498db;
-      width: 120px;
-      height: 120px;
-      -webkit-animation: spin 2s linear infinite; /* Safari */
-      animation: spin 2s linear infinite;
-    }
 
-    /* Safari */
-    @-webkit-keyframes spin {
-      0% { -webkit-transform: rotate(0deg); }
-      100% { -webkit-transform: rotate(360deg); }
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    </style>
 
 @endsection
 @section('content')
@@ -36,6 +15,11 @@
 
 
                         <div class="row">
+                            @if(Session::has('message'))
+                            <div class="col-12">
+                                {!!Session::get('message')!!}
+                            </div>
+                            @endif
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
@@ -53,10 +37,6 @@
                                                     <button type="button" class="btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-plus mr-1"></i> Add New Order</button>
                                                 </div>
                                             </div><!-- end col--> --}}
-                                            <div id="loader" class="loader justify-content-center" style="display: none; margin: auto;
-                                            padding: 10px;">
-
-                                            </div>
                                         </div>
 
                                         <div class="table-responsive">
@@ -84,9 +64,12 @@
                                                         <td>
                                                             {{$order->date}}, {{$order->time}}
                                                         </td>
-
+                                                        @php
+                                                          $repairOrderType = App\Models\TemporaryOrderType::where('order_Id',$order->orderId)->first();
+                                                            // dd($repairOrderType);
+                                                        @endphp
                                                         <td>
-                                                           ${{$order->repairorderstypes->sum('price')}}
+                                                           ${{$repairOrderType->sum('price')}}
                                                         </td>
                                                          <td>
                                                             @if($order->pay_status == 'paid')
@@ -112,8 +95,6 @@
                                                         <span class="badge badge-pill badge-secondary">Pendding</span>
                                                         @elseif ($order->order_status == 2  && $order->techId == null)
                                                         <span class="badge badge-pill badge-danger">Reject</span>
-                                                        @elseif ($order->order_status == 4 && $order->techId !== null)
-                                                        <span class="badge badge-pill badge-success">Completed</span>
                                                         @else
                                                         <span class="badge badge-pill badge-info">Not Assign</span>
                                                         @endif
@@ -140,8 +121,8 @@
                                                         </td>
                                                         <td>
                                                             <a href="javascript:void(0);" data-toggle="modal" data-target="#exampleModal{{$order->id}}" onclick="viewDetail('{{$order->id}}')" class="mr-3 text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="View Detail"><i class="mdi mdi-eye font-size-18"></i></a>
-                                                            <a href="{{url('admin/modify-order',$order->id)}}" class="mr-3 text-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="mdi mdi-pencil font-size-18"></i></a>
-                                                            <a href="javascript:void(0);" class="text-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="mdi mdi-close font-size-18"></i></a>
+                                                            <a href="{{url('admin/accept-orderUpdate',$order->id)}}" class="mr-3 text-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Accept "><i class="mdi mdi-check font-size-18"></i></a>
+                                                            <a href="{{url('admin/delete-orderUpdate',$order->id)}}" class="text-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="Reject"><i class="mdi mdi-close font-size-18"></i></a>
                                                         </td>
                                                     </tr>
                                                     @endforeach
@@ -179,8 +160,6 @@
                 <div id="showModels"></div>
 
 
-
-
 @endsection
 
 @section('script')
@@ -189,7 +168,7 @@
 
     function viewDetail(id){
    $.ajax({
-        url: "{{url('admin/repairTypes')}}/"+id,
+        url: "{{url('admin/checkRepairTypes')}}/"+id,
         type:"get",
         success:function(response){
           console.log(response);
@@ -202,7 +181,6 @@
 
     function selectTech(event,id){
 
-        $("#loader").show();
     var value=$(event).val()
      let _token   = $('meta[name="csrf-token"]').attr('content');
         $.ajax({
@@ -215,7 +193,6 @@
         },
         success:function(response){
         //   console.log(response);
-        $("#loader").hide();
           window.location.reload();
         //   alert(response);
         //   $('#or'+id).empty();

@@ -6,6 +6,8 @@ use Carbon\Carbon;
 use App\Models\Tech;
 use App\Models\User;
 use App\Mail\VerifyMail;
+use App\Models\RepairOrder;
+use App\Models\RepairOrderType;
 use App\Models\VerifyUser;
 use App\Models\ShippingAddr;
 use Illuminate\Http\Request;
@@ -187,5 +189,33 @@ class UserController extends Controller
         return redirect()->route('signin')->with('warning', "Sorry your email cannot be identified.");
     }
     return redirect()->route('signin')->with('status', $status);
+    }
+
+
+    public function completeOrder( $id)
+    {
+       $repairOrder = RepairOrder::find($id);
+    //    dd($repairOrder);
+    $repairOrderType = RepairOrderType::where('order_Id',$repairOrder->id)->get();
+    // dd($repairOrderType);
+       $customer = User::where('id',$repairOrder->userId)->first();
+
+       return view('frontend.payment',compact('repairOrder','customer','repairOrderType'));
+
+    }
+
+    public function payment(Request $request, $id)
+    {
+
+       $repairOrder = RepairOrder::find($id);
+    //    dd($repairOrder);
+       $repairOrder->pay_status = "paid";
+       $repairOrder->pay_method = "cash";
+       $repairOrder->order_status= "4";
+       $repairOrder->update();
+
+       return view('frontend.paymentSuccess');
+
+
     }
 }

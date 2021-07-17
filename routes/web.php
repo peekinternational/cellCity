@@ -63,6 +63,12 @@ Route::name('admin.')->namespace('Admin')->prefix('admin')->group(function(){
      Route::get('/repairOrders',  [AdminRepairController::class, 'repairOrders']);
      Route::post('/assignTech',  [AdminRepairController::class, 'assignTech']);
 
+     //Check The update
+     Route::get('/checkOrders',[AdminRepairController::class,'checkOrders']);
+     Route::get('/checkRepairTypes/{id}',[AdminRepairController::class,'checkRepairTypes']);
+     Route::get('/accept-orderUpdate/{id}',[AdminRepairController::class,'acceptOrderUpdate']);
+     Route::get('/delete-orderUpdate/{id}',[AdminRepairController::class,'deleteOrderUpdate']);
+
      Route::post('/logout',function(){
             Auth::guard('admin')->logout();
             return redirect()->action([
@@ -132,6 +138,9 @@ Route::name('tech.')->namespace('Tech')->prefix('tech')->group(function(){
     //Order Modification
     Route::get('order-modify/{id}',[TechController::class,'orderModify']);
     Route::post('/repairOrder-update/{id}',[TechController::class,'repairOrderUpdate']);
+
+    //Message sms with twelio
+    Route::get('/message/{id}',[TechController::class,'message']);
 });
 
 
@@ -154,6 +163,13 @@ Route::namespace('Auth')->middleware('auth:web')->group(function(){
     //user profile update route
     Route::put('update/{id}',[UserController::class,'update'])->name('update.profile');
 
+    //Complete order By Customer side
+
+    Route::get('customer/completeOrder/{id}',[UserController::class,'completeOrder'])->name('complete.order');
+    Route::post('customer/payment/{id}',[UserController::class,'payment'])->name('payment.order');
+//View the Order Details
+    Route::post('customer/viewOrder/{id}',[UserController::class,'completeOrder'])->name('view.order');
+
 
     Route::get('/logout',function(){
             Auth::guard('web')->logout();
@@ -167,7 +183,7 @@ Route::namespace('Auth')->middleware('auth:web')->group(function(){
 
    //verify email
    Route::get('/userVerify/{token}', [UserController::class,'verifyUserByEmail'])->name('user.verify');
-Route::post('/checkZipcode', [RepairController::class, 'checkZip']);
+   Route::post('/checkZipcode', [RepairController::class, 'checkZip']);
 
 
 Route::get('/', function () {

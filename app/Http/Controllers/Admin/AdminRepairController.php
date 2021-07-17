@@ -17,6 +17,8 @@ use Illuminate\Http\Request;
 use App\Models\RepairOrderType;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\Temporary;
+use App\Models\TemporaryOrderType;
 
 class AdminRepairController extends Controller
 {
@@ -267,5 +269,80 @@ class AdminRepairController extends Controller
        }
 
       return back()->with('message', Alert::_message('success', 'Repair Order Update Successfully.'));
+    }
+
+    public function checkOrders()
+    {
+        $RepairOrders= Temporary::orderBy('id','desc')->get();
+
+
+        return view('admin.checkupdate',compact('RepairOrders'));
+    }
+
+    public function checkRepairTypes($id)
+    {
+        $order= Temporary::find($id);
+        return view('admin.check-order-model',compact('order'));
+    }
+
+    public function acceptOrderUpdate($id)
+    {
+        $RepairOrders =Temporary::find($id);
+        $repairOrderTypes = TemporaryOrderType::where('order_id',$RepairOrders->orderId)->get();
+
+        $customer = User::whereId($RepairOrders->userId)->first();
+
+        // dd($customer);
+        // $model = explode(',',$repairOrderTypes->model_Id);
+        // $model_Id = $model[0];
+        $repairOrders =RepairOrder::find($RepairOrders->orderId);
+        $repairOrders->userId = $RepairOrders->userId;
+        $repairOrders->techId = $RepairOrders->techId;
+        $repairOrders->model_Id = $RepairOrders->model_Id;
+        $repairOrders->date = $RepairOrders->date;
+        $repairOrders->time = $RepairOrders->time;
+
+            $repairOrders->name = $customer->name;
+            $repairOrders->address = $customer->address;
+            $repairOrders->phone = $customer->phoneno;
+            $repairOrders->email = $customer->email;
+
+        $repairOrders->instructions = $RepairOrders->reason;
+        $repairOrders->order_status = $RepairOrders->order_status;
+        $repairOrders->order_create = $RepairOrders->order_create;
+
+        $repairOrders->update();
+
+
+        $q = "DELETE pp FROM `repair_order_types` pp
+              join repair_orders pd on pp.order_Id = pd.id
+              WHERE pd.id = ?";
+
+
+        $status = \DB::delete($q, array($repairOrders->id));
+        // dd($q);
+        // dd($repairOrderTypes);
+        foreach ($repairOrderTypes as $key => $value) {
+            // dd($value);
+            $ordertype = new RepairOrderType;
+            $ordertype->order_Id= $repairOrders->id;
+
+                  $ordertype->repair_type= $value->repair_type;
+                  $ordertype->price= $value->price;
+
+            $ordertype->save();
+       }
+       TemporaryOrderType::where('order_id',$RepairOrders->orderId)->delete();
+       $RepairOrders->delete();
+
+      return back()->with('message', Alert::_message('success', 'Repair Order Update Successfully.'));
+    }
+    public function deleteOrderUpdate($id)
+    {
+        $RepairOrders =Temporary::find($id);
+        TemporaryOrderType::where('order_id',$RepairOrders->orderId)->delete();
+        $RepairOrders->delete();
+
+        return back()->with('message', Alert::_message('success','Reject this Update Order Request Succesfully'));
     }
 }
