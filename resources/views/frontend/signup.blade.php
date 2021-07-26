@@ -6,12 +6,13 @@
 <section class="signup-area ptb-60">
   <div class="container">
     <div class="row justify-content-center d-flex">
-        @if(Session::has('message'))
-            <div class="col-12">
-                {!!Session::get('message')!!}
-            </div>
-            @endif
+
       <div class="col-md-6">
+        @if(Session::has('message'))
+        <div class="alert alert-success">
+            {!!Session::get('message')!!}
+        </div>
+        @endif
         <div class="login-signup-header">
           <h2 class="text-center"><span class="dotsignup"></span> Complete the below form to get registered</h2>
         </div>
@@ -31,7 +32,7 @@
               <input type="email" class="form-control" placeholder="Enter your email" id="register-email" name="email" value="" required="">
               <span class="text-danger">{{ $errors->first('email') }}</span>
             </div>
-             
+
             <div class="form-group">
               <label>Address</label>
               <input type="text" class="form-control" placeholder="Enter your Address" id="register-address" name="address" value="">
@@ -55,7 +56,7 @@
             <button type="submit" class="btn btn-block bg-black">CREATE ACCOUNT</button>
           </form>
           <p class="already-account">Already have an account?<a href="{{url('signin')}}"> Login</a></p>
-          
+
     </div>
   </div>
   </div>

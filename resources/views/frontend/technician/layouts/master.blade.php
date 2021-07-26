@@ -16,12 +16,15 @@
       <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
       <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
       <!-- CSS Files -->
-      
+
       <link href="{{asset('/frontend-assets/dashboard/css/bootstrap.min.css')}}" rel="stylesheet" />
       <link href="{{asset('/frontend-assets/dashboard/css/paper-dashboard.css?v=2.0.0')}}" rel="stylesheet" />
       <!-- CSS Just for demo purpose, don't include it in your project -->
-       <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />   
+       <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
       <link href="{{asset('/frontend-assets/dashboard/css/custom.css')}}" rel="stylesheet" />
+
+      <link href="{{asset('admin-assets/datatable/dataTables.bootstrap4.min.css')}}" rel="stylesheet" />
+      <link href="{{asset('admin-assets/datatable/jquery.dataTables.min.css')}}" rel="stylesheet" />
        @yield('style')
     </head>
   <body>
@@ -35,7 +38,7 @@
 
 
     <!--Scroll to top Button-->
-    
+
     @yield('page-footer')
 
 
@@ -46,7 +49,7 @@
     <script src="{{asset('/frontend-assets/dashboard/js/core/bootstrap.min.js')}}"></script>
     <script src="{{asset('/frontend-assets/dashboard/js/plugins/perfect-scrollbar.jquery.min.js')}}"></script>
     <!--  Google Maps Plugin    -->
-   
+
     <!-- Chart JS -->
     <script src="{{asset('/frontend-assets/dashboard/js/plugins/chartjs.min.js')}}"></script>
     <!--  Notifications Plugin    -->
@@ -61,7 +64,13 @@
         // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
         demo.initChartsPages();
       });
+
+
     </script>
+  {{-- //datatable --}}
+  <script src="{{asset('admin-assets/datatable/jquery.dataTables.min.js')}}"></script>
+  <script src="{{asset('admin-assets/datatable/dataTables.bootstrap4.min.js')}}"></script>
+  <script src="{{asset('admin-assets/js/datatable.js')}}"></script>
     @yield('script')
   </body>
 </html>

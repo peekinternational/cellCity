@@ -1,11 +1,14 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\TechController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\RepairController;
-use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ZipController;
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AdminRepairController;
+use App\Models\RepairOrder;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,12 +52,22 @@ Route::name('admin.')->namespace('Admin')->prefix('admin')->group(function(){
      Route::get('/deleteTechnician/{id}', [AdminController::class, 'deleteTechnician']);
 
 
+     Route::get('rejectOrder/{id}', [AdminController::class, 'rejectOrder'] );
+
     //////////////////////////////// ZIP CODE //////////////////////////////////
 
      Route::resource('/zipCode', '\App\Http\Controllers\Admin\ZipController');
      Route::resource('/brands', '\App\Http\Controllers\Admin\BrandController');
      Route::resource('/models', '\App\Http\Controllers\Admin\ModelController');
-     Route::resource('/repairTypes', '\App\Http\Controllers\Admin\RepairController');
+     Route::resource('/repairTypes', '\App\Http\Controllers\Admin\AdminRepairController');
+     Route::get('/repairOrders',  [AdminRepairController::class, 'repairOrders']);
+     Route::post('/assignTech',  [AdminRepairController::class, 'assignTech']);
+
+     //Check The update
+     Route::get('/checkOrders',[AdminRepairController::class,'checkOrders']);
+     Route::get('/checkRepairTypes/{id}',[AdminRepairController::class,'checkRepairTypes']);
+     Route::get('/accept-orderUpdate/{id}',[AdminRepairController::class,'acceptOrderUpdate']);
+     Route::get('/delete-orderUpdate/{id}',[AdminRepairController::class,'deleteOrderUpdate']);
 
      Route::post('/logout',function(){
             Auth::guard('admin')->logout();
@@ -63,6 +76,22 @@ Route::name('admin.')->namespace('Admin')->prefix('admin')->group(function(){
                 'adminLogin'
             ]);
         })->name('logout');
+
+      /// Admin Create Repair Order
+        Route::get('repair-steps',[AdminRepairController::class,'repairStep'])->name('repair.steps');
+
+        //Ajax call Repair Order
+        Route::get('/getModels/{id}',[AdminRepairController::class,'getModels']);
+        // Dynamically get repair types check boxes using Model id
+        Route::get('/getRepair/{id}',[AdminRepairController::class,'getRepair']);
+        /// create repair order by admin
+        Route::post('/repairModel-store', [AdminRepairController::class,'repairModelStore']);
+
+        //modify repair order
+        Route::get('/modify-order/{id}',[AdminRepairController::class,'modifyOrder'])->name('modify.order');
+        //Repair Order Update Route
+        Route::post('/repairModel-update/{id}',[AdminRepairController::class,'modifyOrderUpdate']);
+
 
     });
 
@@ -76,7 +105,7 @@ Route::name('tech.')->namespace('Tech')->prefix('tech')->group(function(){
     Route::namespace('Auth')->middleware('guest:tech')->group(function(){
 
     Route::match(['get','post'],'/login', [TechController::class, 'techLogin']);
-    
+
 
 });
 
@@ -85,7 +114,7 @@ Route::name('tech.')->namespace('Tech')->prefix('tech')->group(function(){
        Route::get('/', function(){
             return view('frontend.technician.index');
         });
-      
+
         Route::get('/orders', function(){
             return view('frontend.technician.orders');
         });
@@ -100,6 +129,18 @@ Route::name('tech.')->namespace('Tech')->prefix('tech')->group(function(){
 
     });
 
+    //Ajax call order view
+    Route::get('orderView/{id}',[TechController::class, 'orderView']);
+    Route::get('acceptOrder/{id}',[TechController::class, 'acceptOrder']);
+    Route::get('penddingOrder/{id}',[TechController::class, 'penddingOrder']);
+    Route::get('rejectOrder/{id}',[TechController::class, 'rejectOrder']);
+
+    //Order Modification
+    Route::get('order-modify/{id}',[TechController::class,'orderModify']);
+    Route::post('/repairOrder-update/{id}',[TechController::class,'repairOrderUpdate']);
+
+    //Message sms with twelio
+    Route::get('/message/{id}',[TechController::class,'message']);
 });
 
 
@@ -112,13 +153,23 @@ Route::namespace('Auth')->middleware('guest:web')->group(function(){
     Route::match(['get','post'],'/signup', [UserController::class, 'store']);
 });
 
-  Route::namespace('Auth')->middleware('auth:web')->group(function(){
+Route::namespace('Auth')->middleware('auth:web')->group(function(){
 
     Route::get('/profile', function () {
     return view('frontend.profile');
 
     });
     Route::resource('/shipAddress', '\App\Http\Controllers\ShippingAddress');
+    //user profile update route
+    Route::put('update/{id}',[UserController::class,'update'])->name('update.profile');
+
+    //Complete order By Customer side
+
+    Route::get('customer/completeOrder/{id}',[UserController::class,'completeOrder'])->name('complete.order');
+    Route::post('customer/payment/{id}',[UserController::class,'payment'])->name('payment.order');
+ //View the Order Details
+    Route::get('customer/viewOrder/{id}',[UserController::class,'completeOrder'])->name('view.order');
+
 
     Route::get('/logout',function(){
             Auth::guard('web')->logout();
@@ -128,10 +179,16 @@ Route::namespace('Auth')->middleware('guest:web')->group(function(){
             ]);
         })->name('logout');
 
+        //paypal
+        Route::get('paypal-success',[UserController::class,"success"])->name('paypal.success');
+         Route::get('paypal-cancel',[UserController::class,'cancel'])->name('paypal.cancel');
+
     });
 
+   //verify email
+   Route::get('/userVerify/{token}', [UserController::class,'verifyUserByEmail'])->name('user.verify');
+   Route::post('/checkZipcode', [RepairController::class, 'checkZip']);
 
-Route::post('/checkZipcode', [RepairController::class, 'checkZip']);
 
 Route::get('/', function () {
     return view('frontend.index');
@@ -174,6 +231,14 @@ Route::get('/pay-bills', function () {
 
 
 Route::group(['prefix' => 'technician'], function () {
-  
+
 });
+
+Route::get('/checkout',function()
+{
+  return view('frontend.checkout');
+});
+
+
+
 

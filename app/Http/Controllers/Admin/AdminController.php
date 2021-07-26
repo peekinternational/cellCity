@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Models\Tech;
 use App\Models\Admin;
 use App\Models\Alert;
+use App\Models\RepairOrder;
 use Hash;
 
 class AdminController extends Controller
@@ -29,8 +30,8 @@ class AdminController extends Controller
         }
         return view('admin.auth.login');
     }
-    
-   
+
+
     public function editCustomer(Request $request,$id){
       $customer= User::find($id);
       // dd($customer);
@@ -44,7 +45,7 @@ class AdminController extends Controller
 
          if($request->isMethod('post')){
             // dd($request->all());
-            
+
 	           if($request->input('c_id')){
 
                 $id=$request->input('c_id');
@@ -82,12 +83,12 @@ class AdminController extends Controller
                 $user->role = 'user';
                 $user->password = Hash::make($request->password);
                 $user->save();
-            
+
              return redirect('/admin/customers')->with('message', Alert::_message('success', 'Customer Added Successfully.'));
 
            }
-               
-           
+
+
         }
 
       return view('admin.add-customer');
@@ -102,7 +103,7 @@ class AdminController extends Controller
 
     public function deleteCustomer($id){
         User::whereId($id)->delete();
-    	return redirect()->back()->with('message',  Alert::_message('success', 'Customer Deleted Successfully.'));  
+    	return redirect()->back()->with('message',  Alert::_message('success', 'Customer Deleted Successfully.'));
     }
 
 
@@ -120,7 +121,7 @@ class AdminController extends Controller
 
          if($request->isMethod('post')){
             // dd($request->all());
-            
+
 	           if($request->input('c_id')){
 
                 $id=$request->input('c_id');
@@ -130,6 +131,7 @@ class AdminController extends Controller
                 $user->address =  $request->address;
                 $user->phoneno =  $request->phoneno;
                 $user->role = 'tech';
+                $user->jobStatus = 'available';
                 $user->password = Hash::make($request->password);
                 $user->save();
                  // dd($user);
@@ -150,20 +152,21 @@ class AdminController extends Controller
 			        'phoneno.required' => 'Enter Mobile Number',
 			        'password.required' => 'Enter password',
 			      ]);
-               
+
            	    $user = new Tech;
                 $user->name = $request->name;
                 $user->email =  $request->email;
                 $user->address =  $request->address;
                 $user->phoneno =  $request->phoneno;
                 $user->role = 'tech';
+                $user->jobStatus = 'available';
                 $user->password = Hash::make($request->password);
                 $user->save();
-            
+
              return redirect('/admin/technicians')->with('message', Alert::_message('success', 'Technician Added Successfully.'));
 
            }
-               
+
         }
 
       return view('admin.add-technician');
@@ -178,7 +181,23 @@ class AdminController extends Controller
 
     public function deleteTechnician($id){
         User::whereId($id)->delete();
-    	return redirect()->back()->with('message',  Alert::_message('success', 'Technician Deleted Successfully.'));  
+    	return redirect()->back()->with('message',  Alert::_message('success', 'Technician Deleted Successfully.'));
+    }
+
+    public function rejectOrder($orderId)
+    {
+        $order= RepairOrder::find($orderId);
+
+          $user=User::where('id',$order->techId)->first();
+          $user->jobStatus = 'available';
+          $user->update(['jobStatus'=> "available"]);
+
+          $order->techId = null;
+          $order->order_status= '3';
+          $order->update();
+
+        $message = "Successfully Reject!";
+        return response()->json($message);
     }
 
 }

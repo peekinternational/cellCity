@@ -9,7 +9,9 @@
          @slot('li_1') Brand @endslot
          @slot('li_2') Brand List @endslot
      @endcomponent
+   @section('css')
 
+   @endsection
 
                         <div class="row">
                              @if(Session::has('message'))
@@ -21,7 +23,7 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="table-responsive">
-                                            <table class="table table-centered table-nowrap table-hover">
+                                            <table class="table table-centered table-nowrap table-hover" id="example" cellspacing="0" width="100%" >
                                                 <thead class="thead-light">
                                                     <tr>
                                                         <th scope="col" style="width: 70px;">#</th>
@@ -41,9 +43,9 @@
                                                         </td>
                                                         <td>
                                                             <h5 class="font-size-14 mb-1"><a href="#" class="text-dark">{{$brand->brand_name}}</a></h5>
-                                                           
+
                                                         </td>
-                                                       
+
                                                         <td>
                                                             <ul class="list-inline font-size-20 contact-links mb-0">
                                                                 <li class="list-inline-item px-2">
@@ -53,11 +55,11 @@
                                                                    <form action="{{url('admin/brands/'.$brand->id)}}" method="post">
                                                                     {{csrf_field()}}
                                                                        @method('DELETE')
-                                                                      
+
                                                                        <label for="delZip" data-toggle="tooltip" data-placement="top" title="Delete" style="cursor: pointer;"><i class="mdi mdi-delete-circle-outline"></i></label>
                                                                        <input id="delZip" type="submit" name="" style="display: none">
                                                                    </form>
-                                                                  
+
                                                                 </li>
                                                               <!--   <li class="list-inline-item px-2">
                                                                     <a href="" data-toggle="tooltip" data-placement="top" title="Profile"><i class="mdi mdi-account-circle-outline"></i></a>
@@ -100,4 +102,6 @@
                                 </div>
                             </div>
                         </div>
+
+
 @endsection

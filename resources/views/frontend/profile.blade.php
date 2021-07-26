@@ -11,6 +11,8 @@
     </div>
 </section> -->
 <!--End Page Title-->
+
+
 <section class="shop-section shop-page profile-page">
 	<div class="auto-container">
 		 @if(Session::has('message'))
@@ -42,39 +44,48 @@
 						<li role="presentation">
 							<a href="{{url('/logout')}}" >Logout</a>
 						</li>
-					</ul>	
+					</ul>
 				</div>
+
 				<div class="col-md-9">
 					<!-- Tab panes -->
+
 					<div class="tab-content">
+                        @if(Session::has('success'))
+                    <div class="alert alert-success">
+                       {!!Session::get('success')!!}
+                    </div>
+                    @endif
 						<div role="tabpanel" class="tab-pane active" id="MyProfile">
 							<h3 class="title-section">My Profile</h3><br>
-							<form>
+							<form action="{{route('update.profile',Auth::guard('web')->user()->id)}}" method="POST">
+                                @csrf
+                                @method('PUT')
 								<div class="form-group">
 									<label>Name</label>
-									<input type="text" name="name" class="form-control">
+									<input type="text" name="name" class="form-control" value="{{Auth::guard('web')->user()->name}}">
 								</div>
 								<div class="form-group">
 									<label>Phone</label>
-									<input type="number" name="phone" class="form-control">
+									<input type="number" name="phoneno" class="form-control" value="{{Auth::guard('web')->user()->phoneno}}" >
 								</div>
 								<div class="form-group">
 									<label>Email</label>
-									<input type="email" name="email" class="form-control">
+									<input type="email" name="email" class="form-control" value="{{Auth::guard('web')->user()->email}}">
 								</div>
 								<div class="form-group">
 									<label>Address</label>
-									<textarea cols="4" rows="4" class="form-control"></textarea>
+									<textarea cols="4" rows="4" name="address" class="form-control">{{Auth::guard('web')->user()->address}}</textarea>
 								</div>
 								<div class="form-group text-right">
 									<input type="submit" name="submit" class="btn btn-style-one" value="Edit Profile">
-								</div> 
+								</div>
 							</form>
 						</div>
 						<div role="tabpanel" class="tab-pane" id="repairs">
 							<h3 class="title-section">Repairs</h3><br>
 							<div class="table-responsive">
-								<table class="table table-bordered table-hover">
+								<table id="example" class="table table-bordered table-hover" >
 									<thead>
 										<tr>
 											<th>Sr#</th>
@@ -82,18 +93,50 @@
 											<th>Repair Type</th>
 											<th>Time & Date</th>
 											<th>Price</th>
-											<th>Action</th>
+                                            <th>Payment Method</th>
+											<th>Status</th>
+                                            <th>Action</th>
 										</tr>
 									</thead>
 									<tbody>
+										@foreach(Auth::guard('web')->user()->repairorders as $index => $order)
 										<tr>
-											<td>1</td>
-											<td>Iphone XS</td>
-											<td>LCD Issue</td>
-											<td>12-07-21 9am-11am</td>
-											<td>$120</td>
-											<td><a href=""><i class="fa fa-trash text-danger"></i></a></td>
+											<td>{{$index + 1}}</td>
+											<td>{{CityClass::modelName($order->model_Id)}}</td>
+											<td>
+												@foreach($order->repairorderstypes as $repair)
+												   {{$repair->repair_type}}<br>
+                                                @endforeach
+											</td>
+											<td>{{$order->date}} {{$order->time}}</td>
+											<td>
+												@foreach($order->repairorderstypes as $repair)
+												   ${{$repair->price}}<br>
+                                                @endforeach
+											</td>
+                                            <td><span class="badge badge-pill badge-success">{{$order->pay_method}}</span></td>
+											<td> @if ($order->order_status == 3 && $order->techId !== null)
+                                                <span class="badge badge-pill badge-warning">Assign</span>
+                                                @elseif ($order->order_status == 1  && $order->techId !== null)
+                                                <span class="badge badge-pill badge-success">Accept</span>
+
+                                                @elseif ($order->order_status == 0  && $order->techId !== null)
+                                                <span class="badge badge-pill badge-secondary">Pendding</span>
+                                                @elseif ($order->order_status == 4 && $order->techId !== null)
+                                                <span class="badge badge-pill badge-success">Complete</span>
+                                                @else
+                                                <span class="badge badge-pill badge-info">Not Assign</span>
+                                                @endif</td>
+											<!-- <td><a href=""><i class="fa fa-eye text-danger"></i></a></td> -->
+                                            <td>
+                                                @if ($order->order_status == 1  && $order->techId !== null)
+                                                <a href="{{route('complete.order',$order->id)}}" title="paid the Order"><i class="fa fa-pencil"></i></a>
+                                                @endif
+                                                <a href="{{route('view.order',$order->id)}}" ><i class="fa fa-eye"></i></a>
+
+                                            </td>
 										</tr>
+										@endforeach
 									</tbody>
 								</table>
 							</div>
@@ -101,7 +144,7 @@
 						<div role="tabpanel" class="tab-pane" id="myOrders">
 							<h3 class="title-section">My Orders</h3><br>
 							<div class="table-responsive">
-								<table class="table table-bordered table-hover">
+                                <table id="example" class="table table-bordered table-hover">
 									<thead>
 										<tr>
 											<th>Sr#</th>
@@ -128,7 +171,7 @@
 						<div role="tabpanel" class="tab-pane" id="billStatus">
 							<h3 class="title-section">Bill Status</h3><br>
 							<div class="table-responsive">
-								<table class="table table-bordered table-hover">
+                                <table id="example" class="table table-bordered table-hover" >
 									<thead>
 										<tr>
 											<th>Sr#</th>
@@ -156,7 +199,7 @@
 							<div class="d-flex justify-content-between title-section">
 								<h3>My Address</h3><br>
 								<a class="btn btn-primary btn-style-one" data-toggle="modal" href='#modal-addAddress'>Add New Address</a>
-								
+
 							</div>
 							<div class="row">
 								@foreach(Auth::guard('web')->user()->shippingaddress as $shipingAdd)
@@ -172,7 +215,7 @@
 											<form action="{{url('shipAddress/'.$shipingAdd->id)}}" method="post" style="display: contents;">
                                             {{csrf_field()}}
                                                @method('DELETE')
-                                                                      
+
 											<button class="btn btn-danger" type="submit"><i class="fa fa-trash"></i> Delete</button>
 										</form>
 										</div>
@@ -191,7 +234,7 @@
 										</div>
 										<form action="{{url('shipAddress')}}" method="post">
 										<div class="modal-body">
-											
+
 												 {{csrf_field()}}
 												<div class="form-group">
 													<label>Full name</label>
@@ -229,7 +272,7 @@
 														</div>
 													</div>
 												</div>
-											
+
 										</div>
 										<div class="modal-footer">
 											<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -253,7 +296,7 @@
                                             {{csrf_field()}}
                                             @method('PUT')
 										<div class="modal-body">
-											  
+
 												<div class="form-group">
 													<label>Full name</label>
 													<input type="text" name="name" class="form-control" value="{{$shipingAdd->name}}" placeholder="Full Name">
@@ -290,7 +333,7 @@
 														</div>
 													</div>
 												</div>
-											
+
 										</div>
 										<div class="modal-footer">
 											<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -306,7 +349,7 @@
 						</div>
 					</div>
 				</div>
-				
+
 			</div>
 		</div>
 	</div>
@@ -315,6 +358,12 @@
 
 @endsection
 @section('script')
+<script src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready( function () {
+    $('#myTable').DataTable();
+} );
+</script>
 <script>
   $('.nav-tabs-dropdown')
     .on("click", "li:not('.active') a", function(event) {  $(this).closest('ul').removeClass("open");
@@ -322,5 +371,5 @@
     .on("click", "li.active a", function(event) {        $(this).closest('ul').toggleClass("open");
     });
 </script>
-    
+
 @endsection

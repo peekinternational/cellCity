@@ -16,7 +16,7 @@
             <!-- Main Menu -->
             <nav class="main-menu">
               <div class="navbar-header">
-                <!-- Toggle Button -->      
+                <!-- Toggle Button -->
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
@@ -43,8 +43,8 @@
                   <li><a href="{{url('buy-accessories')}}">Buy Accessories</a></li>
                   <li><a href="{{url('pay-bills')}}">Pay Bills</a></li>
                   <li><a href="{{url('contact-us')}}">Contact Us</a></li>
-                  
-                
+
+
                   @if(Auth::guard('web')->check())
                    <li><a href="{{url('profile')}}">My Profile</a> </li>
                   @else
@@ -54,14 +54,14 @@
                       <li><a href="{{url('tech/login')}}">Login as a technician ?</a></li>
                     </ul>
                   </li>
-                  
+
                   @endif
-                
+
                 </ul>
               </div>
             </nav><!-- Main Menu End-->
 
-            <div class="btn-outer"><a href="#" class="search-btn search-box-btn"><span class="icon fa fa-search"></span></a></div>
+
 
           </div>
 
@@ -83,9 +83,9 @@
       <!--Right Col-->
       <div class="right-col pull-right">
         <!-- Main Menu -->
-        <nav class="main-menu">
+        <nav class="main-menu" style="padding-right: 150px">
           <div class="navbar-header">
-            <!-- Toggle Button -->      
+            <!-- Toggle Button -->
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
@@ -112,57 +112,23 @@
               <li><a href="{{url('buy-accessories')}}">Buy Accessories</a></li>
               <li><a href="{{url('pay-bills')}}">Pay Bills</a></li>
               <li><a href="{{url('contact-us')}}">Contact Us</a></li>
-              <li><a href="{{url('signup')}}">Sign Up</a></li>
-              <li class="dropdown"><a href="#">My Profile</a>
-                <ul>
-                  <li><a href="">Profile</a></li>
-                  <li><a href="">Repairs</a></li>
-                  <li><a href="">My Orders</a></li>
-                  <li><a href="">Bill Status</a></li>
-                  <li><a href="">Saved Address</a></li>
-                </ul>
-              </li>
+              @if(Auth::guard('web')->check())
+                   <li><a href="{{url('profile')}}">My Profile</a> </li>
+                  @else
+                   <li class="dropdown"><a href="#">Sign In</a>
+                    <ul>
+                      <li><a href="{{url('signin')}}">Login as a customer ?</a></li>
+                      <li><a href="{{url('tech/login')}}">Login as a technician ?</a></li>
+                    </ul>
+                  </li>
+
+                  @endif
             </ul>
           </div>
         </nav><!-- Main Menu End-->
+
       </div>
     </div>
   </div>
   <!--End Bounce In Header-->
 </header>
-<!--End Main Header -->
-<!-- <div class="popup-menu">
-  <nav class="main-menu">
-    <div class="navbar-collapse clearfix">
-      <ul class="navigation clearfix">
-        <li class="dropdown"><a href="">Phone Repair</a>
-          <ul>
-            <li><a href="">Screen</a></li>
-            <li><a href="">Battery</a></li>
-            <li><a href="">MIC</a></li>
-            <li><a href="">Receiver</a></li>
-            <li><a href="">Charging Jack</a></li>
-            <li><a href="">Speaker</a></li>
-            <li><a href="">Proximity Sensor</a></li>
-            <li><a href="">Aux Jack</a></li>
-          </ul>
-        </li>
-        <li class=""><a href="#">Buy Phones</a>
-        </li>
-        <li><a href="">Buy Accessories</a></li>
-        <li><a href="{{url('pay-bills')}}">Pay Bills</a></li>
-        <li><a href="{{url('contact-us')}}">Contact Us</a></li>
-        <li><a href="{{url('signup')}}">Sign Up</a></li>
-        <li class="dropdown"><a href="#">My Profile</a>
-          <ul>
-            <li><a href="">Profile</a></li>
-            <li><a href="">Repairs</a></li>
-            <li><a href="">My Orders</a></li>
-            <li><a href="">Bill Status</a></li>
-            <li><a href="">Saved Address</a></li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-  </nav>
-</div> -->

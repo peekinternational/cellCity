@@ -23,7 +23,7 @@
               <p>technician</p>
             </a>
           </li>
-          
+
           <li>
             <a href="{{url('tech/orders')}}">
               <i class="nc-icon nc-bell-55"></i>
@@ -31,11 +31,11 @@
             </a>
           </li>
 
-       
-          
+
+
           <!-- <li>
 
-          
+
             <a  data-toggle="collapse" href="#manageQuote"  role="button" aria-expanded="false" aria-controls="manageQuote">
               <i class="nc-icon nc-pin-3"></i>
               <p>Manage Quotes</p>
@@ -44,7 +44,7 @@
               <li><a href="{{url('technician/quotes')}}">New cases</a></li>
             </ul>
           </li>
-           
+
           <li>
             <a class="" data-toggle="collapse" href="#customer" role="button" aria-expanded="false" aria-controls="customer">
               <i class="nc-icon nc-diamond"></i>
@@ -107,7 +107,7 @@
               <li><a href="{{url('')}}">Customer Messages</a></li>
             </ul>
           </li> -->
-          
+
           <li>
             <a href="">
               <i class="nc-icon nc-single-02"></i>
