@@ -150,8 +150,8 @@ class AdminRepairController extends Controller
     public function getModels($id)
     {
          $brand= Brand::find($id);
+         dd($brand);
          $pmodels = Pmodel::where('brand_Id',$brand->id)->get();
-
 
          return view('admin.repairOrder-dropdown',compact('pmodels','brand'));
     }

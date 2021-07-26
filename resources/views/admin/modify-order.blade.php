@@ -201,14 +201,12 @@ function getModel(event)
     $("#PmodelName").empty();
     $("#totalCost").empty();
     $("#priceDetails").empty();
-
-
     $("#checkId").val('check');
 // alert($(event).val());
 var brand = $(event).val().split(',');
 var id = brand[0];
 var  brandName = brand[1];
-// alert(brand[0]);
+
 
 $('#brandname').html('<h5>Brand Name :<b>'+brandName+'</b></h5>');
 $('#model-repair').hide();

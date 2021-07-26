@@ -203,8 +203,13 @@ class UserController extends Controller
     return redirect()->route('signin')->with('status', $status);
     }
 
+     public function viewOrderRepair($id)
+     {
+        $order= RepairOrder::find($id);
+        return view('frontend.orderViewModel',compact('order'));
+     }
 
-    public function completeOrder( $id)
+    public function completeOrder($id)
     {
        $repairOrder = RepairOrder::find($id);
     //    dd($repairOrder);
@@ -234,7 +239,9 @@ class UserController extends Controller
     elseif($request->paypal == "paypal")
     {
         //   dd('asdasd');
-          $sume = 15;
+          $sume = $request->total;
+
+          $desc = $repairOrder->id;
           $apiContext = new ApiContext(
             new OAuthTokenCredential(
                 'AXmw8ONlBiU9H3ISoZY7KJgQszN9Mtto7MXfq4Y9PQOeawovyhUSS19Ob8LYlU-xYQo_ERLBOJckp8sq',
@@ -253,13 +260,13 @@ class UserController extends Controller
         // Set payment amount
         $amount = new Amount();
         $amount->setCurrency("USD")
-            ->setTotal($sume );
+            ->setTotal($sume);
 
 
         // Set transaction object
         $transaction = new Transaction();
         $transaction->setAmount($amount)
-            ->setDescription("hello testing");
+            ->setDescription($desc);
         //   dd($transaction);
         // Create the full payment object
         $payment = new Payment();
@@ -272,7 +279,7 @@ class UserController extends Controller
         try {
 
             $payment->create($apiContext);
-            // dd($payment);
+            dd($payment);
             // Get PayPal redirect URL and redirect the customer
             // $approvalUrl =
             return redirect($payment->getApprovalLink());
@@ -314,15 +321,22 @@ class UserController extends Controller
           // Execute payment
           $result = $payment->execute($execution, $apiContext);
           // dd($result);
+          $str = $result->transactions[0]->description;
+          $id = $str;
+        // $total_amount =$result->transactions[0]->amount->total;
+
+          $repairOrder = RepairOrder::find($id);
+          $repairOrder->pay_status = "paid";
+          $repairOrder->pay_method = "paypal";
+          $repairOrder->order_status= "4";
+          $repairOrder->update();
 
 
-
-
-
-    //   $subject = "Booking Confirmation";
-      // dd($message);
+     //$subject = "Booking Confirmation";
+      //dd($message);
 
     //   $retval = mail ($user->email,$subject,$message);
+
 
 
         return view('frontend.paymentSuccess');

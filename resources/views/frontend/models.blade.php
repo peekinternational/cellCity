@@ -1,12 +1,17 @@
-          @foreach($models as $model)
+<label for="example-text-input" class="col-md-2 col-form-label">Models</label>
+<div class="col-md-10">
+<select class="form-control selectpic" name="model_Id" required="" onchange="getRepair(this)">
+    <option value="null" selected="">Select Model</option>
+    @foreach($models as $model)
+     <option value="{{$model->id}},{{$model->model_name}}">{{$model->model_name}}</option>
+    @endforeach
+</select>
+</div>
 
-          <div>
-            <div class="single-answer-component-wrapper model">
-              <div class="fade-on-mount normal-elemnt-active">
-                <button class="answer-content" onclick="getrepairTypes('{{$model->id}}','{{$model->model_name}}')" ><label for="{{$model->model_name}}">{{$model->model_name}}</label></button>
-                <!-- <input type="radio" id="{{$model->model_name}}"  name="phone_model" class="hidden"> -->
-              </div>
-            </div>
-          </div>
 
-          @endforeach
+<script>
+       $(function() {
+  $('.selectpic').select2();
+});
+
+</script>

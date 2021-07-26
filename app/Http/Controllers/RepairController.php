@@ -46,9 +46,11 @@ class RepairController extends Controller
 
   public function getrepairTypes($id){
 
-  	$RepairTypes = RepairType::whereModelId($id)->get();
-  	// dd($models);
-  	return view('frontend.repair-type',compact('RepairTypes'));
+    $model= Pmodel::find($id);
+
+    $RepairTypes = RepairType::where('model_Id',$id)->get();
+   //  dd($RepairTypes);
+    return view('admin.model-repair-checkbox',compact('RepairTypes','model'));
   }
 
 
@@ -109,7 +111,7 @@ public function saverepairType(Request $request){
      	 $ordertype->order_Id= $order->id;
      	 $ordertype->repair_type= RepairType::whereId($value)->first()->repair_type;
      	 $ordertype->price= RepairType::whereId($value)->first()->price;
-     	 $ordertype->save();    
+     	 $ordertype->save();
      }
      return redirect('repairorder-completed');
 

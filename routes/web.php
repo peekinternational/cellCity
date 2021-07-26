@@ -167,8 +167,8 @@ Route::namespace('Auth')->middleware('auth:web')->group(function(){
 
     Route::get('customer/completeOrder/{id}',[UserController::class,'completeOrder'])->name('complete.order');
     Route::post('customer/payment/{id}',[UserController::class,'payment'])->name('payment.order');
- //View the Order Details
-    Route::get('customer/viewOrder/{id}',[UserController::class,'completeOrder'])->name('view.order');
+    //View the Order Details
+    Route::get('customer/orderRepairView/{id}',[UserController::class,'viewOrderRepair'])->name('view.order');
 
 
     Route::get('/logout',function(){
@@ -207,8 +207,8 @@ Route::get('/repair', function () {
 });
 
 Route::get('/repair-step/{id}', [RepairController::class, 'getBrands']);
-Route::get('/getModels/{id}', [RepairController::class, 'getModels']);
-Route::get('/getrepairTypes/{id}', [RepairController::class, 'getrepairTypes']);
+Route::get('admin/getModels/{id}', [RepairController::class, 'getModels']);
+Route::get('admin/getRepair/{id}', [RepairController::class, 'getrepairTypes']);
 Route::post('/saverepairType', [RepairController::class, 'saverepairType']);
 
 Route::get('/repairorder-completed', function () {

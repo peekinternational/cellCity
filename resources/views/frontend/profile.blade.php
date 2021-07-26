@@ -129,10 +129,13 @@
                                                 @endif</td>
 											<!-- <td><a href=""><i class="fa fa-eye text-danger"></i></a></td> -->
                                             <td>
-                                                @if ($order->order_status == 1  && $order->techId !== null)
+                                                @if ($order->order_status == 1  or $order->order_status == 4 && $order->techId !== null )
+                                                <a href="javascript:void(0);" data-toggle="modal" data-target="#exampleModal{{$order->id}}" onclick="viewDetail('{{$order->id}}')" class="mr-3 text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="View Detail"><i class="fa fa-eye font-size-18"></i></a>
+                                                @else
+                                                <a href="javascript:void(0);" data-toggle="modal" data-target="#exampleModal{{$order->id}}" onclick="viewDetail('{{$order->id}}')" class="mr-3 text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="View Detail"><i class="fa fa-eye font-size-18"></i></a>
                                                 <a href="{{route('complete.order',$order->id)}}" title="paid the Order"><i class="fa fa-pencil"></i></a>
                                                 @endif
-                                                <a href="{{route('view.order',$order->id)}}" ><i class="fa fa-eye"></i></a>
+
 
                                             </td>
 										</tr>
@@ -353,6 +356,7 @@
 			</div>
 		</div>
 	</div>
+    <div id="showModels"></div>
 </section>
 <!--Shop Section-->
 
@@ -370,6 +374,20 @@
     })
     .on("click", "li.active a", function(event) {        $(this).closest('ul').toggleClass("open");
     });
+
+
+    function viewDetail(id){
+   $.ajax({
+        url: "{{url('customer/orderRepairView')}}/"+id,
+        type:"get",
+        success:function(response){
+          console.log(response);
+          $('#showModels').html(response);
+          $('#exampleModal'+id).modal('show');
+        },
+
+       });
+    }
 </script>
 
 @endsection
