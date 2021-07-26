@@ -131,6 +131,7 @@ class AdminController extends Controller
                 $user->address =  $request->address;
                 $user->phoneno =  $request->phoneno;
                 $user->role = 'tech';
+                $user->jobStatus = 'available';
                 $user->password = Hash::make($request->password);
                 $user->save();
                  // dd($user);
@@ -158,6 +159,7 @@ class AdminController extends Controller
                 $user->address =  $request->address;
                 $user->phoneno =  $request->phoneno;
                 $user->role = 'tech';
+                $user->jobStatus = 'available';
                 $user->password = Hash::make($request->password);
                 $user->save();
 

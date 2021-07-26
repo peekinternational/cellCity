@@ -15,7 +15,19 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Providers\RouteServiceProvider;
+use Exception;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+
+
+use PayPal\Api\Payer;
+use PayPal\Api\Amount;
+use PayPal\Api\Payment;
+use PayPal\Api\Transaction;
+use PayPal\Rest\ApiContext;
+use PayPal\Api\RedirectUrls;
+use PayPal\Api\PaymentExecution;
+use PayPal\Auth\OAuthTokenCredential;
+use PayPal\Exception\PayPalConnectionException;
 
 class UserController extends Controller
 {
@@ -206,16 +218,127 @@ class UserController extends Controller
 
     public function payment(Request $request, $id)
     {
+        // dd($request);
+
 
        $repairOrder = RepairOrder::find($id);
     //    dd($repairOrder);
+
+    if($request->cash == "cash")
+    {
        $repairOrder->pay_status = "paid";
        $repairOrder->pay_method = "cash";
        $repairOrder->order_status= "4";
        $repairOrder->update();
+    }
+    elseif($request->paypal == "paypal")
+    {
+        //   dd('asdasd');
+          $sume = 15;
+          $apiContext = new ApiContext(
+            new OAuthTokenCredential(
+                'AXmw8ONlBiU9H3ISoZY7KJgQszN9Mtto7MXfq4Y9PQOeawovyhUSS19Ob8LYlU-xYQo_ERLBOJckp8sq',
+                'EPdWVscuS7k-u-45AKc5khipCBlMYqUBfUmbrE3aUV0FJlF8hFcGKn_5p7T9VA2R5HdsR_JmTj1EiUDr'
+            )
+        );
 
-       return view('frontend.paymentSuccess');
+        $payer = new Payer();
+        $payer->setPaymentMethod("paypal");
+        // dd($payer);
+        // Set redirect URLs
+        $redirectUrls = new RedirectUrls();
+        $redirectUrls->setReturnUrl(route('paypal.success'))
+            ->setCancelUrl(route('paypal.cancel'));
+        // dd($redirectUrls);
+        // Set payment amount
+        $amount = new Amount();
+        $amount->setCurrency("USD")
+            ->setTotal($sume );
+
+
+        // Set transaction object
+        $transaction = new Transaction();
+        $transaction->setAmount($amount)
+            ->setDescription("hello testing");
+        //   dd($transaction);
+        // Create the full payment object
+        $payment = new Payment();
+        $payment->setIntent('sale')
+            ->setPayer($payer)
+            ->setRedirectUrls($redirectUrls)
+            ->setTransactions(array($transaction));
+        // dd($payment);
+        // Create payment with valid API context
+        try {
+
+            $payment->create($apiContext);
+            // dd($payment);
+            // Get PayPal redirect URL and redirect the customer
+            // $approvalUrl =
+            return redirect($payment->getApprovalLink());
+            // dd($approvalUrl);
+            // Redirect the customer to $approvalUrl
+        } catch (PayPalConnectionException $ex) {
+            echo $ex->getCode();
+            echo $ex->getData();
+            die($ex);
+        } catch (Exception $ex) {
+            die($ex);
+        }
+    }
+
+
 
 
     }
+
+  public function success(Request $request)
+  {
+      $apiContext = new ApiContext(
+          new OAuthTokenCredential(
+            'AXmw8ONlBiU9H3ISoZY7KJgQszN9Mtto7MXfq4Y9PQOeawovyhUSS19Ob8LYlU-xYQo_ERLBOJckp8sq',
+            'EPdWVscuS7k-u-45AKc5khipCBlMYqUBfUmbrE3aUV0FJlF8hFcGKn_5p7T9VA2R5HdsR_JmTj1EiUDr'
+          )
+      );
+
+      // Get payment object by passing paymentId
+      $paymentId = $_GET['paymentId'];
+      $payment = Payment::get($paymentId, $apiContext);
+      $payerId = $_GET['PayerID'];
+
+      // Execute payment with payer ID
+      $execution = new PaymentExecution();
+      $execution->setPayerId($payerId);
+
+      try {
+          // Execute payment
+          $result = $payment->execute($execution, $apiContext);
+          // dd($result);
+
+
+
+
+
+    //   $subject = "Booking Confirmation";
+      // dd($message);
+
+    //   $retval = mail ($user->email,$subject,$message);
+
+
+        return view('frontend.paymentSuccess');
+
+      } catch (PayPalConnectionException $ex) {
+          echo $ex->getCode();
+          echo $ex->getData();
+          die($ex);
+      } catch (Exception $ex) {
+          die($ex);
+      }
+  }
+
+    public function cancel()
+  {
+          dd('payment cancel');
+  }
+
 }

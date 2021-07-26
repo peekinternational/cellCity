@@ -334,10 +334,10 @@
                     <div class="col-lg-12 pl-0 pr-0 pb-3">
                     <div class="form-group">
                       <label for="cash" class="payment-methd">
-                        <input type="radio" id="cash" name="cash" value="{{$repairOrderType->sum('price')}}"> Cash
+                        <input type="radio" id="cash" name="cash" value="cash"> Cash
                       </label>
                       <label for="paypal" class="payment-methd">
-                        <input type="radio" id="paypal" name="paypal" value="" onchange="valueChanged()"> Paypal
+                        <input type="radio" id="paypal" name="paypal" value="paypal" onchange="valueChanged()"> Paypal
                       </label>
                       <label for="apple-pay" class="payment-methd">
                         <input type="radio" id="apple-pay" name="payment" value="" onchange="valueChanged()"> Apple Pay

@@ -167,8 +167,8 @@ Route::namespace('Auth')->middleware('auth:web')->group(function(){
 
     Route::get('customer/completeOrder/{id}',[UserController::class,'completeOrder'])->name('complete.order');
     Route::post('customer/payment/{id}',[UserController::class,'payment'])->name('payment.order');
-//View the Order Details
-    Route::post('customer/viewOrder/{id}',[UserController::class,'completeOrder'])->name('view.order');
+ //View the Order Details
+    Route::get('customer/viewOrder/{id}',[UserController::class,'completeOrder'])->name('view.order');
 
 
     Route::get('/logout',function(){
@@ -178,6 +178,10 @@ Route::namespace('Auth')->middleware('auth:web')->group(function(){
                 'accountLogin'
             ]);
         })->name('logout');
+
+        //paypal
+        Route::get('paypal-success',[UserController::class,"success"])->name('paypal.success');
+         Route::get('paypal-cancel',[UserController::class,'cancel'])->name('paypal.cancel');
 
     });
 
@@ -234,4 +238,7 @@ Route::get('/checkout',function()
 {
   return view('frontend.checkout');
 });
+
+
+
 
