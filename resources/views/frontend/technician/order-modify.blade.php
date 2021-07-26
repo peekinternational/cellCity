@@ -232,7 +232,7 @@ function getModel(event)
     $("#totalCost").empty();
     $('#model-repair').hide();
         var brand = $(event).val().split(',');
-    alert(brand);
+    // alert(brand);
     var id = brand[0];
     var  brand = brand[1];
 
