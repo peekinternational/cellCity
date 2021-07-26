@@ -230,11 +230,13 @@ function getModel(event)
     $("#detailCart").empty();
     $("#PmodelName").empty();
     $("#totalCost").empty();
-        $('#model-repair').hide();
+    $('#model-repair').hide();
         var brand = $(event).val().split(',');
-    // alert(model);
+    alert(brand);
     var id = brand[0];
     var  brand = brand[1];
+
+    // alert(id);
     $('#brand_name').html('<h5>Brand Name :<b>'+brand+'</b></h5>');
             // var id =$(event).val();
    $.ajax({
