@@ -279,7 +279,7 @@ class UserController extends Controller
         try {
 
             $payment->create($apiContext);
-            dd($payment);
+            // dd($payment);
             // Get PayPal redirect URL and redirect the customer
             // $approvalUrl =
             return redirect($payment->getApprovalLink());
