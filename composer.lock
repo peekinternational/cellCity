@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e59f45dc7f090aaed94a9ba1d691f641",
+    "content-hash": "a939bbd89ca342c739682b19935c386b",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -117,6 +117,65 @@
                 }
             ],
             "time": "2021-01-20T22:51:39+00:00"
+        },
+        {
+            "name": "checkout/checkout-sdk-php",
+            "version": "1.0.16",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/checkout/checkout-sdk-php.git",
+                "reference": "81c6aa884fb586b8a9456aecf83b639fed205f86"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/checkout/checkout-sdk-php/zipball/81c6aa884fb586b8a9456aecf83b639fed205f86",
+                "reference": "81c6aa884fb586b8a9456aecf83b639fed205f86",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Checkout\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Checkout.com",
+                    "email": "platforms@checkout.com",
+                    "homepage": "https://github.com/checkout/checkout-sdk-php/graphs/contributors"
+                }
+            ],
+            "description": "Checkout.com SDK for PHP",
+            "homepage": "https://github.com/checkout/checkout-sdk-php",
+            "keywords": [
+                "CKO",
+                "GW3",
+                "Reboot",
+                "api",
+                "checkout",
+                "checkout.com",
+                "checkoutcom",
+                "gateway",
+                "library",
+                "payment",
+                "php",
+                "sdk"
+            ],
+            "support": {
+                "issues": "https://github.com/checkout/checkout-sdk-php/issues",
+                "source": "https://github.com/checkout/checkout-sdk-php/tree/1.0.16"
+            },
+            "time": "2021-06-03T13:52:46+00:00"
         },
         {
             "name": "dflydev/dot-access-data",

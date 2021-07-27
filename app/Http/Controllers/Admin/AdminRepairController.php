@@ -150,7 +150,7 @@ class AdminRepairController extends Controller
     public function getModels($id)
     {
          $brand= Brand::find($id);
-         dd($brand);
+        //  dd($brand);
          $pmodels = Pmodel::where('brand_Id',$brand->id)->get();
 
          return view('admin.repairOrder-dropdown',compact('pmodels','brand'));
@@ -271,7 +271,7 @@ class AdminRepairController extends Controller
       return back()->with('message', Alert::_message('success', 'Repair Order Update Successfully.'));
     }
 
-    public function checkOrders()
+    public function checkUpdateOrders()
     {
         $RepairOrders= Temporary::orderBy('id','desc')->get();
 

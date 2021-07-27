@@ -14,8 +14,9 @@
 <div class="card">
 @if(Session::has('message'))
 <div class="form-group row">
-<label for="example-text-input" class="col-md-2 col-form-label">message</label>
-<div class="col-md-10">
+    <div class="col-md-10">
+<label for="example-text-input" class="col-md-2 col-form-label" center></label>
+
 {!!Session::get('message')!!}
 </div>
 </div>

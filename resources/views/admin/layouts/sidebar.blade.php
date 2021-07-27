@@ -50,7 +50,7 @@
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{url('admin/repair-steps')}}">Create Repair Order</a></li>
                         <li><a href="{{url('admin/repairOrders')}}">Orders List</a></li>
-                        <li><a href="{{url('admin/checkOrders')}}">Check Update Orders</a></li>
+                        <li><a href="{{url('admin/checkUpdateOrders')}}">Check Update Orders</a></li>
                         <li><a href="{{url('admin/brands/create')}}">Add Brand</a></li>
                         <li><a href="{{url('admin/brands')}}">Brands List</a></li>
                         <li><a href="{{url('admin/models/create')}}">Add Model</a></li>

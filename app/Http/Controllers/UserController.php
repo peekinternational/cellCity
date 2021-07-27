@@ -29,6 +29,10 @@ use PayPal\Api\PaymentExecution;
 use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Exception\PayPalConnectionException;
 
+
+
+// use Checkout\Models\Payments\Payment;
+
 class UserController extends Controller
 {
     /**
@@ -228,15 +232,21 @@ class UserController extends Controller
 
        $repairOrder = RepairOrder::find($id);
     //    dd($repairOrder);
+         $user = User::where('id',$repairOrder->techId)->first();
+    //  dd($user);
 
-    if($request->cash == "cash")
+    if($request->payment == "cash")
     {
+        $user->jobStatus = "available";
+        $user->update();
        $repairOrder->pay_status = "paid";
        $repairOrder->pay_method = "cash";
        $repairOrder->order_status= "4";
        $repairOrder->update();
+       return view('frontend.paymentSuccess');
     }
-    elseif($request->paypal == "paypal")
+
+    elseif($request->payment == "paypal")
     {
         //   dd('asdasd');
           $sume = $request->total;
@@ -295,8 +305,6 @@ class UserController extends Controller
     }
 
 
-
-
     }
 
   public function success(Request $request)
@@ -326,6 +334,9 @@ class UserController extends Controller
         // $total_amount =$result->transactions[0]->amount->total;
 
           $repairOrder = RepairOrder::find($id);
+          $user = User::where('id',$repairOrder->techId)->first();
+          $user->jobStatus = "available";
+          $user->update();
           $repairOrder->pay_status = "paid";
           $repairOrder->pay_method = "paypal";
           $repairOrder->order_status= "4";
@@ -354,5 +365,7 @@ class UserController extends Controller
   {
           dd('payment cancel');
   }
+
+
 
 }

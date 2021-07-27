@@ -68,7 +68,7 @@
                                                         <th>Billing Name</th>
                                                         <th>Date & Time</th>
                                                         <th>Total</th>
-                                                        <th>Status</th>
+                                                        <th>Pay Status</th>
                                                         <th>Payment Method</th>
                                                          <th>Status</th>
                                                         <th>Technician</th>
@@ -107,7 +107,7 @@
                                                         <span class="badge badge-pill badge-warning">Assign</span>
 
                                                         @elseif ($order->order_status == 1  && $order->techId !== null)
-                                                        <span class="badge badge-pill badge-success">Accept</span>
+                                                        <span class="badge badge-pill badge-warning">Accept</span>
                                                         @elseif ($order->order_status == 0  && $order->techId !== null)
                                                         <span class="badge badge-pill badge-secondary">Pendding</span>
                                                         @elseif ($order->order_status == 2  && $order->techId == null)
@@ -131,9 +131,8 @@
                                                           @elseif ($order->order_status == 3 && $order->techId !== null)
                                                           {{$techId->name}}
                                                            <button onclick="rejectOrder('{{$order->id}}')" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cancel The order">cancel</button>
-
                                                              @else
-                                                             {{$techId->name}}
+                                                             {{$techId->name ?? 'Deleted Tech'}}
 
                                                            @endif
 

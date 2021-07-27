@@ -129,11 +129,12 @@
                                                 @endif</td>
 											<!-- <td><a href=""><i class="fa fa-eye text-danger"></i></a></td> -->
                                             <td>
-                                                @if ($order->order_status == 1  or $order->order_status == 4 && $order->techId !== null )
+                                                @if ($order->order_status == 1  && $order->techId !== null)
                                                 <a href="javascript:void(0);" data-toggle="modal" data-target="#exampleModal{{$order->id}}" onclick="viewDetail('{{$order->id}}')" class="mr-3 text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="View Detail"><i class="fa fa-eye font-size-18"></i></a>
+                                                <a href="{{route('complete.order',$order->id)}}" title="Pay the Order" class="btn btn-warning btn-sm">Pay</a>
                                                 @else
-                                                <a href="javascript:void(0);" data-toggle="modal" data-target="#exampleModal{{$order->id}}" onclick="viewDetail('{{$order->id}}')" class="mr-3 text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="View Detail"><i class="fa fa-eye font-size-18"></i></a>
-                                                <a href="{{route('complete.order',$order->id)}}" title="paid the Order"><i class="fa fa-pencil"></i></a>
+                                                 <a href="javascript:void(0);" data-toggle="modal" data-target="#exampleModal{{$order->id}}" onclick="viewDetail('{{$order->id}}')" class="mr-3 text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="View Detail"><i class="fa fa-eye font-size-18"></i></a>
+
                                                 @endif
 
 

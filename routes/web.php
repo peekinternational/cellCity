@@ -8,6 +8,7 @@ use App\Http\Controllers\RepairController;
 use App\Http\Controllers\Admin\ZipController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminRepairController;
+use App\Http\Controllers\CheckoutController;
 use App\Models\RepairOrder;
 
 /*
@@ -64,7 +65,7 @@ Route::name('admin.')->namespace('Admin')->prefix('admin')->group(function(){
      Route::post('/assignTech',  [AdminRepairController::class, 'assignTech']);
 
      //Check The update
-     Route::get('/checkOrders',[AdminRepairController::class,'checkOrders']);
+     Route::get('/checkUpdateOrders',[AdminRepairController::class,'checkUpdateOrders']);
      Route::get('/checkRepairTypes/{id}',[AdminRepairController::class,'checkRepairTypes']);
      Route::get('/accept-orderUpdate/{id}',[AdminRepairController::class,'acceptOrderUpdate']);
      Route::get('/delete-orderUpdate/{id}',[AdminRepairController::class,'deleteOrderUpdate']);
@@ -139,11 +140,21 @@ Route::name('tech.')->namespace('Tech')->prefix('tech')->group(function(){
     Route::get('order-modify/{id}',[TechController::class,'orderModify']);
     Route::post('/repairOrder-update/{id}',[TechController::class,'repairOrderUpdate']);
 
+    Route::get('/getModels/{id}', [TechController::class, 'getModels']);
+Route::get('/getrepairTypes/{id}', [TechController::class, 'getrepairTypes']);
+
     //Message sms with twelio
     Route::get('/message/{id}',[TechController::class,'message']);
 });
 
+  //paypal
+  Route::get('customer/completeOrder/{id}',[UserController::class,'completeOrder'])->name('complete.order');
+  Route::post('customer/payment/{id}',[UserController::class,'payment'])->name('payment.order');
+  Route::get('paypal-success',[UserController::class,"success"])->name('paypal.success');
+  Route::get('paypal-cancel',[UserController::class,'cancel'])->name('paypal.cancel');
 
+  //checkout
+  Route::post('checkout/{id}',[CheckoutController::class,'checkoutPayment'])->name('checkout.payment');
 
 /////////////////////////////////// CUSTOMER ////////////////////////////////
 
@@ -165,8 +176,8 @@ Route::namespace('Auth')->middleware('auth:web')->group(function(){
 
     //Complete order By Customer side
 
-    Route::get('customer/completeOrder/{id}',[UserController::class,'completeOrder'])->name('complete.order');
-    Route::post('customer/payment/{id}',[UserController::class,'payment'])->name('payment.order');
+    // Route::get('customer/completeOrder/{id}',[UserController::class,'completeOrder'])->name('complete.order');
+    // Route::post('customer/payment/{id}',[UserController::class,'payment'])->name('payment.order');
     //View the Order Details
     Route::get('customer/orderRepairView/{id}',[UserController::class,'viewOrderRepair'])->name('view.order');
 
@@ -179,9 +190,9 @@ Route::namespace('Auth')->middleware('auth:web')->group(function(){
             ]);
         })->name('logout');
 
-        //paypal
-        Route::get('paypal-success',[UserController::class,"success"])->name('paypal.success');
-         Route::get('paypal-cancel',[UserController::class,'cancel'])->name('paypal.cancel');
+        // //paypal
+        // Route::get('paypal-success',[UserController::class,"success"])->name('paypal.success');
+        //  Route::get('paypal-cancel',[UserController::class,'cancel'])->name('paypal.cancel');
 
     });
 
@@ -207,8 +218,8 @@ Route::get('/repair', function () {
 });
 
 Route::get('/repair-step/{id}', [RepairController::class, 'getBrands']);
-Route::get('admin/getModels/{id}', [RepairController::class, 'getModels']);
-Route::get('admin/getRepair/{id}', [RepairController::class, 'getrepairTypes']);
+Route::get('/getModels/{id}', [RepairController::class, 'getModels']);
+Route::get('/getrepairTypes/{id}', [RepairController::class, 'getrepairTypes']);
 Route::post('/saverepairType', [RepairController::class, 'saverepairType']);
 
 Route::get('/repairorder-completed', function () {

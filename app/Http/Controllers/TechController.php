@@ -7,6 +7,7 @@ use Hash;
 use App\Models\Tech;
 use App\Models\User;
 use App\Models\Alert;
+use App\Models\Brand;
 use App\Models\Pmodel;
 use Twilio\Rest\Client;
 use App\Models\Temporary;
@@ -96,7 +97,23 @@ class TechController extends Controller
 
             return view('frontend.technician.order-modify',compact('repairOrders','model','checkbox'));
     }
+      public function getModels($id)
+      {
+        $brand= Brand::find($id);
+        //  dd($brand);
+         $pmodels = Pmodel::where('brand_Id',$brand->id)->get();
 
+         return view('frontend.technician.repairOrder-dropdown',compact('pmodels','brand'));
+      }
+      public function getrepairTypes($id)
+      {
+          // dd($id);
+           $model= Pmodel::find($id);
+
+           $RepairTypes = RepairType::where('model_Id',$id)->get();
+          //  dd($RepairTypes);
+           return view('frontend.technician.model-repair-checkbox',compact('RepairTypes','model'));
+      }
     public function repairOrderUpdate(Request $request,$id)
     {
         $customer = User::whereId($request->userId)->first();
@@ -179,12 +196,13 @@ class TechController extends Controller
     ///messages twelio
     public function message($phoneno)
     {
+        // dd($phoneno);
            $phone ='+'.$phoneno;
         //    dd($phone);
            $message =" hello this sms is for test";
 
         $account_sid = "ACad62fedb0f642dc64068c2852a8f0fb3";
-        $auth_token = "9e7cff902f36db9363ecca0512faa94e";
+        $auth_token = "733d1c1b4746196aac9ef3ee35c1cf38";
         $twilio_number = +19793416597;
         $client = new Client($account_sid, $auth_token);
         $client->messages->create($phone,

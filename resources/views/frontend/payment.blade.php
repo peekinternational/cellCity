@@ -1,5 +1,7 @@
 @extends('frontend.layouts.master')
-
+@php
+      $tech=Request::get('type');
+@endphp
 <style>
   .checkout-area h3.shoping-checkboxt-title {
     border-bottom: 1px solid #e7e4dd;
@@ -140,7 +142,7 @@
         <div class="col-lg-12 mb-30">
           <div class="row">
             <div class="col-lg-6 col-xl-6 col-sm-12">
-              <form action="" id="payment-form" method="post">
+              <form action="" method="post">
 
                 <div class="row ml-1 shipping_address_slot">
                   <h3 class="shoping-checkboxt-title">Billing Information</h3>
@@ -327,24 +329,35 @@
                       <p class="text-dark text-uppercase font-weight-bold"><strong>Payment Method</strong></p>
                     </div>
                   </div>
-                  <form action="{{route('payment.order',$repairOrder->id)}}" method="post" id="payment-form">
+                  <form action="{{route('payment.order',$repairOrder->id)}}" method="post" >
                     {{csrf_field()}}
                   <div class="row">
                     <input type="hidden" name="total" value="{{$repairOrderType->sum('price')}}">
                     <div class="col-lg-12 pl-0 pr-0 pb-3">
                     <div class="form-group">
+
+                      @if (isset($tech))
+                      <label for="credit-card" class="payment-methd">
+                        <button type="button"  data-toggle="modal" data-target="#exampleModalCenter"> Credit Card </button>
+                      </label>
                       <label for="cash" class="payment-methd">
-                        <input type="radio" id="cash" name="cash" value="cash"> Cash
+                        <input type="radio" id="cash" name="payment" value="cash"> Cash
+                      </label>
+                      @else
+                      <label for="cash" class="payment-methd">
+                        <input type="radio" id="cash" name="payment" value="cash"> Cash
                       </label>
                       <label for="paypal" class="payment-methd">
-                        <input type="radio" id="paypal" name="paypal" value="paypal" onchange="valueChanged()"> Paypal
+                        <input type="radio" id="paypal" name="payment" value="paypal" onchange="valueChanged()"> Paypal
                       </label>
                       <label for="apple-pay" class="payment-methd">
                         <input type="radio" id="apple-pay" name="payment" value="" onchange="valueChanged()"> Apple Pay
                       </label>
                       <label for="credit-card" class="payment-methd">
-                        <input type="radio" id="credit-card" name="payment" value="" onchange="valueChanged()"> Credit Card
+                        <button type="button"  data-toggle="modal" data-target="#exampleModalCenter"> Credit Card </button>
                       </label>
+                      @endif
+
                     </div>
 
                   </div>
@@ -364,7 +377,98 @@
     </div>
     <!-- checkout-area end -->
   </div>
+
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form id="payment-form" action="{{route('checkout.payment',$repairOrder->id)}}" method="post">
+        <div class="modal-body">
+
+
+
+                   @csrf
+                    <input type="hidden" name="total" value="{{$repairOrderType->sum('price')}}">
+                    <div class="one-liner">
+                      <div class="card-frame" style=" height: 140px">
+                        <!-- form will be added here -->
+                      </div>
+                      <!-- add submit button -->
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button class="btn btn-primary"  id="pay-button" disabled >
+            PAY
+          </button>
+
+        <p class="success-payment-message"></p>
+
+    <!-- Used to display form errors. -->
+    <div id="card-errors" role="alert"></div>
+
+        </div>
+    </div>
+    </form>
+      </div>
+    </div>
+  </div>
 </section>
 @endsection
 @section('script')
+<script src="https://cdn.checkout.com/js/framesv2.min.js"></script>
+<script>
+    function valueChanged()
+      {
+        if($('#credit-card').is(":checked")) {
+          $("#card-form").show();
+        }else if($('#paypal').is(":checked")){
+          $("#card-form").hide();
+        }else if($('#apple-pay').is(":checked")){
+          $("#card-form").hide();
+        }else{
+          $("#card-form").hide();
+        }
 
+      }
+  </script>
+
+  <script>
+    var payButton = document.getElementById("pay-button");
+    var form = document.getElementById("payment-form");
+
+    Frames.init({
+      publicKey: 'pk_test_c5c7066c-4ed0-4a03-b8c6-8ffff587eca8',
+      cardValidationChanged: function () {
+        // if all fields contain valid information, the Pay now
+        // button will be enabled and the form can be submitted
+        payButton.disabled = !Frames.isCardValid();
+      },
+      cardSubmitted: function () {
+        form.disabled = true;
+        // display loader
+      },
+      cardTokenized: function (data) {
+        //   alert(data.token);
+        Frames.addCardToken(form, data.token)
+        form.submit()
+      },
+      cardTokenizationFailed: function (event) {
+        // catch the error
+      }
+    });
+
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+      Frames.submitCard();
+    });
+  </script>
+
+
+  @endsection

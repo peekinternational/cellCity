@@ -59,7 +59,8 @@
                       <th colspan="2">Order ID#</th>
                       <th colspan="3">Modal</th>
                       <th colspan="2">Repair Type</th>
-                      <th colspan="3">Order By</th>
+                      <th colspan="2">Price</th>
+                      <th colspan="3">Payment Method</th>
                       <th colspan="3">Order Time</th>
                       <th>Status</th>
                       <th>Action</th>
@@ -75,7 +76,13 @@
                              {{$repair->repair_type}}<br>
                            @endforeach
                          </td>
-                        <td colspan="3"> XYZ</td>
+                         <td colspan="2">
+                            ${{$order->repairorderstypes->sum('price')}}
+                         </td>
+                        <td colspan="3">
+                            <!-- Button trigger modal -->
+                           <span class="badge badge-pill badge-success font-size-12"> {{$order->pay_method}}</span>
+                        </td>
                         <td colspan="3">{{$order->date}} {{$order->time}}</td>
                         <td>
                             @if ($order->order_status == 3)
@@ -84,19 +91,30 @@
                             <a href="#"  onclick="penddingOrder('{{$order->id}}')" title="Pendding"> <i class="fa fa-clock-o text-info"></i></a>
                             <a href="#" onclick="rejectOrder('{{$order->id}}')" title="Reject"> <i class="fa fa-times text-danger"></i></a>
 
-                            @elseif ($order->order_status == 1)
+                            @elseif ($order->order_status == 1 && $order->techId !== null)
                             <span class="badge badge-pill badge-primary">Accept</span>
                             @elseif ($order->order_status == 0)
                             <span class="badge badge-pill badge-secondary">Pendding</span>
                             <a href="#" onclick="acceptOrder('{{$order->id}}')" title="Accept"> <i class="fa fa-check text-primary"></i> </a>
                             <a href="#" onclick="rejectOrder('{{$order->id}}')" title="Reject"> <i class="fa fa-times text-danger"></i></a>
-
+                            @elseif ($order->order_status == 4 && $order->techId !== null)
+                            <span class="badge badge-pill badge-success">Completed</span>
                             @endif
                         </td>
                         <td>
-
+                            @if ($order->order_status == 4 && $order->techId !== null)
+                            <a href="javascript:void(0);" data-toggle="modal" data-target="#exampleModal{{$order->id}}" onclick="viewModal('{{$order->id}}')" class="mr-3 text-success" data-toggle="tooltip" data-placement="top" title="View Detail" data-original-title="View Detail"> <i class="fa fa-eye text-success"></i></a>
+                            @elseif ($order->order_status == 1 && $order->techId !== null)
                             <a href="javascript:void(0);" data-toggle="modal" data-target="#exampleModal{{$order->id}}" onclick="viewModal('{{$order->id}}')" class="mr-3 text-success" data-toggle="tooltip" data-placement="top" title="View Detail" data-original-title="View Detail"> <i class="fa fa-eye text-success"></i></a>
                             <a href="{{url('tech/order-modify',$order->id)}}" title="Edit Order" > <i class="fa fa-pencil text-warning"></i></a>
+                            <a href="{{route('complete.order',$order->id.'?type=tech')}}" class="btn btn-primary btn-sm" title="pay the Order"><i class="fa fa-cash">Pay</i></a>
+                            @else
+                            <a href="javascript:void(0);" data-toggle="modal" data-target="#exampleModal{{$order->id}}" onclick="viewModal('{{$order->id}}')" class="mr-3 text-success" data-toggle="tooltip" data-placement="top" title="View Detail" data-original-title="View Detail"> <i class="fa fa-eye text-success"></i></a>
+                            <a href="{{url('tech/order-modify',$order->id)}}" title="Edit Order" > <i class="fa fa-pencil text-warning"></i></a>
+
+                            @endif
+
+
 
                         </td>
                       </tr>
@@ -150,7 +168,7 @@
 
     function penddingOrder(id)
     {
-        alert(id);
+        // alert(id);
         $.ajax({
         url: "{{url('tech/penddingOrder')}}/"+id,
         type:"get",

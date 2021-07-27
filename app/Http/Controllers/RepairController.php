@@ -46,11 +46,9 @@ class RepairController extends Controller
 
   public function getrepairTypes($id){
 
-    $model= Pmodel::find($id);
-
-    $RepairTypes = RepairType::where('model_Id',$id)->get();
-   //  dd($RepairTypes);
-    return view('admin.model-repair-checkbox',compact('RepairTypes','model'));
+  	$RepairTypes = RepairType::whereModelId($id)->get();
+  	// dd($models);
+  	return view('frontend.repair-type',compact('RepairTypes'));
   }
 
 
