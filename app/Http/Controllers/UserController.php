@@ -29,6 +29,7 @@ use PayPal\Api\RedirectUrls;
 use PayPal\Api\PaymentExecution;
 use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Exception\PayPalConnectionException;
+use Twilio\Rest\Client;
 
 
 
@@ -228,7 +229,7 @@ class UserController extends Controller
 
     public function payment(Request $request, $id)
     {
-        // dd($request);
+        // dd($request->all());
 
 
        $repairOrder = RepairOrder::find($id);
@@ -247,12 +248,24 @@ class UserController extends Controller
        $repairOrder->update();
        $details = [
         'title' => 'Mail from PeekInternational.com',
-        'subject' => 'Repair Order Payment',
-        'message' => 'Payment completed through Cash'
+        'subject' => 'Dear Customer ,',
+        'message' => 'Payment completed Successfully through Cash',
+        'Total'  =>'$'.$request->total
     ];
      $messgae = "Succesfully Transferred";
      \Mail::to($cust->email)->send(new TechMail($details));
     //  return response()->json($messgae);
+    $phone = "+".$cust->phoneno;
+    //  dd($phone);
+     $message =strip_tags(nl2br("Dear Customer, \n You have Successfully Pay  through Cash . \n Total Amount : $". $request->total));
+   
+     $account_sid = "ACad62fedb0f642dc64068c2852a8f0fb3";
+     $auth_token = "5c2eada361d6f1aededef528d952b20c";
+     $twilio_number = +19793416597;
+     $client = new Client($account_sid, $auth_token);
+     $client->messages->create($phone,
+         ['from' => $twilio_number, 'body' => $message] );
+
        return view('frontend.paymentSuccess');
     }
 
@@ -360,14 +373,23 @@ class UserController extends Controller
     //   $retval = mail ($user->email,$subject,$message);
     $details = [
         'title' => 'Mail from PeekInternational.com',
-        'subject' => 'Repair Order Payment',
+        'subject' => 'Dear Customer ,',
         'message' => 'Payment completed through PayPal'
     ];
     //  $messgae = "Succesfully Transferred";
      \Mail::to($cust->email)->send(new TechMail($details));
     //  return response()->json($messgae);
 
-
+    $phone = "+".$cust->phoneno;
+    //  dd($phone);
+     $message =strip_tags(nl2br("Dear customer,\n You have Successfully Pay  through PayPal \n Total Amount : $". $request->price));
+   
+     $account_sid = "ACad62fedb0f642dc64068c2852a8f0fb3";
+     $auth_token = "5c2eada361d6f1aededef528d952b20c";
+     $twilio_number = +19793416597;
+     $client = new Client($account_sid, $auth_token);
+     $client->messages->create($phone,
+         ['from' => $twilio_number, 'body' => $message] );
 
         return view('frontend.paymentSuccess');
 

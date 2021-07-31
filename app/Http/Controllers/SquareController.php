@@ -101,8 +101,8 @@ class SquareController extends Controller
             // return view('frontend.paymentSuccess');
             $details = [
                 'title' => 'Mail from PeekInternational.com',
-                'subject' => 'Repair Order Payment',
-                'message' => "You have Successfully Pay  through Credit Card",
+                'subject' => 'Dear Customer ,',
+                'message' => "You have Successfully Pay Repair order  through Credit Card",
                 'Total'  =>'$'.$request->price
             ];
             
@@ -110,10 +110,10 @@ class SquareController extends Controller
 
              $phone = "+".$cust->phoneno;
             //  dd($phone);
-             $message =" You have Successfully Pay  through Credit Card . Total Amount : $". $request->price;
+             $message =strip_tags(nl2br(" Dear Customer ,\n You have Successfully Pay  through Credit Card . \n Total Amount : $". $request->price));
            
              $account_sid = "ACad62fedb0f642dc64068c2852a8f0fb3";
-             $auth_token = "6cf7d73011dfe99d032652bd77824065";
+             $auth_token = "5c2eada361d6f1aededef528d952b20c";
              $twilio_number = +19793416597;
              $client = new Client($account_sid, $auth_token);
              $client->messages->create($phone,

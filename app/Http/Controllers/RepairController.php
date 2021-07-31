@@ -167,17 +167,17 @@ public function saverepairType(Request $request){
 
      $details = [
       'title' => 'Mail from PeekInternational.com',
-      'subject' => 'Place Order',
-      'message' => 'You have Placed Order Successfully.'
+      'subject' => 'Dear Customer ,',
+      'message' => 'Your order have been Placed Successfully.'
   ];
      
    \Mail::to($request->email)->send(new orderPlace($details));
     
    $phone = '+'.$request->phone;
-     $message ="You have Placed Order Successfully";
+     $message =strip_tags(nl2br("Dear customer,\n You have Placed Order Successfully"));
      
        $account_sid = "ACad62fedb0f642dc64068c2852a8f0fb3";
-       $auth_token = "6cf7d73011dfe99d032652bd77824065";
+       $auth_token = "5c2eada361d6f1aededef528d952b20c";
        $twilio_number = +19793416597;
        $client = new Client($account_sid, $auth_token);
        $client->messages->create($phone,

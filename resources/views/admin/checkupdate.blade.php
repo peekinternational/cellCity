@@ -65,8 +65,8 @@
                                                             {{$order->date}}, {{$order->time}}
                                                         </td>
                                                         @php
-                                                          $repairOrderType = App\Models\TemporaryOrderType::where('order_Id',$order->orderId)->first();
-                                                            // dd($repairOrderType);
+                                                          $repairOrderType = App\Models\TemporaryOrderType::where('order_Id',$order->orderId)->get();
+                                                            // dd($RepairOrders);
                                                         @endphp
                                                         <td>
                                                            ${{$repairOrderType->sum('price')}}

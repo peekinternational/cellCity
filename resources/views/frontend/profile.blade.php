@@ -88,34 +88,34 @@
 								<table id="example" class="table table-bordered table-hover" >
 									<thead>
 										<tr>
-											<th>Sr#</th>
-											<th>Model</th>
-											<th>Repair Type</th>
-											<th>Time & Date</th>
-											<th>Price</th>
-                                            <th>Payment Method</th>
-											<th>Status</th>
-                                            <th>Action</th>
+											<th colspan="2">Sr#</th>
+											<th colspan="2">Model</th>
+											<th colspan="2">Repair Type</th>
+											<th colspan="2">Time & Date</th>
+											<th colspan="2">Price</th>
+                                            <th colspan="2">Payment Method</th>
+											<th colspan="2">Status</th>
+                                            <th colspan="2">Action</th>
 										</tr>
 									</thead>
 									<tbody>
 										@foreach(Auth::guard('web')->user()->repairorders as $index => $order)
 										<tr>
-											<td>{{$index + 1}}</td>
-											<td>{{CityClass::modelName($order->model_Id)}}</td>
-											<td>
+											<td colspan="2">{{$index + 1}}</td>
+											<td colspan="2">{{CityClass::modelName($order->model_Id)}}</td>
+											<td colspan="2">
 												@foreach($order->repairorderstypes as $repair)
 												   {{$repair->repair_type}}<br>
                                                 @endforeach
 											</td>
-											<td>{{$order->date}} {{$order->time}}</td>
-											<td>
+											<td colspan="2">{{$order->date}} {{$order->time}}</td>
+											<td colspan="2">
 												@foreach($order->repairorderstypes as $repair)
 												   ${{$repair->price}}<br>
                                                 @endforeach
 											</td>
-                                            <td><span class="badge badge-pill badge-success">{{$order->pay_method}}</span></td>
-											<td> @if ($order->order_status == 3 && $order->techId !== null)
+                                            <td colspan="2"><span class="badge badge-pill badge-success">{{$order->pay_method}}</span></td>
+											<td colspan="2"> @if ($order->order_status == 3 && $order->techId !== null)
                                                 <span class="badge badge-pill badge-warning">Assign</span>
                                                 @elseif ($order->order_status == 1  && $order->techId !== null)
                                                 <span class="badge badge-pill badge-success">Accept</span>
@@ -128,7 +128,7 @@
                                                 <span class="badge badge-pill badge-info">Not Assign</span>
                                                 @endif</td>
 											<!-- <td><a href=""><i class="fa fa-eye text-danger"></i></a></td> -->
-                                            <td>
+                                            <td colspan="2">
                                                 @if ($order->order_status == 1  && $order->techId !== null)
                                                 <a href="javascript:void(0);" data-toggle="modal" data-target="#exampleModal{{$order->id}}" onclick="viewDetail('{{$order->id}}')" class="mr-3 text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="View Detail"><i class="fa fa-eye font-size-18"></i></a>
                                                 <a href="{{route('complete.order',$order->id)}}" title="Pay the Order" class="btn btn-warning btn-sm">Pay</a>

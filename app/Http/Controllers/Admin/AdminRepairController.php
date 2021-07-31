@@ -136,17 +136,17 @@ class AdminRepairController extends Controller
 
         $details = [
             'title' => 'Mail from PeekInternational.com',
-            'subject' => 'Assign Order',
-            'message' => 'You have Assign a Order.. Please Check your order in your profile'
+            'subject' => 'Dear Technician ,',
+            'message' => 'You have Recieved  a new Order.'
         ];
            
          \Mail::to($user->email)->send(new orderAssign($details));
           
          $phone = '+'.$user->phoneno;
-           $message ="You have Assign a  new repair Order.. Please Check your order in your profile";
-           
+           $message = strip_tags(nl2br("Dear Technician, \n You have Recieved  a new Repair Order"));
+                       
              $account_sid = "ACad62fedb0f642dc64068c2852a8f0fb3";
-             $auth_token = "6cf7d73011dfe99d032652bd77824065";
+             $auth_token = "5c2eada361d6f1aededef528d952b20c";
              $twilio_number = +19793416597;
              $client = new Client($account_sid, $auth_token);
              $client->messages->create($phone,
@@ -287,7 +287,7 @@ class AdminRepairController extends Controller
     public function checkUpdateOrders()
     {
         $RepairOrders= Temporary::orderBy('id','desc')->get();
-
+        
 
         return view('admin.checkupdate',compact('RepairOrders'));
     }
@@ -356,6 +356,6 @@ class AdminRepairController extends Controller
         TemporaryOrderType::where('order_id',$RepairOrders->orderId)->delete();
         $RepairOrders->delete();
 
-        return back()->with('message', Alert::_message('success','Reject this Update Order Request Succesfully'));
+        return back()->with('message', Alert::_message('success','Reject this Update Order Request '));
     }
 }
