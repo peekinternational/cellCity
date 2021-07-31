@@ -10,7 +10,7 @@ class RepairOrder extends Model
     use HasFactory;
 
     protected $fillable = [
-        'model_Id','date','time','name','address','phone','email','instructions'
+        'model_Id','date','orderTime_id','name','address','phone','email','instructions'
     ];
 
      public function user()
@@ -27,4 +27,8 @@ class RepairOrder extends Model
 		  {
 		    return $this->belongsTo(Pmodel::class,'model_Id','id');
 		  }
+      public  function orderTime()
+      {
+          return $this->hasMany(OrderTime::class,'orderTime_id','id');
+      }
 }

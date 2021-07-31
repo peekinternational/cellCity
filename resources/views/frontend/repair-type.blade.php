@@ -1,23 +1,17 @@
+          @foreach($RepairTypes as $type)
+          <input type="hidden" name="model_Id" form="repairType" value="{{$type->model_Id}}">
+          <div>
+            <div class="fade-on-mount normal-elemnt-active">
+              <button class="multiple-answer-component-wrapper">
+                <label class="custom_check" onchange="custom_check('{{$type->id}}','{{$type->repair_type}}','{{$type->price}}')">
+                  <div class="selection-inidicator">
+                    <input type="checkbox" form="repairType" id="check{{$type->id}}" name="repair_type[]" value="{{$type->id}}">
+                    <span class="checkmark"></span>
+                  </div>
+                  <div class="answer-content">{{$type->repair_type}}<span class="price">+(${{$type->price}})</span></div>
+                </label>
+              </button>
+            </div>
+          </div>
 
-
- <input type="hidden" name="pmodelName" id="pmodelName" value="{{$model->model_name}}">
- @forelse ($RepairTypes as $repair)
- <div class="col-md-10">
-     <div class="">
-     <label class="custom_check" onchange="custom_check('{{$repair->id}}','{{$repair->repair_type}}','{{$repair->price}}')">
-
-          {{-- <input class="" name="repair_type[]" type="checkbox" value="{{$repair->id}}" id="{{$repair->id}}"> --}}
-          <input type="checkbox" id="check{{$repair->id}}" name="repair_type[]" value="{{$repair->id}}">
-          <label class="form-check-label" for="{{$repair->id}}">
-             {{$repair->repair_type}} {{$repair->price}}
-         </label>
-
-     </label>
-
-     </div>
- </div>
-
- @empty
- <span>Oops No Repair Product Available !</span>
- @endforelse
-
+ @endforeach

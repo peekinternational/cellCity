@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Mail\TechMail;
+use App\Mail\orderModify;
 use Hash;
 use App\Models\Tech;
 use App\Models\User;
 use App\Models\Alert;
+use App\Models\Brand;
 use App\Models\Pmodel;
 use Twilio\Rest\Client;
 use App\Models\Temporary;
@@ -96,16 +98,34 @@ class TechController extends Controller
 
             return view('frontend.technician.order-modify',compact('repairOrders','model','checkbox'));
     }
+      public function getModels($id)
+      {
+        $brand= Brand::find($id);
+        //  dd($brand);
+         $pmodels = Pmodel::where('brand_Id',$brand->id)->get();
 
+         return view('frontend.technician.repairOrder-dropdown',compact('pmodels','brand'));
+      }
+      public function getrepairTypes($id)
+      {
+          // dd($id);
+           $model= Pmodel::find($id);
+
+           $RepairTypes = RepairType::where('model_Id',$id)->get();
+          //  dd($RepairTypes);
+           return view('frontend.technician.model-repair-checkbox',compact('RepairTypes','model'));
+      }
     public function repairOrderUpdate(Request $request,$id)
     {
         $customer = User::whereId($request->userId)->first();
+        
         $model = explode(',',$request->model_Id);
         $model_Id = $model[0];
 
         // dd($request);
         $RepairOrders =RepairOrder::find($id);
         // dd($RepairOrders);
+        $tech = User::whereId($RepairOrders->techId)->first();
         if($temporary =Temporary::where('orderId',$RepairOrders->id)->first())
         {
             $temporary->userId = $request->userId;
@@ -166,25 +186,27 @@ class TechController extends Controller
 
        $details = [
         'title' => 'Mail from PeekInternational.com',
-        'subject' => 'Update the repair order',
-        'message' => 'Techician updated the customer order'
+        'subject' => 'Update the repair order,',
+        'message' => 'Techician  ('.$tech->name.')  updated the customer  (id :'.$ordertype->id.'  Name :'.$customer->name.')  repair order,'
     ];
 
 
-     \Mail::to("admin@gmail.com")->send(new TechMail($details));
+     \Mail::to("admin@gmail.com")->send(new orderModify($details));
     //   $mail = mail ("admin@gmail.com",$subject,$message);
+
 
       return back()->with('message', Alert::_message('success', 'Repair Order Update Successfully. Please wait for verify by admin'));
     }
     ///messages twelio
     public function message($phoneno)
     {
+        // dd($phoneno);
            $phone ='+'.$phoneno;
         //    dd($phone);
-           $message =" hello this sms is for test";
+           $message =strip_tags(nl2br(" Dear Customer, \n i have recieved your repair order \n Are you want to repair the order"));
 
         $account_sid = "ACad62fedb0f642dc64068c2852a8f0fb3";
-        $auth_token = "9e7cff902f36db9363ecca0512faa94e";
+        $auth_token = "5c2eada361d6f1aededef528d952b20c";
         $twilio_number = +19793416597;
         $client = new Client($account_sid, $auth_token);
         $client->messages->create($phone,

@@ -8,6 +8,7 @@ use App\Models\Admin;
 use App\Models\Alert;
 use App\Models\Brand;
 use App\Mail\TechMail;
+use App\Mail\orderAssign;
 use App\Models\Pmodel;
 use App\Models\ZipCode;
 use App\Models\RepairType;
@@ -19,6 +20,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\Temporary;
 use App\Models\TemporaryOrderType;
+use Twilio\Rest\Client;
 
 class AdminRepairController extends Controller
 {
@@ -134,12 +136,23 @@ class AdminRepairController extends Controller
 
         $details = [
             'title' => 'Mail from PeekInternational.com',
-            'subject' => 'Assign Order',
-            'message' => 'Check your order in your profile'
+            'subject' => 'Dear Technician ,',
+            'message' => 'You have Recieved  a new Order.'
         ];
-             $messgae = "Successfully Assign";
-         \Mail::to($user->email)->send(new TechMail($details));
-         return response()->json($messgae);
+           
+         \Mail::to($user->email)->send(new orderAssign($details));
+          
+         $phone = '+'.$user->phoneno;
+           $message = strip_tags(nl2br("Dear Technician, \n You have Recieved  a new Repair Order"));
+                       
+             $account_sid = "ACad62fedb0f642dc64068c2852a8f0fb3";
+             $auth_token = "5c2eada361d6f1aededef528d952b20c";
+             $twilio_number = +19793416597;
+             $client = new Client($account_sid, $auth_token);
+             $client->messages->create($phone,
+                 ['from' => $twilio_number, 'body' => $message] );
+
+         return response()->json($message);
     }
 
     public function repairStep()
@@ -150,7 +163,7 @@ class AdminRepairController extends Controller
     public function getModels($id)
     {
          $brand= Brand::find($id);
-         dd($brand);
+        //  dd($brand);
          $pmodels = Pmodel::where('brand_Id',$brand->id)->get();
 
          return view('admin.repairOrder-dropdown',compact('pmodels','brand'));
@@ -273,10 +286,10 @@ class AdminRepairController extends Controller
       return back()->with('message', Alert::_message('success', 'Repair Order Update Successfully.'));
     }
 
-    public function checkOrders()
+    public function checkUpdateOrders()
     {
         $RepairOrders= Temporary::orderBy('id','desc')->get();
-
+        
 
         return view('admin.checkupdate',compact('RepairOrders'));
     }
@@ -345,6 +358,6 @@ class AdminRepairController extends Controller
         TemporaryOrderType::where('order_id',$RepairOrders->orderId)->delete();
         $RepairOrders->delete();
 
-        return back()->with('message', Alert::_message('success','Reject this Update Order Request Succesfully'));
+        return back()->with('message', Alert::_message('success','Reject this Update Order Request '));
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\TechMail;
 use Carbon\Carbon;
 use App\Models\Tech;
 use App\Models\User;
@@ -28,6 +29,11 @@ use PayPal\Api\RedirectUrls;
 use PayPal\Api\PaymentExecution;
 use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Exception\PayPalConnectionException;
+use Twilio\Rest\Client;
+
+
+
+// use Checkout\Models\Payments\Payment;
 
 class UserController extends Controller
 {
@@ -223,20 +229,47 @@ class UserController extends Controller
 
     public function payment(Request $request, $id)
     {
-        // dd($request);
+        // dd($request->all());
 
 
        $repairOrder = RepairOrder::find($id);
     //    dd($repairOrder);
+         $user = User::where('id',$repairOrder->techId)->first();
+         $cust = User::where('id',$repairOrder->userId)->first();
+    //  dd($user);
 
-    if($request->cash == "cash")
+    if($request->payment == "cash")
     {
+        $user->jobStatus = "available";
+        $user->update();
        $repairOrder->pay_status = "paid";
        $repairOrder->pay_method = "cash";
        $repairOrder->order_status= "4";
        $repairOrder->update();
+       $details = [
+        'title' => 'Mail from PeekInternational.com',
+        'subject' => 'Dear Customer ,',
+        'message' => 'Payment completed Successfully through Cash',
+        'Total'  =>'$'.$request->total
+    ];
+     $messgae = "Succesfully Transferred";
+     \Mail::to($cust->email)->send(new TechMail($details));
+    //  return response()->json($messgae);
+    $phone = "+".$cust->phoneno;
+    //  dd($phone);
+     $message =strip_tags(nl2br("Dear Customer, \n You have Successfully Pay  through Cash . \n Total Amount : $". $request->total));
+   
+     $account_sid = "ACad62fedb0f642dc64068c2852a8f0fb3";
+     $auth_token = "5c2eada361d6f1aededef528d952b20c";
+     $twilio_number = +19793416597;
+     $client = new Client($account_sid, $auth_token);
+     $client->messages->create($phone,
+         ['from' => $twilio_number, 'body' => $message] );
+
+       return view('frontend.paymentSuccess');
     }
-    elseif($request->paypal == "paypal")
+
+    elseif($request->payment == "paypal")
     {
         //   dd('asdasd');
           $sume = $request->total;
@@ -295,8 +328,6 @@ class UserController extends Controller
     }
 
 
-
-
     }
 
   public function success(Request $request)
@@ -326,6 +357,10 @@ class UserController extends Controller
         // $total_amount =$result->transactions[0]->amount->total;
 
           $repairOrder = RepairOrder::find($id);
+          $cust = User::where('id',$repairOrder->userId)->first();
+          $user = User::where('id',$repairOrder->techId)->first();
+          $user->jobStatus = "available";
+          $user->update();
           $repairOrder->pay_status = "paid";
           $repairOrder->pay_method = "paypal";
           $repairOrder->order_status= "4";
@@ -336,8 +371,25 @@ class UserController extends Controller
       //dd($message);
 
     //   $retval = mail ($user->email,$subject,$message);
+    $details = [
+        'title' => 'Mail from PeekInternational.com',
+        'subject' => 'Dear Customer ,',
+        'message' => 'Payment completed through PayPal'
+    ];
+    //  $messgae = "Succesfully Transferred";
+     \Mail::to($cust->email)->send(new TechMail($details));
+    //  return response()->json($messgae);
 
-
+    $phone = "+".$cust->phoneno;
+    //  dd($phone);
+     $message =strip_tags(nl2br("Dear customer,\n You have Successfully Pay  through PayPal \n Total Amount : $". $request->price));
+   
+     $account_sid = "ACad62fedb0f642dc64068c2852a8f0fb3";
+     $auth_token = "5c2eada361d6f1aededef528d952b20c";
+     $twilio_number = +19793416597;
+     $client = new Client($account_sid, $auth_token);
+     $client->messages->create($phone,
+         ['from' => $twilio_number, 'body' => $message] );
 
         return view('frontend.paymentSuccess');
 
@@ -354,5 +406,7 @@ class UserController extends Controller
   {
           dd('payment cancel');
   }
+
+
 
 }

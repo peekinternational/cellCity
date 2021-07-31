@@ -10,12 +10,18 @@ use App\Models\User;
 use App\Models\Tech;
 use App\Models\ShippingAddr;
 use App\Models\Brand;
+use App\Models\OrderTime;
 use App\Models\Pmodel;
 use App\Models\RepairType;
 use App\Models\ZipCode;
 use App\Models\RepairOrder;
 use App\Models\RepairOrderType;
-use Hash;
+use Illuminate\Support\Facades\Hash;
+use PayPal\Api\Order;
+use App\Mail\orderPlace;
+use Twilio\Rest\Client;
+
+// use Hash;
 
 class RepairController extends Controller
 {
@@ -46,16 +52,61 @@ class RepairController extends Controller
 
   public function getrepairTypes($id){
 
-    $model= Pmodel::find($id);
-
-    $RepairTypes = RepairType::where('model_Id',$id)->get();
-   //  dd($RepairTypes);
-    return view('admin.model-repair-checkbox',compact('RepairTypes','model'));
+  	$RepairTypes = RepairType::whereModelId($id)->get();
+  	// dd($models);
+  	return view('frontend.repair-type',compact('RepairTypes'));
   }
 
+  public function checkDate(Request $request)
+  {
+    //   dd($request->date);
+    //   $user = User::find($request->id);
+    // dd(Auth::user());
+    $repairOrder = RepairOrder::where('userId',Auth::user()->id)
+                                ->where('order_status','<>', '4')
+                                ->whereDate('date','=',$request->date)
+                                ->get();
+    // dd($repairOrder->count());
+    $times =OrderTime::all();
+
+    $data=[];
+    if($repairOrder->count() > 0)
+    {
+         for($i = 0; $i < $repairOrder->count(); $i++)
+         {
+                 for($j = 0; $j < $times->count(); $j++)
+                 {
+
+                    if($times[$j]->time != $repairOrder[$i]->time)
+                    {
+
+                        //  echo $times[$j]->time;
+                        //  echo $repairOrder[$i]->time;
+                        array_push($data,$times[$j]);
+
+                    }else{
+
+                      // return $times[$j] ?? null;
+                    }
+                 }
+         }
+        //  print_r($data);
+
+    }
+    else
+    {
+       return response()->json($times);
+    }
+    // dd($data);
+
+    return response()->json($data);
+
+  }
 
 public function saverepairType(Request $request){
 // dd(Auth::guard('web')->check());
+
+// dd($request->all());
 	if(Auth::guard('web')->user()){
 
 	}
@@ -113,6 +164,25 @@ public function saverepairType(Request $request){
      	 $ordertype->price= RepairType::whereId($value)->first()->price;
      	 $ordertype->save();
      }
+
+     $details = [
+      'title' => 'Mail from PeekInternational.com',
+      'subject' => 'Dear Customer ,',
+      'message' => 'Your order have been Placed Successfully.'
+  ];
+     
+   \Mail::to($request->email)->send(new orderPlace($details));
+    
+   $phone = '+'.$request->phone;
+     $message =strip_tags(nl2br("Dear customer,\n You have Placed Order Successfully"));
+     
+       $account_sid = "ACad62fedb0f642dc64068c2852a8f0fb3";
+       $auth_token = "5c2eada361d6f1aededef528d952b20c";
+       $twilio_number = +19793416597;
+       $client = new Client($account_sid, $auth_token);
+       $client->messages->create($phone,
+           ['from' => $twilio_number, 'body' => $message] );
+
      return redirect('repairorder-completed');
 
   }

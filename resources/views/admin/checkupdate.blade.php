@@ -65,8 +65,8 @@
                                                             {{$order->date}}, {{$order->time}}
                                                         </td>
                                                         @php
-                                                          $repairOrderType = App\Models\TemporaryOrderType::where('order_Id',$order->orderId)->first();
-                                                            // dd($repairOrderType);
+                                                          $repairOrderType = App\Models\TemporaryOrderType::where('order_Id',$order->orderId)->get();
+                                                            // dd($RepairOrders);
                                                         @endphp
                                                         <td>
                                                            ${{$repairOrderType->sum('price')}}
@@ -109,11 +109,10 @@
                                                             @endforeach
 
                                                         </select>
-                                                          @elseif ($order->order_status == 3 && $order->techId !== null)
-                                                          {{$techId->name}}
-                                                           <button onclick="rejectOrder('{{$order->id}}')" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cancel The order">cancel</button>
-
-                                                             @else
+                                                          {{-- @elseif ($order->order_status == 3 ||$order->order_status == 0 && $order->techId !== null)
+                                                             {{$techId->name}}
+                                                           <button onclick="rejectOrder('{{$order->id}}')" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cancel The order">cancel</button> --}}
+                                                            @else
                                                              {{$techId->name}}
 
                                                            @endif

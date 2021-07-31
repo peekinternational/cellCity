@@ -5,7 +5,15 @@
   .puls-footer{
     display: none;
   }
-</style>
+
+
+
+    /* Style the active class, and buttons on mouse-over */
+    .active, .btn:hover {
+      background-color:#00bfa5;
+
+    }
+    </style>
 @endsection
 @section('content')
 
@@ -66,7 +74,7 @@
 
          </div>
           <div class="question-action-button-wrapper fixed-to-bottom-right" id="continue_btn" style="display: none;">
-            <button class="new-action-button new-action-button-blocklevel new-action-button-disable-top-on-valid">Continue</button>
+            <button class="new-action-button new-action-button-blocklevel new-action-button-disable-top-on-valid" >Continue</button>
           </div>
         </div>
       </div>
@@ -88,9 +96,9 @@
               <div class="select-time-day-selector-box">
                 <div class="select-time-day-selector-wrapper">
                   <div class="select-time-day-item-wrapper">
-                    <label class="select-time-day-item day-active" for="">
+                    <label class="select-time-day-item day-active" for="{{date('d') }}">
                         <div class="select-time-weekday"> Today </div>
-                        <input type="radio"  form="repairType" name="date" id="{{date('d') }}" value="{{ date('Y-m-d') }}" class="hidden">
+                        <input type="radio"  form="repairType" name="date" id="{{date('d') }}" value="{{ date('Y-m-d') }}" class="hidden" onchange="checkDat(this)">
                     </label>
                   </div>
                   <div class="select-time-day-item-wrapper">
@@ -98,7 +106,7 @@
                       <div class="">
                         <div class="select-time-weekday"> <?php echo date('D', strtotime(date('Y-m-d', strtotime("+1 days")))) ;?> </div>
                         <div class="select-time-day-in-number"> <?php echo date('d', strtotime(date('Y-m-d', strtotime("+1 days")))) ?> </div>
-                        <input type="radio"  form="repairType" name="date" id="{{ date('d', strtotime(date('Y-m-d', strtotime('+1 days')))) }}" value="{{ date('Y-m-d', strtotime(date('Y-m-d', strtotime('+1 days')))) }}" class="hidden">
+                        <input type="radio"  form="repairType" name="date" id="{{ date('d', strtotime(date('Y-m-d', strtotime('+1 days')))) }}" value="{{ date('Y-m-d', strtotime(date('Y-m-d', strtotime('+1 days')))) }}" class="hidden" onchange="checkDat(this)">
                       </div>
                     </label>
                   </div>
@@ -107,7 +115,7 @@
                       <div class="">
                         <div class="select-time-weekday">  <?php echo date('D', strtotime(date('Y-m-d', strtotime("+2 days")))) ;?> </div>
                         <div class="select-time-day-in-number"> <?php echo date('d', strtotime(date('Y-m-d', strtotime("+2 days")))) ?> </div>
-                        <input type="radio" form="repairType" name="date" id="{{ date('d', strtotime(date('Y-m-d', strtotime('+2 days')))) }}" value="{{ date('Y-m-d', strtotime(date('Y-m-d', strtotime('+2 days')))) }}" class="hidden">
+                        <input type="radio" form="repairType" name="date" id="{{ date('d', strtotime(date('Y-m-d', strtotime('+2 days')))) }}" value="{{ date('Y-m-d', strtotime(date('Y-m-d', strtotime('+2 days')))) }}" class="hidden"  onchange="checkDat(this)">
                       </div>
                     </label>
                   </div>
@@ -116,7 +124,7 @@
                       <div class="">
                         <div class="select-time-weekday">  <?php echo date('D', strtotime(date('Y-m-d', strtotime("+3 days")))) ;?> </div>
                         <div class="select-time-day-in-number"> <?php echo date('d', strtotime(date('Y-m-d', strtotime("+3 days")))) ?> </div>
-                        <input type="radio" form="repairType" name="date" value="{{ date('Y-m-d', strtotime(date('Y-m-d', strtotime('+3 days')))) }}" id="{{ date('d', strtotime(date('Y-m-d', strtotime('+3 days')))) }}" class="hidden">
+                        <input type="radio" form="repairType" name="date" value="{{ date('Y-m-d', strtotime(date('Y-m-d', strtotime('+3 days')))) }}" id="{{ date('d', strtotime(date('Y-m-d', strtotime('+3 days')))) }}" class="hidden" onchange="checkDat(this)">
                       </div>
                     </label>
                   </div>
@@ -125,7 +133,7 @@
                       <div class="">
                         <div class="select-time-weekday">  <?php echo date('D', strtotime(date('Y-m-d', strtotime("+4 days")))) ;?> </div>
                         <div class="select-time-day-in-number"> <?php echo date('d', strtotime(date('Y-m-d', strtotime("+4 days")))) ?> </div>
-                        <input type="radio" form="repairType" name="date" value="{{ date('Y-m-d', strtotime(date('Y-m-d', strtotime('+4 days')))) }}" id="{{ date('d', strtotime(date('Y-m-d', strtotime('+4 days')))) }}" class="hidden">
+                        <input type="radio" form="repairType" name="date" value="{{ date('Y-m-d', strtotime(date('Y-m-d', strtotime('+4 days')))) }}" id="{{ date('d', strtotime(date('Y-m-d', strtotime('+4 days')))) }}" class="hidden" onchange="checkDat(this)">
                       </div>
                     </label>
                   </div>
@@ -134,7 +142,7 @@
                       <div class="">
                         <div class="select-time-weekday">  <?php echo date('D', strtotime(date('Y-m-d', strtotime("+5 days")))) ;?> </div>
                         <div class="select-time-day-in-number"> <?php echo date('d', strtotime(date('Y-m-d', strtotime("+5 days")))) ?> </div>
-                        <input type="radio" form="repairType" name="date" value="{{ date('Y-m-d', strtotime(date('Y-m-d', strtotime('+5 days')))) }}" id="{{ date('d', strtotime(date('Y-m-d', strtotime('+5 days')))) }}" class="hidden">
+                        <input type="radio" form="repairType" name="date" value="{{ date('Y-m-d', strtotime(date('Y-m-d', strtotime('+5 days')))) }}" id="{{ date('d', strtotime(date('Y-m-d', strtotime('+5 days')))) }}" class="hidden" onchange="checkDat(this)">
                       </div>
                     </label>
                   </div>
@@ -143,7 +151,7 @@
                       <div class="">
                         <div class="select-time-weekday">  <?php echo date('D', strtotime(date('Y-m-d', strtotime("+6 days")))) ;?> </div>
                         <div class="select-time-day-in-number"> <?php echo date('d', strtotime(date('Y-m-d', strtotime("+6 days")))) ?> </div>
-                        <input type="radio" form="repairType" name="date" value="{{ date('Y-m-d', strtotime(date('Y-m-d', strtotime('+6 days')))) }}" id="{{ date('d', strtotime(date('Y-m-d', strtotime('+6 days')))) }}" class="hidden">
+                        <input type="radio" form="repairType" name="date" value="{{ date('Y-m-d', strtotime(date('Y-m-d', strtotime('+6 days')))) }}" id="{{ date('d', strtotime(date('Y-m-d', strtotime('+6 days')))) }}" class="hidden" onchange="checkDat(this)">
                       </div>
                     </label>
                   </div>
@@ -152,7 +160,7 @@
                       <div class="">
                         <div class="select-time-weekday">  <?php echo date('D', strtotime(date('Y-m-d', strtotime("+7 days")))) ;?> </div>
                         <div class="select-time-day-in-number"> <?php echo date('d', strtotime(date('Y-m-d', strtotime("+7 days")))) ?> </div>
-                        <input type="radio" form="repairType" name="date" value="{{ date('Y-m-d', strtotime(date('Y-m-d', strtotime('+7 days')))) }}" id="{{ date('d', strtotime(date('Y-m-d', strtotime('+7 days')))) }}" class="hidden">
+                        <input type="radio" form="repairType" name="date" value="{{ date('Y-m-d', strtotime(date('Y-m-d', strtotime('+7 days')))) }}" id="{{ date('d', strtotime(date('Y-m-d', strtotime('+7 days')))) }}" class="hidden" onchange="checkDat(this)">
                       </div>
                     </label>
                   </div>
@@ -161,7 +169,7 @@
                       <div class="">
                         <div class="select-time-weekday"> <?php echo date('D', strtotime(date('Y-m-d', strtotime("+8 days")))) ;?> </div>
                         <div class="select-time-day-in-number"> <?php echo date('d', strtotime(date('Y-m-d', strtotime("+8 days")))) ?> </div>
-                        <input type="radio" form="repairType" name="date" value="{{ date('Y-m-d', strtotime(date('Y-m-d', strtotime('+8 days')))) }}" id="{{ date('d', strtotime(date('Y-m-d', strtotime('+8 days')))) }}" class="hidden">
+                        <input type="radio" form="repairType" name="date" value="{{ date('Y-m-d', strtotime(date('Y-m-d', strtotime('+8 days')))) }}" id="{{ date('d', strtotime(date('Y-m-d', strtotime('+8 days')))) }}" class="hidden" onchange="checkDat(this)">
                       </div>
                     </label>
                   </div>
@@ -170,7 +178,7 @@
                       <div class="">
                         <div class="select-time-weekday"> <?php echo date('D', strtotime(date('Y-m-d', strtotime("+9 days")))) ;?> </div>
                         <div class="select-time-day-in-number"> <?php echo date('d', strtotime(date('Y-m-d', strtotime("+9 days")))) ?> </div>
-                        <input type="radio" form="repairType" name="date" value="{{ date('Y-m-d', strtotime(date('Y-m-d', strtotime('+9 days')))) }}" id="{{ date('d', strtotime(date('Y-m-d', strtotime('+9 days')))) }}" class="hidden">
+                        <input type="radio" form="repairType" name="date" value="{{ date('Y-m-d', strtotime(date('Y-m-d', strtotime('+9 days')))) }}" id="{{ date('d', strtotime(date('Y-m-d', strtotime('+9 days')))) }}" class="hidden" onchange="checkDat(this)">
                       </div>
                     </label>
                   </div>
@@ -182,31 +190,9 @@
             </div>
 
           </div>
-          <div class="select-time-time-picker-wrapper">
-            <label class="time-content-box time-content-box-active" for="9am-10am">
-              <p>9am - 11am</p>
-              <input type="radio" form="repairType" name="time" value="9am-10am" id="9am-10am" class="hidden">
-            </label>
-            <label class="time-content-box " for="10am-11am">
-              <p>11am - 1pm</p>
-              <input type="radio" form="repairType" name="time" value="10am-11am" id="10am-11am" class="hidden">
-            </label>
-            <label class="time-content-box " for="11am-12pm">
-              <p>1pm - 3pm</p>
-              <input type="radio" form="repairType" name="time" value="11am-12pm" id="11am-12pm" class="hidden">
-            </label>
-            <label class="time-content-box " for="12pm-1pm">
-              <p>3pm - 5pm</p>
-              <input type="radio" form="repairType" name="time" value="12pm-1pm" id="12pm-1pm" class="hidden">
-            </label>
-            <label class="time-content-box " for="1pm-2pm">
-              <p>5pm - 7pm</p>
-              <input type="radio" form="repairType" name="time" value="1pm-2pm" id="1pm-2pm" class="hidden">
-            </label>
-            <label class="time-content-box " for="2pm-3pm">
-              <p>7pm - 9pm</p>
-              <input type="radio" form="repairType" name="time" value="2pm-3pm" id="2pm-3pm" class="hidden">
-            </label>
+          <div class="select-time-time-picker-wrapper" id="timeslot">
+
+
           </div>
           <div id="time-height-spacer"></div>
           <div class="select-time-button-wrapper fixed-to-bottom-right" id="time_continue">
@@ -307,6 +293,7 @@
   </div>
 </div>
 
+
 @endsection
 @section('script')
 <script>
@@ -386,6 +373,7 @@
      }
 
    $('#continue_btn').click(function(){
+    checkDat("{{date('d')}}");
     $('#time_select').show();
     $('#repair_type').hide();
 
@@ -404,14 +392,59 @@
     $('.select-time-day-item').removeClass('day-active');
     $(this).addClass('day-active');
   });
-  $('.time-content-box').click(function(){
+  $(document).on('click','.time-content-box',function()
+  {
     $('.time-content-box').removeClass('time-content-box-active');
     $(this).addClass('time-content-box-active');
   });
+//   $('.time-content-box').click(function(){
+
+//   });
   $('#time_continue').click(function(){
     $('#time_select').hide();
     $('#user_info').show();
   });
 </script>
+<script>
+     function checkDat(event)
+    {
+         var date =($(event).val());
+        //  alert(date);
+        //  var id = $("#user_id").val();
+         var _token = $('input[name="_token"]').val();
+        $.ajax({
+        url: "{{route('check.date')}}",
+        type:"post",
+        data:{ date:date, _token: _token},
+        success:function(response){
+
+          console.log(response);
+        //    alert(response);
+        $('#timeslot').empty();
+           if(response.length > 0)
+           {
+             for(var i = 0; i <response.length; i++)
+             {
+                 var html =' <label id="timeee" class="time-content-box time-content-box" for="'+response[i].time+'">'+
+                            '<p >'+response[i].time+'</p>'+
+                            '<input type="radio" form="repairType" name="time" value="'+response[i].time+'" id="'+response[i].time+'" class="hidden">'+
+                            '</label>';
+                            $('#timeslot').append(html);
+             }
+
+           }
+           else
+           {
+            alert('select the time');
+           }
+        //   location.reload();
+        //   alert(response);
+        },
+
+       });
+    }
+</script>
+
+
 
 @endsection

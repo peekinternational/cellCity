@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePmodelsTable extends Migration
+class CreateOrderTimesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreatePmodelsTable extends Migration
      */
     public function up()
     {
-        Schema::create('pmodels', function (Blueprint $table) {
+        Schema::create('order_times', function (Blueprint $table) {
             $table->id();
-            $table->integer('brand_Id');
-            $table->string('model_name');
-            // $image->string('quantity');
+            $table->string('time');
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ class CreatePmodelsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pmodels');
+        Schema::dropIfExists('order_times');
     }
 }

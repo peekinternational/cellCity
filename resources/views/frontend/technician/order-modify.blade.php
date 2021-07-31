@@ -129,7 +129,7 @@
                                         <label for="example-text-input" class="col-md-2 col-form-label">Time</label>
                                         <div class="col-md-10">
                                             <input class="form-control" name="time" type="time" placeholder="Select time" title="Select Date" value="{{ $repairOrders->time }}"  id="example-text-input" required>
-                                            <span class="text-danger">{{ $errors->first('price') }}</span>
+                                            <span class="text-danger">{{ $errors->first('time') }}</span>
                                         </div>
                                     </div>
 
@@ -240,7 +240,7 @@ function getModel(event)
     $('#brand_name').html('<h5>Brand Name :<b>'+brand+'</b></h5>');
             // var id =$(event).val();
    $.ajax({
-    url: "{{url('admin/getModels')}}/"+id,
+    url: "{{url('tech/getModels')}}/"+id,
     type:"get",
     success:function(response){
         console.log(response);
@@ -267,7 +267,7 @@ function getRepair(event)
     var id =$(event).val();
 
 $.ajax({
-    url: "{{url('admin/getRepair')}}/"+id,
+    url: "{{url('tech/getrepairTypes')}}/"+id,
     type:"get",
     success:function(response){
         console.log(response);

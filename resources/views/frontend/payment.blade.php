@@ -1,5 +1,7 @@
 @extends('frontend.layouts.master')
-
+@php
+      $tech=Request::get('type');
+@endphp
 <style>
   .checkout-area h3.shoping-checkboxt-title {
     border-bottom: 1px solid #e7e4dd;
@@ -140,181 +142,53 @@
         <div class="col-lg-12 mb-30">
           <div class="row">
             <div class="col-lg-6 col-xl-6 col-sm-12">
-              <form action="" id="payment-form" method="post">
+              <div class="checkout-review-order">
+              <h3 class="shoping-checkboxt-title">Your order</h3>
+              <table class="checkout-review-order-table">
+                <thead>
+                  <tr>
+                    <th class="t-product-name">Product</th>
+                    <th class="product-total">Total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @foreach ($repairOrderType as $ordertype)
+                  <tr class="cart_item cart-545678">
 
-                <div class="row ml-1 shipping_address_slot">
-                  <h3 class="shoping-checkboxt-title">Billing Information</h3>
-                  <div class="col-lg-6">
-                    <p class="single-form-row">
-                      <label>First name <span class="required">*</span></label>
-                      <input type="text" class="form-control" name="first_name" value="John" required="">
-                    </p>
-                  </div>
-                  <div class="col-lg-6">
-                    <p class="single-form-row">
-                      <label>Last Name <span class="required"></span></label>
-                      <input type="text" class="form-control" name="last_name" value="Dadnudas">
-                    </p>
-                  </div>
-                  <div class="col-lg-12">
-                    <p class="single-form-row">
-                      <label>Email <span class="required">*</span></label>
-                      <input type="email" class="form-control" name="email" value="mwaqas.arid@gmail.com" required="">
-                    </p>
-                  </div>
-                  <div class="col-lg-12">
-                    <p class="single-form-row">
-                      <label>Street address <span class="required">*</span></label>
-                      <input type="text" class="form-control" name="shipping_address" id="address" placeholder="House number and street name" value="" required="">
-                    </p>
-                  </div>
-                  <div class="col-lg-12">
-                    <p class="single-form-row">
-                      <input type="text" class="form-control" name="shipping_address2" placeholder="Apartment, suite, unit etc. (optional)">
-                    </p>
-                  </div>
-                  <div class="col-lg-12">
-                    <p class="single-form-row">
-                      <label>Town / City <span class="required">*</span></label>
-                      <input type="text" class="form-control" name="shipping_city" value="Trenton" placeholder="City" required="">
-                    </p>
-                  </div>
-                  <div class="col-lg-12">
-                    <p class="single-form-row">
-                      <label>State / County</label>
-                      <input type="text" class="form-control" name="shipping_state" placeholder="State" value="New Jersey" required="">
-                    </p>
-                  </div>
-                  <div class="col-lg-12">
-                    <p class="single-form-row">
-                      <label>Postcode / ZIP <span class="required">*</span></label>
-                      <input type="text" class="form-control" name="shipping_zip" placeholder="Zip" value="12207" required="">
-                    </p>
-                  </div>
-                </div>
+                      <td class="t-product-name">{{$ordertype->repair_type}}</td>
+                      <td class="t-product-price"><span>${{$ordertype->price}}</span></td>
 
-                <div class="col-lg-12">
-                  <div class="single-form-row buy-checkbox-btn">
-                    <input type="checkbox" name="same_billing" class="inp-cbx d-none same_billing" id="cbx2" value="1" checked="">
-                    <label class="cbx" for="cbx2">
-                      <span>
-                        <svg width="12px" height="10px" viewBox="0 0 12 10">
-                          <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-                        </svg>
-                      </span>
-                      <span>Use same for Billing address </span>
-                    </label>
-                  </div>
-                </div>
-                <div class="row ml-1 mt-20 billing_address_slot" style="display:none;">
-                  <div class="checkbox-form">
-                    <h3 class="shoping-checkboxt-title">Billing Address</h3>
-                    <div class="row">
 
-                      <!-- <div class="col-lg-12">
-                <div class="single-form-row">
-                <label>Country <span class="required">*</span></label>
-                <div class="nice-select wide">
-                <select>
-                <option>Select Country...</option>
-                <option>Albania</option>
-                <option>Angola</option>
-                <option>Argentina</option>
-                <option>Austria</option>
-                <option>Azerbaijan</option>
-                <option>Bangladesh</option>
-              </select>
-            </div>
+                  </tr>
+                  @endforeach
+                </tbody>
+                <tfoot>
+
+                  <!-- <input type="hidden" name="processing" value="9.599">
+                  <input type="hidden" name="shipping" value="13.95">
+                  <input type="hidden" name="total" value="354.549">
+                  <tr class="cart-subtotal">
+                    <th>Processing</th>
+                    <td><span class="total-amount">$9.60</span></td>
+                  </tr>
+                  <tr class="shipping">
+                    <th>Shipping</th>
+                    <td>$13.95</td>
+                  </tr> -->
+                  <tr class="order-total">
+                    <th>Total</th>
+                    <td><strong><span class="total-amount">${{$repairOrderType->sum('price')}}</span></strong></td>
+                    <input type="hidden" name="total" value="{{$repairOrderType->sum('price')}}">
+                  </tr>
+                </tfoot>
+              </table>
+              </div>
           </div>
-        </div> -->
-                      <div class="col-lg-12">
-                        <p class="single-form-row">
-                          <label>Street address <span class="required">*</span></label>
-                          <input type="text" class="form-control" name="address" id="address" placeholder="House number and street name" value="">
-                        </p>
-                      </div>
-                      <div class="col-lg-12">
-                        <p class="single-form-row">
-                          <input type="text"  class="form-control"name="address2" placeholder="Apartment, suite, unit etc. (optional)">
-                        </p>
-                      </div>
-                      <div class="col-lg-12">
-                        <p class="single-form-row">
-                          <label>Town / City <span class="required">*</span></label>
-                          <input type="text" name="city" value="Trenton" placeholder="City">
-                        </p>
-                      </div>
-                      <div class="col-lg-12">
-                        <p class="single-form-row">
-                          <label>State / County</label>
-                          <input type="text" class="form-control" name="state" placeholder="State" value="New Jersey">
-                        </p>
-                      </div>
-                      <div class="col-lg-12">
-                        <p class="single-form-row">
-                          <label>Postcode / ZIP <span class="required">*</span></label>
-                          <input type="text" class="form-control" name="zip" placeholder="Zip" value="12207">
-                        </p>
-                      </div>
-                    </div>
-
-
-
-                    <div class="col-lg-12">
-                      <p class="single-form-row m-0">
-                        <label>Order notes</label>
-                        <textarea cols="5" rows="2" class="checkout-mess" name="delivery_note" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
-                      </p>
-                    </div>
-
-                  </div>
-                </div>
-                <!-- </form> -->
-            </form></div>
 
             <div class="col-lg-6  col-xl-6 col-sm-12">
               <div class="checkout-review-order">
                 <!-- <form action="#"> -->
-                <h3 class="shoping-checkboxt-title">Your order</h3>
-                <table class="checkout-review-order-table">
-                  <thead>
-                    <tr>
-                      <th class="t-product-name">Product</th>
-                      <th class="product-total">Total</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    @foreach ($repairOrderType as $ordertype)
-                    <tr class="cart_item cart-545678">
-
-                        <td class="t-product-name">{{$ordertype->repair_type}}</td>
-                        <td class="t-product-price"><span>${{$ordertype->price}}</span></td>
-
-
-                    </tr>
-                    @endforeach
-                  </tbody>
-                  <tfoot>
-
-                    <!-- <input type="hidden" name="processing" value="9.599">
-                    <input type="hidden" name="shipping" value="13.95">
-                    <input type="hidden" name="total" value="354.549">
-                    <tr class="cart-subtotal">
-                      <th>Processing</th>
-                      <td><span class="total-amount">$9.60</span></td>
-                    </tr>
-                    <tr class="shipping">
-                      <th>Shipping</th>
-                      <td>$13.95</td>
-                    </tr> -->
-                    <tr class="order-total">
-                      <th>Total</th>
-                      <td><strong><span class="total-amount">${{$repairOrderType->sum('price')}}</span></strong></td>
-                      <input type="hidden" name="total" value="{{$repairOrderType->sum('price')}}">
-                    </tr>
-                  </tfoot>
-                </table>
-
+              
 
 
                 <div class="checkout-payment">
@@ -327,24 +201,35 @@
                       <p class="text-dark text-uppercase font-weight-bold"><strong>Payment Method</strong></p>
                     </div>
                   </div>
-                  <form action="{{route('payment.order',$repairOrder->id)}}" method="post" id="payment-form">
+                  <form action="{{route('payment.order',$repairOrder->id)}}" method="post" >
                     {{csrf_field()}}
                   <div class="row">
                     <input type="hidden" name="total" value="{{$repairOrderType->sum('price')}}">
                     <div class="col-lg-12 pl-0 pr-0 pb-3">
                     <div class="form-group">
+
+                      @if (isset($tech))
+                      <label for="credit-card" class="payment-methd">
+                        <button type="button"  data-toggle="modal" data-target="#exampleModalCenter"> Credit Card </button>
+                      </label>
                       <label for="cash" class="payment-methd">
-                        <input type="radio" id="cash" name="cash" value="cash"> Cash
+                        <input type="radio" id="cash" name="payment" value="cash"> Cash
+                      </label>
+                      @else
+                      <label for="cash" class="payment-methd">
+                        <input type="radio" id="cash" name="payment" value="cash"> Cash
                       </label>
                       <label for="paypal" class="payment-methd">
-                        <input type="radio" id="paypal" name="paypal" value="paypal" onchange="valueChanged()"> Paypal
+                        <input type="radio" id="paypal" name="payment" value="paypal" onchange="valueChanged()"> Paypal
                       </label>
                       <label for="apple-pay" class="payment-methd">
                         <input type="radio" id="apple-pay" name="payment" value="" onchange="valueChanged()"> Apple Pay
                       </label>
                       <label for="credit-card" class="payment-methd">
-                        <input type="radio" id="credit-card" name="payment" value="" onchange="valueChanged()"> Credit Card
+                        <button type="button"  data-toggle="modal" data-target="#exampleModalCenter"> Credit Card </button>
                       </label>
+                      @endif
+
                     </div>
 
                   </div>
@@ -364,7 +249,131 @@
     </div>
     <!-- checkout-area end -->
   </div>
+
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+            <form id="payment-form" method="post">
+                <input type="hidden" name="order_id" id="order_id" value="{{$repairOrder->id}}" >
+                <input type="hidden" name="total" id="price" value="{{$repairOrderType->sum('price')}}">
+                <div id="card-container"></div>
+            </div>  
+               <button type="button" class="btn btn-primary btn-style-one" data-dismiss="modal" style="margin-bottom: 5px;    margin-left: 5px">Close</button>
+                <button id="card-button" class="btn btn-primary btn-style-one" type="button" style="margin-bottom: 5px">Pay</button>
+              </form>
+    </div>
+
+      </div>
+
+  </div>
 </section>
 @endsection
 @section('script')
+{{-- <script src="https://cdn.checkout.com/js/framesv2.min.js"></script> --}}
+<script>
+    function valueChanged()
+      {
+        if($('#credit-card').is(":checked")) {
+          $("#card-form").show();
+        }else if($('#paypal').is(":checked")){
+          $("#card-form").hide();
+        }else if($('#apple-pay').is(":checked")){
+          $("#card-form").hide();
+        }else{
+          $("#card-form").hide();
+        }
 
+      }
+  </script>
+
+  {{-- <script>
+    var payButton = document.getElementById("pay-button");
+    var form = document.getElementById("payment-form");
+
+    Frames.init({
+      publicKey: 'pk_test_c5c7066c-4ed0-4a03-b8c6-8ffff587eca8',
+      cardValidationChanged: function () {
+        // if all fields contain valid information, the Pay now
+        // button will be enabled and the form can be submitted
+        payButton.disabled = !Frames.isCardValid();
+      },
+      cardSubmitted: function () {
+        form.disabled = true;
+        // display loader
+      },
+      cardTokenized: function (data) {
+        //   alert(data.token);
+        Frames.addCardToken(form, data.token)
+        form.submit()
+      },
+      cardTokenizationFailed: function (event) {
+        // catch the error
+      }
+    });
+
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+      Frames.submitCard();
+    });
+  </script> --}}
+  <script src="https://sandbox.web.squarecdn.com/v1/square.js"></script>
+  <script type="text/javascript">
+    async function main() {
+      const payments = Square.payments('sandbox-sq0idb-c4YYFJ73zA8I9JKQLP9Rsg', 'GD29XJWM54NX2');
+      const card = await payments.card();
+      await card.attach('#card-container');
+
+      async function eventHandler(event) {8
+        event.preventDefault();
+
+        try {
+          const result = await card.tokenize();
+          if (result.status === 'OK') {
+            console.log(result.token);
+            var squaretoken = (result.token);
+            var id = $('#order_id').val();
+            var price = $('#price').val();
+            // alert($('#order_id').val());
+            var _token = $('input[name="_token"]').val();
+
+             // alert(_token);
+            $.ajax({
+
+                    url: "{{ route('square.payment') }}",
+                    type: 'post',
+                    data:{ id:id,squaretoken:squaretoken,price:price, _token: _token},
+
+                    success: function(data) {
+
+                        console.log(data);
+                        window.location = '{{ route('payment.completed') }}';
+                        // $('#bustype').html(data);
+                        //  $("#count").html(data.count);
+
+                        // alert(rowCount);
+
+                    }
+
+                });
+          }
+        } catch (e) {
+          console.error(e);
+        }
+      };
+
+      const cardButton = document.getElementById('card-button');
+      cardButton.addEventListener('click', eventHandler);
+    }
+
+    main();
+  </script>
+
+  @endsection
