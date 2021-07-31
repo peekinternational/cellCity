@@ -7,8 +7,11 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\RepairController;
 use App\Http\Controllers\Admin\ZipController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\BlogContoller;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\AdminRepairController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\SquareController;
 use App\Models\RepairOrder;
 
 /*
@@ -63,6 +66,14 @@ Route::name('admin.')->namespace('Admin')->prefix('admin')->group(function(){
      Route::resource('/repairTypes', '\App\Http\Controllers\Admin\AdminRepairController');
      Route::get('/repairOrders',  [AdminRepairController::class, 'repairOrders']);
      Route::post('/assignTech',  [AdminRepairController::class, 'assignTech']);
+
+
+      //blog management
+      Route::resource('/blog', '\App\Http\Controllers\Admin\BlogContoller');
+      //Product Management
+      Route::resource('/product', '\App\Http\Controllers\Admin\ProductController');
+      //ajax
+      Route::get('/product/getModels/{id}',[ProductController::class,'getModels']);
 
      //Check The update
      Route::get('/checkUpdateOrders',[AdminRepairController::class,'checkUpdateOrders']);
@@ -154,7 +165,9 @@ Route::get('/getrepairTypes/{id}', [TechController::class, 'getrepairTypes']);
   Route::get('paypal-cancel',[UserController::class,'cancel'])->name('paypal.cancel');
 
   //checkout
+
   Route::post('checkout/{id}',[CheckoutController::class,'checkoutPayment'])->name('checkout.payment');
+  Route::post('square',[SquareController::class,'checkoutPayment'])->name('square.payment');
 
 /////////////////////////////////// CUSTOMER ////////////////////////////////
 
@@ -194,61 +207,71 @@ Route::namespace('Auth')->middleware('auth:web')->group(function(){
         // Route::get('paypal-success',[UserController::class,"success"])->name('paypal.success');
         //  Route::get('paypal-cancel',[UserController::class,'cancel'])->name('paypal.cancel');
 
-    });
+});
 
    //verify email
    Route::get('/userVerify/{token}', [UserController::class,'verifyUserByEmail'])->name('user.verify');
    Route::post('/checkZipcode', [RepairController::class, 'checkZip']);
 
 
-Route::get('/', function () {
-    return view('frontend.index');
-});
-Route::get('/contact-us', function () {
-    return view('frontend.contact-us');
-});
-Route::get('/buy-phone', function () {
-    return view('frontend.buy-phone');
-});
-Route::get('/buy-accessories', function () {
-    return view('frontend.buy-accessories');
-});
-Route::get('/repair', function () {
-    return view('frontend.repair');
-});
+    Route::get('/', function () {
+        return view('frontend.index');
+    });
+    Route::get('/contact-us', function () {
+        return view('frontend.contact-us');
+    });
+    Route::get('/buy-phone', [ProductController::class,'getPhones']);
+    
+    Route::get('/buy-accessories', function () {
+        return view('frontend.buy-accessories');
+    });
+    Route::get('/repair', function () {
+        return view('frontend.repair');
+    });
 
-Route::get('/repair-step/{id}', [RepairController::class, 'getBrands']);
-Route::get('/getModels/{id}', [RepairController::class, 'getModels']);
-Route::get('/getrepairTypes/{id}', [RepairController::class, 'getrepairTypes']);
-Route::post('/saverepairType', [RepairController::class, 'saverepairType']);
+    Route::get('/blog', function () {
+        return view('frontend.blog');
+    })->name('blog.index');
 
-Route::get('/repairorder-completed', function () {
-    return view('frontend.order-completed');
-});
+    Route::get('/repair-step/{id}', [RepairController::class, 'getBrands']);
+    Route::get('/getModels/{id}', [RepairController::class, 'getModels']);
+    Route::get('/getrepairTypes/{id}', [RepairController::class, 'getrepairTypes']);
+    Route::post('/saverepairType', [RepairController::class, 'saverepairType']);
 
-Route::get('/single', function () {
-    return view('frontend.single');
-});
-Route::get('/pay-bills', function () {
-    return view('frontend.pay-bills');
-});
+    Route::post('/checkDate',[RepairController::class,'checkDate'])->name('check.date');
 
-// Route::get('/signup', function () {
-//     return view('frontend.signup');
-// });
-// Route::get('/signin', function () {
-//     return view('frontend.signin');
-// });
+    Route::get('/repairorder-completed', function () {
+        return view('frontend.order-completed');
+    });
+
+    Route::get('/payment-completed', function () {
+        return view('frontend.paymentSuccess');
+    })->name('payment.completed');
 
 
-Route::group(['prefix' => 'technician'], function () {
+    Route::get('/single', function () {
+        return view('frontend.single');
+    });
+    Route::get('/pay-bills', function () {
+        return view('frontend.pay-bills');
+    });
 
-});
+    // Route::get('/signup', function () {
+    //     return view('frontend.signup');
+    // });
+    // Route::get('/signin', function () {
+    //     return view('frontend.signin');
+    // });
 
-Route::get('/checkout',function()
-{
-  return view('frontend.checkout');
-});
+
+    Route::group(['prefix' => 'technician'], function () {
+
+    });
+
+    Route::get('/checkout',function()
+    {
+    return view('frontend.checkout');
+    });
 
 
 

@@ -10,7 +10,7 @@ class Pmodel extends Model
     use HasFactory;
 
   protected $fillable = [
-        'brand_Id','model_name',
+        'brand_Id','model_name','quantity',
     ];
 
 
@@ -27,4 +27,14 @@ class Pmodel extends Model
 		  {
 		    return $this->hasMany(RepairOrder::class,'model_Id','id');
 		  }
+
+      /**
+       * Get the product that owns the Pmodel
+       *
+       * @return \Illuminate\Database\Eloquent\Relations\belongsTo
+       */
+      public function product(): belongsTo
+      {
+          return $this->belongsTo(Product::class, 'model_id', 'id');
+      }
 }

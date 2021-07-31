@@ -13,6 +13,7 @@
         "laravel/framework": "^8.40",
         "laravel/tinker": "^2.5",
         "paypal/rest-api-sdk-php": "*",
+        "square/square": "13.0.0.20210721",
         "twilio/sdk": "^6.27"
     },
     "require-dev": {

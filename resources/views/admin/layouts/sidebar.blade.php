@@ -69,8 +69,8 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
 
-                        <li><a href="ecommerce-products">Products</a></li>
-                        <li><a href="ecommerce-product-detail">Product Detail</a></li>
+                        <li><a href="{{url('admin/product')}}">Products List</a></li>
+                        <li><a href="{{url('admin/product/create')}}">Product Create</a></li>
                         <li><a href="ecommerce-orders">Orders</a></li>
                         <li><a href="ecommerce-customers">Customers</a></li>
                         <li><a href="ecommerce-cart">Cart</a></li>
@@ -88,6 +88,17 @@
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{url('admin/zipCode/create')}}">Add Zip Code</a></li>
                         <li><a href="{{url('admin/zipCode')}}">Zip Code List</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="bx bxs-user-detail"></i>
+                        <span>Blog Management</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{url('admin/blog/create')}}">Add Blog</a></li>
+                        <li><a href="{{url('admin/blog')}}">Blog List</a></li>
                     </ul>
                 </li>
             </ul>

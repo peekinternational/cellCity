@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\TechMail;
+use App\Mail\orderModify;
 use Hash;
 use App\Models\Tech;
 use App\Models\User;
@@ -117,12 +118,14 @@ class TechController extends Controller
     public function repairOrderUpdate(Request $request,$id)
     {
         $customer = User::whereId($request->userId)->first();
+        
         $model = explode(',',$request->model_Id);
         $model_Id = $model[0];
 
         // dd($request);
         $RepairOrders =RepairOrder::find($id);
         // dd($RepairOrders);
+        $tech = User::whereId($RepairOrders->techId)->first();
         if($temporary =Temporary::where('orderId',$RepairOrders->id)->first())
         {
             $temporary->userId = $request->userId;
@@ -184,11 +187,11 @@ class TechController extends Controller
        $details = [
         'title' => 'Mail from PeekInternational.com',
         'subject' => 'Update the repair order',
-        'message' => 'Techician updated the customer order'
+        'message' => 'Techician  ('.$tech->name.')  updated the customer ('.$customer->name.')  repair order,'
     ];
 
 
-     \Mail::to("admin@gmail.com")->send(new TechMail($details));
+     \Mail::to("admin@gmail.com")->send(new orderModify($details));
     //   $mail = mail ("admin@gmail.com",$subject,$message);
 
       return back()->with('message', Alert::_message('success', 'Repair Order Update Successfully. Please wait for verify by admin'));
@@ -202,7 +205,7 @@ class TechController extends Controller
            $message =" hello this sms is for test";
 
         $account_sid = "ACad62fedb0f642dc64068c2852a8f0fb3";
-        $auth_token = "733d1c1b4746196aac9ef3ee35c1cf38";
+        $auth_token = "6cf7d73011dfe99d032652bd77824065";
         $twilio_number = +19793416597;
         $client = new Client($account_sid, $auth_token);
         $client->messages->create($phone,

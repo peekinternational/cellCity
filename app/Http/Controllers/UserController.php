@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\TechMail;
 use Carbon\Carbon;
 use App\Models\Tech;
 use App\Models\User;
@@ -233,6 +234,7 @@ class UserController extends Controller
        $repairOrder = RepairOrder::find($id);
     //    dd($repairOrder);
          $user = User::where('id',$repairOrder->techId)->first();
+         $cust = User::where('id',$repairOrder->userId)->first();
     //  dd($user);
 
     if($request->payment == "cash")
@@ -243,6 +245,14 @@ class UserController extends Controller
        $repairOrder->pay_method = "cash";
        $repairOrder->order_status= "4";
        $repairOrder->update();
+       $details = [
+        'title' => 'Mail from PeekInternational.com',
+        'subject' => 'Repair Order Payment',
+        'message' => 'Payment completed through Cash'
+    ];
+     $messgae = "Succesfully Transferred";
+     \Mail::to($cust->email)->send(new TechMail($details));
+    //  return response()->json($messgae);
        return view('frontend.paymentSuccess');
     }
 
@@ -334,6 +344,7 @@ class UserController extends Controller
         // $total_amount =$result->transactions[0]->amount->total;
 
           $repairOrder = RepairOrder::find($id);
+          $cust = User::where('id',$repairOrder->userId)->first();
           $user = User::where('id',$repairOrder->techId)->first();
           $user->jobStatus = "available";
           $user->update();
@@ -347,6 +358,14 @@ class UserController extends Controller
       //dd($message);
 
     //   $retval = mail ($user->email,$subject,$message);
+    $details = [
+        'title' => 'Mail from PeekInternational.com',
+        'subject' => 'Repair Order Payment',
+        'message' => 'Payment completed through PayPal'
+    ];
+    //  $messgae = "Succesfully Transferred";
+     \Mail::to($cust->email)->send(new TechMail($details));
+    //  return response()->json($messgae);
 
 
 

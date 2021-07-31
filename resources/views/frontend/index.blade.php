@@ -14,17 +14,17 @@
 @section('content')
 <!--Main Slider-->
 <section class="main-slider">
-	
+
     <div class="tp-banner-container">
         <div class="tp-banner">
             <ul>
-            	
+
                 <li data-transition="fade" data-slotamount="1" data-masterspeed="1000" data-thumb="{{asset('frontend-assets/images/main-slider/2.jpg')}}"  data-saveperformance="off"  data-title="Awesome Title Here">
-                <img src="{{asset('frontend-assets/images/main-slider/2.jpg')}}"  alt=""  data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat"> 
-                
+                <img src="{{asset('frontend-assets/images/main-slider/2.jpg')}}"  alt=""  data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat">
+
                 <!--Overlay-->
                 <div class="overlay-style-one"></div>
-                
+
                 <div class="tp-caption sfl sfb tp-resizeme"
                 data-x="left" data-hoffset="15"
                 data-y="center" data-voffset="-50"
@@ -41,7 +41,7 @@
                 	<!-- <img src="{{asset('frontend-assets/images/logo1.png')}}" alt="" title="Cell City"> -->
                 </div>
                 <h2>Repair <span>your</span><br>Mobile Phone</h2></div>
-                
+
                 <!-- <div class="tp-caption sfl sfb tp-resizeme"
                 data-x="left" data-hoffset="15"
                 data-y="center" data-voffset="50"
@@ -54,7 +54,7 @@
                 data-endelementdelay="0.3"
                 data-endspeed="1200"
                 data-endeasing="Power4.easeIn"><div class="text">We offer repair many different types of devices including smartphones,<br> tablets etc...</div></div> --><br>
-                
+
                 <div class="tp-caption sfl sfb tp-resizeme"
                 data-x="left" data-hoffset="15"
                 data-y="center" data-voffset="130"
@@ -67,15 +67,15 @@
                 data-endelementdelay="0.3"
                 data-endspeed="1200"
                 data-endeasing="Power4.easeIn"><a href="#" class="theme-btn btn-style-one">Repair Device</a></div>
-                
+
                 </li>
-                
+
                 <li data-transition="fade" data-slotamount="1" data-masterspeed="1000" data-thumb="{{asset('frontend-assets/images/main-slider/4.jpg')}}"  data-saveperformance="off"  data-title="Awesome Title Here">
-                <img src="{{asset('frontend-assets/images/main-slider/4.jpg')}}"  alt=""  data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat"> 
-                
+                <img src="{{asset('frontend-assets/images/main-slider/4.jpg')}}"  alt=""  data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat">
+
                 <!--Overlay-->
                 <div class="overlay-style-two"></div>
-                
+
                 <div class="tp-caption sft sfb tp-resizeme"
                 data-x="left" data-hoffset="15"
                 data-y="center" data-voffset="-50"
@@ -119,12 +119,12 @@
                 data-endelementdelay="0.3"
                 data-endspeed="1200"
                 data-endeasing="Power4.easeIn"><a href="#" class="theme-btn btn-style-one">Buy Phone</a></div>
-                
+
                 </li>
-                
+
                 <li data-transition="fade" data-slotamount="1" data-masterspeed="1000" data-thumb="{{asset('frontend-assets/images/main-slider/6.png')}}"  data-saveperformance="off"  data-title="Awesome Title Here">
-                <img src="{{asset('frontend-assets/images/main-slider/6.png')}}"  alt=""  data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat"> 
-                
+                <img src="{{asset('frontend-assets/images/main-slider/6.png')}}"  alt=""  data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat">
+
                 <div class="tp-caption sfr sfb tp-resizeme"
                 data-x="left" data-hoffset="-15"
                 data-y="center" data-voffset="-50"
@@ -141,7 +141,7 @@
                 	<!-- <img src="{{asset('frontend-assets/images/logo1.png')}}" alt="" title="Cell City"> -->
                 </div>
                 <h2 class="computer-problem">Pay Your<br><span>Bills</span> </h2></div>
-                
+
                 <!-- <div class="tp-caption sfr sfb tp-resizeme"
                 data-x="left" data-hoffset="-15"
                 data-y="center" data-voffset="50"
@@ -170,11 +170,11 @@
                 data-endeasing="Power4.easeIn">
                 <!-- <a href="#" class="theme-btn btn-style-two">GET A QUOTE</a> &ensp;&ensp; -->
                  <a href="#" class="theme-btn btn-style-one">Pay Bills</a></div>
-                
-                
+
+
                 </li>
             </ul>
-            
+
         	<div class="tp-bannertimer"></div>
         </div>
     </div>
@@ -182,15 +182,15 @@
 <!--Repair Section-->
     <section class="repair-section box-section">
     	<div class="auto-container">
-        
+
         	<!--Sec Title One-->
             <!-- <div class="sec-title-one">
                 <h2>WE ARE CELL CITY PHONE REPAIR</h2>
                 <div class="text">Overcome faithful endless salvation enlightenment salvation overcome pious merciful<br>ascetic madness holiest joy passion zarathustra suicide overcome snare.</div>
             </div> -->
-        
+
         	<div class="row clearfix">
-            	
+
                 <!--Services Block-->
                 <div class="services-block col-md-3 col-sm-4 col-xs-4">
                 	<div class="inner-box wow fadeIn" data-wow-delay="0ms" data-wow-duration="1500ms">
@@ -203,7 +203,7 @@
                     	</a>
                     </div>
                 </div>
-                
+
                 <!--Services Block-->
                 <div class="services-block col-md-3 col-sm-4 col-xs-4">
                 	<div class="inner-box wow fadeIn" data-wow-delay="300ms" data-wow-duration="1500ms">
@@ -217,7 +217,7 @@
                     	</a>
                     </div>
                 </div>
-                
+
                 <!--Services Block-->
                 <div class="services-block col-md-3 col-sm-4 col-xs-4">
                 	<div class="inner-box wow fadeIn" data-wow-delay="600ms" data-wow-duration="1500ms">
@@ -229,10 +229,10 @@
                     		  </div>
                     		  <h3>Pay Bills</h3>
                     	</a>
-                        
+
                     </div>
                 </div>
-                
+
             </div>
         </div>
     </section>
@@ -245,7 +245,7 @@
                 <h2>OUR SHOP</h2>
                 <div class="text">Overcome faithful endless salvation enlightenment salvation overcome pious merciful<br>ascetic madness holiest joy passion zarathustra.</div>
             </div>
-            
+
         	<div class="row clearfix">
             	<!--Shop Item-->
                 <div class="shop-item col-md-3 col-sm-6 col-xs-12">
@@ -256,7 +256,7 @@
                         <!--Lower Content-->
                         <div class="lower-content">
                         	<h3><a href="{{url('single')}}">IPhone XR</a></h3>
-                        	<div> <span>64 GB - Space Gray - Unlocked</span> </div> 
+                        	<div> <span>64 GB - Space Gray - Unlocked</span> </div>
 		                        <span>
 		                        Warranty: 12 months
 		                        </span>
@@ -267,7 +267,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!--Shop Item-->
                 <div class="shop-item col-md-3 col-sm-6 col-xs-12">
                 	<div class="inner-box wow fadeIn" data-wow-delay="0ms" data-wow-duration="1500ms">
@@ -277,7 +277,7 @@
                         <!--Lower Content-->
                         <div class="lower-content">
                         	<h3><a href="{{url('single')}}">IPhone 8</a></h3>
-                        	<div> <span>64 GB - Space Gray - Unlocked</span> </div> 
+                        	<div> <span>64 GB - Space Gray - Unlocked</span> </div>
 		                        <span>
 		                        Warranty: 12 months
 		                        </span>
@@ -288,7 +288,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!--Shop Item-->
                 <div class="shop-item col-md-3 col-sm-6 col-xs-12">
                 	<div class="inner-box wow fadeIn" data-wow-delay="0ms" data-wow-duration="1500ms">
@@ -298,7 +298,7 @@
                         <!--Lower Content-->
                         <div class="lower-content">
                         	<h3><a href="{{url('single')}}">Galaxy S9</a></h3>
-                        	<div> <span>64 GB - Space Gray - Unlocked</span> </div> 
+                        	<div> <span>64 GB - Space Gray - Unlocked</span> </div>
 		                        <span>
 		                        Warranty: 12 months
 		                        </span>
@@ -309,7 +309,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!--Shop Item-->
                 <div class="shop-item col-md-3 col-sm-6 col-xs-12">
                 	<div class="inner-box wow fadeIn" data-wow-delay="600ms" data-wow-duration="1500ms">
@@ -319,7 +319,7 @@
                         <!--Lower Content-->
                         <div class="lower-content">
                         	<h3><a href="{{url('single')}}">IPhone XS</a></h3>
-                            <div> <span>64 GB - Space Gray - Unlocked</span> </div> 
+                            <div> <span>64 GB - Space Gray - Unlocked</span> </div>
 		                        <span>
 		                        Warranty: 12 months
 		                        </span>
@@ -329,7 +329,7 @@
                         </div>
                     </div>
                 </div>
-                
+
             </div>
         </div>
     </section>
@@ -341,10 +341,10 @@
             	<h2>WHAT OUR CUSTOMERS SAID</h2>
                 <div class="text">Overcome faithful endless salvation enlightenment salvation overcome pious merciful</div>
             </div>
-        
+
         	<div class="testimonial-carousel">
             	<div class="testimonial-carousel-two">
-                
+
                 	<!--Testimonial Block-->
                     <div class="testimonial-block-two">
                     	<div class="inner-box">
@@ -363,7 +363,7 @@
                             <div class="reviwer-section soft-body-text"><div class="reviwer">Adrienne | Los Angeles, CA</div><img class="b-lazy b-loaded" src="https://d7gh5vrfihrl.cloudfront.net/website/badges/stars.svg"></div>
                         </div>
                     </div>
-                    
+
                     <!--Testimonial Block-->
                     <div class="testimonial-block-two">
                     	<div class="inner-box">
@@ -382,7 +382,7 @@
                             <div class="reviwer-section soft-body-text"><div class="reviwer">Adrienne | Los Angeles, CA</div><img class="b-lazy b-loaded" src="https://d7gh5vrfihrl.cloudfront.net/website/badges/stars.svg"></div>
                         </div>
                     </div>
-                    
+
                     <!--Testimonial Block-->
                     <div class="testimonial-block-two">
                     	<div class="inner-box">
@@ -401,7 +401,7 @@
                             <div class="reviwer-section soft-body-text"><div class="reviwer">Adrienne | Los Angeles, CA</div><img class="b-lazy b-loaded" src="https://d7gh5vrfihrl.cloudfront.net/website/badges/stars.svg"></div>
                         </div>
                     </div>
-                    
+
                     <!--Testimonial Block-->
                     <div class="testimonial-block-two">
                     	<div class="inner-box">
@@ -420,7 +420,7 @@
                             <div class="reviwer-section soft-body-text"><div class="reviwer">Adrienne | Los Angeles, CA</div><img class="b-lazy b-loaded" src="https://d7gh5vrfihrl.cloudfront.net/website/badges/stars.svg"></div>
                         </div>
                     </div>
-                    
+
                     <!--Testimonial Block-->
                     <div class="testimonial-block-two">
                     	<div class="inner-box">
@@ -439,7 +439,7 @@
                             <div class="reviwer-section soft-body-text"><div class="reviwer">Adrienne | Los Angeles, CA</div><img class="b-lazy b-loaded" src="https://d7gh5vrfihrl.cloudfront.net/website/badges/stars.svg"></div>
                         </div>
                     </div>
-                    
+
                     <!--Testimonial Block-->
                     <div class="testimonial-block-two">
                     	<div class="inner-box">
@@ -459,7 +459,7 @@
                             <div class="reviwer-section soft-body-text"><div class="reviwer">Adrienne | Los Angeles, CA</div><img class="b-lazy b-loaded" src="https://d7gh5vrfihrl.cloudfront.net/website/badges/stars.svg"></div>
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
         </div>
@@ -467,122 +467,49 @@
     <!-- Blog Section / Style Two -->
     <section class="blog-section">
     	<div class="auto-container">
-        
+
         	<div class="sec-title-one">
                 <h2>OUR BLOG</h2>
                 <div class="text">Gains hope spirit justice chaos society madness suicide god. Virtues will ultimate<br>abstract sexuality mountains marvelous virtues.</div>
             </div>
-        
+
         	<div class="row clearfix blogs-carousel">
             	<!--News Block-->
+                @foreach (CityClass::allBlog() as $blog )
+
+
             	<div class="news-block style-two col-md-12 col-sm-12 col-xs-12">
                 	<div class="inner-box">
                     	<!--Image Box-->
                     	<div class="image-box wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1500ms">
-                    		<a href="single-blog.html"><img src="{{asset('frontend-assets/images/resource/news-1.jpg')}}" alt="" /></a>
+                    		<a href="{{route('blog.index')}}"><img src="{{asset($blog->image)}}" alt="" /></a>
                    		</div>
                         <!--Lower Content-->
                         <div class="lower-content">
-                        	<h3><a href="blog-single.html">Unlocking Pin Protected Devices</a></h3>
-                          <div class="text">Free fearful disgust hatred fearful decieve. Strong chaos eternal-return abstract of virtues</div>
+                        	<h3><a href="blog-single.html">{{$blog->title}}</a></h3>
+                          <div class="text">{{$blog->desc}}</div>
                           <ul class="list">
-                              <li><span class="icon flaticon-business"></span> 27 August 2016</li>
+                              <li><span class="icon flaticon-business"></span> {{$blog->created_at->format('d M Y')}}</li>
                           </ul>
                         </div>
                     </div>
                 </div>
-                
-                <!--News Block-->
-                <div class="news-block style-two col-md-12 col-sm-12 col-xs-12">
-                	<!--Inner Box-->
-                    <div class="inner-box">
-                    	<!--Image Box-->
-                    	<div class="image-box wow fadeInRight" data-wow-delay="0ms" data-wow-duration="1500ms">
-                    		<a href="single-blog.html"><img src="{{asset('frontend-assets/images/resource/news-2.jpg')}}" alt="" /></a>
-                   		</div>
-                        <!--Lower Content-->
-                        <div class="lower-content">
-                        	<h3><a href="">Complete Disassembly & Installation Guides</a></h3>
-                            
-                          <div class="text">Free fearful disgust hatred fearful decieve. Strong chaos eternal-return abstract of virtues</div>
-                          <ul class="list">
-                              <li><span class="icon flaticon-business"></span> 25 August 2016</li>
-                          </ul>
-                        </div>
-                    </div>
-                    
-                </div>
-                <!--News Block-->
-                <div class="news-block style-two col-md-12 col-sm-12 col-xs-12">
-                	<!--Inner Box-->
-                    <div class="inner-box">
-                    	<!--Image Box-->
-                    	<div class="image-box wow fadeInRight" data-wow-delay="0ms" data-wow-duration="1500ms">
-                    		<a href="single-blog.html"><img src="{{asset('frontend-assets/images/resource/news-2.jpg')}}" alt="" /></a>
-                   		</div>
-                        <!--Lower Content-->
-                        <div class="lower-content">
-                        	<h3><a href="">Complete Disassembly & Installation Guides</a></h3>
-                          <div class="text">Free fearful disgust hatred fearful decieve. Strong chaos eternal-return abstract of virtues</div>
-                          <ul class="list">
-                            <li><span class="icon flaticon-business"></span> 25 August 2016</li>
-                          </ul>
-                        </div>
-                    </div>
-                    
-                </div>
-                <!--News Block-->
-                <div class="news-block style-two col-md-12 col-sm-12 col-xs-12">
-                	<!--Inner Box-->
-                    <div class="inner-box">
-                    	<!--Image Box-->
-                    	<div class="image-box wow fadeInRight" data-wow-delay="0ms" data-wow-duration="1500ms">
-                    		<a href="single-blog.html"><img src="{{asset('frontend-assets/images/resource/news-2.jpg')}}" alt="" /></a>
-                   		</div>
-                        <!--Lower Content-->
-                        <div class="lower-content">
-                        	<h3><a href="">Complete Disassembly & Installation Guides</a></h3>
-                          <div class="text">Free fearful disgust hatred fearful decieve. Strong chaos eternal-return abstract of virtues</div>
-                          <ul class="list">
-                            <li><span class="icon flaticon-business"></span> 25 August 2016</li>
-                          </ul>
-                        </div>
-                    </div>
-                    
-                </div>
-                <!--News Block-->
-                <div class="news-block style-two col-md-12 col-sm-12 col-xs-12">
-                	<!--Inner Box-->
-                    <div class="inner-box">
-                    	<!--Image Box-->
-                    	<div class="image-box wow fadeInRight" data-wow-delay="0ms" data-wow-duration="1500ms">
-                    		<a href="single-blog.html"><img src="{{asset('frontend-assets/images/resource/news-2.jpg')}}" alt="" /></a>
-                   		</div>
-                        <!--Lower Content-->
-                        <div class="lower-content">
-                        	<h3><a href="">Complete Disassembly & Installation Guides</a></h3>
-                          <div class="text">Free fearful disgust hatred fearful decieve. Strong chaos eternal-return abstract of virtues</div>
-                          <ul class="list">
-                            <li><span class="icon flaticon-business"></span> 25 August 2016</li>
-                          </ul>
-                        </div>
-                    </div>
-                    
-                </div>
-                
+
+                @endforeach
+
             </div>
         </div>
     </section>
 
     <section class="repair-section paybill-section">
     	<div class="auto-container">
-        
+
         	<!--Sec Title One-->
             <div class="sec-title-one">
                 <h2>CITIES WHERE SERVICE IS AVAILABLE:</h2>
                 <!-- <div class="text">Overcome faithful endless salvation enlightenment salvation overcome pious merciful<br>ascetic madness holiest joy passion zarathustra suicide overcome snare.</div> -->
             </div>
-        
+
         	<div class="row clearfix states-container">
         		<div class="overline"></div>
             <div class="col-md-2 col-xs-12">
@@ -692,7 +619,7 @@
             			<a class="city-link" href="">Washington, D.C.</a>
             		</div>
             	</div>
-            </div>      
+            </div>
           </div>
         </div>
     </section>
@@ -700,5 +627,5 @@
 @endsection
 @section('script')
 
-	
+
 @endsection

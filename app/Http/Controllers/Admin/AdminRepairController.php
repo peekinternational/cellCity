@@ -8,6 +8,7 @@ use App\Models\Admin;
 use App\Models\Alert;
 use App\Models\Brand;
 use App\Mail\TechMail;
+use App\Mail\orderAssign;
 use App\Models\Pmodel;
 use App\Models\ZipCode;
 use App\Models\RepairType;
@@ -19,6 +20,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\Temporary;
 use App\Models\TemporaryOrderType;
+use Twilio\Rest\Client;
 
 class AdminRepairController extends Controller
 {
@@ -135,11 +137,22 @@ class AdminRepairController extends Controller
         $details = [
             'title' => 'Mail from PeekInternational.com',
             'subject' => 'Assign Order',
-            'message' => 'Check your order in your profile'
+            'message' => 'You have Assign a Order.. Please Check your order in your profile'
         ];
-             $messgae = "Successfully Assign";
-         \Mail::to($user->email)->send(new TechMail($details));
-         return response()->json($messgae);
+           
+         \Mail::to($user->email)->send(new orderAssign($details));
+          
+         $phone = '+'.$user->phoneno;
+           $message ="You have Assign a  new repair Order.. Please Check your order in your profile";
+           
+             $account_sid = "ACad62fedb0f642dc64068c2852a8f0fb3";
+             $auth_token = "6cf7d73011dfe99d032652bd77824065";
+             $twilio_number = +19793416597;
+             $client = new Client($account_sid, $auth_token);
+             $client->messages->create($phone,
+                 ['from' => $twilio_number, 'body' => $message] );
+
+         return response()->json($message);
     }
 
     public function repairStep()

@@ -14,6 +14,7 @@ use App\Models\RepairOrder;
 use App\Models\RepairOrderType;
 use App\Models\Admin;
 use App\Models\Alert;
+use App\Models\Blog;
 
 
 
@@ -46,6 +47,11 @@ class CityClass {
     function allUser()
     {
       return User::whereRole('user')->get();
+    }
+
+    function allBlog()
+    {
+        return Blog::orderBy('id','desc')->get();
     }
 }
 
