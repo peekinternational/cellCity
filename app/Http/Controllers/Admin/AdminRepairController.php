@@ -172,6 +172,7 @@ class AdminRepairController extends Controller
         $customer = User::whereId($request->userId)->first();
         $model = explode(',',$request->model_Id);
         $model_Id = $model[0];
+       
         // dd($request->model_Id);
         $RepairOrders = new RepairOrder;
         $RepairOrders->userId = $request->userId;
@@ -184,8 +185,9 @@ class AdminRepairController extends Controller
         $RepairOrders->email = $customer->email;
         $RepairOrders->instructions = $request->instruction;
         $RepairOrders->save();
-
+       
         foreach ($request->repair_type as $key => $value) {
+            // dd($RepairOrders->id);
             $ordertype = New RepairOrderType;
             $ordertype->order_Id= $RepairOrders->id;
             $ordertype->repair_type= RepairType::whereId($value)->first()->repair_type;
