@@ -21,7 +21,7 @@
                                         <form action="{{url('admin/product',$product->id)}}" method="post" enctype="multipart/form-data">
                                             {{csrf_field()}}
                                             @method('PUT')
-                                            <div class="form-group row">
+                                            {{-- <div class="form-group row">
                                                 <label for="example-text-input" class="col-md-2 col-form-label">Image</label>
                                                 <div class="col-md-10">
                                                     <input class="form-control" name="image[]" onchange="readURL(this);" type="file" placeholder="Enter Brand Name" multiple  @if(old('image'))  @endif  id="example-text-input">
@@ -30,7 +30,7 @@
                                                     <img id="blah" src="{{asset($image->image)}}" alt="your image" width="150px" height="150px"/>
                                                     @endforeach
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                             <div class="form-group row">
                                                 <label for="example-text-input" class="col-md-2 col-form-label">Brands</label>
                                             <div class="col-md-10">
@@ -55,12 +55,12 @@
                                             </select>
                                         </div>
                                     </div>
-                                        <div class="form-group row">
+                                        {{-- <div class="form-group row">
                                             <label for="example-text-input" class="col-md-2 col-form-label">Storage</label>
                                             <div class="col-md-10">
                                                 <select class="form-control selectpic" name="storage" id="storage">
                                                     <option selected="">Select Storage</option>
-                                                    <option value="256GB" {{ $product->storage == '256GB' ? 'selected':'' }}>256 GB</option>
+                                                    <option value="256 GB" {{ $product->storage == '256GB' ? 'selected':'' }}>256 GB</option>
                                                     <option value="128GB"{{ $product->storage == '128GB' ? 'selected':'' }}>128 GB</option>
                                                     <option value="64GB"{{ $product->storage == '64GB' ? 'selected':'' }}>64 GB</option>
                                                     <option value="32GB"{{ $product->storage == '32GB'? 'selected':'' }}>32 GB</option>
@@ -70,7 +70,7 @@
                                                     <option value="2GB"{{ $product->storage == '2GB' ? 'selected':'' }}>2 GB</option>
                                                 </select>
                                             </div>
-                                        </div>
+                                        </div> --}}
                                         <div class="form-group row">
                                             <label for="example-text-input" class="col-md-2 col-form-label">Ram</label>
                                             <div class="col-md-10">
@@ -128,13 +128,13 @@
                                                 <span class="text-danger">{{ $errors->first('quantity') }}</span>
                                             </div>
                                         </div>
-                                        <div class="form-group row">
+                                        {{-- <div class="form-group row">
                                             <label for="example-text-input" class="col-md-2 col-form-label">Colors</label>
                                             <div class="col-md-10">
                                                 <input class="form-control" name="colors" type="text" placeholder="Enter mobile colors"  @if(old('colors'))" @endif value="{{ $product->colors }}"  id="example-text-input">
                                                 <span class="text-danger">{{ $errors->first('colors') }}</span>
                                             </div>
-                                        </div>
+                                        </div> --}}
                               
                                        
                                         <div class="form-group row">

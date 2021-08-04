@@ -195,7 +195,7 @@
 
           </div>
           <div id="time-height-spacer"></div>
-          <div class="select-time-button-wrapper fixed-to-bottom-right" id="time_continue">
+          <div class="select-time-button-wrapper fixed-to-bottom-right" id="time_continue" style="display: none;">
             <button class="new-action-button">Continue</button>
           </div>
         </div>
@@ -421,11 +421,12 @@
           console.log(response);
         //    alert(response);
         $('#timeslot').empty();
+        $("#time_continue").hide();
            if(response.length > 0)
            {
              for(var i = 0; i <response.length; i++)
              {
-                 var html =' <label id="timeee" class="time-content-box time-content-box" for="'+response[i].time+'">'+
+                 var html =' <label id="timeee" class="time-content-box time-content-box" onchange="check_time('+response[i].id+')" for="'+response[i].time+'">'+
                             '<p >'+response[i].time+'</p>'+
                             '<input type="radio" form="repairType" name="time" value="'+response[i].time+'" id="'+response[i].time+'" class="hidden">'+
                             '</label>';
@@ -442,6 +443,11 @@
         },
 
        });
+    }
+
+    function check_time(id)
+    {
+         $("#time_continue").show();
     }
 </script>
 

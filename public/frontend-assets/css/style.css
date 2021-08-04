@@ -6467,3 +6467,7 @@ ul,li{
 	line-height: 1em;
 	border-color: #ddd;
 }
+.repair:hover .repair-dropdown{
+	visibility: visible;
+	opacity: 1;
+}
