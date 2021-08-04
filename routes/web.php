@@ -227,7 +227,7 @@ Route::namespace('Auth')->middleware('auth:web')->group(function(){
     });
     Route::get('/repair', function () {
         return view('frontend.repair');
-    });
+    })->name('repair.index');
 
     Route::get('/blog', function () {
         return view('frontend.blog');
@@ -248,10 +248,12 @@ Route::namespace('Auth')->middleware('auth:web')->group(function(){
         return view('frontend.paymentSuccess');
     })->name('payment.completed');
 
+   
+    Route::get('/product-single/{id}',[ProductController::class,'productDetail'])->name('product.details');
 
-    Route::get('/single', function () {
-        return view('frontend.single');
-    });
+    // Route::get('/single', function () {
+    //     return view('frontend.single');
+    // });
     Route::get('/pay-bills', function () {
         return view('frontend.pay-bills');
     });

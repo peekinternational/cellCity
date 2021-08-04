@@ -4,11 +4,16 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Product;
 use App\Models\Brand;
+use App\Models\ProductCondition;
 use App\Models\Pmodel;
+use App\Models\ProductColor;
+use App\Models\ProductStorage;
+
 use App\Models\ProductImage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Alert;
+use DB;
 
 class ProductController extends Controller
 {
@@ -51,41 +56,91 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-         $product = new Product;
+        // dd($request->all());    
+        // dd($request->file('image'));
+//         DB::beginTransaction();
+
+// try {
+        $product = new Product;
         //  $product->insert($request->only($product->getFillable()));
          
-         $product->storage = $request->storage;
-         $product->colors = $request->colors;
-         $product->ram = $request->ram;
+         $product->category = $request->category;
+         $product->memory = $request->memory;
          $product->locked = $request->locked;
          $product->warranty = $request->warranty;
-         $product->sell_price = $request->sell_price;
-         $product->original_price = $request->original_price;
          $product->desc = $request->desc;
-         $product->display = $request->display;
-         $product->cameraMp = $request->cameraMp;
+         $product->screen_size = $request->screen_size;
+         $product->megapixel = $request->megapixel;
          $product->OS = $request->OS;
          $product->resolution = $request->resolution;
-         $product->quantity = $request->quantity;
-       
-         $product->category = $request->category;
+         $product->screen_type = $request->screen_type;
+         $product->network = $request->network;
+         $product->sim_card_format = $request->sim_card_format;
+         $product->double_sim = $request->double_sim;
+         $product->release_year = $request->release_year;
          $product->model_id = $request->model_id;
-        
-        $product->save();
         //  dd($product);
-       
-        foreach($request->file('image') as $image)
-        {  
-            $imageName= time().$image->getClientOriginalName();
-            $image->move('storage/images/products/', $imageName);  
+        $product->save();
+        
 
-            $imagefile = new ProductImage;
-            $imagefile->image =  'storage/images/products/'. $imageName;
-            $imagefile->product_id = $product->id;
-            $imagefile->save();
+        
+        foreach($request->color_name as $key=> $colors)
+        {  
             
-        }
+            $color = new ProductColor;
+            $color->color_name = $colors;
+            $color->product_id = $product->id;
+            $color->save();
+     
+            foreach($request->storage[$key] as $key2=>$storages)
+            {
+                
+                $storage = new ProductStorage;
+                $storage->storage = $storages                                                                                                                                                                                                                                                                                                                                                                              ;
+      
+                $storage->color_id = $color->id;
+                $storage->save();
+            }
+
+            foreach($request->condition[$key] as $key3=>$condition)
+            {
+                $condition = new ProductCondition;
+                $condition->condition =$request->condition[$key][$key3];
+                $condition->price = $request->price[$key][$key3];
+                $condition->quantity = $request->quantity[$key][$key3];
+                $condition->storage_id = $storage->id;
+                $condition->save();
+            }
+            
+         foreach($request->file('image')[$key] as $image)
+            {  
+                
+                $imageName= time().$image->getClientOriginalName();
+                $destination ='storage/products/images/';
+                $image->move(public_path($destination), $imageName);  
+
+                // dd($imageName);
+                $imagefile = new ProductImage;
+                $imagefile->image = $imageName;
+                $imagefile->product_id = $product->id;
+                $imagefile->color_id = $color->id;
+                $imagefile->save();
+                // dd($request->condition);       
+           
+             
+               
+                // dd($storage);
+             
+        
+    }
+
+    }
+    //     DB::commit();
+
+    // } catch (\Exception $e) {
+    //     DB::rollback();
+    //     return back()->with('message', Alert::_message('success', 'somthing wrong.'));
+    // }
         
         return back()->with('message', Alert::_message('success', 'Product Created Successfully.'));
  
@@ -200,4 +255,13 @@ class ProductController extends Controller
         $products = Product::all();
         return view('frontend.buy-phone',compact('products'));
     }
+
+   public function productDetail($id)
+   {
+       $product = Product::find($id);
+       $color   = ProductColor::where('product_id',$product->id)->get();
+       return view('frontend.single');
+   }
+
+
 }

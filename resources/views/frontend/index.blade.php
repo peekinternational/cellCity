@@ -247,29 +247,41 @@
             </div>
 
         	<div class="row clearfix">
+
             	<!--Shop Item-->
+                @php
+                    $products = App\Models\Product::all();
+                @endphp
+                @foreach ($products as $product)
+                @php
+                $model = App\Models\Pmodel::where('id',$product->model_id)->first();
+                $image = App\Models\ProductImage::where('product_id',$product->id)->first();
+                @endphp
                 <div class="shop-item col-md-3 col-sm-6 col-xs-12">
                 	<div class="inner-box wow fadeIn" data-wow-delay="0ms" data-wow-duration="1500ms">
                     	<figure class="image-box">
-                        	<a href="{{url('single')}}"><img src="{{asset('frontend-assets/images/resource/products/product-1.jpg')}}" alt="" /></a>
+                        	<a href={{ route('product.details',$product->id) }}"><img src="{{asset($image->image)}}" alt="" /></a>
                         </figure>
                         <!--Lower Content-->
+                       
                         <div class="lower-content">
-                        	<h3><a href="{{url('single')}}">IPhone XR</a></h3>
-                        	<div> <span>64 GB - Space Gray - Unlocked</span> </div>
+                        	<h3><a href="{{url('single')}}">{{ $model->model_name }}</a></h3>
+                        	<div> <span>{{ $product->memory }} -  - {{ $product->locked }}</span> </div>
 		                        <span>
-		                        Warranty: 12 months
+		                        Warranty: {{ $product->warranty }}
 		                        </span>
 		                        <div>Starting from</div>
                             <div class="price">
-                            <strong>$395.00</strong> <del>$400.00</del></div>
+                            <strong>$500.00</strong> <del>$950.00</del></div>
                             <!-- <a href="{{url('single')}}" class="cart-btn theme-btn btn-style-two">Add to cart</a> -->
                         </div>
                     </div>
                 </div>
+                @endforeach
+               
 
                 <!--Shop Item-->
-                <div class="shop-item col-md-3 col-sm-6 col-xs-12">
+                {{-- <div class="shop-item col-md-3 col-sm-6 col-xs-12">
                 	<div class="inner-box wow fadeIn" data-wow-delay="0ms" data-wow-duration="1500ms">
                     	<figure class="image-box">
                         	<a href="{{url('single')}}"><img src="{{asset('frontend-assets/images/resource/products/product-2.jpg')}}" alt="" /></a>
@@ -287,10 +299,10 @@
                             <!-- <a href="{{url('single')}}" class="cart-btn theme-btn btn-style-two">Add to cart</a> -->
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
                 <!--Shop Item-->
-                <div class="shop-item col-md-3 col-sm-6 col-xs-12">
+                {{-- <div class="shop-item col-md-3 col-sm-6 col-xs-12">
                 	<div class="inner-box wow fadeIn" data-wow-delay="0ms" data-wow-duration="1500ms">
                     	<figure class="image-box">
                         	<a href="{{url('single')}}"><img src="{{asset('frontend-assets/images/resource/products/product-3.jpg')}}" alt="" /></a>
@@ -308,10 +320,10 @@
                             <!-- <a href="{{url('single')}}" class="cart-btn theme-btn btn-style-two">Add to cart</a> -->
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
                 <!--Shop Item-->
-                <div class="shop-item col-md-3 col-sm-6 col-xs-12">
+                {{-- <div class="shop-item col-md-3 col-sm-6 col-xs-12">
                 	<div class="inner-box wow fadeIn" data-wow-delay="600ms" data-wow-duration="1500ms">
                     	<figure class="image-box">
                         	<a href="{{url('single')}}"><img src="{{asset('frontend-assets/images/resource/products/image-4.jpg')}}" alt="" /></a>
@@ -328,7 +340,7 @@
                             <strong>$349.00</strong> <del>$699.00</del></div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
             </div>
         </div>

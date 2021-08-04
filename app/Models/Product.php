@@ -9,9 +9,11 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['locked','colors','ram','warranty','storage'
-                            ,'model_id','sell_price','original_price',
-                            'desc','display','cameraMp','category','OS','resolution','quantity'];
+    protected $fillable = ['locked','sim_card_format','memory','warranty'
+                            ,'model_id','category','network',
+                            'desc','screen_size','screen_type','OS','resolution','megapixel',
+                           'double_sim','release_year'
+                        ];
     
     
     /**
@@ -31,5 +33,10 @@ class Product extends Model
     public function models(): HasMany
     {
         return $this->hasMany(Pmodel::class,'model_id', 'id');
+    }
+
+    public function color()
+    {
+        return $this->hasMany(ProductColor::class,'color_id','id');
     }
 }
