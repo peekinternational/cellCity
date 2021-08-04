@@ -278,7 +278,7 @@ class UserController extends Controller
           $apiContext = new ApiContext(
             new OAuthTokenCredential(
                 'AXmw8ONlBiU9H3ISoZY7KJgQszN9Mtto7MXfq4Y9PQOeawovyhUSS19Ob8LYlU-xYQo_ERLBOJckp8sq',
-                'EPdWVscuS7k-u-45AKc5khipCBlMYqUBfUmbrE3aUV0FJlF8hFcGKn_5p7T9VA2R5HdsR_JmTj1EiUDr'
+                'ELx_bFtG5sHo_SN7qZw8oAuw2OZGr4b-SSOqqAUz83URl4zK2gBuaf_Eho-qvw5OjBaiPsdNDOE8DC3U'
             )
         );
 
@@ -335,7 +335,7 @@ class UserController extends Controller
       $apiContext = new ApiContext(
           new OAuthTokenCredential(
             'AXmw8ONlBiU9H3ISoZY7KJgQszN9Mtto7MXfq4Y9PQOeawovyhUSS19Ob8LYlU-xYQo_ERLBOJckp8sq',
-            'EPdWVscuS7k-u-45AKc5khipCBlMYqUBfUmbrE3aUV0FJlF8hFcGKn_5p7T9VA2R5HdsR_JmTj1EiUDr'
+            'ELx_bFtG5sHo_SN7qZw8oAuw2OZGr4b-SSOqqAUz83URl4zK2gBuaf_Eho-qvw5OjBaiPsdNDOE8DC3U'
           )
       );
 
