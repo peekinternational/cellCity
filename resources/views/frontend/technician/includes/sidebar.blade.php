@@ -109,7 +109,7 @@
           </li> -->
 
           <li>
-            <a href="">
+            <a href="{{ url('tech/paymeny-order') }}">
               <i class="nc-icon nc-single-02"></i>
               <p>Payments</p>
             </a>

@@ -191,7 +191,7 @@ class TechController extends Controller
     ];
 
 
-     \Mail::to("shan57409@gmail.com")->send(new orderModify($details));
+     \Mail::to("peek.ali500@gmail.com")->send(new orderModify($details));
     //   $mail = mail ("admin@gmail.com",$subject,$message);
 
 

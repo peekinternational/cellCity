@@ -64,41 +64,13 @@ class RepairController extends Controller
     // dd(Auth::user());
     $repairOrder = RepairOrder::where('order_status','<>', '4')
                                 ->whereDate('date','=',$request->date)
-                                ->get();
-    // dd($repairOrder->count());
+                                ->select('time')
+                                ->get()->toArray();
+    // dd($repairOrder);
 
-    $times =OrderTime::all();
-
-    $data=[];
-    if($repairOrder->count() > 0)
-    {
-         for($i = 0; $i < $repairOrder->count(); $i++)
-         {
-                 for($j = 0; $j < $times->count(); $j++)
-                 {
-
-                    if($times[$j]->time != $repairOrder[$i]->time)
-                    {
-                        //  echo $times[$j]->time;
-                        //  echo $repairOrder[$i]->time;
-                        array_push($data,$times[$j]);
-
-                    }else{
-
-                      // return $times[$j] ?? null;
-                    }
-                 }
-         }
-        //  print_r($data);
-
-    }
-    else
-    {
-       return response()->json($times);
-    }
-    // dd($data);
-
-    return response()->json($data);
+    $times =OrderTime::whereNotIn('time', $repairOrder)->get();
+   
+    return response()->json($times);
 
   }
 
@@ -167,7 +139,7 @@ public function saverepairType(Request $request){
      $details = [
       'title' => 'Mail from PeekInternational.com',
       'subject' => 'Dear Customer ,',
-      'message' => 'Your order have been Placed Successfully.'
+      'message' => 'Order placed successfully a technician reached out to you as soon as possible.'
   ];
      
    \Mail::to($request->email)->send(new orderPlace($details));

@@ -47,9 +47,17 @@
                         <i class="bx bx-store"></i>
                         <span>Repair</span>
                     </a>
+                    @php
+                        $repair = App\Models\RepairOrder::where('notification',0)->get();
+                    @endphp
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{url('admin/repair-steps')}}">Create Repair Order</a></li>
-                        <li><a href="{{url('admin/repairOrders')}}">Orders List</a></li>
+                        <li><a href="{{url('admin/repairOrders')}}">Orders List
+                             @if ($repair->count() > 0)
+                             <span class="badge badge-pill badge-success">{{ $repair->count() }}</span>
+                             @else
+                              
+                            @endif </a></li>
                         <li><a href="{{url('admin/checkUpdateOrders')}}">Check Update Orders</a></li>
                         <li><a href="{{url('admin/brands/create')}}">Add Brand</a></li>
                         <li><a href="{{url('admin/brands')}}">Brands List</a></li>

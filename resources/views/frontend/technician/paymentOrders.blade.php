@@ -68,10 +68,7 @@
                     </thead>
                     <tbody>
                       @php
-                        $repair = App\Models\RepairOrder::where(['techId'=>Auth::guard('tech')->user()->id,'order_status'=>'3'])
-                                                             ->orWhere('order_status','2')
-                                                             ->orWhere('order_status','1')
-                                                                ->get();
+                        $repair = App\Models\RepairOrder::where(['techId'=>Auth::guard('tech')->user()->id,'order_status'=>'4'])->get();
                       @endphp
                       @foreach($repair as $index => $order)
                       <tr>

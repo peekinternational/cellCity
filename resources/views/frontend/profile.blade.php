@@ -114,18 +114,20 @@
 												   ${{$repair->price}}<br>
                                                 @endforeach
 											</td>
-                                            <td colspan="2"><span class="badge badge-pill badge-success">{{$order->pay_method}}</span></td>
+                                            <td colspan="2"><span class="badge  badge-success" style="background-color: #f1b44c">{{$order->pay_method}}</span></td>
+
 											<td colspan="2"> @if ($order->order_status == 3 && $order->techId !== null)
-                                                <span class="badge badge-pill badge-warning">Assign</span>
+                                                <span class="badge badge-pill badge-warning" style="background-color: #f1b44c">Assign</span>
                                                 @elseif ($order->order_status == 1  && $order->techId !== null)
-                                                <span class="badge badge-pill badge-success">Accept</span>
+                                                <span class="badge badge-pill badge-success" style="     background-color: #51cbce;
+												">Accept</span>
 
                                                 @elseif ($order->order_status == 0  && $order->techId !== null)
                                                 <span class="badge badge-pill badge-secondary">Pendding</span>
                                                 @elseif ($order->order_status == 4 && $order->techId !== null)
-                                                <span class="badge badge-pill badge-success">Complete</span>
+                                                <span class="badge badge-pill badge-success" style="background-color: #6bd098">Complete</span>
                                                 @else
-                                                <span class="badge badge-pill badge-info">Not Assign</span>
+                                                <span class="badge badge-primary" style="background-color: #50a5f1">Not Assign</span>
                                                 @endif</td>
 											<!-- <td><a href=""><i class="fa fa-eye text-danger"></i></a></td> -->
                                             <td colspan="2">

@@ -31,14 +31,18 @@ class AdminRepairController extends Controller
      */
     public function index()
     {
-        $RepairTypes= RepairType::orderBy('id','desc')->get();
+        $RepairTypes= RepairType::orderBy('created_at','desc')->get();
         return view('admin.repair-list',compact('RepairTypes'));
     }
 
 
     public function repairOrders()
-    {
-        $RepairOrders= RepairOrder::orderBy('id','desc')->get();
+    {   
+        RepairOrder::where('notification', '=', 0)
+                   ->update(['notification' => 1]);
+        
+      
+        $RepairOrders= RepairOrder::orderBy('id','asc')->get();
         return view('admin.repair-orders',compact('RepairOrders'));
     }
 
