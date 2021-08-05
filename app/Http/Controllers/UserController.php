@@ -273,12 +273,12 @@ class UserController extends Controller
     {
         //   dd('asdasd');
           $sume = $request->total;
-
+         
           $desc = $repairOrder->id;
           $apiContext = new ApiContext(
             new OAuthTokenCredential(
-                'AXmw8ONlBiU9H3ISoZY7KJgQszN9Mtto7MXfq4Y9PQOeawovyhUSS19Ob8LYlU-xYQo_ERLBOJckp8sq',
-                'ELx_bFtG5sHo_SN7qZw8oAuw2OZGr4b-SSOqqAUz83URl4zK2gBuaf_Eho-qvw5OjBaiPsdNDOE8DC3U'
+                'ARcWra7qpT79tNfQ2XrsN7rd35KflhjsMJNaJgr3o6qya6g0T70ooPEhsghFlFyYD_f_iqsvOm-7fj6Z',
+                'ELhxo75QyJqzGCfPgZffoWJY2nW9ik6ZMaCQnFA-LcCYMG--Y9vb18Yz1zQLEvUKPEJOtfEuedQbA2yy'
             )
         );
 
@@ -312,7 +312,7 @@ class UserController extends Controller
         try {
 
             $payment->create($apiContext);
-            // dd($payment);
+            dd($payment);
             // Get PayPal redirect URL and redirect the customer
             // $approvalUrl =
             return redirect($payment->getApprovalLink());
@@ -334,9 +334,8 @@ class UserController extends Controller
   {
       $apiContext = new ApiContext(
           new OAuthTokenCredential(
-            'AXmw8ONlBiU9H3ISoZY7KJgQszN9Mtto7MXfq4Y9PQOeawovyhUSS19Ob8LYlU-xYQo_ERLBOJckp8sq',
-            'ELx_bFtG5sHo_SN7qZw8oAuw2OZGr4b-SSOqqAUz83URl4zK2gBuaf_Eho-qvw5OjBaiPsdNDOE8DC3U'
-          )
+            'ARcWra7qpT79tNfQ2XrsN7rd35KflhjsMJNaJgr3o6qya6g0T70ooPEhsghFlFyYD_f_iqsvOm-7fj6Z',
+            'ELhxo75QyJqzGCfPgZffoWJY2nW9ik6ZMaCQnFA-LcCYMG--Y9vb18Yz1zQLEvUKPEJOtfEuedQbA2yy'          )
       );
 
       // Get payment object by passing paymentId
@@ -384,9 +383,9 @@ class UserController extends Controller
     //  dd($phone);
      $message =strip_tags(nl2br("Dear customer,\n You have Successfully Pay  through PayPal \n Total Amount : $". $request->price));
    
-     $account_sid = "ACad62fedb0f642dc64068c2852a8f0fb3";
-     $auth_token = "5c2eada361d6f1aededef528d952b20c";
-     $twilio_number = +19793416597;
+     $account_sid = "AC78a39fa2728f3123ede28816f3b1eeb5";
+     $auth_token = "3fdb2a7c51cf2c8c13c389181b071152";
+     $twilio_number = +17633108816;
      $client = new Client($account_sid, $auth_token);
      $client->messages->create($phone,
          ['from' => $twilio_number, 'body' => $message] );
