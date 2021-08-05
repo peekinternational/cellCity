@@ -29,6 +29,7 @@ class CreateRepairOrdersTable extends Migration
             $table->string('instructions')->nullable();
             $table->enum('order_status', ['0','1','2','3','4'])->default('3');
             $table->enum('order_create', ['admin','customer'])->default('customer');
+            $table->boolean('notification')->default(0);
             $table->timestamps();
         });
     }

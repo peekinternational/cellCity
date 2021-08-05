@@ -130,6 +130,10 @@ Route::name('tech.')->namespace('Tech')->prefix('tech')->group(function(){
         Route::get('/orders', function(){
             return view('frontend.technician.orders');
         });
+        Route::get('/paymeny-order',function()
+        {
+          return view('frontend.technician.paymentOrders');
+        })->name('payment.orders');
 
         Route::get('/logout',function(){
             Auth::guard('tech')->logout();

@@ -59,47 +59,18 @@ class RepairController extends Controller
 
   public function checkDate(Request $request)
   {
-      // dd($request); 
+      // dd($request->date);
     //   $user = User::find($request->id);
     // dd(Auth::user());
-    $repairOrder = RepairOrder::where('userId',Auth::user()->id)
-                                ->where('order_status','<>', '4')
+    $repairOrder = RepairOrder::where('order_status','<>', '4')
                                 ->whereDate('date','=',$request->date)
-                                ->get();
-    // dd($repairOrder->count());
-    $times =OrderTime::all();
+                                ->select('time')
+                                ->get()->toArray();
+    // dd($repairOrder);
 
-    $data=[];
-    if($repairOrder->count() > 0)
-    {
-         for($i = 0; $i < $repairOrder->count(); $i++)
-         {
-                 for($j = 0; $j < $times->count(); $j++)
-                 {
-
-                    if($times[$j]->time != $repairOrder[$i]->time)
-                    {
-
-                        //  echo $times[$j]->time;
-                        //  echo $repairOrder[$i]->time;
-                        array_push($data,$times[$j]);
-
-                    }else{
-
-                      // return $times[$j] ?? null;
-                    }
-                 }
-         }
-        //  print_r($data);
-
-    }
-    else
-    {
-       return response()->json($times);
-    }
-    // dd($data);
-
-    return response()->json($data);
+    $times =OrderTime::whereNotIn('time', $repairOrder)->get();
+   
+    return response()->json($times);
 
   }
 
@@ -168,17 +139,24 @@ public function saverepairType(Request $request){
      $details = [
       'title' => 'Mail from PeekInternational.com',
       'subject' => 'Dear Customer ,',
-      'message' => 'Your order have been Placed Successfully.'
+      'message' => 'Order placed successfully a technician reached out to you as soon as possible.'
   ];
      
    \Mail::to($request->email)->send(new orderPlace($details));
     
    $phone = '+'.$request->phone;
+  
      $message =strip_tags(nl2br("Dear customer,\n You have Placed Order Successfully"));
      
+<<<<<<< HEAD
        $account_sid = "AC78a39fa2728f3123ede28816f3b1eeb5";
        $auth_token = "3fdb2a7c51cf2c8c13c389181b071152";
        $twilio_number = +17633108816;
+=======
+     $account_sid = "AC78a39fa2728f3123ede28816f3b1eeb5";
+     $auth_token = "3fdb2a7c51cf2c8c13c389181b071152";
+     $twilio_number = +17633108816;
+>>>>>>> 67238b6106ffd7b7d7d9f8bb8292ffb76a6152c5
        $client = new Client($account_sid, $auth_token);
        $client->messages->create($phone,
            ['from' => $twilio_number, 'body' => $message] );
