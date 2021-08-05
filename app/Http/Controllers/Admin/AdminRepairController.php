@@ -145,9 +145,9 @@ class AdminRepairController extends Controller
          $phone = '+'.$user->phoneno;
            $message = strip_tags(nl2br("Dear Technician, \n You have Recieved  a new Repair Order"));
                        
-             $account_sid = "ACad62fedb0f642dc64068c2852a8f0fb3";
-             $auth_token = "5c2eada361d6f1aededef528d952b20c";
-             $twilio_number = +19793416597;
+           $account_sid = "AC78a39fa2728f3123ede28816f3b1eeb5";
+           $auth_token = "3fdb2a7c51cf2c8c13c389181b071152";
+           $twilio_number = +17633108816;
              $client = new Client($account_sid, $auth_token);
              $client->messages->create($phone,
                  ['from' => $twilio_number, 'body' => $message] );

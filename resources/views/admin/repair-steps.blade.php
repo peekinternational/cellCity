@@ -86,8 +86,14 @@
                                         <div class="form-group row">
                                             <label for="example-text-input" class="col-md-2 col-form-label">Time</label>
                                             <div class="col-md-10">
-                                                <input class="form-control" name="time" type="time" placeholder="Select time" title="Select Date"  @if(old('time')) value="{{ old('time') }}" @endif  id="example-text-input">
-                                                <span class="text-danger">{{ $errors->first('price') }}</span>
+                                                <select name="time" class="form-control selectpic">
+                                                <option> Select Time</option>
+                                                @foreach(CityClass::orderTimes() as $orderTime)
+                                                <option value="{{ $orderTime->time }}">{{ $orderTime->time }}</option>
+                                                @endforeach
+
+                                                
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="form-group row">

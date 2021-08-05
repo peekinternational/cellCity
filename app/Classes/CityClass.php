@@ -15,6 +15,7 @@ use App\Models\RepairOrderType;
 use App\Models\Admin;
 use App\Models\Alert;
 use App\Models\Blog;
+use App\Models\OrderTime;
 
 
 
@@ -52,6 +53,10 @@ class CityClass {
     function allBlog()
     {
         return Blog::orderBy('id','desc')->get();
+    }
+	function orderTimes()
+    {
+        return OrderTime::orderBy('id','asc')->get();
     }
 }
 
