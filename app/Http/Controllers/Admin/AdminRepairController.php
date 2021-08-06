@@ -290,6 +290,7 @@ class AdminRepairController extends Controller
 
     public function checkUpdateOrders()
     {
+        Temporary::where('notification',0)->update(['notification'=>1]);
         $RepairOrders= Temporary::orderBy('id','desc')->get();
         
 

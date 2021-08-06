@@ -127,8 +127,6 @@ class ProductController extends Controller
                 $imagefile->save();
                 // dd($request->condition);       
            
-             
-               
                 // dd($storage);
              
         

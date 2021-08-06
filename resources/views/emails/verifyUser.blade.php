@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+   
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <style type="text/css">
         @media screen {
@@ -126,7 +126,7 @@
                     <tr>
                         <td bgcolor="#ffffff" align="center" valign="top" style="padding: 40px 20px 20px 20px; border-radius: 4px 4px 0px 0px; color: #111111; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 48px; font-weight: 400; letter-spacing: 4px; line-height: 48px;">
                             <h2 style="font-size: 48px; font-weight: 400; margin: 2;">Welcome!</h2> 
-                            {{-- <img src="http://192.241.139.188/demos/cellCity/public/frontend-assets/images/logo1.png" width="125" height="120" style="display: block; border: 0px;" /> --}}
+                            <img src="{{ asset('frontend-assets/images/logo1.png')}}" width="125" height="120" style="display: block; border: 0px;" />
                         </td>
                     </tr>
                 </table>

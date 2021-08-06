@@ -67,13 +67,7 @@
 
                     </thead>
                     <tbody>
-                      @php
-                        $repair = App\Models\RepairOrder::where(['techId'=>Auth::guard('tech')->user()->id,'order_status'=>'3'])
-                                                             ->orWhere('order_status','2')
-                                                             ->orWhere('order_status','1')
-                                                                ->get();
-                      @endphp
-                      @foreach($repair as $index => $order)
+                      @foreach(Auth::guard('tech')->user()->repairorders as $index => $order)
                       <tr>
                         <td colspan="2">#{{$order->id}}</td>
                         <td colspan="2">{{CityClass::modelName($order->model_Id)}}</td>
