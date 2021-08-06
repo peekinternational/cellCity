@@ -66,6 +66,7 @@ Route::name('admin.')->namespace('Admin')->prefix('admin')->group(function(){
      Route::resource('/repairTypes', '\App\Http\Controllers\Admin\AdminRepairController');
      Route::get('/repairOrders',  [AdminRepairController::class, 'repairOrders']);
      Route::post('/assignTech',  [AdminRepairController::class, 'assignTech']);
+     Route::get('/completed-orders',[AdminRepairController::class,'orderCompleted']);
 
 
       //blog management

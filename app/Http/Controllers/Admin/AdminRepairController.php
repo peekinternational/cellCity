@@ -42,8 +42,20 @@ class AdminRepairController extends Controller
                    ->update(['notification' => 1]);
         
       
-        $RepairOrders= RepairOrder::orderBy('id','asc')->get();
+        $RepairOrders= RepairOrder::where('order_status','!=','4')->orderBy('id','desc')
+                                ->get();
+       
         return view('admin.repair-orders',compact('RepairOrders'));
+    }
+
+    public function orderCompleted()
+    {   
+        RepairOrder::where('notification', '=', 0)
+                   ->update(['notification' => 1]);
+        
+      
+        $RepairOrders= RepairOrder::where(['order_status'=>'4'])->orderBy('created_at','desc')->get();
+        return view('admin.orderCompleted',compact('RepairOrders'));
     }
 
 
@@ -150,7 +162,7 @@ class AdminRepairController extends Controller
            $message = strip_tags(nl2br("Dear Technician, \n You have Recieved  a new Repair Order"));
                        
            $account_sid = "AC6769d3e36e7a9e9ebbea3839d82a4504";
-           $auth_token = "a10eb8c9f8039c582126fde6001a19fb";
+           $auth_token = "c20d438e85e4d9f39abd273dbc31e27a";
            $twilio_number = +15124027605;
              $client = new Client($account_sid, $auth_token);
              $client->messages->create($phone,

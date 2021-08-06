@@ -113,7 +113,7 @@
                                                              {{$techId->name}}
                                                            <button onclick="rejectOrder('{{$order->id}}')" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cancel The order">cancel</button> --}}
                                                             @else
-                                                             {{$techId->name}}
+                                                            {{$techId->name ?? 'Deleted Tech'}}
 
                                                            @endif
 

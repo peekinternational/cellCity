@@ -60,7 +60,7 @@
                                         </div>
 
                                         <div class="table-responsive">
-                                            <table class="table table-centered table-nowrap" id="example3">
+                                            <table class="table table-centered table-nowrap" id="example">
                                                 <thead class="thead-light">
                                                     <tr>
 
@@ -80,7 +80,7 @@
                                                 <tbody>
                                                     @foreach($RepairOrders as $order)
                                                     <tr>
-                                                        <td><a href="javascript: void(0);" class="text-body font-weight-bold">{{$order->id}}</a> </td>
+                                                        <td><a href="javascript: void(0);" class="text-body font-weight-bold">#{{$order->id}}</a> </td>
                                                         <td>{{$order->created_at->format('Y-m-d')}}</td>
                                                         <td>{{$order->name}}</td>
                                                         <td>
@@ -187,12 +187,7 @@
 @section('script')
 
 <script type="text/javascript">
-$(document).ready(function() {
-   $('#example3').DataTable({
-        "order": [[ 0, "desc" ]]
-    });
 
-} );
     function viewDetail(id){
    $.ajax({
         url: "{{url('admin/repairTypes')}}/"+id,

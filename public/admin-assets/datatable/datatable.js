@@ -1,6 +1,6 @@
-$(function(e) {
-	$('#example').DataTable();
-} );
 $(document).ready(function() {
-	$('#example2').DataTable();
+   $('#example3').DataTable({
+        "order": [[ 0, "desc" ]]
+    });
+
 } );
