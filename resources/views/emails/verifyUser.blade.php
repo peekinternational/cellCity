@@ -126,7 +126,7 @@
                     <tr>
                         <td bgcolor="#ffffff" align="center" valign="top" style="padding: 40px 20px 20px 20px; border-radius: 4px 4px 0px 0px; color: #111111; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 48px; font-weight: 400; letter-spacing: 4px; line-height: 48px;">
                             <h2 style="font-size: 48px; font-weight: 400; margin: 2;">Welcome!</h2> 
-                            {{-- <img src="http://192.241.139.188/demos/cellCity/public/frontend-assets/images/logo1.png" width="125" height="120" style="display: block; border: 0px;" /> --}}
+                            <img src="{{ asset('frontend-assets/images/logo1.png')}}" width="125" height="120" style="display: block; border: 0px;" />
                         </td>
                     </tr>
                 </table>

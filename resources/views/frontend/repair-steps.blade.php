@@ -442,7 +442,7 @@
            }
            else
            {
-            alert('select the time');
+            // alert('select the time');
            }
         }
 
