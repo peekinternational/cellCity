@@ -259,9 +259,9 @@ class UserController extends Controller
     //  dd($phone);
      $message =strip_tags(nl2br("Dear Customer, \n You have Successfully Pay  through Cash . \n Total Amount : $". $request->total));
    
-     $account_sid = "AC78a39fa2728f3123ede28816f3b1eeb5";
-     $auth_token = "3fdb2a7c51cf2c8c13c389181b071152";
-     $twilio_number = +17633108816;
+     $account_sid = "AC6769d3e36e7a9e9ebbea3839d82a4504";
+     $auth_token = "a10eb8c9f8039c582126fde6001a19fb";
+     $twilio_number = +15124027605;
      $client = new Client($account_sid, $auth_token);
      $client->messages->create($phone,
          ['from' => $twilio_number, 'body' => $message] );
@@ -273,15 +273,15 @@ class UserController extends Controller
     {
         //   dd('asdasd');
           $sume = $request->total;
-
+         
           $desc = $repairOrder->id;
           $apiContext = new ApiContext(
             new OAuthTokenCredential(
-                'AXmw8ONlBiU9H3ISoZY7KJgQszN9Mtto7MXfq4Y9PQOeawovyhUSS19Ob8LYlU-xYQo_ERLBOJckp8sq',
-                'EPdWVscuS7k-u-45AKc5khipCBlMYqUBfUmbrE3aUV0FJlF8hFcGKn_5p7T9VA2R5HdsR_JmTj1EiUDr'
+                'AY1aDjqlQHHutY2Kg6zsHfoqWrWfYbjbWkp4xCqUiLaFDrMRyJG3LzZAQ3Lw22S_wuW1iAnAAsLCAWgK',
+                'EGngM0S-9WpLca_l8CVUaOp_66g5nzoWfzKhb4saCQGOoODUSbB5V5C3Ejodd702bO0GptVPYTsTf1vd'
             )
         );
-
+dd($apiContext);
         $payer = new Payer();
         $payer->setPaymentMethod("paypal");
         // dd($payer);
@@ -312,7 +312,7 @@ class UserController extends Controller
         try {
 
             $payment->create($apiContext);
-            // dd($payment);
+            dd($payment);
             // Get PayPal redirect URL and redirect the customer
             // $approvalUrl =
             return redirect($payment->getApprovalLink());
@@ -334,9 +334,9 @@ class UserController extends Controller
   {
       $apiContext = new ApiContext(
           new OAuthTokenCredential(
-            'AXmw8ONlBiU9H3ISoZY7KJgQszN9Mtto7MXfq4Y9PQOeawovyhUSS19Ob8LYlU-xYQo_ERLBOJckp8sq',
-            'EPdWVscuS7k-u-45AKc5khipCBlMYqUBfUmbrE3aUV0FJlF8hFcGKn_5p7T9VA2R5HdsR_JmTj1EiUDr'
-          )
+            'AY1aDjqlQHHutY2Kg6zsHfoqWrWfYbjbWkp4xCqUiLaFDrMRyJG3LzZAQ3Lw22S_wuW1iAnAAsLCAWgK',
+                'EGngM0S-9WpLca_l8CVUaOp_66g5nzoWfzKhb4saCQGOoODUSbB5V5C3Ejodd702bO0GptVPYTsTf1vd'   
+                      )
       );
 
       // Get payment object by passing paymentId
@@ -384,9 +384,9 @@ class UserController extends Controller
     //  dd($phone);
      $message =strip_tags(nl2br("Dear customer,\n You have Successfully Pay  through PayPal \n Total Amount : $". $request->price));
    
-     $account_sid = "AC78a39fa2728f3123ede28816f3b1eeb5";
-     $auth_token = "3fdb2a7c51cf2c8c13c389181b071152";
-     $twilio_number = +17633108816;
+     $account_sid = "AC6769d3e36e7a9e9ebbea3839d82a4504";
+     $auth_token = "a10eb8c9f8039c582126fde6001a19fb";
+     $twilio_number = +15124027605;
      $client = new Client($account_sid, $auth_token);
      $client->messages->create($phone,
          ['from' => $twilio_number, 'body' => $message] );

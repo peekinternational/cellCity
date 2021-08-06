@@ -82,7 +82,7 @@
           </div>
         </div>
       </div> 
-      <div class="row clearfix">
+      <div class="row clearfix" style="margin-top: 2em; margin-bottom: 2em;">
         <div class="col-md-12">
           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
           tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,

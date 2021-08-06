@@ -1,4 +1,4 @@
-========== Left Sidebar Start ========== -->
+<--========== Left Sidebar Start ========== -->
 <div class="vertical-menu">
 
     <div data-simplebar class="h-100">
@@ -64,7 +64,7 @@
                             <span class="badge badge-pill badge-success">{{ $repairModify->count() }}</span>
                             @else
                              
-                           @endif </a></li>
+                           @endif
                         </a></li>
                         <li><a href="{{url('admin/brands/create')}}">Add Brand</a></li>
                         <li><a href="{{url('admin/brands')}}">Brands List</a></li>

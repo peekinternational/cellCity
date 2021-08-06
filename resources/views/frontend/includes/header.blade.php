@@ -95,8 +95,8 @@
 
           <div class="navbar-collapse collapse clearfix">
             <ul class="navigation clearfix">
-              <li class="repair"><a href="{{url('repair')}}">Phone Repair</a>
-                <ul class="repair-dropdown">
+              <li class="repair"><a href="{{route('repair.index')}}">Phone Repair</a>
+                <ul class="repair-dropdown">>
                   <li><a href="">Screen</a></li>
                   <li><a href="">Battery</a></li>
                   <li><a href="">MIC</a></li>

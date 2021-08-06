@@ -187,7 +187,7 @@ class AdminController extends Controller
     public function rejectOrder($orderId)
     {
         $order= RepairOrder::find($orderId);
-
+         
           $user=User::where('id',$order->techId)->first();
           $user->jobStatus = 'available';
           $user->update(['jobStatus'=> "available"]);

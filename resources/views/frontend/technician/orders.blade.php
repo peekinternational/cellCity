@@ -67,6 +67,7 @@
 
                     </thead>
                     <tbody>
+                    
                       @foreach(Auth::guard('tech')->user()->repairorders as $index => $order)
                       <tr>
                         <td colspan="2">#{{$order->id}}</td>
