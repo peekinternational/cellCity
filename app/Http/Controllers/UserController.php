@@ -271,17 +271,16 @@ class UserController extends Controller
 
     elseif($request->payment == "paypal")
     {
-        //   dd('asdasd');
-          $sume = $request->total;
-         
-          $desc = $repairOrder->id;
-          $apiContext = new ApiContext(
+        
+
+        $total_amount = 500;
+        $apiContext = new ApiContext(
             new OAuthTokenCredential(
-                'AY1aDjqlQHHutY2Kg6zsHfoqWrWfYbjbWkp4xCqUiLaFDrMRyJG3LzZAQ3Lw22S_wuW1iAnAAsLCAWgK',
-                'EGngM0S-9WpLca_l8CVUaOp_66g5nzoWfzKhb4saCQGOoODUSbB5V5C3Ejodd702bO0GptVPYTsTf1vd'
+                'AY9mTzyew4I5bQDY82ZT23Hw6CVvRNN_gxGdFNFD1dBeP_JtMjM2ubFS8NkFqjnieO_nJ-g54ZZEiwB5',
+                'EKdd3HTSiu1Rgptb7VZfEY2zON7xdsBpCRjdEVvl36u54DO7_AWmyChF-zpIo7l6LWwlETL4vUnCxN0n'
             )
         );
-dd($apiContext);
+    
         $payer = new Payer();
         $payer->setPaymentMethod("paypal");
         // dd($payer);
@@ -293,13 +292,13 @@ dd($apiContext);
         // Set payment amount
         $amount = new Amount();
         $amount->setCurrency("USD")
-            ->setTotal($sume);
-
-
+            ->setTotal($total_amount);
+    
+    
         // Set transaction object
         $transaction = new Transaction();
         $transaction->setAmount($amount)
-            ->setDescription($desc);
+            ->setDescription("dasdasdsa");
         //   dd($transaction);
         // Create the full payment object
         $payment = new Payment();
@@ -310,9 +309,9 @@ dd($apiContext);
         // dd($payment);
         // Create payment with valid API context
         try {
-
+    
             $payment->create($apiContext);
-            dd($payment);
+            // dd($payment);
             // Get PayPal redirect URL and redirect the customer
             // $approvalUrl =
             return redirect($payment->getApprovalLink());
@@ -326,86 +325,195 @@ dd($apiContext);
             die($ex);
         }
     }
-
-
+       }
+    
+       public function success(Request $request)
+      {
+        $apiContext = new ApiContext(
+            new OAuthTokenCredential(
+                'AY9mTzyew4I5bQDY82ZT23Hw6CVvRNN_gxGdFNFD1dBeP_JtMjM2ubFS8NkFqjnieO_nJ-g54ZZEiwB5',
+                'EKdd3HTSiu1Rgptb7VZfEY2zON7xdsBpCRjdEVvl36u54DO7_AWmyChF-zpIo7l6LWwlETL4vUnCxN0n'
+            )
+        );
+       
+        // Get payment object by passing paymentId
+        $paymentId = $_GET['paymentId'];
+        $payment = Payment::get($paymentId, $apiContext);
+        $payerId = $_GET['PayerID'];
+    
+        // Execute payment with payer ID
+        $execution = new PaymentExecution();
+        $execution->setPayerId($payerId);
+    
+        try {
+            // Execute payment
+            $result = $payment->execute($execution, $apiContext);
+            // dd($result);
+            //  dd($result->transactions[0]->description);
+            //   $str = $result->transactions[0]->description;
+            //       $splt = explode("-",$str);
+            //       $bustrip_id = $splt[0];
+            //       $seat       = $splt[1];
+            //       $bus_id        = $splt[2];
+            //       $confirm_code = $splt[3];
+            //       $booking_date = $splt[4];
+            //       $total_amount =$result->transactions[0]->amount->total;
+    
+                //   dd($booking_date);
+    
+               dd('successs')    ;
+        } catch (PayPalConnectionException $ex) {
+            echo $ex->getCode();
+            echo $ex->getData();
+            die($ex);
+        } catch (Exception $ex) {
+            die($ex);
+        }
+    }
+    
+      public function cancel()
+    {
+            dd('payment cancel');
     }
 
-  public function success(Request $request)
-  {
-      $apiContext = new ApiContext(
-          new OAuthTokenCredential(
-            'AY1aDjqlQHHutY2Kg6zsHfoqWrWfYbjbWkp4xCqUiLaFDrMRyJG3LzZAQ3Lw22S_wuW1iAnAAsLCAWgK',
-                'EGngM0S-9WpLca_l8CVUaOp_66g5nzoWfzKhb4saCQGOoODUSbB5V5C3Ejodd702bO0GptVPYTsTf1vd'   
-                      )
-      );
 
-      // Get payment object by passing paymentId
-      $paymentId = $_GET['paymentId'];
-      $payment = Payment::get($paymentId, $apiContext);
-      $payerId = $_GET['PayerID'];
+        //   dd('asdasd');
+//           $sume = $request->total;
+         
+//           $desc = $repairOrder->id;
+//         //   dd($sume);
+//           $apiContext = new ApiContext(
+//             new OAuthTokenCredential(
+//                 'AY9mTzyew4I5bQDY82ZT23Hw6CVvRNN_gxGdFNFD1dBeP_JtMjM2ubFS8NkFqjnieO_nJ-g54ZZEiwB5',
+//                 'EKdd3HTSiu1Rgptb7VZfEY2zON7xdsBpCRjdEVvl36u54DO7_AWmyChF-zpIo7l6LWwlETL4vUnCxN0n'
+//             )
+//         );
+         
+//         $payer = new Payer();
+//         $payer->setPaymentMethod("paypal");
 
-      // Execute payment with payer ID
-      $execution = new PaymentExecution();
-      $execution->setPayerId($payerId);
-
-      try {
-          // Execute payment
-          $result = $payment->execute($execution, $apiContext);
-          // dd($result);
-          $str = $result->transactions[0]->description;
-          $id = $str;
-        // $total_amount =$result->transactions[0]->amount->total;
-
-          $repairOrder = RepairOrder::find($id);
-          $cust = User::where('id',$repairOrder->userId)->first();
-          $user = User::where('id',$repairOrder->techId)->first();
-          $user->jobStatus = "available";
-          $user->update();
-          $repairOrder->pay_status = "paid";
-          $repairOrder->pay_method = "paypal";
-          $repairOrder->order_status= "4";
-          $repairOrder->update();
+//         $redirectUrls = new RedirectUrls();
+//         $redirectUrls->setReturnUrl(route('paypal.success'))
+//             ->setCancelUrl(route('paypal.cancel'));
+// // dd($apiContext);
+      
+//         // dd($redirectUrls);
+//         // Set payment amount
+//         $amount = new Amount();
+//         $amount->setCurrency("USD")
+//             ->setTotal($sume);
 
 
-     //$subject = "Booking Confirmation";
-      //dd($message);
+//         // Set transaction object
+//         $transaction = new Transaction();
+//         $transaction->setAmount($amount)
+//             ->setDescription($desc);
+//         //   dd($transaction);
+//         // Create the full payment object
+//         $payment = new Payment();
+//         $payment->setIntent('sale')
+//             ->setPayer($payer)
+//             ->setRedirectUrls($redirectUrls)
+//             ->setTransactions(array($transaction));
+//         // dd($payment);
+//         // Create payment with valid API context
+//         try {
 
-    //   $retval = mail ($user->email,$subject,$message);
-    $details = [
-        'title' => 'Mail from PeekInternational.com',
-        'subject' => 'Dear Customer ,',
-        'message' => 'Payment completed through PayPal'
-    ];
-    //  $messgae = "Succesfully Transferred";
-     \Mail::to($cust->email)->send(new TechMail($details));
-    //  return response()->json($messgae);
+//             $payment->create($apiContext);
+//             // dd($payment);
+//             // Get PayPal redirect URL and redirect the customer
+//             // $approvalUrl =
+//             return redirect($payment->getApprovalLink());
+//             // dd($approvalUrl);
+//             // Redirect the customer to $approvalUrl
+//         } catch (PayPalConnectionException $ex) {
+//             echo $ex->getCode();
+//             echo $ex->getData();
+//             die($ex);
+//         } catch (Exception $ex) {
+//             die($ex);
+//         }
+//     }
 
-    $phone = "+".$cust->phoneno;
-    //  dd($phone);
-     $message =strip_tags(nl2br("Dear customer,\n You have Successfully Pay  through PayPal \n Total Amount : $". $request->price));
+
+    // }
+
+//   public function success(Request $request)
+//   {
+//       $apiContext = new ApiContext(
+//           new OAuthTokenCredential(
+//             'AY9mTzyew4I5bQDY82ZT23Hw6CVvRNN_gxGdFNFD1dBeP_JtMjM2ubFS8NkFqjnieO_nJ-g54ZZEiwB5',
+//                 'EKdd3HTSiu1Rgptb7VZfEY2zON7xdsBpCRjdEVvl36u54DO7_AWmyChF-zpIo7l6LWwlETL4vUnCxN0n'
+//                       )
+//       );
+
+//       // Get payment object by passing paymentId
+//       $paymentId = $_GET['paymentId'];
+//       $payment = Payment::get($paymentId, $apiContext);
+//       $payerId = $_GET['PayerID'];
+
+//       // Execute payment with payer ID
+//       $execution = new PaymentExecution();
+//       $execution->setPayerId($payerId);
+
+//       try {
+//           // Execute payment
+//           $result = $payment->execute($execution, $apiContext);
+//           // dd($result);
+//           $str = $result->transactions[0]->description;
+//           $id = $str;
+//         // $total_amount =$result->transactions[0]->amount->total;
+
+//           $repairOrder = RepairOrder::find($id);
+//           $cust = User::where('id',$repairOrder->userId)->first();
+//           $user = User::where('id',$repairOrder->techId)->first();
+//           $user->jobStatus = "available";
+//           $user->update();
+//           $repairOrder->pay_status = "paid";
+//           $repairOrder->pay_method = "paypal";
+//           $repairOrder->order_status= "4";
+//           $repairOrder->update();
+
+
+//      //$subject = "Booking Confirmation";
+//       //dd($message);
+
+//     //   $retval = mail ($user->email,$subject,$message);
+//     $details = [
+//         'title' => 'Mail from PeekInternational.com',
+//         'subject' => 'Dear Customer ,',
+//         'message' => 'Payment completed through PayPal'
+//     ];
+//     //  $messgae = "Succesfully Transferred";
+//      \Mail::to($cust->email)->send(new TechMail($details));
+//     //  return response()->json($messgae);
+
+//     $phone = "+".$cust->phoneno;
+//     //  dd($phone);
+//      $message =strip_tags(nl2br("Dear customer,\n You have Successfully Pay  through PayPal \n Total Amount : $". $request->price));
    
-     $account_sid = "AC6769d3e36e7a9e9ebbea3839d82a4504";
-     $auth_token = "c20d438e85e4d9f39abd273dbc31e27a";
-     $twilio_number = +15124027605;
-     $client = new Client($account_sid, $auth_token);
-     $client->messages->create($phone,
-         ['from' => $twilio_number, 'body' => $message] );
+//      $account_sid = "AC6769d3e36e7a9e9ebbea3839d82a4504";
+//      $auth_token = "c20d438e85e4d9f39abd273dbc31e27a";
+//      $twilio_number = +15124027605;
+//      $client = new Client($account_sid, $auth_token);
+//      $client->messages->create($phone,
+//          ['from' => $twilio_number, 'body' => $message] );
 
-        return view('frontend.paymentSuccess');
+//         return view('frontend.paymentSuccess');
 
-      } catch (PayPalConnectionException $ex) {
-          echo $ex->getCode();
-          echo $ex->getData();
-          die($ex);
-      } catch (Exception $ex) {
-          die($ex);
-      }
-  }
+//       } catch (PayPalConnectionException $ex) {
+//           echo $ex->getCode();
+//           echo $ex->getData();
+//           die($ex);
+//       } catch (Exception $ex) {
+//           die($ex);
+//       }
+//   }
 
-    public function cancel()
-  {
-          dd('payment cancel');
-  }
+//     public function cancel()
+//   {
+//           dd('payment cancel');
+//   }
 
 
 
