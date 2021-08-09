@@ -12,7 +12,7 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.40",
         "laravel/tinker": "^2.5",
-        "paypal/rest-api-sdk-php": "*",
+        "paypal/rest-api-sdk-php": "^1.14",
         "square/square": "13.0.0.20210721",
         "twilio/sdk": "^6.27"
     },

@@ -139,14 +139,14 @@ public function saverepairType(Request $request){
      $details = [
       'title' => 'Mail from PeekInternational.com',
       'subject' => 'Dear Customer ,',
-      'message' => 'Order placed successfully a technician reached out to you as soon as possible.'
+      'message' => 'Order placed successfully, a technician will reached out to you as soon as possible.'
   ];
      
    \Mail::to($request->email)->send(new orderPlace($details));
     
    $phone = '+'.$request->phone;
   
-     $message =strip_tags(nl2br("Dear customer,\n You have Placed Order Successfully"));
+     $message =strip_tags(nl2br("Dear customer,\n Order placed successfully, \n  a technician will reached out to you as soon as possible."));
      
      $account_sid = "AC6769d3e36e7a9e9ebbea3839d82a4504";
      $auth_token = "c20d438e85e4d9f39abd273dbc31e27a";

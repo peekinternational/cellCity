@@ -96,21 +96,22 @@ class ProductController extends Controller
             {
                 
                 $storage = new ProductStorage;
-                $storage->storage = $storages                                                                                                                                                                                                                                                                                                                                                                              ;
-      
+                $storage->storage = $storages; 
                 $storage->color_id = $color->id;
                 $storage->save();
-            }
-
-            foreach($request->condition[$key] as $key3=>$condition)
-            {
+           
+       
+            foreach($request->condition[$key2] as $key3=>$conditions)
+            { 
+                //  dd($condition);
                 $condition = new ProductCondition;
-                $condition->condition =$request->condition[$key][$key3];
-                $condition->price = $request->price[$key][$key3];
-                $condition->quantity = $request->quantity[$key][$key3];
+                $condition->condition =$conditions;
+                $condition->price = $request->price[$key2][$key3];
+                $condition->quantity = $request->quantity[$key2][$key3];
                 $condition->storage_id = $storage->id;
                 $condition->save();
             }
+        }
             
          foreach($request->file('image')[$key] as $image)
             {  
@@ -127,8 +128,6 @@ class ProductController extends Controller
                 $imagefile->save();
                 // dd($request->condition);       
            
-             
-               
                 // dd($storage);
              
         
@@ -246,8 +245,10 @@ class ProductController extends Controller
          
     }
 
-
-
+  public function storeProduct(Request $request)
+  {
+      dd($request);
+  }
     /// Frontend buy phones
 
     public function getPhones()

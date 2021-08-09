@@ -259,50 +259,59 @@
                                                 </div>
                                              
                                                 <div class="form-group row">
-                                                    <label for="example-text-input" class="col-form-label">Desciption</label>
+                                                    <label for="example-text-input" class="col-md-2 col-form-label">Desciption</label>
                                                 <div class="col-md-10">
-                                                    <textarea class="form-control"  name="desc" type="number" placeholder="Write Something about mobile"  cols="20" rows="5"></textarea>
+                                                    <textarea class="form-control"  name="desc" type="text" placeholder="Write Something about mobile"  cols="20" rows="5"></textarea>
                                                     
                                                     <span class="text-danger">{{ $errors->first('price') }}</span>
                                                 </div>
                                                 </div>
                                             </div>
                                                 <div class="tab">Color and Image
-                                                      
+                                                   
                                                     <div class="form-group row" id="field_wrapper2">
-                                                        
+                                                         
                                                         <div class="col-md-12">
+                                                            <div class="col-md-12" style="text-align: right">
+                                                                {{-- <input type="submit" name="loginBtn" id="loginBtn" value="Login" /> --}}
+                                                               
+                                                                {{-- <input type="button" name="save" class="btn btn-primary" value="Save to database" id="butsave"> --}}
+                                                                <button type="button" id="NextSubmitBtn"  style="background:#0415aa">Add More</button>
+                                                               </div>
                                                             <div class="row">
-                                                            <div class="col-md-5">
+                                                                 
+                                                                <div class="col-md-6">
                                                                 <label for="example-text-input" class=" col-form-label">Color Name</label>
                                                                 <input class="form-control"  name="color_name[]" type="text" placeholder="Enter mobile color name"  @if(old('color_name')) value="{{ old('color_name') }}" @endif  id="example-text-input">
                                                                 <span class="text-danger">{{ $errors->first('color_name') }}</span>
                                                             
                                                             </div>
-                                                            <div class="col-md-5">
+                                                            <div class="col-md-6">
                                                                 <label for="example-text-input" class="col-form-label">Image</label>
                                                                 <input class="form-control" name="image[0][]"  multiple type="file"   @if(old('image'))  @endif  id="example-text-input">
                                                                 <span class="text-danger">{{ $errors->first('image') }}</span>
                                                             
                                                             </div>
-                                                           
+{{--                                                            
                                                             <div class="col-md-2" style="text-align: center;"> 
                                                                 <a href="javascript:void(0)" class="btn btn-success" style="margin-top: 36px;" id="add_button2"><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Add</a>
-                                                            </div>
+                                                            </div> --}}
                                                         </div>
                                                        <hr>
                                                        
-                                                        <div class="add_storage" >
-                                                            <div class="row" id="add_storage0">
-                                                          <div class="input-group">
+                                                        <div class="addstorage" id="addstorage">
+                                                            <div class="add_storage">
+                                                        <div  id="add_storage0" >
+                                                            <div class="row ">
+                                                          <div class="input-group" >
 
                                                             <input type="hidden" name="addMoreStorage0" value="0" id="addMoreStorage0">
                                                             <div class="col-md-8">
                                                                 <label for="example-text-input" class="col-form-label">Storage</label>
                                                                 <select class="form-control" name="storage[0][]" >
                                                                     <option selected>Select Memory</option>
-                                                                    <option value="64 GB">256 GB</option>
-                                                                    <option value="64 GB">128 GB</option>
+                                                                    <option value="256 GB">256 GB</option>
+                                                                    <option value="128 GB">128 GB</option>
                                                                     
                                                                     <option value="64 GB">64 GB</option>
                                                                     <option value="32 GB">32 GB</option>
@@ -313,11 +322,13 @@
                                                            
                                                                 </div>
                                                                 <div class="col-md-4" style="text-align: center;"> 
-                                                                    <a href="javascript:void(0)" class="btn btn-info addMoreStorage" style="margin-top: 36px;"><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Add</a>
+                                                                    <a href="javascript:void(0)" class="btn btn-info addMoreStorage" style="margin-top: 36px;"><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Add Storage # 1</a>
                                                                 </div>
 
                                                             </div>
                                                         </div>
+                                                                </div>
+                                                    
                                                    
                                                     <hr>
                                                         <div class="add_condition" >
@@ -348,13 +359,18 @@
                                                                 <span class="text-danger">{{ $errors->first('quantity') }}</span>
                                                             </div>
                                                             <div class="col-md-3" style="text-align: center;"> 
-                                                                <a href="javascript:void(0)" class="btn btn-success addMoreCondition" style="margin-top: 36px;"><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Add</a>
+                                                                <a href="javascript:void(0)" class="btn btn-success addMoreCondition" style="margin-top: 36px;"><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Add Condition # 1</a>
                                                             </div>
                                                          </div>
                                                         </div>
                                                         </div>
-                                                        </div>
+
+                                                         </div>
+                                                   
+                                                        
                                                         <hr>
+                                                    </div>
+                                                </div>
 
                                                     </div>      
                                                 </div>
@@ -362,6 +378,7 @@
                                                 <div style="overflow:auto;">
                                                   <div style="float:right;">
                                                     <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                                                   
                                                     <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
                                                   </div>
                                                 </div>
@@ -406,146 +423,32 @@
         var addButton2 = $('#add_button2'); //Add button selector
         var wrapper2 = $('#field_wrapper2');
         //Input field wrapper
-         var x =0;
-        // var x = 1; //Initial field counter is 1
-        //Once add button is clicked
-        $(document).on('click','#add_button2',function(){
-        
-            //Check maximum number of input fields
-            x++;
-            // alert(x);
-            // alert(x);
-            if(x < maxField2){
-                var fieldHTML = '<div class="col-md-12 remove-color">'+
-                        '<div class="row">'+
-                      '<div class="col-md-5">'+
-                               ' <label for="example-text-input" class=" col-form-label">Color Name</label>'+
-                               ' <input class="form-control"  name="color_name['+x+']" type="text" placeholder="Enter mobile color name"  @if(old('color_name')) value="{{ old('color_name') }}" @endif  id="example-text-input">'+
-                                '<span class="text-danger">{{ $errors->first('color_name') }}</span>'+
-                            
-                            '</div>'+
-                           ' <div class="col-md-5">'+
-                               ' <label for="example-text-input" class="col-form-label">Image</label>'+
-                               ' <input class="form-control" name="image['+x+'][]"  multiple type="file"   @if(old('image'))  @endif  id="example-text-input">'+
-                               ' <span class="text-danger">{{ $errors->first('image') }}</span>'+
-                            '</div>'+
-                          
-                            '<div class="col-md-2" style="text-align:center">'+
-                              '  <a href="javascript:void(0)" class="btn btn-danger remove_button2" style="margin-top: 36px;"><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Remove</a>'+ 
-                            '</div>'+
-                            '</div>'+
-                           '<hr>'+
-                               
-                            '<div class="add_storage" >'+
-                                    '<div class="row" id="add_storage'+x+'">'+
-                                    '<div class="input-group">'+
-
-                                        '<input type="hidden" name="addMoreStorage0'+x+'" value="0" id="addMoreStorage'+x+'">'+
-                                    '<div class="col-md-8">'+
-                                        '<label for="example-text-input" class="col-form-label">Storage</label>'+
-                                        '<select class="form-control" name="storage[0][]" >'+
-                                            '<option selected>Select Memory</option>'+
-                                            '<option value="64 GB">256 GB</option>'+
-                                            '<option value="64 GB">128 GB</option>'+
-                                            
-                                            '<option value="64 GB">64 GB</option>'+
-                                            '<option value="32 GB">32 GB</option>'+
-                                            '<option value="16 GB">16 GB</option>'+
-                                            '<option value="8 GB">8 GB</option>'+
-                                            
-                                        '</select>'+
-                                    
-                                        '</div>'+
-                                        '<div class="col-md-4" style="text-align: center;"> '+
-                                          '  <a href="javascript:void(0)" class="btn btn-info addMoreStorage" style="margin-top: 36px;" id="add_button2"><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Add</a>'+
-                                       ' </div>'+
-
-                                    '</div>'+
-                                '</div>'+
-                            '</div>'+
-                              '<div>'+
-                            '<div class="add_condition">'+
-                                '<div class="row" id="add_condition'+x+'">'+
-                               '<div class="input-group">'+
-                            '<div class="col-md-3">'+
-                               ' <label for="example-text-input" class="col-form-label">Condition</label>'+
-                                '<select class="form-control"  name="condition['+x+'][]" id="condition">'+
-                                       ' <option selected>Select Any One</option>'+
-                                       ' <option value="fair">fair</option>'+
-                                       ' <option value="good">good</option>'+
-                                        '<option value="excellent">excellent</option>'+
-                        
-                                    '</select>'+
-                                
-                            '</div>'+
-                            '<div class="col-md-3">'+
-                               ' <label for="example-text-input" class="col-form-label">Price</label>'+
-                                '<input class="form-control"  name="price['+x+'][]" type="number" placeholder="Enter mobile Price"  @if(old('price')) value="{{ old('price') }}" @endif  id="example-text-input">'+
-                               ' <span class="text-danger">{{ $errors->first('price') }}</span>'+
-                            '</div>'+
-                        
-                            
-                           ' <div class="col-md-3">'+
-                               ' <label for="example-text-input" class="col-form-label">Quantity</label>'+
-                                '<input class="form-control"  name="quantity['+x+'][]" type="number" placeholder="Enter mobile Quantity"  @if(old('quantity')) value="{{ old('quantity') }}" @endif  id="example-text-input">'+
-                               ' <span class="text-danger">{{ $errors->first('quantity') }}</span>'+
-                            '</div>'+
-                            ' <input type="hidden" name="addMoreCondition0" value="'+x+'" id="addMoreCondition'+x+'">'+
-                           ' <div class="col-md-3" style="text-align:center"> '+
-                               ' <a href="javascript:void(0)" class="btn btn-success addMoreCondition" style="margin-top: 36px;" ><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Add</a>'+
-                            '</div> </div></div> </div>'+
-                            
-                       '</div>';
-             
-            $(wrapper2).append(fieldHTML); //Add field html
-            }
-    
-        });
-        
-    
-        //Once remove button is clicked
-        // $(wrapper2).on('click', '.remove', function(e){
-        // 	e.preventDefault();
-        // 	$(this).parent('field_wrapper2').remove(); //Remove field html
-        // 	x--; //Decrement field counter
-        // });
-    
-        $(wrapper2).on('click', '.remove_button2', function(e){
-            e.preventDefault();
-         console.log($(this).closest('.remove-color'));
-            $(this).closest('.remove-color').remove(); //Remove field html
-            x--; //Decrement field counter
-        });
-    
-   
-    //  Storage section    
-
+         var x=0;
+         var y=0;
+         var z=0;
+      
     $(document).on('click','.addMoreStorage',function(e){
 		// alert(product);
-
+      y++;
         console.log($(e.target).closest('.add_storage').children()[0]);
 	
       var storageid= $(e.target).closest('.add_storage').children()[0].id;
-      console.log();
+    console.log(storageid);
 
-      var storageindex = storageid.slice(11,12);
+      var storageindex = y;
       
-
-        var  maxField=4;
-		var childern =	$(e.target).closest('.add_storage').find('#'+storageid).children().length;
+        var  maxField=3;
+		var childern =	$(e.target).find('#'+storageindex).children().length;
             //  alert(childern);
-			if(childern < maxField){
+			if(y < maxField){
                 // alert(childern);
-				var fieldHTML = '<div class="input-group">'+
-
-                                        
+				var fieldHTML = '<div class="add_storage"> <div class="row " id="add_storage'+y+'"><div class="input-group">'+
                                         '<div class="col-md-8">'+
                                         '<label for="example-text-input" class="col-form-label">Storage</label>'+
-                                        '<select class="form-control" name="storage['+storageindex+'][]" >'+
+                                        '<select class="form-control" name="storage[0][]" >'+
                                             '<option selected>Select Memory</option>'+
-                                            '<option value="64 GB">256 GB</option>'+
-                                            '<option value="64 GB">128 GB</option>'+
-                                            
+                                            '<option value="256 GB">256 GB</option>'+
+                                            '<option value="128 GB">128 GB</option>'+  
                                             '<option value="64 GB">64 GB</option>'+
                                             '<option value="32 GB">32 GB</option>'+
                                             '<option value="16 GB">16 GB</option>'+
@@ -555,10 +458,12 @@
 
                                         '</div>'+
                                         '<div class="col-md-4" style="text-align: center;"> '+
-                                        '  <a href="javascript:void(0)" class="btn btn-info remove_storage" style="margin-top: 36px;" id="add_button2"><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Add</a>'+
+                                        '  <a href="javascript:void(0)" class="btn btn-danger remove_storage" style="margin-top: 36px;" id="add_button2"><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Remove Storage # '+storageindex+'</a>'+
                                         ' </div>'+
-
-                                        '</div>'+                                  
+                                        
+                                        '<div class="add_condition">'+
+                                          '<div class="row" id="add_condition'+storageindex+'">'+
+                                           '<div class="input-group">'+                               
                                           ' <div class="col-md-3">'+
                                           ' <label for="example-text-input" class="col-form-label">Condition</label>'+
                                           ' <select class="form-control"  name="condition['+storageindex+'][]" id="condition">'+
@@ -572,25 +477,30 @@
                                           ' <label for="example-text-input" class="col-form-label">Price</label>'+
                                           ' <input class="form-control"  name="price['+storageindex+'][]" type="number" placeholder="Enter mobile Price"  @if(old('price')) value="{{ old('price') }}" @endif  id="example-text-input">'+
                                           ' <span class="text-danger">{{ $errors->first('price') }}</span>'+
-                                      ' </div>    <div class="col-md-3">'+
+                                      ' </div><div class="col-md-3">'+
                                           ' <label for="example-text-input" class="col-form-label">Quantity</label>'+
                                           ' <input class="form-control"  name="quantity['+storageindex+'][]" type="number" placeholder="Enter mobile Quantity"  @if(old('quantity')) value="{{ old('quantity') }}" @endif  id="example-text-input">'+
                                          '  <span class="text-danger">{{ $errors->first('quantity') }}</span>'+
                                       ' </div>'+
-                                       '<div  class="col-md-3" style="text-align:center"> '+
-                                          ' <a href="javascript:void(0)" class="btn btn-warning removeStorage" style="margin-top: 36px;"><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> remove</a>'+
+                                       '<div class="col-md-3" style="text-align:center"> '+
+                                          ' <a href="javascript:void(0)" class="btn btn-warning addMoreCondition" style="margin-top: 36px;"><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Add Condition # '+storageindex+'</a>'+
+                                      ' </div>'+
+                                      ' </div>'+
+                                      ' </div>'+
                                       ' </div>'+
                                        '</div>'; 
 				//$('#field_wrapper_size'+z).append(fieldHTML); //Add field html
-				$(e.target).closest('.form-group').find('#'+storageid).append(fieldHTML);
+				$('#addstorage').append(fieldHTML);
 			}
 	});
 
-     $(wrapper2).on('click', '.removeStorage', function(e){
+     $(document).on('click', '.remove_storage', function(e){
+         
             e.preventDefault();
-         console.log($(this).closest('.remove-color'));
-            $(this).closest('.remove-color').remove(); //Remove field html
-            x--; //Decrement field counter
+         console.log($(this).parents('.removeStorage'));
+
+         $(this).parents('.add_storage').remove(); //Remove field html
+            y--; //Decrement field counter
         });
     
 
@@ -598,22 +508,21 @@
 
     $(document).on('click','.addMoreCondition',function(e){
 		// alert(product);
-
-        console.log($(e.target).closest('.add_condition').children()[0]);
+z++;
+        console.log($(e.target).closest('.add_storage').children()[0]);
 	
-      var conditionid= $(e.target).closest('.add_condition').children()[0].id;
-      console.log();
+      var conditionid= $(e.target).closest('.add_storage').children()[0].id;
+      console.log(conditionid);
 
       var storeindex = conditionid.slice(11,12);
       
-
-        var  maxField=4;
-		var childern =	$(e.target).closest('.add_condition').find('#'+conditionid).children().length;
-            //  alert(childern);
-			if(childern < maxField){
+      alert(storeindex);
+        var  maxField=3;
+		// var childern =	$(e.target).closest('.add_condition').find('#'+conditionid).children().length;
+         
+			if(storeindex < maxField ){
                 // alert(childern);
 				var fieldHTML = ' <div class="input-group">'+
-                                          
                                            ' <div class="col-md-3">'+
                                            ' <label for="example-text-input" class="col-form-label">Condition</label>'+
                                            ' <select class="form-control"  name="condition['+storeindex+'][]" id="condition">'+
@@ -633,7 +542,7 @@
                                           '  <span class="text-danger">{{ $errors->first('quantity') }}</span>'+
                                        ' </div>'+
                                         '<div  class="col-md-3" style="text-align:center"> '+
-                                           ' <a href="javascript:void(0)" class="btn btn-warning removeStorage" style="margin-top: 36px;"><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> remove</a>'+
+                                           ' <a href="javascript:void(0)" class="btn btn-secondary removeCondition" style="margin-top: 36px;"><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Remove Condition#'+storeindex+'</a>'+
                                        ' </div>'+
                                         '</div>'; 
 				//$('#field_wrapper_size'+z).append(fieldHTML); //Add field html
@@ -641,7 +550,7 @@
 			}
 	});
 
-     $(wrapper2).on('click', '.removeStorage', function(e){
+     $(wrapper2).on('click', '.removeCondition', function(e){
             e.preventDefault();
          console.log($(this).closest('.remove-color'));
             $(this).closest('.remove-color').remove(); //Remove field html
@@ -655,8 +564,75 @@
 
     </script>
 
+<script>  
+    $(document).ready(function(){  
+        $("#NextSubmitBtn").click(function(){  
+            // $("div").text($("form").serialize()); 
+            $.ajax({
+            type: "POST",
+            url: "{{url('store-product')}}",
+            data: $("form").serialize(),
+            success: function(response)
+            {
+                var jsonData = JSON.parse(response);
+ 
+                // user is logged in successfully in the back-end
+                // let's redirect
+                if (jsonData.success == "1")
+                {
+                    location.href = 'my_profile.php';
+                }
+                else
+                {
+                    alert('Invalid Credentials!');
+                }
+           }
+       }); 
+        });  
+    });  
+    </script>
+<script>
 
+    
+$(document).ready(function() {
+    $('#regForm').submit(function(e) {
+        e.preventDefault();
+        $.ajax({
+            type: "POST",
+            url: "{{url('store-product')}}",
+            data: $(this).serialize(),
+            success: function(response)
+            {
+                var jsonData = JSON.parse(response);
+ 
+                // user is logged in successfully in the back-end
+                // let's redirect
+                if (jsonData.success == "1")
+                {
+                    location.href = 'my_profile.php';
+                }
+                else
+                {
+                    alert('Invalid Credentials!');
+                }
+           }
+       });
+     });
+});
+    // var _token = $('input[name="_token"]').val();
+    // $.ajax({
+        
 
+    //     url: "{{url('store-product')}}",
+    //     type: "POST",
+    //     data: $('#regForm').serialize(), 
+    //     success: function( response ) {
+    //     $('#submit').html('Submit');
+    //     $("#submit"). attr("disabled", false);
+    //     alert('Ajax form has been submitted successfully');
+    //     document.getElementById("contactUsForm").reset(); 
+    //     }
+    </script>
 
 
 
@@ -764,12 +740,15 @@ function getModel(event)
     //... and fix the Previous/Next buttons:
     if (n == 0) {
       document.getElementById("prevBtn").style.display = "none";
+      document.getElementById("NextSubmitBtn").style.display = "none";
     } else {
       document.getElementById("prevBtn").style.display = "inline";
+      document.getElementById("NextSubmitBtn").style.display = "inline";
     }
     if (n == (x.length - 1)) {
       document.getElementById("nextBtn").innerHTML = "Submit";
-    } else {
+    }
+     else {
       document.getElementById("nextBtn").innerHTML = "Next";
     }
     //... and run a function that will display the correct step indicator:
@@ -827,6 +806,120 @@ function getModel(event)
     x[n].className += " active";
   }
   </script>
-  
+  <script>
+
+        // var x = 1; //Initial field counter is 1
+        //Once add button is clicked
+        // $(document).on('click','#add_button2',function(){
+        
+        //     //Check maximum number of input fields
+        //     x++;
+        //     // alert(x);
+        //     // alert(x);
+        //     if(x < maxField2){
+        //         var fieldHTML = '<div class="col-md-12 remove-color">'+
+        //                 '<div class="row">'+
+        //               '<div class="col-md-5">'+
+        //                        ' <label for="example-text-input" class=" col-form-label">Color Name</label>'+
+        //                        ' <input class="form-control"  name="color_name['+x+']" type="text" placeholder="Enter mobile color name"  @if(old('color_name')) value="{{ old('color_name') }}" @endif  id="example-text-input">'+
+        //                         '<span class="text-danger">{{ $errors->first('color_name') }}</span>'+
+                            
+        //                     '</div>'+
+        //                    ' <div class="col-md-5">'+
+        //                        ' <label for="example-text-input" class="col-form-label">Image</label>'+
+        //                        ' <input class="form-control" name="image['+x+'][]"  multiple type="file"   @if(old('image'))  @endif  id="example-text-input">'+
+        //                        ' <span class="text-danger">{{ $errors->first('image') }}</span>'+
+        //                     '</div>'+
+                          
+        //                     '<div class="col-md-2" style="text-align:center">'+
+        //                       '  <a href="javascript:void(0)" class="btn btn-danger remove_button2" style="margin-top: 36px;"><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Remove</a>'+ 
+        //                     '</div>'+
+        //                     '</div>'+
+        //                    '<hr>'+
+                               
+        //                     '<div class="add_storage">'+
+        //                             '<div class="row" id="add_storage'+x+'">'+
+        //                             '<div class="input-group">'+ 
+        //                             '<div class="col-md-8">'+
+        //                                 '<label for="example-text-input" class="col-form-label">Storage</label>'+
+        //                                 '<select class="form-control" name="storage['+x+'][]" >'+
+        //                                     '<option selected>Select Memory</option>'+
+        //                                     '<option value="64 GB">256 GB</option>'+
+        //                                     '<option value="64 GB">128 GB</option>'+
+                                            
+        //                                     '<option value="64 GB">64 GB</option>'+
+        //                                     '<option value="32 GB">32 GB</option>'+
+        //                                     '<option value="16 GB">16 GB</option>'+
+        //                                     '<option value="8 GB">8 GB</option>'+
+                                            
+        //                                 '</select>'+
+                                    
+        //                                 '</div>'+
+        //                                 '<div class="col-md-4" style="text-align: center;"> '+
+        //                                   '  <a href="javascript:void(0)" class="btn btn-info addMoreStorage" style="margin-top: 36px;" id="add_button2"><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Add Storage</a>'+
+        //                                ' </div>'+
+
+        //                             '</div>'+
+        //                         '</div>'+
+        //                     '</div>'+
+                             
+        //                     '<div class="add_condition">'+
+        //                         '<div class="row" id="add_condition'+x+'">'+
+        //                        '<div class="input-group">'+
+        //                     '<div class="col-md-3">'+
+        //                        ' <label for="example-text-input" class="col-form-label">Condition</label>'+
+        //                         '<select class="form-control"  name="condition['+x+'][]" id="condition">'+
+        //                                ' <option selected>Select Any One</option>'+
+        //                                ' <option value="fair">fair</option>'+
+        //                                ' <option value="good">good</option>'+
+        //                                 '<option value="excellent">excellent</option>'+
+                        
+        //                             '</select>'+
+                                
+        //                     '</div>'+
+        //                     '<div class="col-md-3">'+
+        //                        ' <label for="example-text-input" class="col-form-label">Price</label>'+
+        //                         '<input class="form-control"  name="price['+x+'][]" type="number" placeholder="Enter mobile Price"  @if(old('price')) value="{{ old('price') }}" @endif  id="example-text-input">'+
+        //                        ' <span class="text-danger">{{ $errors->first('price') }}</span>'+
+        //                     '</div>'+
+                        
+                            
+        //                    ' <div class="col-md-3">'+
+        //                        ' <label for="example-text-input" class="col-form-label">Quantity</label>'+
+        //                         '<input class="form-control"  name="quantity['+x+'][]" type="number" placeholder="Enter mobile Quantity"  @if(old('quantity')) value="{{ old('quantity') }}" @endif  id="example-text-input">'+
+        //                        ' <span class="text-danger">{{ $errors->first('quantity') }}</span>'+
+        //                     '</div>'+
+        //                     ' <input type="hidden" name="addMoreCondition0" value="'+x+'" id="addMoreCondition'+x+'">'+
+        //                    ' <div class="col-md-3" style="text-align:center"> '+
+        //                        ' <a href="javascript:void(0)" class="btn btn-success addMoreCondition" style="margin-top: 36px;" ><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span>addMoreCondition</a>'+
+        //                     '</div> </div></div></div>'+
+                            
+        //                '</div>';
+             
+        //     $(wrapper2).append(fieldHTML); //Add field html
+        //     }
+    
+        // });
+        
+    
+        //Once remove button is clicked
+        // $(wrapper2).on('click', '.remove', function(e){
+        // 	e.preventDefault();
+        // 	$(this).parent('field_wrapper2').remove(); //Remove field html
+        // 	x--; //Decrement field counter
+        // });
+    
+        // $(wrapper2).on('click', '.remove_button2', function(e){
+        //     e.preventDefault();
+        //  console.log($(this).closest('.remove-color'));
+        //     $(this).closest('.remove-color').remove(); //Remove field html
+        //     x--; //Decrement field counter
+        // });
+    
+   
+    //  Storage section    
+
+  </script>
 
 @endsection
+
