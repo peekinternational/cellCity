@@ -65,7 +65,8 @@
                             @else
                              
                            @endif
-                        </a></li>
+                         </a></li>
+                        <li><a href="{{url('admin/completed-orders')}}">Completed Repair Orders</a></li>
                         <li><a href="{{url('admin/brands/create')}}">Add Brand</a></li>
                         <li><a href="{{url('admin/brands')}}">Brands List</a></li>
                         <li><a href="{{url('admin/models/create')}}">Add Model</a></li>

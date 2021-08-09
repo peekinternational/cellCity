@@ -12,5 +12,10 @@
 
          <link href="{{asset('admin-assets/datatable/dataTables.bootstrap4.min.css')}}" rel="stylesheet" />
          <link href="{{asset('admin-assets/datatable/jquery.dataTables.min.css')}}" rel="stylesheet" />
+        
+        <!-- <link href="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"> -->
+      
+        
+
 
 

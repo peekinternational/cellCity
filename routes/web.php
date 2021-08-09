@@ -66,6 +66,7 @@ Route::name('admin.')->namespace('Admin')->prefix('admin')->group(function(){
      Route::resource('/repairTypes', '\App\Http\Controllers\Admin\AdminRepairController');
      Route::get('/repairOrders',  [AdminRepairController::class, 'repairOrders']);
      Route::post('/assignTech',  [AdminRepairController::class, 'assignTech']);
+     Route::get('/completed-orders',[AdminRepairController::class,'orderCompleted']);
 
 
       //blog management
@@ -74,6 +75,7 @@ Route::name('admin.')->namespace('Admin')->prefix('admin')->group(function(){
       Route::resource('/product', '\App\Http\Controllers\Admin\ProductController');
       //ajax
       Route::get('/product/getModels/{id}',[ProductController::class,'getModels']);
+      Route::post('/store-product',[productController::class,'storeProduct'])->name('storeproduct');
 
      //Check The update
      Route::get('/checkUpdateOrders',[AdminRepairController::class,'checkUpdateOrders']);

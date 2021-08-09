@@ -67,8 +67,14 @@
 
                     </thead>
                     <tbody>
-                    
-                      @foreach(Auth::guard('tech')->user()->repairorders as $index => $order)
+                     @php
+                       
+                        $repairorders = App\Models\RepairOrder::where('techId',Auth::guard('tech')->user()->id)
+                                                ->where('order_status','!=','4')
+                                                ->get();
+                        // dd($repairorders);
+                     @endphp
+                      @foreach($repairorders as $index => $order)
                       <tr>
                         <td colspan="2">#{{$order->id}}</td>
                         <td colspan="2">{{CityClass::modelName($order->model_Id)}}</td>
@@ -147,7 +153,7 @@
         type:"get",
         success:function(response){
           console.log(response);
-         alert(response);
+        //  alert(response);
          location.reload();
         },
 
@@ -177,7 +183,7 @@
           console.log(response);
 
           location.reload();
-          alert(response);
+          // alert(response);
         },
 
        });
@@ -192,7 +198,7 @@
           console.log(response);
 
           location.reload();
-          alert(response);
+          // alert(response);
         },
 
        });
