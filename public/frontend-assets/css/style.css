@@ -5154,7 +5154,7 @@ ul,li{
 
 .product-details .basic-details .details-header{
 	position:relative;
-	padding-bottom:30px;	
+	padding-bottom:10px;	
 }
 
 .product-details .basic-details .details-header h4{
@@ -6471,3 +6471,152 @@ ul,li{
 	visibility: visible;
 	opacity: 1;
 }
+
+.brand-imgs{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .brand-imgs .brand{
+    display: flex;
+    align-items: center;
+    text-align: center;
+    border: 1px solid #e7ebf3;
+    border-radius: 2px;
+    height: 2rem;
+    padding: .5rem;
+    margin-right: .2rem;
+  }
+  .brand-imgs .brand img{
+    height: auto;
+    max-height: 100%;
+    max-width: 100%;
+  }
+
+  .product-brand{
+    align-items: start;
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+  }
+  .product-brand span{
+    color: #979797;
+    display: block;
+    font-size: 1.2rem;
+    margin-bottom: .5rem;
+  }
+  .brand-images{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap
+  }
+  .brand-images .brand{
+    display: flex;
+    align-items: center;
+    text-align: center;
+    background: #fff;
+    border: 1px solid #e7ebf3;
+    border-radius: 2px;
+    height: 3rem;
+    padding: .5rem;
+    margin-right: .3rem;
+  }
+  .brand-images .brand img{
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+  }
+  .features-list{
+    padding: 0rem 0;
+    list-style: none;
+    margin: 0;
+    background: #fff;
+    position: relative;
+  }
+  
+  .features-list li.price{
+    display: block;
+    position: relative;
+    padding-left: 3.4rem;
+    margin-bottom: 1.6rem;
+  }
+  
+  .features-list li.price svg{
+    position: absolute;
+    width: 2.3rem;
+    height: 2.3rem;
+    left: 0;
+  }
+  .features-list li.price .item-price{
+    display: flex;
+    align-items: center;
+  }
+  .color{
+    color: #111;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: row wrap;
+    border: 1px solid #e5e5e5;
+    background: #fff;
+    padding: 1rem 2rem;
+    width: 130px;
+    border-radius: .6rem;
+    transition: all .3s ease;
+    cursor: pointer;
+    text-align: center;
+    line-height: 22px;
+    font-weight: 500;
+  }
+  .select-color{
+    margin-right: 1rem;
+  }
+  .color-spe{
+    min-width: 1.6rem;
+    width: 1.6rem;
+    height: 1.6rem;
+    border: 1px solid #e5e5e5;
+    border-radius: 50%;
+    display: block;
+    margin-right: .6rem;
+  }
+  .color input:checked + .color {
+      background-color: #FF5915;
+      color: #fff;
+      border: 1px solid #FF5915;
+  }
+  .product-stock{
+    background: black;
+    color: white;
+    text-align: center;
+    padding: 6px;
+  }
+  .warrenty-box{
+    background: #fff;
+    margin-bottom: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0 0 0.5rem rgb(0 0 0 / 25%);
+    border-radius: .2rem;
+    margin-top: 1rem;
+  }
+  .warrenty-box ul {
+    padding: 0;
+    margin: 0 0 1rem;
+  }
+  .warrenty-box ul li{
+    position: relative;
+    padding-left: 1.8rem;
+    list-style-type: none;
+    padding-left: 0;
+  }
+  @media(min-width: 400px){
+    .features-list li.price{
+      display: flex;
+      flex-flow: row wrap;
+      align-items: center;
+    }
+  }
+  @media(max-width: 767px){
+    .color {
+      width: 110px;
+    }
+  }

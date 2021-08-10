@@ -5,9 +5,6 @@
   .puls-footer{
     display: none;
   }
-
-
-
     /* Style the active class, and buttons on mouse-over */
     .active, .btn:hover {
       background-color:#00bfa5;
@@ -374,7 +371,7 @@
 
    $('#continue_btn').click(function(){
 
-        
+
     checkDat("{{date('Y-m-d') }}");
 
     $('#time_select').show();
@@ -410,11 +407,11 @@
 </script>
 <script>
      function checkDat(date)
-    {    
-      console.log(date);  
-      
+    {
+      console.log(date);
+
         //  var date =($(event).val());
-        
+
         //  var id = $("#user_id").val();
          var _token = $('input[name="_token"]').val();
         $.ajax({
@@ -423,20 +420,34 @@
         data:{ date:date, _token: _token},
         success:function(response){
 
+
+        var reponseTimes = response['times'];
+          var reponseNoTimes = response['notime'];
           console.log(response);
 
           //  alert(response);
         $('#timeslot').empty();
         $("#time_continue").hide();
-           if(response.length > 0)
+           if(reponseTimes.length > 0)
            {
-             for(var i = 0; i <response.length; i++)
+             for(var i = 0; i <reponseTimes.length; i++)
              {
-                 var html =' <label id="timeee" class="time-content-box time-content-box" onchange="check_time('+response[i].id+')" for="'+response[i].time+'">'+
-                            '<p >'+response[i].time+'</p>'+
-                            '<input type="radio" form="repairType" name="time" value="'+response[i].time+'" id="'+response[i].time+'" class="hidden">'+
+                 var html ='<label id="timeee" class="time-content-box time-content-box" onchange="check_time('+reponseTimes[i].id+')" for="'+reponseTimes[i].time+'">'+
+                            '<p >'+reponseTimes[i].time+'</p>'+
+                            '<input type="radio" form="repairType" name="time" value="'+reponseTimes[i].time+'" id="'+reponseTimes[i].time+'" class="hidden">'+
                             '</label>';
                             $('#timeslot').append(html);
+             }
+             if(reponseNoTimes.length>0)
+             {
+                for(var i = 0; i <reponseNoTimes.length; i++)
+             {
+                 var html ='<label id="timeee" class="time-content-box time-content-box" style="background:gray"  for="'+reponseNoTimes[i].time+'">'+
+                            '<p >'+reponseNoTimes[i].time+'</p>'+
+                            '<input type="radio" form="repairType" name="time" value="'+reponseNoTimes[i].time+'" id="'+reponseNoTimes[i].time+'" class="hidden" readonly>'+
+                            '</label>';
+                            $('#timeslot').append(html);
+             }
              }
 
            }

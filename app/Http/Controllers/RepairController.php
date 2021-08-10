@@ -66,11 +66,13 @@ class RepairController extends Controller
                                 ->whereDate('date','=',$request->date)
                                 ->select('time')
                                 ->get()->toArray();
-    // dd($repairOrder);
+    //   dd($repairOrder);
 
-    $times =OrderTime::whereNotIn('time', $repairOrder)->get();
+        $times =OrderTime::whereNotIn('time', $repairOrder)->get();
+        // $nottimes =OrderTime::where('time', $repairOrder)->get();
+        // dd($times);
 
-    return response()->json($times);
+        return response()->json(['times'=>$times,'notime'=>$repairOrder]);
 
   }
 

@@ -29,7 +29,7 @@ class CreateProductsTable extends Migration
             $table->string('OS');
             $table->string('resolution');
             $table->enum('double_sim', ['Yes','No']);
-            $table->string('release_year');
+            $table->date('release_year');
             $table->integer('model_id');
 
             $table->timestamps();

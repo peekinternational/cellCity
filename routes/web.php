@@ -76,6 +76,8 @@ Route::name('admin.')->namespace('Admin')->prefix('admin')->group(function(){
       //ajax
       Route::get('/product/getModels/{id}',[ProductController::class,'getModels']);
       Route::post('/store-product',[productController::class,'storeProduct'])->name('storeproduct');
+ //store more color ,condition ,storage using only product id
+      Route::post('/store-more-product',[productController::class,'storeMoreProduct'])->name('store.moreproduct');
 
      //Check The update
      Route::get('/checkUpdateOrders',[AdminRepairController::class,'checkUpdateOrders']);
@@ -227,7 +229,7 @@ Route::namespace('Auth')->middleware('auth:web')->group(function(){
         return view('frontend.contact-us');
     });
     Route::get('/buy-phone', [ProductController::class,'getPhones']);
-    
+
     Route::get('/buy-accessories', function () {
         return view('frontend.buy-accessories');
     });
@@ -254,7 +256,7 @@ Route::namespace('Auth')->middleware('auth:web')->group(function(){
         return view('frontend.paymentSuccess');
     })->name('payment.completed');
 
-   
+
     Route::get('/product-single/{id}',[ProductController::class,'productDetail'])->name('product.details');
 
     // Route::get('/single', function () {

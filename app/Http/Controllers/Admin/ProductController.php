@@ -244,11 +244,163 @@ class ProductController extends Controller
 
 
     }
-
+//Store Product Ajax
   public function storeProduct(Request $request)
-  {
-      dd($request);
+    {
+            // dd($request->all());
+                // dd($request->file('image'));
+        //         DB::beginTransaction();
+
+        // try {
+            $product = new Product;
+            //  $product->insert($request->only($product->getFillable()));
+
+            $product->category = $request->category;
+            $product->memory = $request->memory;
+            $product->locked = $request->locked;
+            $product->warranty = $request->warranty;
+            $product->desc = $request->desc;
+            $product->screen_size = $request->screen_size;
+            $product->megapixel = $request->megapixel;
+            $product->OS = $request->OS;
+            $product->resolution = $request->resolution;
+            $product->screen_type = $request->screen_type;
+            $product->network = $request->network;
+            $product->sim_card_format = $request->sim_card_format;
+            $product->double_sim = $request->double_sim;
+            $product->release_year = $request->release_year;
+            $product->model_id = $request->model_id;
+            //  dd($product);
+            $product->save();
+
+
+
+            foreach($request->color_name as $key=> $colors)
+            {
+
+                $color = new ProductColor;
+                $color->color_name = $colors;
+                $color->product_id = $product->id;
+                $color->save();
+
+                foreach($request->storage[$key] as $key2=>$storages)
+                {
+
+                    $storage = new ProductStorage;
+                    $storage->storage = $storages;
+                    $storage->color_id = $color->id;
+                    $storage->save();
+
+
+                foreach($request->condition[$key2] as $key3=>$condit)
+                {
+                    //  dd($condition);
+                    $condition = new ProductCondition;
+                    $condition->condition =$condit;
+                    $condition->price = $request->price[$key2][$key3];
+                    $condition->quantity = $request->quantity[$key2][$key3];
+                    $condition->storage_id = $storage->id;
+                    $condition->save();
+                }
+            }
+           if ($request->hasFile('image')) {
+            
+        
+            foreach($request->file('image')[$key] as $image)
+                {
+                    
+                    $imageName= time().$image->getClientOriginalName();
+                    $destination ='storage/products/images/';
+                    $image->move(public_path($destination), $imageName);
+
+                    // dd($imageName);
+                    $imagefile = new ProductImage;
+                    $imagefile->image = $imageName;
+                    $imagefile->product_id = $product->id;
+                    $imagefile->color_id = $color->id;
+                    $imagefile->save();
+                    // dd($request->condition);
+
+                    
+                
+
+        }
+    }
+
+        }
+
+       
+        //     DB::commit();
+
+        // } catch (\Exception $e) {
+        //     DB::rollback();
+        //     return back()->with('message', Alert::_message('success', 'somthing wrong.'));
+        // }
+
+    return response()->json($product);
   }
+
+    public function storeMoreProduct(Request $request)
+    {
+        //    dd($request);
+
+           $product_id = $request->product_id;
+
+           foreach($request->color_name as $key=> $colors)
+           {
+
+               $color = new ProductColor;
+               $color->color_name = $colors;
+               $color->product_id = $product_id;
+               $color->save();
+
+               foreach($request->storage[$key] as $key2=>$storages)
+               {
+
+                   $storage = new ProductStorage;
+                   $storage->storage = $storages;
+                   $storage->color_id = $color->id;
+                   $storage->save();
+
+
+               foreach($request->condition[$key2] as $key3=>$condit)
+               {
+                   //  dd($condition);
+                   $condition = new ProductCondition;
+                   $condition->condition =$condit;
+                   $condition->price = $request->price[$key2][$key3];
+                   $condition->quantity = $request->quantity[$key2][$key3];
+                   $condition->storage_id = $storage->id;
+                   $condition->save();
+               }
+           }
+          if ($request->hasFile('image')) {
+           
+       
+           foreach($request->file('image')[$key] as $image)
+               {
+                   
+                   $imageName= time().$image->getClientOriginalName();
+                   $destination ='storage/products/images/';
+                   $image->move(public_path($destination), $imageName);
+
+                   // dd($imageName);
+                   $imagefile = new ProductImage;
+                   $imagefile->image = $imageName;
+                   $imagefile->product_id = $product_id;
+                   $imagefile->color_id = $color->id;
+                   $imagefile->save();
+                   // dd($request->condition);
+
+                   
+               
+
+        }
+        }
+        }
+             
+    return response()->json($product_id);
+   }
     /// Frontend buy phones
 
     public function getPhones()

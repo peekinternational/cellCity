@@ -324,44 +324,41 @@
         <div class="col-md-9">
           <div class="row">
             <!--Shop Item-->
-            <div class="shop-item col-md-4 col-sm-6 col-xs-12">
-              <div class="inner-box">
-                  <figure class="image-box">
-                      <a href="{{url('single')}}"><img src="{{asset('frontend-assets/images/resource/products/product-1.jpg')}}" alt="" /></a>
-                    </figure>
-                    <!--Lower Content-->
-                    <div class="lower-content">
-                      <h3><a href="">IPhone XR</a></h3>
-                      <div> <span>64 GB - Space Gray - Unlocked</span> </div> 
-                        <span>
-                        Warranty: 12 months
-                        </span>
-                        <div>Starting from</div>
-                        <div class="price">
-                        <strong>$395.00</strong> <del>$400.00</del></div>
-                        <!-- <a href="{{url('single')}}" class="cart-btn theme-btn btn-style-two">Add to cart</a> -->
-                    </div>
-                </div>
-            </div>
+            
             
             <!--Shop Item-->
-            @foreach ($products as $product)
+             @foreach ($products as $product)
                 @php
-                  $productImage = App\Models\ProductImage::where('product_id',$product->id)->first();
-                  $model = App\Models\Pmodel::where('id',$product->model_id)->first();
+                $color = App\Models\ProductColor::where('product_id',$product->id)->first();
+                $storage = App\Models\ProductStorage::where('color_id',$color->id)->first();
+                $model = App\Models\Pmodel::where('id',$product->model_id)->first();
+                $image = App\Models\ProductImage::where('product_id',$product->id)->first();
+                $condition = App\Models\ProductCondition::where('storage_id',$storage->id)->first();
                 @endphp
+               
             <div class="shop-item col-md-4 col-sm-6 col-xs-12">
               <div class="inner-box">
                   <figure class="image-box">
-                    <a href="{{url('single')}}"><img src="{{asset($productImage->image)}}" alt="" /></a>
+                   <a href={{ route('product.details',$product->id) }}"><img src="{{asset('storage/products/images/'.$image->image)}}" alt="" /></a>
                   </figure>
                   <!--Lower Content-->
                   <div class="lower-content">
-                    <h3><a href="">{{ $model->brand->brand_name }} {{ $model->model_name }}</a></h3>
-                    <div> <span>{{ $product->ram }} - {{ $product->colors }} - {{ $product->locked }}</span> </div> 
+                    <h3><a href="">{{ $model->brand->brand_name }}  {{ $model->model_name }} </a></h3>
+                    <div> <span>{{ $product->memory }} - {{ $product->colors }} - {{ $product->locked }}</span> </div> 
                       <span>
                       Warranty: {{ $product->warranty }}
                       </span>
+                      <div class="brand-imgs">
+                          <div class="brand">
+                            <img src="{{asset('frontend-assets/images/tmobile.svg')}}">
+                          </div>
+                          <div class="brand">
+                            <img src="{{asset('frontend-assets/images/att.svg')}}">
+                          </div>
+                          <div class="brand">
+                            <img src="{{asset('frontend-assets/images/verizon.svg')}}">
+                          </div>
+                        </div>
                       <div>Starting from</div>
                       <div class="price">
                       <strong>${{ $product->sell_price }}</strong> <del>${{ $product->original_price }}</del></div>
@@ -371,272 +368,7 @@
             </div>
             @endforeach
             
-            <!--Shop Item-->
-            <div class="shop-item col-md-4 col-sm-6 col-xs-12">
-              <div class="inner-box">
-                  <figure class="image-box">
-                    <a href="{{url('single')}}"><img src="{{asset('frontend-assets/images/resource/products/product-3.jpg')}}" alt="" /></a>
-                  </figure>
-                  <!--Lower Content-->
-                  <div class="lower-content">
-                    <h3><a href="">Galaxy S9</a></h3>
-                    <div> <span>64 GB - Space Gray - Unlocked</span> </div> 
-                      <span>
-                      Warranty: 12 months
-                      </span>
-                      <div>Starting from</div>
-                      <div class="price">
-                      <strong>$150.00</strong> <del>$300.00</del></div>
-                      <!-- <a href="{{url('single')}}" class="cart-btn theme-btn btn-style-two">Add to cart</a> -->
-                  </div>
-                </div>
-            </div>
             
-            <!--Shop Item-->
-            <div class="shop-item col-md-4 col-sm-6 col-xs-12">
-              <div class="inner-box">
-                  <figure class="image-box">
-                    <a href="{{url('single')}}"><img src="{{asset('frontend-assets/images/resource/products/image-4.jpg')}}" alt="" /></a>
-                  </figure>
-                  <!--Lower Content-->
-                  <div class="lower-content">
-                    <h3><a href="{{url('single')}}">IPhone XS</a></h3>
-                      <div> <span>64 GB - Space Gray - Unlocked</span> </div> 
-                      <span>
-                      Warranty: 12 months
-                      </span>
-                      <div>Starting from</div>
-                      <div class="price">
-                      <strong>$349.00</strong> <del>$699.00</del></div>
-                  </div>
-                </div>
-            </div>
-            
-            <!--Shop Item-->
-            <div class="shop-item col-md-4 col-sm-6 col-xs-12">
-              <div class="inner-box">
-                  <figure class="image-box">
-                      <a href="{{url('single')}}"><img src="{{asset('frontend-assets/images/resource/products/product-1.jpg')}}" alt="" /></a>
-                    </figure>
-                    <!--Lower Content-->
-                    <div class="lower-content">
-                      <h3><a href="">IPhone XR</a></h3>
-                      <div> <span>64 GB - Space Gray - Unlocked</span> </div> 
-                        <span>
-                        Warranty: 12 months
-                        </span>
-                        <div>Starting from</div>
-                        <div class="price">
-                        <strong>$395.00</strong> <del>$400.00</del></div>
-                        <!-- <a href="{{url('single')}}" class="cart-btn theme-btn btn-style-two">Add to cart</a> -->
-                    </div>
-                </div>
-            </div>
-            
-            <!--Shop Item-->
-            <div class="shop-item col-md-4 col-sm-6 col-xs-12">
-              <div class="inner-box">
-                  <figure class="image-box">
-                    <a href="{{url('single')}}"><img src="{{asset('frontend-assets/images/resource/products/product-2.jpg')}}" alt="" /></a>
-                  </figure>
-                  <!--Lower Content-->
-                  <div class="lower-content">
-                    <h3><a href="">IPhone 8</a></h3>
-                    <div> <span>64 GB - Space Gray - Unlocked</span> </div> 
-                      <span>
-                      Warranty: 12 months
-                      </span>
-                      <div>Starting from</div>
-                      <div class="price">
-                      <strong>$165.00</strong> <del>$350.00</del></div>
-                      <!-- <a href="{{url('single')}}" class="cart-btn theme-btn btn-style-two">Add to cart</a> -->
-                  </div>
-                </div>
-            </div>
-            
-            <!--Shop Item-->
-            <div class="shop-item col-md-4 col-sm-6 col-xs-12">
-              <div class="inner-box">
-                  <figure class="image-box">
-                    <a href="{{url('single')}}"><img src="{{asset('frontend-assets/images/resource/products/product-3.jpg')}}" alt="" /></a>
-                  </figure>
-                  <!--Lower Content-->
-                  <div class="lower-content">
-                    <h3><a href="">Galaxy S9</a></h3>
-                    <div> <span>64 GB - Space Gray - Unlocked</span> </div> 
-                      <span>
-                      Warranty: 12 months
-                      </span>
-                      <div>Starting from</div>
-                      <div class="price">
-                      <strong>$150.00</strong> <del>$300.00</del></div>
-                      <!-- <a href="{{url('single')}}" class="cart-btn theme-btn btn-style-two">Add to cart</a> -->
-                  </div>
-                </div>
-            </div>
-            
-            <!--Shop Item-->
-            <div class="shop-item col-md-4 col-sm-6 col-xs-12">
-              <div class="inner-box">
-                <figure class="image-box">
-                  <a href="{{url('single')}}"><img src="{{asset('frontend-assets/images/resource/products/image-4.jpg')}}" alt="" /></a>
-                </figure>
-                <!--Lower Content-->
-                <div class="lower-content">
-                  <h3><a href="{{url('single')}}">IPhone XS</a></h3>
-                    <div> <span>64 GB - Space Gray - Unlocked</span> </div> 
-                    <span>
-                    Warranty: 12 months
-                    </span>
-                    <div>Starting from</div>
-                    <div class="price">
-                    <strong>$349.00</strong> <del>$699.00</del></div>
-                </div>
-              </div>
-            </div>
-            <!--Shop Item-->
-            <div class="shop-item col-md-4 col-sm-6 col-xs-12">
-              <div class="inner-box">
-                  <figure class="image-box">
-                      <a href="{{url('single')}}"><img src="{{asset('frontend-assets/images/resource/products/product-1.jpg')}}" alt="" /></a>
-                    </figure>
-                    <!--Lower Content-->
-                    <div class="lower-content">
-                      <h3><a href="">IPhone XR</a></h3>
-                      <div> <span>64 GB - Space Gray - Unlocked</span> </div> 
-                        <span>
-                        Warranty: 12 months
-                        </span>
-                        <div>Starting from</div>
-                        <div class="price">
-                        <strong>$395.00</strong> <del>$400.00</del></div>
-                        <!-- <a href="{{url('single')}}" class="cart-btn theme-btn btn-style-two">Add to cart</a> -->
-                    </div>
-                </div>
-            </div>
-            <!--Shop Item-->
-            <div class="shop-item col-md-4 col-sm-6 col-xs-12">
-              <div class="inner-box">
-                  <figure class="image-box">
-                      <a href="{{url('single')}}"><img src="{{asset('frontend-assets/images/resource/products/product-1.jpg')}}" alt="" /></a>
-                    </figure>
-                    <!--Lower Content-->
-                    <div class="lower-content">
-                      <h3><a href="">IPhone XR</a></h3>
-                      <div> <span>64 GB - Space Gray - Unlocked</span> </div> 
-                        <span>
-                        Warranty: 12 months
-                        </span>
-                        <div>Starting from</div>
-                        <div class="price">
-                        <strong>$395.00</strong> <del>$400.00</del></div>
-                        <!-- <a href="{{url('single')}}" class="cart-btn theme-btn btn-style-two">Add to cart</a> -->
-                    </div>
-                </div>
-            </div>
-            
-            <!--Shop Item-->
-            <div class="shop-item col-md-4 col-sm-6 col-xs-12">
-              <div class="inner-box">
-                  <figure class="image-box">
-                    <a href="{{url('single')}}"><img src="{{asset('frontend-assets/images/resource/products/product-2.jpg')}}" alt="" /></a>
-                  </figure>
-                  <!--Lower Content-->
-                  <div class="lower-content">
-                    <h3><a href="">IPhone 8</a></h3>
-                    <div> <span>64 GB - Space Gray - Unlocked</span> </div> 
-                      <span>
-                      Warranty: 12 months
-                      </span>
-                      <div>Starting from</div>
-                      <div class="price">
-                      <strong>$165.00</strong> <del>$350.00</del></div>
-                      <!-- <a href="{{url('single')}}" class="cart-btn theme-btn btn-style-two">Add to cart</a> -->
-                  </div>
-                </div>
-            </div>
-            
-            <!--Shop Item-->
-            <div class="shop-item col-md-4 col-sm-6 col-xs-12">
-              <div class="inner-box">
-                  <figure class="image-box">
-                    <a href="{{url('single')}}"><img src="{{asset('frontend-assets/images/resource/products/product-3.jpg')}}" alt="" /></a>
-                  </figure>
-                  <!--Lower Content-->
-                  <div class="lower-content">
-                    <h3><a href="">Galaxy S9</a></h3>
-                    <div> <span>64 GB - Space Gray - Unlocked</span> </div> 
-                      <span>
-                      Warranty: 12 months
-                      </span>
-                      <div>Starting from</div>
-                      <div class="price">
-                      <strong>$150.00</strong> <del>$300.00</del></div>
-                      <!-- <a href="{{url('single')}}" class="cart-btn theme-btn btn-style-two">Add to cart</a> -->
-                  </div>
-                </div>
-            </div>
-            
-            <!--Shop Item-->
-            <div class="shop-item col-md-4 col-sm-6 col-xs-12">
-              <div class="inner-box">
-                  <figure class="image-box">
-                    <a href="{{url('single')}}"><img src="{{asset('frontend-assets/images/resource/products/image-4.jpg')}}" alt="" /></a>
-                  </figure>
-                  <!--Lower Content-->
-                  <div class="lower-content">
-                    <h3><a href="{{url('single')}}">IPhone XS</a></h3>
-                      <div> <span>64 GB - Space Gray - Unlocked</span> </div> 
-                      <span>
-                      Warranty: 12 months
-                      </span>
-                      <div>Starting from</div>
-                      <div class="price">
-                      <strong>$349.00</strong> <del>$699.00</del></div>
-                  </div>
-                </div>
-            </div>
-            
-            <!--Shop Item-->
-            <div class="shop-item col-md-4 col-sm-6 col-xs-12">
-              <div class="inner-box">
-                  <figure class="image-box">
-                      <a href="{{url('single')}}"><img src="{{asset('frontend-assets/images/resource/products/product-1.jpg')}}" alt="" /></a>
-                    </figure>
-                    <!--Lower Content-->
-                    <div class="lower-content">
-                      <h3><a href="">IPhone XR</a></h3>
-                      <div> <span>64 GB - Space Gray - Unlocked</span> </div> 
-                        <span>
-                        Warranty: 12 months
-                        </span>
-                        <div>Starting from</div>
-                        <div class="price">
-                        <strong>$395.00</strong> <del>$400.00</del></div>
-                        <!-- <a href="{{url('single')}}" class="cart-btn theme-btn btn-style-two">Add to cart</a> -->
-                    </div>
-                </div>
-            </div>
-            <!--Shop Item-->
-            <div class="shop-item col-md-4 col-sm-6 col-xs-12">
-              <div class="inner-box">
-                  <figure class="image-box">
-                    <a href="{{url('single')}}"><img src="{{asset('frontend-assets/images/resource/products/product-3.jpg')}}" alt="" /></a>
-                  </figure>
-                  <!--Lower Content-->
-                  <div class="lower-content">
-                    <h3><a href="">Galaxy S9</a></h3>
-                    <div> <span>64 GB - Space Gray - Unlocked</span> </div> 
-                      <span>
-                      Warranty: 12 months
-                      </span>
-                      <div>Starting from</div>
-                      <div class="price">
-                      <strong>$150.00</strong> <del>$300.00</del></div>
-                      <!-- <a href="{{url('single')}}" class="cart-btn theme-btn btn-style-two">Add to cart</a> -->
-                  </div>
-                </div>
-            </div>
           </div>
         </div>      
       </div>
