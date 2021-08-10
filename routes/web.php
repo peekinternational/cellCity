@@ -167,7 +167,7 @@ Route::get('/getrepairTypes/{id}', [TechController::class, 'getrepairTypes']);
   //paypal
   Route::get('customer/completeOrder/{id}',[UserController::class,'completeOrder'])->name('complete.order');
   Route::post('customer/payment/{id}',[UserController::class,'payment'])->name('payment.order');
-  Route::get('paypal-success',[UserController::class,"success"])->name('paypal.success');
+  Route::post('paypal-success',[UserController::class,"success"])->name('paypal.success');
   Route::get('paypal-cancel',[UserController::class,'cancel'])->name('paypal.cancel');
 
   //checkout

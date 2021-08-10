@@ -254,13 +254,16 @@
                 @endphp
                 @foreach ($products as $product)
                 @php
+                $color = App\Models\ProductColor::where('product_id',$product->id)->first();
+                $storage = App\Models\ProductStorage::where('color_id',$color->id)->first();
                 $model = App\Models\Pmodel::where('id',$product->model_id)->first();
                 $image = App\Models\ProductImage::where('product_id',$product->id)->first();
+                $condition = App\Models\ProductCondition::where('storage_id',$storage->id)->first();
                 @endphp
                 <div class="shop-item col-md-3 col-sm-6 col-xs-12">
                 	<div class="inner-box wow fadeIn" data-wow-delay="0ms" data-wow-duration="1500ms">
                     	<figure class="image-box">
-                        	<a href={{ route('product.details',$product->id) }}"><img src="{{asset($image->image)}}" alt="" /></a>
+                        	<a href={{ route('product.details',$product->id) }}"><img src="{{asset('storage/products/images/'.$image->image)}}" alt="" /></a>
                         </figure>
                         <!--Lower Content-->
                        
@@ -272,7 +275,7 @@
 		                        </span>
 		                        <div>Starting from</div>
                             <div class="price">
-                            <strong>$500.00</strong> <del>$950.00</del></div>
+                            <strong>${{ $condition->price }}.00</strong> <del>$950.00</del></div>
                             <!-- <a href="{{url('single')}}" class="cart-btn theme-btn btn-style-two">Add to cart</a> -->
                         </div>
                     </div>

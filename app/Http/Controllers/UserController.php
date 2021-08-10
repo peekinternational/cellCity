@@ -281,7 +281,7 @@ class UserController extends Controller
                 'EGngM0S-9WpLca_l8CVUaOp_66g5nzoWfzKhb4saCQGOoODUSbB5V5C3Ejodd702bO0GptVPYTsTf1vd'
             )
         );
-dd($apiContext);
+// dd($apiContext);
         $payer = new Payer();
         $payer->setPaymentMethod("paypal");
         // dd($payer);
@@ -312,7 +312,7 @@ dd($apiContext);
         try {
 
             $payment->create($apiContext);
-            dd($payment);
+            // dd($payment);
             // Get PayPal redirect URL and redirect the customer
             // $approvalUrl =
             return redirect($payment->getApprovalLink());

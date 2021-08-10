@@ -45,21 +45,24 @@
                                         <div class="carousel-outer wow fadeInLeft">
                     
                                             <ul class="image-carousel">
+                                                @foreach ($images as $image )
+                                                <li><a href="{{asset('storage/products/images/'.$image->image)}}" class="lightbox-image" title="Image Caption Here"><img src="{{asset('storage/products/images/'.$image->image)}}" alt=""></a></li>
+                                                @endforeach
+                                               
+                                                {{-- <li><a href="{{asset('frontend-assets/images/resource/products/shop-image-1.jpg')}}" class="lightbox-image" title="Image Caption Here"><img src="{{asset('frontend-assets/images/resource/products/shop-image-1.jpg')}}" alt=""></a></li>
                                                 <li><a href="{{asset('frontend-assets/images/resource/products/shop-image-1.jpg')}}" class="lightbox-image" title="Image Caption Here"><img src="{{asset('frontend-assets/images/resource/products/shop-image-1.jpg')}}" alt=""></a></li>
                                                 <li><a href="{{asset('frontend-assets/images/resource/products/shop-image-1.jpg')}}" class="lightbox-image" title="Image Caption Here"><img src="{{asset('frontend-assets/images/resource/products/shop-image-1.jpg')}}" alt=""></a></li>
                                                 <li><a href="{{asset('frontend-assets/images/resource/products/shop-image-1.jpg')}}" class="lightbox-image" title="Image Caption Here"><img src="{{asset('frontend-assets/images/resource/products/shop-image-1.jpg')}}" alt=""></a></li>
-                                                <li><a href="{{asset('frontend-assets/images/resource/products/shop-image-1.jpg')}}" class="lightbox-image" title="Image Caption Here"><img src="{{asset('frontend-assets/images/resource/products/shop-image-1.jpg')}}" alt=""></a></li>
-                                                <li><a href="{{asset('frontend-assets/images/resource/products/shop-image-1.jpg')}}" class="lightbox-image" title="Image Caption Here"><img src="{{asset('frontend-assets/images/resource/products/shop-image-1.jpg')}}" alt=""></a></li>
-                                                <li><a href="{{asset('frontend-assets/images/resource/products/shop-image-1.jpg')}}" class="lightbox-image" title="Image Caption Here"><img src="{{asset('frontend-assets/images/resource/products/shop-image-1.jpg')}}" alt=""></a></li>
+                                                <li><a href="{{asset('frontend-assets/images/resource/products/shop-image-1.jpg')}}" class="lightbox-image" title="Image Caption Here"><img src="{{asset('frontend-assets/images/resource/products/shop-image-1.jpg')}}" alt=""></a></li> --}}
                                             </ul>
                                             
                                             <ul class="thumbs-carousel">
-                                                <li><img src="{{asset('frontend-assets/images/resource/products/shop-thumb-1.jpg')}}" alt=""></li>
-                                                <li><img src="{{asset('frontend-assets/images/resource/products/shop-thumb-2.jpg')}}" alt=""></li>
-                                                <li><img src="{{asset('frontend-assets/images/resource/products/shop-thumb-3.jpg')}}" alt=""></li>
-                                                <li><img src="{{asset('frontend-assets/images/resource/products/shop-thumb-1.jpg')}}" alt=""></li>
-                                                <li><img src="{{asset('frontend-assets/images/resource/products/shop-thumb-2.jpg')}}" alt=""></li>
-                                                <li><img src="{{asset('frontend-assets/images/resource/products/shop-thumb-3.jpg')}}" alt=""></li>
+                                                @foreach ($images as $image )
+                                                <li><img src="{{asset('storage/products/images/'.$image->image)}}" alt=""></li>
+                                                @endforeach
+                                               
+                                                
+                                                
                                             </ul>
                                             
                                         </div>
@@ -68,8 +71,8 @@
                                     <div class="info-column col-md-6 col-sm-6 col-xs-12">
                                     
                                         <div class="details-header">
-                                            <h4>JBL EARPHONES</h4>
-                                            <div class="item-price">$28.00</div>
+                                            <h4>{{ $model->brand->brand_name}}{{ $model->model_name }}</h4>
+                                            <div class="item-price">${{ $condition->price }}.00</div>
                                         </div>
                     <!--Text-->
                                         <div class="text">

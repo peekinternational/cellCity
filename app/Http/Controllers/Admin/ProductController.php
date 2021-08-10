@@ -260,8 +260,12 @@ class ProductController extends Controller
    public function productDetail($id)
    {
        $product = Product::find($id);
-       $color   = ProductColor::where('product_id',$product->id)->get();
-       return view('frontend.single');
+       $color = ProductColor::where('product_id',$product->id)->first();
+       $storage = ProductStorage::where('color_id',$color->id)->first();
+       $model = Pmodel::where('id',$product->model_id)->first();
+       $images = ProductImage::where('product_id',$product->id)->get();
+       $condition = ProductCondition::where('storage_id',$storage->id)->first();
+       return view('frontend.single',compact('product','color','images','model','condition','storage'));
    }
 
 
