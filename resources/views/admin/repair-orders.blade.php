@@ -69,8 +69,8 @@
                                                         <th>Billing Name</th>
                                                         <th>Date & Time</th>
                                                         <th>Total</th>
-                                                        <th>Pay Status</th>
-                                                        <th>Payment Method</th>
+                                                        {{-- <th>Pay Status</th>
+                                                        <th>Payment Method</th> --}}
                                                          <th>Status</th>
                                                         <th>Technician</th>
 
@@ -90,7 +90,7 @@
                                                         <td>
                                                            ${{$order->repairorderstypes->sum('price')}}
                                                         </td>
-                                                         <td>
+                                                         {{-- <td>
                                                             @if($order->pay_status == 'paid')
                                                             <span class="badge badge-pill badge-soft-success font-size-12">Paid</span>
                                                             @else
@@ -100,7 +100,7 @@
                                                         <td>
                                                             <!-- Button trigger modal -->
                                                            <span class="badge badge-pill badge-soft-success font-size-12"> {{$order->pay_method}}</span>
-                                                        </td>
+                                                        </td> --}}
                                                         @php
                                                           $techId = App\Models\User::where('id',$order->techId)->first();
                                                         @endphp
