@@ -69,7 +69,7 @@ class RepairController extends Controller
     // dd($repairOrder);
 
     $times =OrderTime::whereNotIn('time', $repairOrder)->get();
-   
+
     return response()->json($times);
 
   }
@@ -141,16 +141,16 @@ public function saverepairType(Request $request){
       'subject' => 'Dear Customer ,',
       'message' => 'Order placed successfully, a technician will reached out to you as soon as possible.'
   ];
-     
+
    \Mail::to($request->email)->send(new orderPlace($details));
-    
+
    $phone = '+'.$request->phone;
-  
+
      $message =strip_tags(nl2br("Dear customer,\n Order placed successfully, \n  a technician will reached out to you as soon as possible."));
-     
-     $account_sid = "AC78a39fa2728f3123ede28816f3b1eeb5";
-     $auth_token = "ed0342689c006552caf0bf12c49e69aa";
-     $twilio_number = +17633108816;
+
+     $account_sid = "AC6769d3e36e7a9e9ebbea3839d82a4504";
+     $auth_token = "05fa49575f2da39f8909c29d635b20a7";
+     $twilio_number = +15124027605;
        $client = new Client($account_sid, $auth_token);
        $client->messages->create($phone,
            ['from' => $twilio_number, 'body' => $message] );

@@ -40,7 +40,7 @@ class ProductController extends Controller
 
     public function getModels($id)
     {
-        
+
          $brand= Brand::find($id);
         //  dd($brand);
          $pmodels = Pmodel::where('brand_Id',$brand->id)->get();
@@ -56,14 +56,14 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());    
+        // dd($request->all());
         // dd($request->file('image'));
 //         DB::beginTransaction();
 
 // try {
         $product = new Product;
         //  $product->insert($request->only($product->getFillable()));
-         
+
          $product->category = $request->category;
          $product->memory = $request->memory;
          $product->locked = $request->locked;
@@ -81,28 +81,28 @@ class ProductController extends Controller
          $product->model_id = $request->model_id;
         //  dd($product);
         $product->save();
-        
 
-        
+
+
         foreach($request->color_name as $key=> $colors)
-        {  
-            
+        {
+
             $color = new ProductColor;
             $color->color_name = $colors;
             $color->product_id = $product->id;
             $color->save();
-     
+
             foreach($request->storage[$key] as $key2=>$storages)
             {
-                
+
                 $storage = new ProductStorage;
-                $storage->storage = $storages; 
+                $storage->storage = $storages;
                 $storage->color_id = $color->id;
                 $storage->save();
-           
-       
+
+
             foreach($request->condition[$key2] as $key3=>$conditions)
-            { 
+            {
                 //  dd($condition);
                 $condition = new ProductCondition;
                 $condition->condition =$conditions;
@@ -112,13 +112,13 @@ class ProductController extends Controller
                 $condition->save();
             }
         }
-            
+
          foreach($request->file('image')[$key] as $image)
-            {  
-                
+            {
+
                 $imageName= time().$image->getClientOriginalName();
                 $destination ='storage/products/images/';
-                $image->move(public_path($destination), $imageName);  
+                $image->move(public_path($destination), $imageName);
 
                 // dd($imageName);
                 $imagefile = new ProductImage;
@@ -126,11 +126,11 @@ class ProductController extends Controller
                 $imagefile->product_id = $product->id;
                 $imagefile->color_id = $color->id;
                 $imagefile->save();
-                // dd($request->condition);       
-           
+                // dd($request->condition);
+
                 // dd($storage);
-             
-        
+
+
     }
 
     }
@@ -140,9 +140,9 @@ class ProductController extends Controller
     //     DB::rollback();
     //     return back()->with('message', Alert::_message('success', 'somthing wrong.'));
     // }
-        
+
         return back()->with('message', Alert::_message('success', 'Product Created Successfully.'));
- 
+
     }
 
     /**
@@ -182,7 +182,7 @@ class ProductController extends Controller
         // dd($request);
         $product = Product::find($id);
         //  $product->insert($request->only($product->getFillable()));
-         
+
          $product->storage = $request->storage;
          $product->colors = $request->colors;
          $product->ram = $request->ram;
@@ -196,33 +196,33 @@ class ProductController extends Controller
          $product->OS = $request->OS;
          $product->resolution = $request->resolution;
          $product->quantity = $request->quantity;
-       
+
          $product->category = $request->category;
          $product->model_id = $request->model_Id;
          $product->update();
         //  dd($product);
 
-        
+
                 $q = "DELETE pp FROM `product_images` pp
                     join products pd on pp.product_id = pd.id
                     WHERE pd.id = ?";
 
 
                 $status = \DB::delete($q, array($id));
-      
-       
+
+
         foreach($request->file('image') as $image)
-        {  
+        {
             $imageName= time().$image->getClientOriginalName();
-            $image->move('storage/images/products/', $imageName);  
+            $image->move('storage/images/products/', $imageName);
 
             $imagefile = new ProductImage;
             $imagefile->image =  'storage/images/products/'. $imageName;
             $imagefile->product_id = $product->id;
             $imagefile->save();
-            
+
         }
-        
+
         return back()->with('message', Alert::_message('success', 'Product Updated Successfully.'));
     }
 
@@ -234,7 +234,7 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        
+
         $product = Product::find($id);
         // dd($product);
         ProductImage::where('product_id',$product->id)->delete();
@@ -242,7 +242,7 @@ class ProductController extends Controller
         $product->delete();
         return back()->with('message', Alert::_message('success', 'Product Deleted Successfully.'));
 
-         
+
     }
 
   public function storeProduct(Request $request)

@@ -37,23 +37,23 @@ class AdminRepairController extends Controller
 
 
     public function repairOrders()
-    {   
+    {
         RepairOrder::where('notification', '=', 0)
                    ->update(['notification' => 1]);
-        
-      
+
+
         $RepairOrders= RepairOrder::where('order_status','!=','4')->orderBy('id','desc')
                                 ->get();
-       
+
         return view('admin.repair-orders',compact('RepairOrders'));
     }
 
     public function orderCompleted()
-    {   
+    {
         RepairOrder::where('notification', '=', 0)
                    ->update(['notification' => 1]);
-        
-      
+
+
         $RepairOrders= RepairOrder::where(['order_status'=>'4'])->orderBy('created_at','desc')->get();
         return view('admin.orderCompleted',compact('RepairOrders'));
     }
@@ -155,15 +155,15 @@ class AdminRepairController extends Controller
             'subject' => 'Dear Technician ,',
             'message' => 'You have Recieved  a new Order.'
         ];
-           
+
          \Mail::to($user->email)->send(new orderAssign($details));
-          
+
          $phone = '+'.$user->phoneno;
            $message = strip_tags(nl2br("Dear Technician, \n You have Recieved  a new Repair Order"));
-                       
-           $account_sid = "AC78a39fa2728f3123ede28816f3b1eeb5";
-           $auth_token = "ed0342689c006552caf0bf12c49e69aa";
-           $twilio_number = +17633108816;
+
+           $account_sid = "AC6769d3e36e7a9e9ebbea3839d82a4504";
+           $auth_token = "05fa49575f2da39f8909c29d635b20a7";
+           $twilio_number = +15124027605;
              $client = new Client($account_sid, $auth_token);
              $client->messages->create($phone,
                  ['from' => $twilio_number, 'body' => $message] );
@@ -201,7 +201,7 @@ class AdminRepairController extends Controller
         $customer = User::whereId($request->userId)->first();
         $model = explode(',',$request->model_Id);
         $model_Id = $model[0];
-       
+
         // dd($request->model_Id);
         $RepairOrders = new RepairOrder;
         $RepairOrders->userId = $request->userId;
@@ -214,7 +214,7 @@ class AdminRepairController extends Controller
         $RepairOrders->email = $customer->email;
         $RepairOrders->instructions = $request->instruction;
         $RepairOrders->save();
-       
+
         foreach ($request->repair_type as $key => $value) {
             // dd($RepairOrders->id);
             $ordertype = New RepairOrderType;
@@ -308,7 +308,7 @@ class AdminRepairController extends Controller
         Temporary::where('notification', '=', 0)
                    ->update(['notification' => 1]);
         $RepairOrders= Temporary::orderBy('id','desc')->get();
-        
+
 
         return view('admin.checkupdate',compact('RepairOrders'));
     }
