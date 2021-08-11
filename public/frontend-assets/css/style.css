@@ -6537,7 +6537,8 @@ ul,li{
     display: block;
     position: relative;
     padding-left: 3.4rem;
-    margin-bottom: 1.6rem;
+    margin-bottom: 2.6rem;
+    margin-top: 4.6rem
   }
   
   .features-list li.price svg{
@@ -6567,8 +6568,10 @@ ul,li{
     line-height: 22px;
     font-weight: 500;
   }
-  .select-color{
-    margin-right: 1rem;
+  .color-select .d-grid{
+    display: grid;
+    gap: .8rem;
+    grid-template-columns: repeat(3,minmax(0,1fr));
   }
   .color-spe{
     min-width: 1.6rem;
@@ -6608,6 +6611,22 @@ ul,li{
     list-style-type: none;
     padding-left: 0;
   }
+  .payment-imgs{
+    margin-top: 10px;
+  }
+  .payment-imgs .pay-img{
+    height: 2.4rem;
+    width: auto;
+    margin: 0 .2rem .4rem;
+  }
+  .payment-imgs .pay-img img{
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+  }
+  .select-color input[name="color"]:checked + .color ,.select-color input[name="storage"]:checked + .color ,.select-color input[name="condition"]:checked + .color{
+	border: 1px solid #000;
+}
   @media(min-width: 400px){
     .features-list li.price{
       display: flex;
@@ -6620,3 +6639,5 @@ ul,li{
       width: 110px;
     }
   }
+
+  

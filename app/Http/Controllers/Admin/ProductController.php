@@ -246,10 +246,13 @@ class ProductController extends Controller
     }
 //Store Product Ajax
   public function storeProduct(Request $request)
-    {
-            // dd($request->all());
-                // dd($request->file('image'));
+    {      
+            
+          ;
         //         DB::beginTransaction();
+        // dd($request->all());
+   
+         
 
         // try {
             $product = new Product;
@@ -303,7 +306,7 @@ class ProductController extends Controller
                     $condition->save();
                 }
             }
-           if ($request->hasFile('image')) {
+         
             
         
             foreach($request->file('image')[$key] as $image)
@@ -325,7 +328,7 @@ class ProductController extends Controller
                 
 
         }
-    }
+
 
         }
 
@@ -342,7 +345,7 @@ class ProductController extends Controller
 
     public function storeMoreProduct(Request $request)
     {
-        //    dd($request);
+        //    dd($request->all());
 
            $product_id = $request->product_id;
 
@@ -374,7 +377,7 @@ class ProductController extends Controller
                    $condition->save();
                }
            }
-          if ($request->hasFile('image')) {
+        
            
        
            foreach($request->file('image')[$key] as $image)
@@ -396,7 +399,7 @@ class ProductController extends Controller
                
 
         }
-        }
+    
         }
              
     return response()->json($product_id);
@@ -406,7 +409,9 @@ class ProductController extends Controller
     public function getPhones()
     {
         $products = Product::all();
-        return view('frontend.buy-phone',compact('products'));
+        $colors  = ProductColor::all();
+      
+        return view('frontend.buy-phone',compact('products','colors'));
     }
 
    public function productDetail($id)

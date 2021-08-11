@@ -276,8 +276,8 @@
                                         {{-- <input type="submit" name="loginBtn" id="loginBtn" value="Login" /> --}}
 
                                         {{-- <input type="button" name="save" class="btn btn-primary" value="Save to database" id="butsave"> --}}
-                                        <button type="button" id="NextSubmitBtn"  style="background:#0415aa">Add More</button>
-                                        <button type="button" id="SubmitBtnColor"  style="background:green;display:none">Add More</button>
+                                        <button type="button" id="NextSubmitBtn"  style="background:#0415aa">Add More Color</button>
+                                        <button type="button" id="SubmitBtnColor"  style="background:green;display:none">Add More & More Color</button>
                                         </div>
                                     <div class="row">
 
@@ -289,7 +289,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <label for="example-text-input" class="col-form-label">Image</label>
-                                        <input class="form-control" name="image[0][]"  multiple type="file"   @if(old('image'))  @endif  id="example-text-input">
+                                        <input class="form-control" name="image[0][]"  multiple type="file"   @if(old('image'))  @endif  id="image-input">
                                         <span class="text-danger">{{ $errors->first('image') }}</span>
 
                                     </div>
@@ -302,8 +302,8 @@
 
                                 <div class="addstorage" id="addstorage">
                                     <div class="add_storage">
-                                <div  id="add_storage0" >
-                                    <div class="row ">
+                                <div id="add_storage0">
+                                    <div class="row">
                                     <div class="input-group" >
 
                                     <input type="hidden" name="addMoreStorage0" value="0" id="addMoreStorage0">
@@ -328,11 +328,11 @@
 
                                     </div>
                                 </div>
-                                        </div>
+                            </div>
 
 
                             <hr>
-                                <div class="add_condition" >
+                                <div class="add_condition">
                                     <div class="row" id="add_condition0">
                                     <div class="input-group">
 
@@ -503,7 +503,7 @@
 
     $(document).on('click','.addMoreCondition',function(e){
 		// alert(product);
-z++;
+   
         console.log($(e.target).closest('.add_storage').children()[0]);
 
       var conditionid= $(e.target).closest('.add_storage').children()[0].id;
@@ -511,11 +511,11 @@ z++;
 
       var storeindex = conditionid.slice(11,12);
 
-      alert(storeindex);
+     
         var  maxField=3;
-		// var childern =	$(e.target).closest('.add_condition').find('#'+conditionid).children().length;
-
-			if(storeindex < maxField ){
+		var childern =	$(e.target).closest('.add_condition').find('#'+storeindex).children().length;
+          alert(childern);
+			if(y < maxField ){
                 // alert(childern);
 				var fieldHTML = ' <div class="input-group">'+
                                            ' <div class="col-md-3">'+
@@ -545,11 +545,13 @@ z++;
 			}
 	});
 
-     $(wrapper2).on('click', '.removeCondition', function(e){
+   
+     $(document).on('click', '.remove_storage', function(e){
             e.preventDefault();
-         console.log($(this).closest('.remove-color'));
-            $(this).closest('.remove-color').remove(); //Remove field html
-            x--; //Decrement field counter
+         console.log($(this).parents('.form-group'));
+
+         $(this).parents('.form-group').remove(); //Remove field html
+            y--; //Decrement field counter
         });
 
 
@@ -563,10 +565,24 @@ z++;
     $(document).ready(function(){
         $("#NextSubmitBtn").click(function(event){
             event.preventDefault();
+
+        
+            var formData = new FormData(this.form);
+                let TotalImages = $('#image-input')[0].files.length; //Total Images
+                let images = $('#image-input')[0];
+                for (let i = 0; i < TotalImages; i++) {
+                formData.append('images', images.files[i]);
+                }
+                formData.append('TotalImages', TotalImages);
+         
+
             $.ajax({
             type: "POST",
             url: "{{url('admin/store-product')}}",
-            data: $("form").serialize(),
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            data: formData,
+            processData: false,
+            contentType: false,
             success: function(response)
             {
                   console.log(response);
@@ -583,13 +599,27 @@ z++;
        });
         });
     });
+
+
       $(document).ready(function(){
         $("#SubmitBtnColor").click(function(event){
             event.preventDefault();
+
+              var formData = new FormData(this.form);
+                let TotalImages = $('#image-input')[0].files.length; //Total Images
+                let images = $('#image-input')[0];
+                for (let i = 0; i < TotalImages; i++) {
+                formData.append('images', images.files[i]);
+                }
+                formData.append('TotalImages', TotalImages);
+         
             $.ajax({
             type: "POST",
             url: "{{url('admin/store-more-product')}}",
-            data: $("form").serialize(),
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            data: formData,
+            processData: false,
+            contentType: false,
             success: function(response)
             {
                   console.log(response);
