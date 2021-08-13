@@ -377,7 +377,7 @@
                         </div>
                           </div>
                         </div>
-                          </div>
+                          </div>    
                         <div style="overflow:auto;">
                             <div style="float:right;">
                             <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
