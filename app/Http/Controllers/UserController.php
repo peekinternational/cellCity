@@ -260,7 +260,7 @@ class UserController extends Controller
      $message =strip_tags(nl2br("Dear Customer, \n You have Successfully Pay  through Cash . \n Total Amount : $". $request->total));
 
      $account_sid = "AC6769d3e36e7a9e9ebbea3839d82a4504";
-     $auth_token = "05fa49575f2da39f8909c29d635b20a7";
+     $auth_token = "63376fce491dd77850379488e582f9ee";
      $twilio_number = +15124027605;
      $client = new Client($account_sid, $auth_token);
      $client->messages->create($phone,
@@ -388,7 +388,7 @@ public function success(Request $request)
 //    dd($phone);
    $message =strip_tags(nl2br("Dear customer,\n You have Successfully Pay  through PayPal \n Total Amount : $". $total));
    $account_sid = "AC6769d3e36e7a9e9ebbea3839d82a4504";
-   $auth_token = "05fa49575f2da39f8909c29d635b20a7";
+   $auth_token = "63376fce491dd77850379488e582f9ee";
    $twilio_number = +15124027605;
    $client = new Client($account_sid, $auth_token);
    $client->messages->create($phone,
