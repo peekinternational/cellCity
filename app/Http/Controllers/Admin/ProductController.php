@@ -416,14 +416,78 @@ class ProductController extends Controller
 
    public function productDetail($id)
    {
-    //    $product = Product::find($id);
-       $color = ProductColor::find($id);
-       $product =Product::where('id',$color->product_id)->first();
+       $colors = Product::find($id)->color;
+       $product = Product::find($id);
+    //    dd($product);
+       $color = ProductColor::where('product_id',$id)->first();
+       
        $storage = ProductStorage::where('color_id',$color->id)->first();
        $model = Pmodel::where('id',$product->model_id)->first();
-       $images = ProductImage::where('product_id',$product->id)->get();
+       $images = ProductImage::where('color_id',$color->id)->get();
+    //    dd($images);
        $condition = ProductCondition::where('storage_id',$storage->id)->first();
-       return view('frontend.single',compact('product','color','images','model','condition','storage'));
+       return view('frontend.single',compact('product','color','model','condition','images','storage',
+       'colors'));
+   }
+
+
+   public function getStorage($id)
+   {
+    //    dd($id);
+       $color = ProductColor::find($id);
+       $storages = ProductStorage::where('color_id',$color->id)->get();
+       $images = ProductImage::where('color_id',$color->id)->get();
+    
+       $temp= null;
+
+       foreach($storages as $storage)
+       {
+
+            $temp .='
+                    <div class="select-color">
+                        <input type="radio" name="storage" class="hidden" id="'.$storage->id.'">
+                        <label class="color" for="'.$storage->id.'" onclick="geCondition('.$storage->id.')">
+                            '.$storage->storage.'
+                        </label>
+                    </div>';
+        }
+       
+      
+       $img = null;
+        foreach ($images as $image )
+        {
+ 
+             $img .='<li>
+                         <a href="'.asset('storage/products/images/'.$image->image).'" class="lightbox-image" title="Image Caption Here">
+                         <img src="'.asset('storage/products/images/'.$image->image).'" alt=""></a>
+                         </li>';
+         }
+
+        return response()->json(['temp'=>$temp ,'img'=> $img,'color'=>$color->color_name]);
+        //return view(['frontend.productmanagment.get-storage'=>$storages,'teams'=>teamInfo,'points'=>pointslist]);
+    //return view('frontend.productmanagment.get-storage',compact('storages'));
+    
+   }
+
+   public function getCondition($id)
+   {
+     $storage = ProductStorage::find($id);
+    //  dd($storage->storage)
+     $conditions = ProductCondition::where('storage_id',$storage->id)->get();
+
+     $condit = null;
+
+      foreach($conditions as $condition)
+      {
+        $condit .=' <div class="select-color">
+                    <input type="radio" name="condition" class="hidden" id="'.$condition->condition.'">
+                    <label class="color" for="'.$condition->condition.'"  onclick="getPrice('.$condition->price.','.$condition->quantity.')">
+                    '.$condition->condition.' <br> $'.$condition->price.'
+                    </label>
+                    </div>';
+      }
+
+      return response()->json(['condit'=>$condit,'storage'=>$storage->storage]);
    }
 
 

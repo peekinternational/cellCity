@@ -313,7 +313,6 @@
                                             <option selected>Select Memory</option>
                                             <option value="256 GB">256 GB</option>
                                             <option value="128 GB">128 GB</option>
-
                                             <option value="64 GB">64 GB</option>
                                             <option value="32 GB">32 GB</option>
                                             <option value="16 GB">16 GB</option>
@@ -333,6 +332,7 @@
 
                             <hr>
                                 <div class="add_condition">
+                                 <div class="add_condition">
                                     <div class="row" id="add_condition0">
                                     <div class="input-group">
 
@@ -368,14 +368,16 @@
 
                                     </div>
 
-
+                
                                 <hr>
                             </div>
                         </div>
 
                             </div>
                         </div>
-                            </div>
+                          </div>
+                        </div>
+                          </div>
                         <div style="overflow:auto;">
                             <div style="float:right;">
                             <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
@@ -429,7 +431,7 @@
         console.log($(e.target).closest('.add_storage').children()[0]);
 
       var storageid= $(e.target).closest('.add_storage').children()[0].id;
-    console.log(storageid);
+        console.log(storageid);
 
       var storageindex = y;
 
@@ -504,20 +506,20 @@
     $(document).on('click','.addMoreCondition',function(e){
 		// alert(product);
    
-        console.log($(e.target).closest('.add_storage').children()[0]);
+        console.log($(e.target).closest('.add_condition').children()[0]);
 
-      var conditionid= $(e.target).closest('.add_storage').children()[0].id;
+      var conditionid= $(e.target).closest('.add_condition').children()[0].id;
       console.log(conditionid);
 
-      var storeindex = conditionid.slice(11,12);
+      var storeindex = conditionid.slice(13,14);
 
      
         var  maxField=3;
 		var childern =	$(e.target).closest('.add_condition').find('#'+storeindex).children().length;
-          alert(childern);
+          alert(storeindex);
 			if(y < maxField ){
                 // alert(childern);
-				var fieldHTML = ' <div class="input-group">'+
+				var fieldHTML = ' <div class="remove_condition"><div class="row" id="add_condition'+storeindex+'"><div class="input-group">'+
                                            ' <div class="col-md-3">'+
                                            ' <label for="example-text-input" class="col-form-label">Condition</label>'+
                                            ' <select class="form-control"  name="condition['+storeindex+'][]" id="condition">'+
@@ -539,6 +541,8 @@
                                         '<div  class="col-md-3" style="text-align:center"> '+
                                            ' <a href="javascript:void(0)" class="btn btn-secondary removeCondition" style="margin-top: 36px;"><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Remove Condition#'+storeindex+'</a>'+
                                        ' </div>'+
+                                        '</div>'+
+                                        '</div>'+
                                         '</div>';
 				//$('#field_wrapper_size'+z).append(fieldHTML); //Add field html
 				$(e.target).closest('.form-group').find('#'+conditionid).append(fieldHTML);
@@ -546,11 +550,11 @@
 	});
 
    
-     $(document).on('click', '.remove_storage', function(e){
+     $(document).on('click', '.removeCondition', function(e){
             e.preventDefault();
-         console.log($(this).parents('.form-group'));
+         console.log($(this).parents('.remove_condition'));
 
-         $(this).parents('.form-group').remove(); //Remove field html
+         $(this).parents('.remove_condition').remove(); //Remove field html
             y--; //Decrement field counter
         });
 
