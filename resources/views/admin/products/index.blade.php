@@ -27,14 +27,15 @@
                                                 <thead class="thead-light">
                                                     <tr>
                                                         <th scope="col">#</th>
-                                                        
+
                                                         <th scope="col">Brand Name</th>
                                                         <th scope="col">Model Name</th>
                                                         <th scope="col">Warranty</th>
-                                                        <th scope="col">Sell Price</th>
-                                                        <th scope="col">Camera</th>
+                                                        <th scope="col">Conditions</th>
+                                                        <th scope="col">Storages</th>
+                                                        <th scope="col">Images</th>
+                                                        <th scope="col">Colors</th>
 
-                                                       
                                                         <th scope="col">Action</th>
                                                     </tr>
                                                 </thead>
@@ -42,7 +43,7 @@
                                                     @foreach($products as $index => $product)
                                                     <tr>
                                                         <td>{{$index + 1}} </td>
-                                            
+
                                                         @php
                                                             $model = App\Models\Pmodel::whereId($product->model_id)->first();
                                                             @endphp
@@ -50,20 +51,22 @@
                                                            {{$model->brand->brand_name}}
 
                                                         </td>
-                                                       
+
                                                         <td>
                                                             {{ $model->model_name }}
 
                                                         </td>
                                                        <td>{{ $product->warranty }}</td>
-                                                       <td>{{ $product->sell_price }}</td>
-                                                       <td>{{ $product->cameraMp }}</td>
-                                                      
+
+                                                      <td><a href="{{url('admin/product-condition',$product->id) }}" class="btn btn-primary btn-sm" title="View More"><i class="fa fa-eye"></i></a></td>
+                                                       <td><a href="{{url('admin/product-storage',$product->id) }}" class="btn btn-warning btn-sm" title="View More"><i class="fa fa-eye"></i></a></td>
+                                                        <td><a href="{{url('admin/product-image',$product->id) }}" class="btn btn-info btn-sm" title="View More"><i class="fa fa-eye"></i></a></td>
+                                                         <td><a href="{{url('admin/product-color',$product->id) }}" class="btn btn-success btn-sm" title="View More"><i class="fa fa-eye"></i></a></td>
 
                                                         <td>
                                                             <ul class="list-inline font-size-20 contact-links mb-0">
                                                                 <li class="list-inline-item px-2">
-                                                                    <a href="{{url('admin/product/'.$product->id.'/show') }}" data-toggle="tooltip" data-placement="top" title="View Mmore"><i class="mdi mdi-account-edit-outline"></i></a>
+                                                                    <a href="{{url('admin/product/'.$product->id.'/show') }}" data-toggle="tooltip" data-placement="top" title="View More"><i class="mdi mdi-eye-outline"></i></a>
                                                                 </li>
                                                                 <li class="list-inline-item px-2">
                                                                     <a href="{{url('admin/product/'.$product->id.'/edit') }}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="mdi mdi-account-edit-outline"></i></a>

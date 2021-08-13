@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BlogContoller;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\AdminRepairController;
+use App\Http\Controllers\ProductConditionController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\SquareController;
 use App\Models\RepairOrder;
@@ -76,8 +77,27 @@ Route::name('admin.')->namespace('Admin')->prefix('admin')->group(function(){
       //ajax
       Route::get('/product/getModels/{id}',[ProductController::class,'getModels']);
       Route::post('/store-product',[productController::class,'storeProduct'])->name('storeproduct');
- //store more color ,condition ,storage using only product id
+    //store more color ,condition ,storage using only product id
       Route::post('/store-more-product',[productController::class,'storeMoreProduct'])->name('store.moreproduct');
+
+    ////  View of Product Condition
+    Route::get('/product-condition/{id}',[ProductConditionController::class,'index']);
+    Route::post('/product-storeCondition',[ProductConditionController::class, 'storeCondition']);
+    Route::get('/productCondtion-delete/{id}/{id2}',[ProductConditionController::class, 'deleteCondition']);
+
+   ////  View of Product storage
+    Route::get('/product-storage/{id}',[ProductConditionController::class,'storage']);
+    Route::post('/productStorage-store',[ProductConditionController::class, 'storeStorage']);
+    Route::get('/productStorage-delete/{id}',[ProductConditionController::class, 'deleteStorage']);
+   ////  View of Product image
+    Route::get('/product-image/{id}',[ProductConditionController::class,'image']);
+   ////  View of Product color
+    Route::get('/product-color/{id}',[ProductConditionController::class,'color']);
+    Route::post('/productColor-store',[ProductConditionController::class, 'storeColor']);
+    Route::get('/productColor-delete/{id}',[ProductConditionController::class, 'deleteColor']);
+
+
+
 
      //Check The update
      Route::get('/checkUpdateOrders',[AdminRepairController::class,'checkUpdateOrders']);
@@ -160,11 +180,11 @@ Route::name('tech.')->namespace('Tech')->prefix('tech')->group(function(){
     Route::post('/repairOrder-update/{id}',[TechController::class,'repairOrderUpdate']);
 
     Route::get('/getModels/{id}', [TechController::class, 'getModels']);
-Route::get('/getrepairTypes/{id}', [TechController::class, 'getrepairTypes']);
+ Route::get('/getrepairTypes/{id}', [TechController::class, 'getrepairTypes']);
 
     //Message sms with twelio
     Route::get('/message/{id}',[TechController::class,'message']);
-});
+  });
 
   //paypal
   Route::get('customer/completeOrder/{id}',[UserController::class,'completeOrder'])->name('complete.order');
@@ -215,13 +235,19 @@ Route::namespace('Auth')->middleware('auth:web')->group(function(){
         // Route::get('paypal-success',[UserController::class,"success"])->name('paypal.success');
         //  Route::get('paypal-cancel',[UserController::class,'cancel'])->name('paypal.cancel');
 
-});
+        
 
+        
+
+});
+    ///Ajax Jquery Product Single Page
+    Route::get('/getStorage/{id}',[ProductController::class,'getStorage']);
+    Route::get('/getCondition/{id}',[ProductController::class,'getCondition'])->name('get.condition');
    //verify email
    Route::get('/userVerify/{token}', [UserController::class,'verifyUserByEmail'])->name('user.verify');
    Route::post('/checkZipcode', [RepairController::class, 'checkZip']);
 
-
+  
     Route::get('/', function () {
         return view('frontend.index');
     });

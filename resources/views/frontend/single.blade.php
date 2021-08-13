@@ -23,12 +23,12 @@
         </div>
     </section>
     <!--End Page Title-->
-    
+
     <!--Sidebar Page / Shop Container-->
     <div class="sidebar-page-container shop-container">
         <div class="auto-container">
             <div class="row clearfix">
-        
+
                 <!--Content Side-->
                 <div class="content-side col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
@@ -43,36 +43,35 @@
                                     <div class="image-column col-md-4 col-sm-4 col-xs-12">
                                         <!--<figure class="image-box"><img src="images/resource/products/image-9.jpg" alt=""></figure>-->
                                         <div class="carousel-outer wow fadeInLeft">
-                    
-                                            <ul class="image-carousel">
+                                            <ul class="image-carousel image">
+                                            
                                                 @foreach ($images as $image )
                                                 <li><a href="{{asset('storage/products/images/'.$image->image)}}" class="lightbox-image" title="Image Caption Here"><img src="{{asset('storage/products/images/'.$image->image)}}" alt=""></a></li>
                                                 @endforeach
-                                               
                                                 {{-- <li><a href="{{asset('frontend-assets/images/resource/products/shop-image-1.jpg')}}" class="lightbox-image" title="Image Caption Here"><img src="{{asset('frontend-assets/images/resource/products/shop-image-1.jpg')}}" alt=""></a></li>
                                                 <li><a href="{{asset('frontend-assets/images/resource/products/shop-image-1.jpg')}}" class="lightbox-image" title="Image Caption Here"><img src="{{asset('frontend-assets/images/resource/products/shop-image-1.jpg')}}" alt=""></a></li>
                                                 <li><a href="{{asset('frontend-assets/images/resource/products/shop-image-1.jpg')}}" class="lightbox-image" title="Image Caption Here"><img src="{{asset('frontend-assets/images/resource/products/shop-image-1.jpg')}}" alt=""></a></li>
                                                 <li><a href="{{asset('frontend-assets/images/resource/products/shop-image-1.jpg')}}" class="lightbox-image" title="Image Caption Here"><img src="{{asset('frontend-assets/images/resource/products/shop-image-1.jpg')}}" alt=""></a></li>
                                                 <li><a href="{{asset('frontend-assets/images/resource/products/shop-image-1.jpg')}}" class="lightbox-image" title="Image Caption Here"><img src="{{asset('frontend-assets/images/resource/products/shop-image-1.jpg')}}" alt=""></a></li> --}}
                                             </ul>
-                                            
-                                            <ul class="thumbs-carousel">
+
+                                            <ul class="thumbs-carousel" >
                                                 @foreach ($images as $image )
                                                 <li><img src="{{asset('storage/products/images/'.$image->image)}}" alt=""></li>
                                                 @endforeach
-                                               
-                                                
-                                                
+
+
+
                                             </ul>
-                                            
+
                                         </div>
-                                        
+
                                     </div>
                                     <div class="info-column col-md-5 col-sm-5 col-xs-12">
-                                    
+
                                         <div class="details-header">
-                                            <h2>{{ $model->brand->brand_name}}   {{ $model->model_name }}  {{$storage->storage}} - {{$color->color_name}} - {{$product->locked}} 
-                                           
+                                            <h2>{{ $model->brand->brand_name}}   {{ $model->model_name }}  <span id="storage">{{$storage->storage}}</span> - <span id="color">{{$color->color_name}} </span>- {{$product->locked}}
+
                                                 @if($product->network == 4)
                                                    (GSM/CDMA + Lite)
                                                   @elseif($product->network == 3)
@@ -82,7 +81,7 @@
                                                 @else
 
                                                 @endif
-                                           
+
                                             </h2>
                                             {{-- <div class="item-price">${{ $condition->price }}.00</div> --}}
                                         </div>
@@ -100,7 +99,7 @@
                         </div>
                       </div>
                     </div>
-                         
+
                     <div class="features-list">
                       <div class="star-rating-s15-wrapper">
                         <span class="star-rating-s15 rate-10">
@@ -117,7 +116,7 @@
                     <ul class="features-list">
                       <li class="price">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 443.9 476.5" data-test="currency-icon" class="_2_hFKs4efXvyjTEZkKl7eo"><path d="M102.4 349.6c-9.7-10.3-25.3-10.9-36.3-2.6 34.6 48.9 91.5 81 155.9 81 74.3 0 138.6-42.7 170.2-104.8-12.3-7.7-28.6-4.6-37 7.5-30 43.5-80.2 69.5-134.1 69.5-44.9.1-88.2-18.3-118.7-50.6z" opacity=".3"></path><path d="M371.5 87.5c-4-4-10.4-4-14.4 0-1.4 1.4-1.6 3.2-2 5-.2 1-.7 1.9-.6 2.9.2 2.4.9 4.7 2.7 6.5 7.9 7.9 14.9 16.4 21.2 25.4C400.8 159.2 413 197.1 413 237c0 105.3-85.7 191-191 191S31 342.3 31 237 116.7 45.9 222 45.9c5.6 0 10.2-4.6 10.2-10.2s-4.6-10.2-10.2-10.2C105.4 25.6 10.6 120.4 10.6 237S105.4 448.4 222 448.4 433.4 353.6 433.4 237c0-56.5-22-109.6-61.9-149.5z"></path><path d="M237.5 220.2l-22.7-5.1c-15.3-3.6-24-13.4-24-26.8 0-12.2 11.2-25.1 32-25.1 13.3 0 23.5 3.9 34 13.2 2.4 1.9 5.2 2.9 7.9 2.9 6.3 0 11.5-5.3 11.5-11.5 0-3.3-1.3-6.3-3.9-8.9-11.1-10.2-22.8-16-36.9-18.2l-2.9-.4v-23.8c0-6-4.9-10.9-10.9-10.9s-10.9 4.9-10.9 10.9v24.7l-2.6.6c-25 5.6-41.1 24.6-41.1 48.3 0 24.8 15.5 42.2 43.6 48.9l21.8 5.1c20.8 4.7 25.2 16.8 25.2 26.1 0 17-14 27.1-37.3 27.1-12.3 0-25.5-5.7-37.4-16-2.6-3.1-5.8-4.7-9.2-4.7-6.5 0-11.8 5.2-11.8 11.6 0 3 1.3 6 3.6 8.6 11.5 12.1 26.2 20 42.4 22.8l2.8.5v24c0 6 4.9 10.9 10.9 10.9s10.9-4.9 10.9-10.9v-24.4l2.8-.5c32.1-5.6 46.5-28.8 46.5-49.4.1-25.5-15.6-43-44.3-49.6z"></path></svg>
-                        <div class="item-price"><h3><i class="fa fa-usd"></i>{{ $condition->price }}.00</h3></div>
+                        <div class="item-price"><h3><i class="fa fa-usd"></i><span id="price">{{ $condition->price ?? '' }}</span>.00</h3></div>
                       </li>
                     </ul>
                     <div class="features-list">
@@ -125,33 +124,30 @@
                       <div class="form-group color-select">
                         <label>Color</label>
                         <div class="d-grid">
+                        @foreach($colors as $color)
                           <div class="select-color">
-                           <input type="radio" name="color" class="hidden" id="color">
-                            <label class="color" for="color">
+                           <input type="radio" name="color" class="hidden" id="color{{$color->id}}" >
+                            <label class="color" for="color{{$color->id}}" onclick="getStorage({{$color->id}})">
                               <span class="color-spe" style="background: #27282D;"></span>
-                              Black
+                              {{$color->color_name}}
                             </label>
                           </div>
-                          <div class="select-color">
+                          @endforeach
+                          {{-- <div class="select-color">
                            <input type="radio" name="color" class="hidden" id="color1">
                             <label class="color" for="color1">
                               <span class="color-spe" style="background: #FDDDC6;"></span>
                               Gold
                             </label>
-                          </div>
+                          </div> --}}
                         </div>
                       </div>
                       <!-- Storage -->
-                      <div class="form-group color-select">
+                      <div class="form-group color-select" >
                         <label>Storage</label>
-                        <div class="d-grid">
-                          <div class="select-color">
-                          <input type="radio" name="storage" class="hidden" id="storage">
-                            <label class="color" for="storage">
-                               64 GB
-                            </label>
-                          </div>
-                          <div class="select-color">
+                        <div class="d-grid" id="getstorage">
+                          
+                          {{-- <div class="select-color">
                           <input type="radio" name="storage" class="hidden" id="storage1">
                             <label class="color" for="storage1">
                                256 GB
@@ -162,31 +158,14 @@
                             <label class="color" for="storage2">
                                512 GB
                             </label>
-                          </div>
+                          </div> --}}
                         </div>
                       </div>
                       <!-- Condition -->
                       <div class="form-group color-select">
                         <label>Condition</label>
-                        <div class="d-grid">
-                          <div class="select-color">
-                          <input type="radio" name="condition" class="hidden" id="fair">
-                            <label class="color" for="fair">
-                               Fair <br>$510.00
-                            </label>
-                          </div>
-                          <div class="select-color">
-                           <input type="radio" name="condition" class="hidden" id="good">
-                            <label class="color" for="good">
-                              Good <br>$515.00
-                            </label>
-                          </div>
-                          <div class="select-color">
-                          <input type="radio" name="condition" class="hidden" id="excellent">
-                            <label class="color" for="excellent">
-                               Excellent <br>$525.00
-                            </label>
-                          </div>
+                        <div class="d-grid" id="getCondition">
+                         
                         </div>
                       </div>
                     </div>
@@ -210,18 +189,18 @@
                                             <div class="item-quantity"><input class="quantity-spinner" type="text" value="2" name="quantity"></div>
                                             <button type="button" class="theme-btn btn-style-one add-to-cart">Add To Cart </button>
                                         </div> --}}
-                                        
+
                     <!--Item Meta-->
                                         <ul class="item-meta">
                                             <li>Categories: <a href="#">Headphone</a> , <a href="#">Mobile Accessories</a></li>
                                         </ul>
-                                        
+
                                     </div>
 
                                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                                         <aside class="sidebar">
 
-                                            <div class="product-stock bg-dark"><i class="fa fa-info-circle"></i> 1 Product in stock</div>
+                                            <div class="product-stock bg-dark"><i class="fa fa-info-circle"></i> <span id="quantity"></span> Product in stock</div>
                                             <!-- Warenty Box -->
                                             <div class="warrenty-box">
                                             <ul>
@@ -254,7 +233,7 @@
                                 </div>
                             </div>
                             <!--Basic Details-->
-              
+
                             <!--Product Info Tabs-->
                             <div class="product-info-tabs">
 
@@ -363,21 +342,21 @@
 
                             </div>
                         </section>
-                        
+
                     </div>
 
                 </div>
                 <!--Content Side-->
-        
-                 
+
+
 
             </div>
-            
+
             <div class="row clearfix">
               <div class="product-title col-md-12">
                   <h4>Related Products</h4>
                 </div>
-              
+
                 <!--Shop Item-->
                 <div class="shop-item col-md-3 col-sm-6 col-xs-12">
                   <div class="inner-box">
@@ -392,7 +371,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!--Shop Item-->
                 <div class="shop-item col-md-3 col-sm-6 col-xs-12">
                   <div class="inner-box">
@@ -408,7 +387,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!--Shop Item-->
                 <div class="shop-item col-md-3 col-sm-6 col-xs-12">
                   <div class="inner-box">
@@ -423,7 +402,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!--Shop Item-->
                 <div class="shop-item col-md-3 col-sm-6 col-xs-12">
                   <div class="inner-box">
@@ -438,13 +417,54 @@
                         </div>
                     </div>
                 </div>
-                
+
             </div>
-            
+
         </div>
     </div>
 @endsection
 @section('script')
+<script>
+ function getStorage(id)
+{
+   $('#getCondition').empty();
+  $.ajax({
+        url: "{{url('getStorage')}}/"+id,
+        type:"get",
+        success:function(response){
+          // console.log(response.temp.storage);
+                $('#getstorage').html(response.temp);
+                $(".image").html(response.img);
+                $("#color").html(response.color);
+        },
 
-    
+       });
+
+}
+function geCondition(id)
+{ 
+  // alert(id);
+  // var _token = $('input[name="_token"]').val();
+  //   var id= id;
+  $.ajax({
+       type:"get",
+        url: "{{url('getCondition')}}/"+id,
+ 
+        success:function(response){
+             console.log(response.storage);
+             $('#getCondition').html(response.condit);
+             $("#storage").html(response.storage);
+                // $("#image").html(response.img);
+        },
+
+       });
+
+}
+
+function getPrice(price,quantity)
+{
+     $("#price").html(price);
+     $("#quantity").html(quantity);
+}
+</script>
 @endsection

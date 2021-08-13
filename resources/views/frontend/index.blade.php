@@ -263,25 +263,25 @@
                 <div class="shop-item col-md-3 col-sm-6 col-xs-12">
                 	<div class="inner-box wow fadeIn" data-wow-delay="0ms" data-wow-duration="1500ms">
                     	<figure class="image-box">
-                        	<a href={{ route('product.details',$product->id) }}"><img src="{{asset('storage/products/images/'.$image->image)}}" alt="" /></a>
+                        	<a href={{ route('product.details',$product->id) }}"><img src="{{asset('storage/products/images/'.$image->image ?? '')}}" alt="" /></a>
                         </figure>
                         <!--Lower Content-->
-                       
+
                         <div class="lower-content">
-                        	<h3><a href="{{url('single')}}">{{ $model->model_name }}</a></h3>
-                        	<div> <span>{{ $product->memory }} -  - {{ $product->locked }}</span> </div>
+                        	<h3><a href="{{url('single')}}">{{ $model->model_name?? '' }}</a></h3>
+                        	<div> <span>{{ $product->memory ?? ''}} -  - {{ $product->locked ?? ''}}</span> </div>
 		                        <span>
-		                        Warranty: {{ $product->warranty }}
+		                        Warranty: {{ $product->warranty ?? ''}}
 		                        </span>
 		                        <div>Starting from</div>
                             <div class="price">
-                            <strong>${{ $condition->price }}.00</strong> <del>$950.00</del></div>
+                            <strong>${{ $condition->price ?? '' }}.00</strong> <del>$950.00</del></div>
                             <!-- <a href="{{url('single')}}" class="cart-btn theme-btn btn-style-two">Add to cart</a> -->
                         </div>
                     </div>
                 </div>
                 @endforeach
-               
+
 
                 <!--Shop Item-->
                 {{-- <div class="shop-item col-md-3 col-sm-6 col-xs-12">
