@@ -24,4 +24,8 @@ class ShippingAddr extends Model
 		  {
 		    return $this->belongsTo(User::class, 'id');
 		  }
+          public function order()
+          {
+            return $this->hasMany(Order::class,'shipAddress_id');
+          }
 }

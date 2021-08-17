@@ -250,7 +250,7 @@
 
             	<!--Shop Item-->
                 @php
-                    $products = App\Models\Product::all();
+                    $products = App\Models\Product::paginate(4);
                 @endphp
                 @foreach ($products as $product)
                 @php
@@ -346,6 +346,7 @@
                 </div> --}}
 
             </div>
+            {{ $products->links('vendor.pagination.custom') }}
         </div>
     </section>
     <!--Testimonial Style Two-->

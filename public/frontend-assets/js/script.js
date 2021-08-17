@@ -1,16 +1,16 @@
 (function($) {
-	
+
 	"use strict";
-	
-	
+
+
 	//Hide Loading Box (Preloader)
 	function handlePreloader() {
 		if($('.preloader').length){
 			$('.preloader').delay(200).fadeOut(500);
 		}
 	}
-	
-	
+
+
 	//Update header style + Scroll to Top
 	function headerStyle() {
 		if($('.main-header').length){
@@ -27,25 +27,25 @@
 			}
 		}
 	}
-	
+
 	headerStyle();
-	
-	
+
+
 	//Submenu Dropdown Toggle
 	if($('.main-header li.dropdown ul').length){
 		$('.main-header li.dropdown').append('<div class="dropdown-btn"><span class="fa fa-angle-down"></span></div>');
-		
+
 		//Dropdown Button
 		$('.main-header li.dropdown .dropdown-btn').on('click', function() {
 			$(this).prev('ul').slideToggle(500);
 		});
-		
+
 		//Disable dropdown parent link
 		$('.navigation li.dropdown > a').on('click', function(e) {
 			e.preventDefault();
 		});
 	}
-	
+
 	//Revolution Slider  / Main Slider
 	if($('.main-slider .tp-banner').length){
 
@@ -123,14 +123,14 @@
 	  });
 
 	}
-	
-	
+
+
 	//Date Picker
 	if($('.datepicker').length){
 		$( ".datepicker" ).datepicker();
 	}
-	
-	
+
+
 	//Search Popup / Hide Show
 	if($('#search-popup').length){
 		//Show Popup
@@ -138,14 +138,14 @@
 			e.preventDefault();
 			$('#search-popup').addClass('popup-visible');
 		});
-		
+
 		//Hide Popup
 		$('.close-search').on('click', function() {
 			$('#search-popup').removeClass('popup-visible');
 		});
 	}
-	
-	
+
+
 	//Gallery Carousel Slider
 	if ($('.gallery-carousel').length) {
 		$('.gallery-carousel').owlCarousel({
@@ -173,10 +173,10 @@
 					items:5
 				}
 			}
-		});    		
+		});
 	}
-	
-	
+
+
 	//Sponsors carousel
 	if ($('.sponsors-carousel').length) {
 		$('.sponsors-carousel').owlCarousel({
@@ -204,10 +204,10 @@
 					items:5
 				}
 			}
-		});    		
+		});
 	}
-	
-	
+
+
 	// Product Carousel Slider
 	if ($('.shop-page .image-carousel').length && $('.shop-page .thumbs-carousel').length) {
 
@@ -269,29 +269,29 @@
 				        }
 				    },
 				})
-				
+
 		.on('click', '.owl-item', function () {
 			$sync1.trigger('to.owl.carousel', [$(this).index(), duration, true]);
 		})
 		.on('changed.owl.carousel', function (e) {
 			if (!flag) {
-				flag = true;		
+				flag = true;
 				$sync1.trigger('to.owl.carousel', [e.item.index, duration, true]);
 				flag = false;
 			}
 		});
 
 	}
-	
-	
+
+
 	//Jquery Spinner / Quantity Spinner
 	if($('.quantity-spinner').length){
 		$("input.quantity-spinner").TouchSpin({
 		  verticalbuttons: true
 		});
 	}
-	
-	
+
+
 	//Product Tabs
 	if($('.prod-tabs .tab-btn').length){
 		$('.prod-tabs .tab-btn').on('click', function(e) {
@@ -305,8 +305,8 @@
 			$(target).addClass('active-tab');
 		});
 	}
-	
-	
+
+
 	//Verticle Services Carousel
 	if($('.verticle-carousel').length){
 		$('.verticle-carousel').slick({
@@ -321,8 +321,8 @@
         slidesToScroll: 1
       });
 	}
-	
-	
+
+
 	//Single Image Vertical Carousel
 	if($('.single-verticle-carousel').length){
 		$('.single-verticle-carousel').slick({
@@ -337,8 +337,8 @@
         slidesToScroll: 1
       });
 	}
-	
-	
+
+
 	//Two Column Testimonial Carousel
 	if ($('.two-item-carousel').length) {
 		$('.two-item-carousel').owlCarousel({
@@ -359,10 +359,10 @@
 					items:2
 				}
 			}
-		});    		
+		});
 	}
-	
-	
+
+
 	//Testimonial Carousel Two
 	if ($('.testimonial-carousel-two').length) {
 		$('.testimonial-carousel-two').owlCarousel({
@@ -383,7 +383,7 @@
 					items:3
 				}
 			}
-		});    		
+		});
 	}
 	if ($('.blogs-carousel').length) {
 		$('.blogs-carousel').owlCarousel({
@@ -404,10 +404,10 @@
 					items:4
 				}
 			}
-		});    		
+		});
 	}
-	
-	
+
+
 	//Verticle Testimonials Carousel
 	if($('.verticle-testimonial-carousel').length){
 		$('.verticle-testimonial-carousel').slick({
@@ -423,8 +423,8 @@
         slidesToScroll: 1
       });
 	}
-	
-	
+
+
 	//LightBox / Fancybox
 	if($('.lightbox-image').length) {
 		$('.lightbox-image').fancybox({
@@ -435,8 +435,8 @@
 			}
 		});
 	}
-	
-	
+
+
 	//Contact Form Validation
 	if($('#contact-form').length){
 		$('#contact-form').validate({
@@ -454,7 +454,7 @@
 			}
 		});
 	}
-	
+
 	// Scroll to a Specific Div
 	if($('.scroll-to-target').length){
 		$(".scroll-to-target").on('click', function() {
@@ -465,7 +465,7 @@
 			 }, 1000);
 		});
 	}
-	
+
 	// Elements Animation
 	if($('.wow').length){
 		var wow = new WOW(
@@ -484,19 +484,19 @@
 /* ==========================================================================
    When document is Scrollig, do
    ========================================================================== */
-	
+
 	$(window).on('scroll', function() {
 		headerStyle();
 	});
-	
+
 /* ==========================================================================
    When document is loaded, do
    ========================================================================== */
-	
+
 	$(window).on('load', function() {
 		handlePreloader();
 	});
 
-	
+
 
 })(window.jQuery);

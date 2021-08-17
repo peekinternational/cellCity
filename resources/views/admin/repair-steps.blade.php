@@ -92,7 +92,7 @@
                                                 <option value="{{ $orderTime->time }}">{{ $orderTime->time }}</option>
                                                 @endforeach
 
-                                                
+
                                                 </select>
                                             </div>
                                         </div>

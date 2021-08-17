@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\AdminRepairController;
 use App\Http\Controllers\ProductConditionController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\ShippingAddress;
 use App\Http\Controllers\SquareController;
 use App\Models\RepairOrder;
 
@@ -197,6 +198,8 @@ Route::name('tech.')->namespace('Tech')->prefix('tech')->group(function(){
   Route::post('checkout/{id}',[CheckoutController::class,'checkoutPayment'])->name('checkout.payment');
   Route::post('square',[SquareController::class,'checkoutPayment'])->name('square.payment');
 
+
+
 /////////////////////////////////// CUSTOMER ////////////////////////////////
 
 Route::namespace('Auth')->middleware('guest:web')->group(function(){
@@ -235,19 +238,42 @@ Route::namespace('Auth')->middleware('auth:web')->group(function(){
         // Route::get('paypal-success',[UserController::class,"success"])->name('paypal.success');
         //  Route::get('paypal-cancel',[UserController::class,'cancel'])->name('paypal.cancel');
 
-        
 
-        
+
+
 
 });
+
+  /////////////////    Ajax Filter  Buy Page
+
+    Route::get('/getBrandFilter',[ProductController::class,'getBrandFilter']);
     ///Ajax Jquery Product Single Page
     Route::get('/getStorage/{id}',[ProductController::class,'getStorage']);
     Route::get('/getCondition/{id}',[ProductController::class,'getCondition'])->name('get.condition');
+
+
+
+  // Add To Cart
+   Route::post('add-cart',[ProductController::class, 'addToCart'])->name('add.cart');
+   Route::get('/view-toCart',[ProductController::class, 'viewToCart'])->name('view.cart');
+   Route::post('/cartUpdate', [ProductController::class, 'cartUpdate'])->name('cart.update');
+   Route::post('/remove', [ProductController::class, 'remove'])->name('cart.remove');
+
+   //// Select Address
+    Route::get('/getAddress/{id}',[ShippingAddress::class,'shipAddress']);
+    Route::post('/checkAddress',[ShippingAddress::class,'checkAddress'])->name('check.Address');
+
+    //Payment
+
+    Route::post('/product-payment',[ProductController::class,'payment'])->name('product.payment');
+    Route::post('/paypal-success-product',[ProductController::class,"success"])->name('paypal.successProduct');
+    Route::get('/paypal-cancel-product',[ProductController::class,'cancel'])->name('paypal.cancelProduct');
+
    //verify email
    Route::get('/userVerify/{token}', [UserController::class,'verifyUserByEmail'])->name('user.verify');
    Route::post('/checkZipcode', [RepairController::class, 'checkZip']);
 
-  
+
     Route::get('/', function () {
         return view('frontend.index');
     });

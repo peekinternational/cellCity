@@ -111,4 +111,27 @@ class ShippingAddress extends Controller
         $ship->delete();
       return redirect('/profile')->with('message', Alert::_message('success', 'Address Delete Successfully.'));
     }
+
+// Front end get Address
+    public function shipAddress($id)
+    {
+    //    dd($id);
+       $address = ShippingAddr::find($id);
+
+       return view('frontend.shippingAddress.getAddress',compact('address'));
+    }
+
+    public function checkAddress(Request $request)
+    {
+        //  dd($request->all());
+
+         if($request->address == 'exist')
+         {
+             $id = $request->id;
+             $address = ShippingAddr::find($id);
+
+             return view('frontend.checkout',compact('address'));
+         }
+    }
+
 }
