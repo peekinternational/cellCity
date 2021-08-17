@@ -165,7 +165,7 @@ return [
         /*
          * Package Service Providers...
          */
-
+        Darryldecode\Cart\CartServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -229,6 +229,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'CityClass' => App\Facade\CityClass::class,
+        'Cart' => Darryldecode\Cart\Facades\CartFacade::class,
 
     ],
 

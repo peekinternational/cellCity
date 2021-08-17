@@ -112,7 +112,7 @@
               <ul data-test="filters-facet" class="_26WV8o_nAH1VuLftdiS-6t">
                 <li class="_33pDOgQ80LhcEmJTGXNM3U">
                   <div>
-                    <input id="brand-reset" type="checkbox" checked="checked" data-test="facet-reset" class="_3wvnh-Qn">
+                    <input id="brand-reset" type="checkbox" name="brand_name" data-test="facet-reset" class="_3wvnh-Qn">
                     <label for="brand-reset" class="_33K8eTZu">
                       <div class="_3S4CObWg">
                         <div class="_2OVE0h6V"></div>
@@ -128,10 +128,12 @@
                     </label>
                   </div>
                 </li>
+                @foreach (CityClass::brands() as $brand)
+
                 <li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U">
                   <div>
-                    <input id="brand-0" type="checkbox" data-test="facet- Apple" class="_3wvnh-Qn">
-                    <label for="brand-0" class="_33K8eTZu">
+                    <input id="brand-{{ $brand->id }}" type="checkbox" name="brand_name" data-test="facet- {{ucwords($brand->brand_name) }}" class="_3wvnh-Qn getBrandId" value="{{ $brand->id }}" onclick="getBrand({{ $brand->id }})">
+                    <label for="brand-{{ $brand->id }}" class="_33K8eTZu">
                       <div class="_3S4CObWg">
                         <div class="_2OVE0h6V"></div>
                         <div class="_3xAYCg9N">
@@ -140,13 +142,14 @@
                       </div>
                       <div class="TRSMTVTh">
                         <span class="_28IelIKC">
-                          <span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">Apple</span>
+                          <span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">{{ucwords($brand->brand_name) }}</span>({{ App\Models\Pmodel::where('brand_Id',$brand->id)->count() }})<span></span>
                         </span>
-                      </div> <!----> <!---->
+                      </div>
                     </label>
                   </div>
                 </li>
-                <li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U">
+                @endforeach
+                {{-- <li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U">
                   <div>
                     <input id="brand-1" type="checkbox" data-test="facet- Samsung" class="_3wvnh-Qn">
                     <label for="brand-1" class="_33K8eTZu">
@@ -163,8 +166,8 @@
                       </div> <!----> <!---->
                     </label>
                   </div>
-                </li>
-                <li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U">
+                </li> --}}
+                {{-- <li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U">
                   <div>
                     <input id="brand-99" type="checkbox" data-test="facet-Google" class="_3wvnh-Qn">
                     <label for="brand-99" class="_33K8eTZu">
@@ -235,7 +238,7 @@
                       </div> <!----> <!---->
                     </label>
                   </div>
-                </li>
+                </li> --}}
                 <span class="_3JZtHpVH kdWBx8BsOXOeHlX8MCQf_">
                   <button data-test="facet-toggler" class="_3wCdvNLg s1Zi9DG5">See more</button>
                 </span>
@@ -246,9 +249,33 @@
                 </h3>
                 <ul data-test="filters-facet" class="_26WV8o_nAH1VuLftdiS-6t"><li class="_33pDOgQ80LhcEmJTGXNM3U"><div><input id="model-reset" type="checkbox" checked="checked" data-test="facet-reset" class="_3wvnh-Qn"> <label for="model-reset" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC">
                     All
-                  </span></span></div> <!----> <!----></label></div></li> <li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U"><div><input id="model-000iPhone11" type="checkbox" data-test="facet-iPhone 11" class="_3wvnh-Qn"> <label for="model-000iPhone11" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
-                    iPhone 11
-                  </span> </span></div> <!----> <!----></label></div></li><li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U"><div><input id="model-001iPhoneXR" type="checkbox" data-test="facet-iPhone XR" class="_3wvnh-Qn"> <label for="model-001iPhoneXR" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
+                  </span></span></div> <!----> <!----></label></div></li>
+
+                  @foreach (CityClass::allModels() as $models)
+
+
+                  <li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U">
+
+                          <input id="{{ $models->id }}" type="checkbox" name="models_name" data-test="facet-{{ $models->brand->brand_name ?? '' }}  {{ $models->model_name ?? ''}}" class="_3wvnh-Qn  getModelId"  value="{{ $models->id }}" onclick="getModels({{ $models->id }})">
+                           <label for="{{{ $models->id }}}" class="_33K8eTZu">
+                            <div class="_3S4CObWg">
+                               <div class="_2OVE0h6V"></div>
+                               <div class="_3xAYCg9N">
+                                   <svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg>
+                                    </div>
+                                </div>
+                                    <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
+                                        {{ ucwords($models->brand->brand_name) ?? '' }}  {{ ucwords($models->model_name) ?? ''}}
+                                    </span>
+                                    </span>
+                                </div> <!----> <!---->
+                            </label>
+
+                    </li>
+                    @endforeach
+
+                  {{-- <li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U"><div><input id="model-001iPhoneXR" type="checkbox" data-test="facet-iPhone XR" class="_3wvnh-Qn"> <label for="model-001iPhoneXR" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
                     iPhone XR
                   </span> </span></div> <!----> <!----></label></div></li><li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U"><div><input id="model-002 iPhone X" type="checkbox" data-test="facet-iPhone X" class="_3wvnh-Qn"> <label for="model-002 iPhone X" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
                     iPhone X
@@ -258,18 +285,31 @@
                     Galaxy S9
                   </span> </span></div> <!----> <!----></label></div></li><li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U"><div><input id="model-007 iPhone 11 Pro" type="checkbox" data-test="facet-iPhone 11 Pro" class="_3wvnh-Qn"> <label for="model-007 iPhone 11 Pro" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
                     iPhone 11 Pro
-                  </span> </span></div> <!----> <!----></label></div></li> <span class="_3JZtHpVH kdWBx8BsOXOeHlX8MCQf_"><button data-test="facet-toggler" class="_3wCdvNLg s1Zi9DG5">
+                  </span> </span></div> <!----> <!----></label></div></li>  --}}
+                  <span class="_3JZtHpVH kdWBx8BsOXOeHlX8MCQf_">
+                      <button data-test="facet-toggler" class="_3wCdvNLg s1Zi9DG5">
                 See more
               </button></span></ul></li>
               <li class="_2LiMhAnX4MDtEL5YEDIdLy"><h3 class="_2RGsPtNo">
                   Condition
                 </h3> <ul data-test="filters-facet" class="_26WV8o_nAH1VuLftdiS-6t"><li class="_33pDOgQ80LhcEmJTGXNM3U"><div><input id="backbox_grades_list-reset" type="checkbox" checked="checked" data-test="facet-reset" class="_3wvnh-Qn"> <label for="backbox_grades_list-reset" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC">
                     All
-                  </span></span></div> <!----> <!----></label></div></li> <li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U"><div><input id="backbox_grades_list-10 Excellent" type="checkbox" data-test="facet-Excellent" class="_3wvnh-Qn"> <label for="backbox_grades_list-10 Excellent" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
+                  </span></span></div> <!----> <!----></label></div></li>
+
+
+                  <li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U"><div>
+                      <input id="backbox_grades_list-10 Excellent" name="condition"  type="checkbox" value="excellent"  data-test="facet-Excellent" class="_3wvnh-Qn getCondition" onclick="getCondition()" >
+                       <label for="backbox_grades_list-10 Excellent" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
                     Excellent
-                  </span> <!----></span></div> <!----> <!----></label></div></li><li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U"><div><input id="backbox_grades_list-11 Good" type="checkbox" data-test="facet-Good" class="_3wvnh-Qn"> <label for="backbox_grades_list-11 Good" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
+                  </span> <!----></span></div> <!----> <!----></label></div></li>
+                  <li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U"><div>
+                      <input id="backbox_grades_list-11 Good"  name="condition" type="checkbox"  value="good" data-test="facet-Good" class="_3wvnh-Qn getCondition" onclick="getCondition()">
+                      <label for="backbox_grades_list-11 Good" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
                     Good
-                  </span> <!----></span></div> <!----> <!----></label></div></li><li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U"><div><input id="backbox_grades_list-12 Fair" type="checkbox" data-test="facet-Fair" class="_3wvnh-Qn"> <label for="backbox_grades_list-12 Fair" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
+                  </span> <!----></span></div> <!----> <!----></label></div></li>
+                  <li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U"><div>
+                      <input id="backbox_grades_list-12 Fair" name="condition"  type="checkbox" value="fair"  data-test="facet-Fair" class="_3wvnh-Qn getCondition" onclick="getCondition()">
+                      <label for="backbox_grades_list-12 Fair" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
                     Fair
                   </span> <!----></span></div> <!----> <!----></label></div></li> <!----></ul></li>
                 <li class="_2LiMhAnX4MDtEL5YEDIdLy"><h3 class="_2RGsPtNo">
@@ -322,7 +362,7 @@
               </ul>
         </div>
         <div class="col-md-9">
-          <div class="row">
+          <div class="row" id="filter">
             <!--Shop Item-->
 
 
@@ -370,25 +410,129 @@
 
 
           </div>
+          <div class="text-center">
+        	<!-- Styled Pagination -->
+            <div class="styled-pagination">
+                {{ $products->links('vendor.pagination.custom') }}
+            </div>
+        </div>
         </div>
       </div>
 
-        <div class="text-center">
-        	<!-- Styled Pagination -->
-            <div class="styled-pagination">
-                <ul>
-                    <li><a href="#" class="active">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a class="next" href="#"><span class="fa fa-angle-right"></span></a></li>
-                </ul>
-            </div>
-        </div>
+
 
     </div>
 </section>
 @endsection
 @section('script')
 
+<script>
 
+
+    function getBrand(id){
+        //   alert('asdasd');
+        var id = id;
+       var  brand = [];
+       $(".getBrandId").each(function(){
+        if($(this).is(":checked")){
+            brand.push($(this).val());
+        }
+       });
+       var getbrand = brand.toString();
+            console.log(getbrand);
+       $.ajax({
+        url: "{{url('getBrandFilter')}}",
+        type:"get",
+        dataType:"html",
+        data:"brand=" + brand,
+
+        success:function(response){
+          console.log(response);
+          $('#filter').html(response);
+        //   $('#exampleModal'+id).modal('show');
+        },
+
+
+       });
+
+      }
+      function getModels(id){
+        //   alert('asdasd');
+        // var id = id;
+
+         var selectedModel =[];
+        $('input:checkbox[name=models_name]').each(function()
+            {
+                if($(this).is(':checked'))
+                selectedModel.push($(this).val());
+            //    console.log(selectedBrand);
+            });
+
+            var selectedModel = selectedModel.toString();
+        // console.log($('input[name="brand_name"]:checked').serialize());
+
+        var  models = [];
+       $(".getModelId").each(function(){
+        if($(this).is(":checked")){
+            models.push($(this).val());
+        }
+       });
+
+       var getmodels = models.toString();
+            // console.log(getmodels);
+       $.ajax({
+        url: "{{url('getBrandFilter')}}",
+        type:"get",
+        dataType:"html",
+        data:{model:getmodels,selectedModel:selectedModel},
+
+        success:function(response){
+          console.log(response);
+          $('#filter').html(response);
+        //   $('#exampleModal'+id).modal('show');
+        },
+
+
+       });
+
+      }
+
+      function getCondition(){
+
+        var selectedModel =[];
+        $('input:checkbox[name=models_name]').each(function()
+            {
+                if($(this).is(':checked'))
+                selectedModel.push($(this).val());
+            //    console.log(selectedBrand);
+            });
+
+            var selectedModel = selectedModel.toString();
+
+
+        var  getCondition = [];
+       $(".getCondition").each(function(){
+        if($(this).is(":checked")){
+          getCondition.push($(this).val());
+        }
+       });
+
+       var getCondition = getCondition.toString();
+            // console.log(getmodels);
+       $.ajax({
+        url: "{{url('getBrandFilter')}}",
+        type:"get",
+        dataType:"html",
+        data:{getCondition:getCondition,selectedModel:selectedModel},
+
+        success:function(response){
+          console.log(response);
+          $('#filter').html(response);
+        //   $('#exampleModal'+id).modal('show');
+        },
+
+       });
+
+      }
+</script>
 @endsection

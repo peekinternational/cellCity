@@ -250,7 +250,7 @@
 
             	<!--Shop Item-->
                 @php
-                    $products = App\Models\Product::all();
+                    $products = App\Models\Product::paginate(4);
                 @endphp
                 @foreach ($products as $product)
                 @php
@@ -263,7 +263,7 @@
                 <div class="shop-item col-md-3 col-sm-6 col-xs-12">
                 	<div class="inner-box wow fadeIn" data-wow-delay="0ms" data-wow-duration="1500ms">
                     	<figure class="image-box">
-                        	<a href={{ route('product.details',$product->id) }}"><img src="{{asset('storage/products/images/'.$image->image ?? '')}}" alt="" /></a>
+                        	<a href="{{ route('product.details',$product->id) }}"><img src="{{asset('storage/products/images/'.$image->image ?? '')}}" alt="" /></a>
                         </figure>
                         <!--Lower Content-->
 
@@ -346,6 +346,7 @@
                 </div> --}}
 
             </div>
+            {{ $products->links('vendor.pagination.custom') }}
         </div>
     </section>
     <!--Testimonial Style Two-->

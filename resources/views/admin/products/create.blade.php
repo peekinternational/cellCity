@@ -368,7 +368,7 @@
 
                                     </div>
 
-                
+
                                 <hr>
                             </div>
                         </div>
@@ -377,14 +377,14 @@
                         </div>
                           </div>
                         </div>
-                          </div>    
+                          </div>
                         <div style="overflow:auto;">
                             <div style="float:right;">
                             <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
 
                             <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
-                            
-                        
+
+
                             </div>
                         </div>
                         <!-- Circles which indicates the steps of the form: -->
@@ -505,7 +505,7 @@
 
     $(document).on('click','.addMoreCondition',function(e){
 		// alert(product);
-   
+
         console.log($(e.target).closest('.add_condition').children()[0]);
 
       var conditionid= $(e.target).closest('.add_condition').children()[0].id;
@@ -513,7 +513,7 @@
 
       var storeindex = conditionid.slice(13,14);
 
-     
+
         var  maxField=3;
 		var childern =	$(e.target).closest('.add_condition').find('#'+storeindex).children().length;
           alert(storeindex);
@@ -549,7 +549,7 @@
 			}
 	});
 
-   
+
      $(document).on('click', '.removeCondition', function(e){
             e.preventDefault();
          console.log($(this).parents('.remove_condition'));
@@ -570,7 +570,7 @@
         $("#NextSubmitBtn").click(function(event){
             event.preventDefault();
 
-        
+
             var formData = new FormData(this.form);
                 let TotalImages = $('#image-input')[0].files.length; //Total Images
                 let images = $('#image-input')[0];
@@ -578,7 +578,7 @@
                 formData.append('images', images.files[i]);
                 }
                 formData.append('TotalImages', TotalImages);
-         
+
 
             $.ajax({
             type: "POST",
@@ -590,14 +590,14 @@
             success: function(response)
             {
                   console.log(response);
-               
+
                     $("#regForm")[0].reset();
-              
+
                   $("#product_id").val(response.id);
                   $("#SubmitBtnColor").show();
                   $("#NextSubmitBtn").hide();
                   $("#prevBtn").hide();
-                 
+
                   alert('asdsa');
             }
        });
@@ -616,7 +616,7 @@
                 formData.append('images', images.files[i]);
                 }
                 formData.append('TotalImages', TotalImages);
-         
+
             $.ajax({
             type: "POST",
             url: "{{url('admin/store-more-product')}}",
@@ -629,9 +629,9 @@
                   console.log(response);
                   $("#product_id").val(response.product_id);
                   $("#SubmitBtnColor").show();
-                  $("#NextSubmitBtn").hide();       
+                  $("#NextSubmitBtn").hide();
                   $("#prevBtn").hide();
-                 
+
                 //   alert('asdsa');
             }
        });

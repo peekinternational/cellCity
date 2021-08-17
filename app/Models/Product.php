@@ -14,8 +14,8 @@ class Product extends Model
                             'desc','screen_size','screen_type','OS','resolution','megapixel',
                            'double_sim','release_year'
                         ];
-    
-    
+
+
     /**
      * Get the productImage that owns the Product
      *
@@ -30,7 +30,7 @@ class Product extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function models(): HasMany
+    public function models()
     {
         return $this->hasMany(Pmodel::class,'model_id', 'id');
     }
@@ -38,5 +38,9 @@ class Product extends Model
     public function color()
     {
         return $this->hasMany(ProductColor::class,'product_id','id');
+    }
+    public function order()
+    {
+      return $this->hasMany(Order::class,'product_id');
     }
 }

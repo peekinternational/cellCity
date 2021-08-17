@@ -146,25 +146,25 @@
                   <div class="col-lg-6">
                     <p class="single-form-row">
                       <label>First name <span class="required">*</span></label>
-                      <input type="text" class="form-control" name="first_name" value="John" required="">
+                      <input type="text" class="form-control" name="first_name" value="{{Auth::user()->name}}" required="">
                     </p>
                   </div>
-                  <div class="col-lg-6">
+                  {{-- <div class="col-lg-6">
                     <p class="single-form-row">
                       <label>Last Name <span class="required"></span></label>
                       <input type="text" class="form-control" name="last_name" value="Dadnudas">
                     </p>
-                  </div>
-                  <div class="col-lg-12">
+                  </div> --}}
+                  <div class="col-lg-6">
                     <p class="single-form-row">
                       <label>Email <span class="required">*</span></label>
-                      <input type="email" class="form-control" name="email" value="mwaqas.arid@gmail.com" required="">
+                      <input type="email" class="form-control" name="email" value="{{Auth::user()->email}}" required="">
                     </p>
                   </div>
                   <div class="col-lg-12">
                     <p class="single-form-row">
                       <label>Street address <span class="required">*</span></label>
-                      <input type="text" class="form-control" name="shipping_address" id="address" placeholder="House number and street name" value="" required="">
+                      <input type="text" class="form-control" name="shipping_address" id="address" placeholder="House number and street name" value="{{$address->shipaddress}}" required="">
                     </p>
                   </div>
                   <div class="col-lg-12">
@@ -175,19 +175,19 @@
                   <div class="col-lg-12">
                     <p class="single-form-row">
                       <label>Town / City <span class="required">*</span></label>
-                      <input type="text" class="form-control" name="shipping_city" value="Trenton" placeholder="City" required="">
+                      <input type="text" class="form-control" name="shipping_city" value="{{$address->city}}" placeholder="City" required="">
                     </p>
                   </div>
                   <div class="col-lg-12">
                     <p class="single-form-row">
                       <label>State / County</label>
-                      <input type="text" class="form-control" name="shipping_state" placeholder="State" value="New Jersey" required="">
+                      <input type="text" class="form-control" name="shipping_state" placeholder="State" value="{{$address->state}}" required="">
                     </p>
                   </div>
                   <div class="col-lg-12">
                     <p class="single-form-row">
                       <label>Postcode / ZIP <span class="required">*</span></label>
-                      <input type="text" class="form-control" name="shipping_zip" placeholder="Zip" value="12207" required="">
+                      <input type="text" class="form-control" name="shipping_zip" placeholder="Zip" value="{{$address->zipcode}}" required="">
                     </p>
                   </div>
                 </div>
@@ -256,9 +256,6 @@
                         </p>
                       </div>
                     </div>
-
-
-
                     <div class="col-lg-12">
                       <p class="single-form-row m-0">
                         <label>Order notes</label>
@@ -270,6 +267,10 @@
                 </div>
                 <!-- </form> -->
             </form></div>
+            @php
+            $userID = Auth::user()->id;
+            $items=\Cart::session($userID)->getContent()
+            @endphp
             <div class="col-lg-6  col-xl-6 col-sm-12">
               <div class="checkout-review-order">
                 <!-- <form action="#"> -->
@@ -282,82 +283,76 @@
                     </tr>
                   </thead>
                   <tbody>
+                      @foreach ($items as $item)
+
+
                     <tr class="cart_item cart-545678">
-                      <td class="t-product-name">Jordan 7 Retro Hare (2015)<strong class="product-quantity">×  1</strong></td>
-                      <td class="t-product-price"><span>$331</span></td>
+                      <td class="t-product-name">{{$item->name}}<strong class="product-quantity">   ×  {{$item->quantity}}</strong></td>
+                      @php
+                      $total = round($item->quantity*$item->price);
+                     @endphp
+                      <td class="t-product-price"><span>${{$total}}</span></td>
                     </tr>
+                    @endforeach
                   </tbody>
                   <tfoot>
+                    @php
+                        $total = Cart::session($userID)->getTotal();
 
-                    <!-- <input type="hidden" name="processing" value="9.599">
-                    <input type="hidden" name="shipping" value="13.95">
-                    <input type="hidden" name="total" value="354.549">
-                    <tr class="cart-subtotal">
-                      <th>Processing</th>
-                      <td><span class="total-amount">$9.60</span></td>
-                    </tr>
-                    <tr class="shipping">
-                      <th>Shipping</th>
-                      <td>$13.95</td>
-                    </tr> -->
+                    @endphp
                     <tr class="order-total">
                       <th>Total</th>
-                      <td><strong><span class="total-amount">$354.55</span></strong></td>
+                      <td><strong><span class="total-amount">$ {{$total}}</span></strong></td>
                     </tr>
                   </tfoot>
                 </table>
                 <div class="checkout-payment">
-                  <!-- <div class="payment_methods">
-                    <p><label>PayPal Express Checkout <a href="#"><img src="https://sneakerxwars.com/frontend-assets/img/icon/pp-acceptance-small.png" alt=""></a></label></p>
-                    <p>Pay via PayPal; you can pay with your credit card if you don’t have a PayPal account.</p>
-                  </div> -->
-                  <div class="row">
-                    <div class="col-lg-12 pl-0 pr-0">
-                      <p class="text-dark text-uppercase font-weight-bold"><strong>Payment Method</strong></p>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-lg-12 pl-0 pr-0 pb-3">
-                    <div class="form-group">
-                      <label for="paypal" class="payment-methd">
-                        <input type="radio" id="paypal" name="payment" value="" onchange="valueChanged()"> Paypal
-                      </label>
-                      <label for="apple-pay" class="payment-methd">
-                        <input type="radio" id="apple-pay" name="payment" value="" onchange="valueChanged()"> Apple Pay
-                      </label>
-                      <label for="credit-card" class="payment-methd">
-                        <input type="radio" id="credit-card" name="payment" value="" onchange="valueChanged()"> Credit Card
-                      </label>
-                    </div>
-                    <div class="form-group payment-input-container" id="card-form" style="display: none;">
-                      <div class="single-form-row">
-
-                        <label for="expyear">Card Holder Name</label>
-                        <input id="card-holder-name" placeholder="Card Holder Name" type="text" required="">
-                        <label for="expmonth">Exp Month</label>
-                        <input type="text" id="expmonth" name="expmonth" placeholder="September">
-                        <div class="row">
-                          <div class="col-xs-4 single-form-row">
-                            <label for="expyear">Exp Year</label>
-                            <input type="text" id="expyear" name="expyear" class="form-control" placeholder="2018">
-                          </div>
-                          <div class="col-xs-4 single-form-row">
-                            <label for="cvv">CVV</label>
-                            <input type="text" id="cvv" name="cvv" class="form-control" placeholder="352">
-                          </div>
-                        </div>
-
-                        <div id="card-element">
-                          <!-- A Stripe Element will be inserted here. -->
-                        </div>
+                    <!-- <div class="payment_methods">
+                      <p><label>PayPal Express Checkout <a href="#"><img src="https://sneakerxwars.com/frontend-assets/img/icon/pp-acceptance-small.png" alt=""></a></label></p>
+                      <p>Pay via PayPal; you can pay with your credit card if you don’t have a PayPal account.</p>
+                    </div> -->
+                    <div class="row">
+                      <div class="col-lg-12 pl-0 pr-0">
+                        <p class="text-dark text-uppercase font-weight-bold"><strong>Payment Method</strong></p>
                       </div>
-                      <!-- Used to display form errors. -->
-                      <div id="card-errors" role="alert"></div>
                     </div>
+                    <form action="{{route('product.payment')}}" method="post">
+                      {{csrf_field()}}
+                    <div class="row">
+                       <input type="hidden" name="address_id" value="{{$address->id}}">
+                      <div class="col-lg-12 pl-0 pr-0 pb-3">
+                      <div class="form-group">
+
+                        @if (isset($tech))
+                        <label for="credit-card" class="payment-methd">
+                          <button type="button"  data-toggle="modal" data-target="#exampleModalCenter"> Credit Card </button>
+                        </label>
+                        <label for="cash" class="payment-methd">
+                          <input type="radio" id="cash" name="payment" value="cash"> Cash
+                        </label>
+                        @else
+                        <label for="cash" class="payment-methd">
+                          <input type="radio" id="cash" name="payment" value="cash"> Cash
+                        </label>
+                        <label for="paypal" class="payment-methd">
+                          <input type="radio" id="paypal" name="payment" value="paypal" onchange="valueChanged()"> Paypal
+                        </label>
+                        <label for="apple-pay" class="payment-methd">
+                          <input type="radio" id="apple-pay" name="payment" value="" onchange="valueChanged()"> Apple Pay
+                        </label>
+                        <label for="credit-card" class="payment-methd">
+                          <button type="button"  data-toggle="modal" data-target="#exampleModalCenter"> Credit Card </button>
+                        </label>
+                        @endif
+
+                      </div>
+
+                    </div>
+                    </div>
+                    {{-- <button class="btn btn-checkout" id="card-button" type="submit">Checkout</button> --}}
+                    <button type="submit" class="btn btn-primary btn-style-one">Save</button>
+                  </form>
                   </div>
-                  </div>
-                  <button class="btn btn-checkout" id="card-button" type="submit">Checkout</button>
-                </div>
 
               </div>
             </div>
@@ -366,6 +361,30 @@
       </div>
     </div>
     <!-- checkout-area end -->
+  </div>
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+            <form id="payment-form" method="post">
+                {{-- <input type="hidden" name="order_id" id="order_id" value="{{$repairOrder->id}}" >
+                <input type="hidden" name="total" id="price" value="{{$repairOrderType->sum('price')}}"> --}}
+                <div id="card-container"></div>
+            </div>
+               <button type="button" class="btn btn-primary btn-style-one" data-dismiss="modal" style="margin-bottom: 5px;    margin-left: 5px">Close</button>
+                <button id="card-button" class="btn btn-primary btn-style-one" type="button" style="margin-bottom: 5px">Pay</button>
+              </form>
+    </div>
+
+      </div>
+
   </div>
 </section>
 @endsection
@@ -385,5 +404,56 @@
 
     }
 </script>
+<script src="https://sandbox.web.squarecdn.com/v1/square.js"></script>
+  <script type="text/javascript">
+    async function main() {
+      const payments = Square.payments('sandbox-sq0idb-c4YYFJ73zA8I9JKQLP9Rsg', 'GD29XJWM54NX2');
+      const card = await payments.card();
+      await card.attach('#card-container');
+
+      async function eventHandler(event) {8
+        event.preventDefault();
+
+        try {
+          const result = await card.tokenize();
+          if (result.status === 'OK') {
+            console.log(result.token);
+            var squaretoken = (result.token);
+            var id = $('#order_id').val();
+            var price = $('#price').val();
+            // alert($('#order_id').val());
+            var _token = $('input[name="_token"]').val();
+
+             // alert(_token);
+            $.ajax({
+
+                    url: "{{ route('square.payment') }}",
+                    type: 'post',
+                    data:{ id:id,squaretoken:squaretoken,price:price, _token: _token},
+
+                    success: function(data) {
+
+                        console.log(data);
+                        window.location = '{{ route('payment.completed') }}';
+                        // $('#bustype').html(data);
+                        //  $("#count").html(data.count);
+
+                        // alert(rowCount);
+
+                    }
+
+                });
+          }
+        } catch (e) {
+          console.error(e);
+        }
+      };
+
+      const cardButton = document.getElementById('card-button');
+      cardButton.addEventListener('click', eventHandler);
+    }
+
+    main();
+  </script>
 
 @endsection

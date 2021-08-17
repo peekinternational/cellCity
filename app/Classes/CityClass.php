@@ -16,8 +16,8 @@ use App\Models\Admin;
 use App\Models\Alert;
 use App\Models\Blog;
 use App\Models\OrderTime;
-
-
+use App\Models\ProductCondition;
+use Illuminate\Support\Facades\Auth;
 
 class CityClass {
 
@@ -58,6 +58,11 @@ class CityClass {
     {
         return OrderTime::orderBy('id','asc')->get();
     }
+    function shippingAddress()
+    {
+        return ShippingAddr::where('userId',Auth::user()->id)->get();
+    }
+
 }
 
 ?>

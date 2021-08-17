@@ -15,11 +15,12 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            
+
             $table->string('category')->default('phone');
             $table->string('memory');
             $table->enum('locked', ['Locked', 'Unlocked'])->default('Unlocked');
             $table->string('warranty');
+            $table->string('category');
             $table->string('desc');
             $table->string('screen_size');
             $table->string('screen_type');

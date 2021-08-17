@@ -60,4 +60,8 @@ class User extends Authenticatable
         {
         return $this->hasOne(VerifyUser::class, 'userId');
         }
+        public function order()
+        {
+          return $this->hasMany(Order::class,'user_id');
+        }
 }
