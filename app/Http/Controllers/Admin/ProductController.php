@@ -214,10 +214,10 @@ class ProductController extends Controller
         foreach($request->file('image') as $image)
         {
             $imageName= time().$image->getClientOriginalName();
-            $image->move('storage/images/products/', $imageName);
+            $image->move('storage/products/images/', $imageName);
 
             $imagefile = new ProductImage;
-            $imagefile->image =  'storage/images/products/'. $imageName;
+            $imagefile->image ='storage/products/images/'. $imageName;
             $imagefile->product_id = $product->id;
             $imagefile->save();
 

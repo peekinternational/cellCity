@@ -189,7 +189,7 @@ Route::name('tech.')->namespace('Tech')->prefix('tech')->group(function(){
   //paypal
   Route::get('customer/completeOrder/{id}',[UserController::class,'completeOrder'])->name('complete.order');
   Route::post('customer/payment/{id}',[UserController::class,'payment'])->name('payment.order');
-  Route::post('paypal-success',[UserController::class,"success"])->name('paypal.success');
+  Route::get('paypal-success',[UserController::class,"success"])->name('paypal.success');
   Route::get('paypal-cancel',[UserController::class,'cancel'])->name('paypal.cancel');
 
   //checkout
