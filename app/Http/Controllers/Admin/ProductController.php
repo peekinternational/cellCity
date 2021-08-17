@@ -117,7 +117,7 @@ class ProductController extends Controller
             {
 
                 $imageName= time().$image->getClientOriginalName();
-                $destination ='storage/products/images/';
+                $destination ='storage/images/products';
                 $image->move(public_path($destination), $imageName);
 
                 // dd($imageName);
