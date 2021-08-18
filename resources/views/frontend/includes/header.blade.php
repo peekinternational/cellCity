@@ -47,7 +47,7 @@
 
                   @if(Auth::guard('web')->check())
                    <li><a href="{{url('profile')}}">My Profile</a> </li>
-                   <li><a href="{{url('view-toCart')}}">Cart</a> </li>
+                   <li><a href="{{url('view-cart')}}">Cart</a> </li>
                   @else
                    <li class="dropdown"><a href="#">Sign In</a>
                     <ul>
@@ -115,7 +115,7 @@
               <li><a href="{{url('contact-us')}}">Contact Us</a></li>
               @if(Auth::guard('web')->check())
                    <li><a href="{{url('profile')}}">My Profile</a> </li>
-                   <li><a href="{{url('view-toCart')}}">Cart</a> </li>
+                   <li><a href="{{url('view-cart')}}">Cart</a> </li>
                   @else
                    <li class="dropdown"><a href="#">Sign In</a>
                     <ul>

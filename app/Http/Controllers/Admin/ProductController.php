@@ -517,10 +517,14 @@ class ProductController extends Controller
        $condit = ProductCondition::find($request->condition);
     //    $color = ProductColor::find($request->colorId);
     //    $storage = ProductStorage::find($request->storageId);
-       $id = mt_rand(100, 9000);
-       $userID = Auth::user()->id;
 
-       $cart= \Cart::session($userID)->add(array(
+       $id = mt_rand(100, 9000);
+
+       if(Auth::guard('web')->check())
+       {
+         $userID = Auth::user()->id;
+
+         $cart= \Cart::session($userID)->add(array(
         'id' =>  $id,
         'name' =>  $request->brand_name.' '.$request->model_name,
         'price' => $request->getprice,
@@ -539,7 +543,11 @@ class ProductController extends Controller
 
      $items=\Cart::session($userID)->getContent();
     // dd($items);
-      return response()->json(['cart' =>'Successfully item add into your cart!']);
+      return response()->json(['status'=>'Successfully item add into your cart!']);
+        }
+        else{
+            return response()->json(['login' => '']);
+        }
    }
 
    public function cartUpdate(Request $request)
@@ -732,48 +740,72 @@ class ProductController extends Controller
         // Execute payment
         $result = $payment->execute($execution, $apiContext);
         // dd($result->transactions[0]->amount->total);
-        $str = $result->transactions[0]->description;
-        $id = $str;
-        $total = $result->transactions[0]->amount->total;
-        // dd($str);
-      // $total_amount =$result->transactions[0]->amount->total;
+        // $str = $result->transactions[0]->description;
+        // $id = $str;
+        // $total = $result->transactions[0]->amount->total;
 
-        // $repairOrder = RepairOrder::find($id);
-        // $cust = User::where('id',$repairOrder->userId)->first();
-        // $user = User::where('id',$repairOrder->techId)->first();
-        // $user->jobStatus = "available";
-        // $user->update();
-        // $repairOrder->pay_status = "paid";
-        // $repairOrder->pay_method = "paypal";
-        // $repairOrder->order_status= "4";
-        // $repairOrder->update();
+        $userID = Auth::user()->id;
+        $cartCollection=\Cart::session($userID)->getContent();
+        foreach ($cartCollection as $cart) {
 
+            $model = Pmodel::where('id',$cart->associatedModel->model_id)->first();
+            $color = ProductColor::where('product_id',$cart->associatedModel->id)->first();
+            $storage = ProductStorage::where('color_id',$color->id)->first();
+            $total = round($cart->quantity*$cart->price);
+            // dd($cart->attributes->color);
+            $order = new Order;
+            $order->user_id = $userID;
+            $order->product_id = $cart->associatedModel->id;
+            $order->shipAddress_id = $request->address_id;
+            $order->brand_name = $model->brand->brand_name;
+            $order->model_name  = $model->model_name;
+            $order->color       =  $cart->attributes->color;
+            $order->condition   = $cart->attributes->conditition;
+            $order->storage     = $cart->attributes->storage;
+            $order->quantity     = $cart->quantity;
+            $order->price     = $cart->price;
+            $order->grand_price  =$total;
+            $order->payment_method = "Cash";
+            $order->status = 1;
 
-   //$subject = "Booking Confirmation";
-    // dd($repairOrder);
+            $order->save();
 
-  //   $retval = mail ($user->email,$subject,$message);
-  $details = [
-      'title' => 'Mail from PeekInternational.com',
-      'subject' => 'Dear Customer ,',
-      'message' => 'Payment completed through PayPal',
-      'Total'  =>  $total
-  ];
-  //  $messgae = "Succesfully Transferred";
-   \Mail::to($cust->email)->send(new TechMail($details));
-  //  return response()->json($messgae);
+            $condition = ProductCondition::where('storage_id',$storage->id)->first();
+         if($cart->quantity <= $condition->quantity)
+          {
+             $condition->increment('quantity',$cart->quantity);
+          }
+          else
+          {
+              return redirect()->route('view.cart')->with('status' ,'Enough Quantity of:' . $condition->name);
+          }
 
-  $phone = "+".$cust->phoneno;
-//    dd($phone);
-   $message =strip_tags(nl2br("Dear customer,\n You have Successfully Pay  through PayPal \n Total Amount : $". $total));
-   $account_sid = "AC6769d3e36e7a9e9ebbea3839d82a4504";
-   $auth_token = "63376fce491dd77850379488e582f9ee";
-   $twilio_number = +15124027605;
-   $client = new Client($account_sid, $auth_token);
-   $client->messages->create($phone,
-       ['from' => $twilio_number, 'body' => $message] );
+        }
+        $total = \Cart::session($userID)->getTotal();
+            $details = [
+                'title' => 'Mail from PeekInternational.com',
+                'subject' => 'Dear Customer ,',
+                'message' => 'Payment completed Successfully through Cash',
+                'Total'  => $total
+            ];
+             $messgae = "Succesfully Transferred";
+             \Mail::to(Auth::user()->email)->send(new TechMail($details));
+            //  return response()->json($messgae);
 
-      return view('frontend.paymentSuccess');
+            return redirect()->route('view.cart');
+            $phone = "+".Auth::user()->phoneno;
+            //  dd($phone);
+             $message =strip_tags(nl2br("Dear Customer, \n You have Successfully Pay  through Cash . \n Total Amount : $". $total));
+
+             $account_sid = "AC6769d3e36e7a9e9ebbea3839d82a4504";
+             $auth_token = "63376fce491dd77850379488e582f9ee";
+             $twilio_number = +15124027605;
+             $client = new Client($account_sid, $auth_token);
+             $client->messages->create($phone,
+                 ['from' => $twilio_number, 'body' => $message] );
+
+                 \Cart::clear();
+               return view('frontend.paymentSuccess');
 
     } catch (PayPalConnectionException $ex) {
         echo $ex->getCode();

@@ -432,7 +432,6 @@
                     data:{ id:id,squaretoken:squaretoken,price:price, _token: _token},
 
                     success: function(data) {
-
                         console.log(data);
                         window.location = '{{ route('payment.completed') }}';
                         // $('#bustype').html(data);

@@ -454,7 +454,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+            <a href="{{url('view-cart')}}" class="btn btn-primary">Check Cart</a>
           </div>
         </div>
       </div>
@@ -557,8 +557,12 @@ function addToCart(productId)
     {
         console.log(add);
         $("#exampleModalLong").modal("show");
-         $("#message").text(add);
+         $("#message").text(add.status);
     //    $("#divid1").load(" #divid1");
+    if(add.login == '')
+    {
+        window.location.href = "../signin";
+    }
 
     },error:function(error){
     console.log(error);

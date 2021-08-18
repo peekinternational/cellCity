@@ -24,7 +24,7 @@ class SquareController extends Controller
     public function checkoutPayment(Request $request)
     {
     //    dd($request->all());
-       
+
     // dd($request->input('cko-card-token'));
         $repairOrder = RepairOrder::find($request->id);
         //   dd($repairOrder);
@@ -105,7 +105,7 @@ class SquareController extends Controller
                 'message' => "You have Successfully Pay Repair order  through Credit Card",
                 'Total'  =>'$'.$request->price
             ];
-            
+
              \Mail::to($cust->email)->send(new TechMail($details));
 
              $phone = "+".$cust->phoneno;
@@ -113,14 +113,14 @@ class SquareController extends Controller
              $message =strip_tags(nl2br(" Dear Customer ,\n You have Successfully Pay  through Credit Card . \n Total Amount : $". $request->price));
              $account_sid = "AC6769d3e36e7a9e9ebbea3839d82a4504";
              $auth_token = "63376fce491dd77850379488e582f9ee";
-             
+
              $twilio_number = +15124027605;
              $client = new Client($account_sid, $auth_token);
              $client->messages->create($phone,
                  ['from' => $twilio_number, 'body' => $message] );
-     
+
              return response()->json($message);
-               
+
             if ($response->isError()) {
                 echo 'Api response has Errors';
                 $errors = $response->getErrors();
@@ -136,5 +136,8 @@ class SquareController extends Controller
             }
 
     }
+
+
+
 
 }
