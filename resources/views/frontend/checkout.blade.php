@@ -374,8 +374,8 @@
 
         <div class="modal-body">
             <form id="payment-form" method="post">
-                {{-- <input type="hidden" name="order_id" id="order_id" value="{{$repairOrder->id}}" >
-                <input type="hidden" name="total" id="price" value="{{$repairOrderType->sum('price')}}"> --}}
+                <input type="hidden" name="address_id" id="address_id" value="{{$address->id}}" >
+                {{-- <input type="hidden" name="total" id="price" value="{{$repairOrderType->sum('price')}}"> --}}
                 <div id="card-container"></div>
             </div>
                <button type="button" class="btn btn-primary btn-style-one" data-dismiss="modal" style="margin-bottom: 5px;    margin-left: 5px">Close</button>
@@ -419,21 +419,21 @@
           if (result.status === 'OK') {
             console.log(result.token);
             var squaretoken = (result.token);
-            var id = $('#order_id').val();
-            var price = $('#price').val();
+            var address_id = $('#address_id').val();
+            // var price = $('#price').val();
             // alert($('#order_id').val());
             var _token = $('input[name="_token"]').val();
 
              // alert(_token);
             $.ajax({
 
-                    url: "{{ route('square.payment') }}",
+                    url: "{{ route('square.paymentProduct') }}",
                     type: 'post',
-                    data:{ id:id,squaretoken:squaretoken,price:price, _token: _token},
+                    data:{ address_id:address_id,squaretoken:squaretoken, _token: _token},
 
                     success: function(data) {
                         console.log(data);
-                        window.location = '{{ route('payment.completed') }}';
+                        // window.location = '{{ route('view.cart') }}';
                         // $('#bustype').html(data);
                         //  $("#count").html(data.count);
 

@@ -231,10 +231,10 @@ class ProductController extends Controller
         foreach($request->file('image') as $image)
         {
             $imageName= time().$image->getClientOriginalName();
-            $image->move('storage/images/products/', $imageName);
+            $image->move('storage/products/images/', $imageName);
 
             $imagefile = new ProductImage;
-            $imagefile->image =  'storage/images/products/'. $imageName;
+            $imagefile->image ='storage/products/images/'. $imageName;
             $imagefile->product_id = $product->id;
             $imagefile->save();
 
@@ -644,27 +644,28 @@ class ProductController extends Controller
              $messgae = "Succesfully Transferred";
              \Mail::to(Auth::user()->email)->send(new TechMail($details));
             //  return response()->json($messgae);
-            \Cart::clear();
-            return redirect()->route('view.cart');
+          
             $phone = "+".Auth::user()->phoneno;
             //  dd($phone);
              $message =strip_tags(nl2br("Dear Customer, \n You have Successfully Pay  through Cash . \n Total Amount : $". $total));
 
              $account_sid = "AC6769d3e36e7a9e9ebbea3839d82a4504";
-             $auth_token = "63376fce491dd77850379488e582f9ee";
-             $twilio_number = +15124027605;
+           $auth_token = "b2229f79769f0b47fa8e7bb685291d0d";
+           $twilio_number = +15124027605;
              $client = new Client($account_sid, $auth_token);
              $client->messages->create($phone,
                  ['from' => $twilio_number, 'body' => $message] );
 
 
-               return view('frontend.paymentSuccess');
+                 \Cart::clear();
+                 return redirect()->route('view.cart');
         }
     elseif($request->payment == "paypal")
     {
 
            $total = \Cart::session($userID)->getTotal();
-             $desc= $request->address_id;
+           $desc= $request->address_id;
+
         $apiContext = new ApiContext(
           new OAuthTokenCredential(
             'AY9mTzyew4I5bQDY82ZT23Hw6CVvRNN_gxGdFNFD1dBeP_JtMjM2ubFS8NkFqjnieO_nJ-g54ZZEiwB5',
@@ -759,11 +760,20 @@ class ProductController extends Controller
             $color = ProductColor::where('product_id',$cart->associatedModel->id)->first();
             $storage = ProductStorage::where('color_id',$color->id)->first();
             $total = round($cart->quantity*$cart->price);
+            $condition = ProductCondition::where('storage_id',$storage->id)->first();   
+            if($cart->quantity <= $condition->quantity)
+            {
+               $condition->increment('quantity',$cart->quantity);
+            }
+            else
+            {
+                return redirect()->route('view.cart')->with('status' ,'Enough Quantity of:' . $condition->name);
+            }
             // dd($cart->attributes->color);
             $order = new Order;
             $order->user_id = $userID;
             $order->product_id = $cart->associatedModel->id;
-            $order->shipAddress_id = $request->address_id;
+            $order->shipAddress_id = $shipAdress_id;
             $order->brand_name = $model->brand->brand_name;
             $order->model_name  = $model->model_name;
             $order->color       =  $cart->attributes->color;
@@ -772,47 +782,40 @@ class ProductController extends Controller
             $order->quantity     = $cart->quantity;
             $order->price     = $cart->price;
             $order->grand_price  =$total;
-            $order->payment_method = "Cash";
+            $order->payment_method = "PayPal";
             $order->status = 1;
-
+        
             $order->save();
-
-            $condition = ProductCondition::where('storage_id',$storage->id)->first();
-         if($cart->quantity <= $condition->quantity)
-          {
-             $condition->increment('quantity',$cart->quantity);
-          }
-          else
-          {
-              return redirect()->route('view.cart')->with('status' ,'Enough Quantity of:' . $condition->name);
-          }
+            // dd($order);
+           
+        
 
         }
         $total = \Cart::session($userID)->getTotal();
             $details = [
                 'title' => 'Mail from PeekInternational.com',
                 'subject' => 'Dear Customer ,',
-                'message' => 'Payment completed Successfully through Cash',
+                'message' => 'Payment completed Successfully through PayPal',
                 'Total'  => $total
             ];
              $messgae = "Succesfully Transferred";
              \Mail::to(Auth::user()->email)->send(new TechMail($details));
             //  return response()->json($messgae);
 
-            return redirect()->route('view.cart');
+           
             $phone = "+".Auth::user()->phoneno;
             //  dd($phone);
-             $message =strip_tags(nl2br("Dear Customer, \n You have Successfully Pay  through Cash . \n Total Amount : $". $total));
+             $message =strip_tags(nl2br("Dear Customer, \n You have Successfully Pay  through PayPal . \n Total Amount : $". $total));
 
              $account_sid = "AC6769d3e36e7a9e9ebbea3839d82a4504";
-             $auth_token = "63376fce491dd77850379488e582f9ee";
+             $auth_token = "b2229f79769f0b47fa8e7bb685291d0d";
              $twilio_number = +15124027605;
              $client = new Client($account_sid, $auth_token);
              $client->messages->create($phone,
                  ['from' => $twilio_number, 'body' => $message] );
 
                  \Cart::clear();
-               return view('frontend.paymentSuccess');
+                 return redirect()->route('view.cart');
 
     } catch (PayPalConnectionException $ex) {
         echo $ex->getCode();

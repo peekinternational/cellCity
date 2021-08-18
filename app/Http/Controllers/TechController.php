@@ -205,7 +205,7 @@ class TechController extends Controller
         //    dd($phone);
            $message =strip_tags(nl2br(" Dear Customer, \n i have recieved your repair order \n Are you want to repair the order"));
            $account_sid = "AC6769d3e36e7a9e9ebbea3839d82a4504";
-           $auth_token = "63376fce491dd77850379488e582f9ee";
+           $auth_token = "b2229f79769f0b47fa8e7bb685291d0d";
            $twilio_number = +15124027605;
         $client = new Client($account_sid, $auth_token);
         $client->messages->create($phone,

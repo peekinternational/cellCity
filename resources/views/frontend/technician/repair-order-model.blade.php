@@ -14,7 +14,7 @@
             @endphp
                 <p class="mb-2">Order id: <span class="text-primary">#{{$order->id}}</span>  <a href="mailto:{{$user->email}}" style="float: right"><i class="fa fa-envelope"></i> {{$user->email}}</a> </p>
                 <p class="mb-4">Billing Name: <span class="text-primary">{{$order->name}}</span> <a href="tel:{{$user->phoneno}}" style="float: right"><i class="fa fa-phone"></i> {{$user->phoneno}}</a></p>
-                <p class="mb-4">Message To: <span class="text-primary">{{$order->name}}</span> <a href="{{url('tech/message',$user->phoneno)}}" style="float: right"><i class="fa fa-envelope"></i> {{$user->phoneno}}</a></p>
+                <p class="mb-4">Message To: <span class="text-primary">{{$order->name}}</span> <a href="sms:{{$user->phoneno}}" style="float: right"><i class="fa fa-envelope"></i> {{$user->phoneno}}</a></p>
 
 
                 <div class="table-responsive">

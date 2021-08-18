@@ -191,7 +191,7 @@ Route::name('tech.')->namespace('Tech')->prefix('tech')->group(function(){
   //paypal
   Route::get('customer/completeOrder/{id}',[UserController::class,'completeOrder'])->name('complete.order');
   Route::post('customer/payment/{id}',[UserController::class,'payment'])->name('payment.order');
-  Route::post('paypal-success',[UserController::class,"success"])->name('paypal.success');
+  Route::get('paypal-success',[UserController::class,"success"])->name('paypal.success');
   Route::get('paypal-cancel',[UserController::class,'cancel'])->name('paypal.cancel');
 
   //checkout
@@ -270,11 +270,17 @@ Route::namespace('Auth')->middleware('auth:web')->group(function(){
     Route::post('/product-payment',[ProductController::class,'payment'])->name('product.payment');
     Route::get('/paypal-success-product',[ProductController::class,"success"])->name('paypal.successProduct');
     Route::get('/paypal-cancel-product',[ProductController::class,'cancel'])->name('paypal.cancelProduct');
+
     //wishlist Ajax
     Route::get('/add-wishlist/{id}',[WishlistController::class,'wishlist'])->name('create.wishlist');
     Route::get('/undo-wishlist/{id}',[WishlistController::class,'undoWishlist']);
     /// wishlist user side
     Route::get('/delete-wishlist/{id}',[WishlistController::class,'delete'])->name('wishlist.delete');
+
+
+    ///Square
+    Route::post('squareProduct',[SquareController::class,'paymentProduct'])->name('square.paymentProduct');
+
 
    //verify email
    Route::get('/userVerify/{token}', [UserController::class,'verifyUserByEmail'])->name('user.verify');
