@@ -517,10 +517,14 @@ class ProductController extends Controller
        $condit = ProductCondition::find($request->condition);
     //    $color = ProductColor::find($request->colorId);
     //    $storage = ProductStorage::find($request->storageId);
-       $id = mt_rand(100, 9000);
-       $userID = Auth::user()->id;
 
-       $cart= \Cart::session($userID)->add(array(
+       $id = mt_rand(100, 9000);
+
+       if(Auth::guard('web')->check())
+       {
+         $userID = Auth::user()->id;
+
+         $cart= \Cart::session($userID)->add(array(
         'id' =>  $id,
         'name' =>  $request->brand_name.' '.$request->model_name,
         'price' => $request->getprice,
@@ -539,7 +543,11 @@ class ProductController extends Controller
 
      $items=\Cart::session($userID)->getContent();
     // dd($items);
-      return response()->json(['cart' =>'Successfully item add into your cart!']);
+      return response()->json(['status'=>'Successfully item add into your cart!']);
+        }
+        else{
+            return response()->json(['login' => '']);
+        }
    }
 
    public function cartUpdate(Request $request)
@@ -733,8 +741,10 @@ class ProductController extends Controller
         // Execute payment
         $result = $payment->execute($execution, $apiContext);
         // dd($result->transactions[0]->amount->total);
-        // dd( $result->transactions[0]->description);
-        $shipAdress_id  =$result->transactions[0]->description;
+        // $str = $result->transactions[0]->description;
+        // $id = $str;
+        // $total = $result->transactions[0]->amount->total;
+
         $userID = Auth::user()->id;
         $cartCollection=\Cart::session($userID)->getContent();
         foreach ($cartCollection as $cart) {

@@ -134,4 +134,20 @@ class ShippingAddress extends Controller
          }
     }
 
+    public function createAddress(Request $request)
+    {
+        // dd($request);
+        $address= New ShippingAddr;
+        $address->userId=  Auth::guard('web')->user()->id;
+        $address->name= $request->name;
+        $address->mobileNo= $request->mobileNo;
+        $address->shipaddress= $request->shipaddress;
+        $address->country= $request->country;
+        $address->state= $request->state;
+        $address->city= $request->city;
+        $address->zipcode= $request->zipcode;
+        $address->save();
+        return view('frontend.checkout',compact('address'));
+    }
+
 }

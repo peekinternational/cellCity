@@ -99,7 +99,7 @@
 
                     <label>Select Address</label>
                  <select class="form-control" onchange="getAddress(this)">
-                   <option> Select Address</option>
+                   <option value="0"> Select Address</option>
                    @foreach (CityClass::shippingAddress() as $shipAddress)
                    <option value="{{$shipAddress->id}}">{{$shipAddress->shipaddress}}</option>
                    @endforeach
@@ -108,10 +108,11 @@
             </div>
              </div>
              <div id="getAddress">
-                <form action="{{url('shipAddress')}}" method="post">
+                <form action="{{url('shippadd.create')}}" method="POST">
+                    {{csrf_field()}}
                     <div class="modal-body">
 
-                             {{csrf_field()}}
+
                             <div class="form-group">
                                 <label>Full name</label>
                                 <input type="text" name="name" class="form-control" placeholder="Full Name" required="">
@@ -214,7 +215,12 @@
         function getAddress(event)
         {
             var id = $(event).val();
+            alert(id);
             console.log(id);
+            if(id==0)
+            {
+                $('#getAddress').reset();
+            }
 
             $.ajax({
             url: "{{url('getAddress')}}/"+id,

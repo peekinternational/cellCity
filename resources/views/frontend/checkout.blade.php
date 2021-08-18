@@ -432,7 +432,6 @@
                     data:{ address_id:address_id,squaretoken:squaretoken, _token: _token},
 
                     success: function(data) {
-
                         console.log(data);
                         // window.location = '{{ route('view.cart') }}';
                         // $('#bustype').html(data);

@@ -255,16 +255,16 @@ Route::namespace('Auth')->middleware('auth:web')->group(function(){
 
   // Add To Cart
    Route::post('add-cart',[ProductController::class, 'addToCart'])->name('add.cart');
-   Route::get('/view-toCart',[ProductController::class, 'viewToCart'])->name('view.cart');
+   Route::get('/view-cart',[ProductController::class, 'viewToCart'])->name('view.cart');
    Route::post('/cartUpdate', [ProductController::class, 'cartUpdate'])->name('cart.update');
    Route::post('/remove', [ProductController::class, 'remove'])->name('cart.remove');
 
    //// Select Address
+     Route::post('/shippadd.create',[ShippingAddress::class,'createAddress'])->name('create.shipAddress');
     Route::get('/getAddress/{id}',[ShippingAddress::class,'shipAddress']);
     Route::post('/checkAddress',[ShippingAddress::class,'checkAddress'])->name('check.Address');
 
     //Payment
-
     Route::post('/product-payment',[ProductController::class,'payment'])->name('product.payment');
     Route::get('/paypal-success-product',[ProductController::class,"success"])->name('paypal.successProduct');
     Route::get('/paypal-cancel-product',[ProductController::class,'cancel'])->name('paypal.cancelProduct');
