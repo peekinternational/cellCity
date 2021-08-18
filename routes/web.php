@@ -266,8 +266,11 @@ Route::namespace('Auth')->middleware('auth:web')->group(function(){
     //Payment
 
     Route::post('/product-payment',[ProductController::class,'payment'])->name('product.payment');
-    Route::post('/paypal-success-product',[ProductController::class,"success"])->name('paypal.successProduct');
+    Route::get('/paypal-success-product',[ProductController::class,"success"])->name('paypal.successProduct');
     Route::get('/paypal-cancel-product',[ProductController::class,'cancel'])->name('paypal.cancelProduct');
+
+    ///Square
+    Route::post('squareProduct',[SquareController::class,'paymentProduct'])->name('square.paymentProduct');
 
    //verify email
    Route::get('/userVerify/{token}', [UserController::class,'verifyUserByEmail'])->name('user.verify');

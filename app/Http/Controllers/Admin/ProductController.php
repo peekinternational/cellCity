@@ -629,27 +629,28 @@ class ProductController extends Controller
              $messgae = "Succesfully Transferred";
              \Mail::to(Auth::user()->email)->send(new TechMail($details));
             //  return response()->json($messgae);
-            \Cart::clear();
-            return redirect()->route('view.cart');
+          
             $phone = "+".Auth::user()->phoneno;
             //  dd($phone);
              $message =strip_tags(nl2br("Dear Customer, \n You have Successfully Pay  through Cash . \n Total Amount : $". $total));
 
              $account_sid = "AC6769d3e36e7a9e9ebbea3839d82a4504";
-             $auth_token = "63376fce491dd77850379488e582f9ee";
-             $twilio_number = +15124027605;
+           $auth_token = "b2229f79769f0b47fa8e7bb685291d0d";
+           $twilio_number = +15124027605;
              $client = new Client($account_sid, $auth_token);
              $client->messages->create($phone,
                  ['from' => $twilio_number, 'body' => $message] );
 
 
-               return view('frontend.paymentSuccess');
+                 \Cart::clear();
+                 return redirect()->route('view.cart');
         }
     elseif($request->payment == "paypal")
     {
 
            $total = \Cart::session($userID)->getTotal();
-             $desc= $request->address_id;
+           $desc= $request->address_id;
+
         $apiContext = new ApiContext(
           new OAuthTokenCredential(
             'AY9mTzyew4I5bQDY82ZT23Hw6CVvRNN_gxGdFNFD1dBeP_JtMjM2ubFS8NkFqjnieO_nJ-g54ZZEiwB5',
@@ -732,48 +733,72 @@ class ProductController extends Controller
         // Execute payment
         $result = $payment->execute($execution, $apiContext);
         // dd($result->transactions[0]->amount->total);
-        $str = $result->transactions[0]->description;
-        $id = $str;
-        $total = $result->transactions[0]->amount->total;
-        // dd($str);
-      // $total_amount =$result->transactions[0]->amount->total;
+        // dd( $result->transactions[0]->description);
+        $shipAdress_id  =$result->transactions[0]->description;
+        $userID = Auth::user()->id;
+        $cartCollection=\Cart::session($userID)->getContent();
+        foreach ($cartCollection as $cart) {
 
-        // $repairOrder = RepairOrder::find($id);
-        // $cust = User::where('id',$repairOrder->userId)->first();
-        // $user = User::where('id',$repairOrder->techId)->first();
-        // $user->jobStatus = "available";
-        // $user->update();
-        // $repairOrder->pay_status = "paid";
-        // $repairOrder->pay_method = "paypal";
-        // $repairOrder->order_status= "4";
-        // $repairOrder->update();
+            $model = Pmodel::where('id',$cart->associatedModel->model_id)->first();
+            $color = ProductColor::where('product_id',$cart->associatedModel->id)->first();
+            $storage = ProductStorage::where('color_id',$color->id)->first();
+            $total = round($cart->quantity*$cart->price);
+            $condition = ProductCondition::where('storage_id',$storage->id)->first();   
+            if($cart->quantity <= $condition->quantity)
+            {
+               $condition->increment('quantity',$cart->quantity);
+            }
+            else
+            {
+                return redirect()->route('view.cart')->with('status' ,'Enough Quantity of:' . $condition->name);
+            }
+            // dd($cart->attributes->color);
+            $order = new Order;
+            $order->user_id = $userID;
+            $order->product_id = $cart->associatedModel->id;
+            $order->shipAddress_id = $shipAdress_id;
+            $order->brand_name = $model->brand->brand_name;
+            $order->model_name  = $model->model_name;
+            $order->color       =  $cart->attributes->color;
+            $order->condition   = $cart->attributes->conditition;
+            $order->storage     = $cart->attributes->storage;
+            $order->quantity     = $cart->quantity;
+            $order->price     = $cart->price;
+            $order->grand_price  =$total;
+            $order->payment_method = "PayPal";
+            $order->status = 1;
+        
+            $order->save();
+            // dd($order);
+           
+        
 
+        }
+        $total = \Cart::session($userID)->getTotal();
+            $details = [
+                'title' => 'Mail from PeekInternational.com',
+                'subject' => 'Dear Customer ,',
+                'message' => 'Payment completed Successfully through PayPal',
+                'Total'  => $total
+            ];
+             $messgae = "Succesfully Transferred";
+             \Mail::to(Auth::user()->email)->send(new TechMail($details));
+            //  return response()->json($messgae);
 
-   //$subject = "Booking Confirmation";
-    // dd($repairOrder);
+           
+            $phone = "+".Auth::user()->phoneno;
+            //  dd($phone);
+             $message =strip_tags(nl2br("Dear Customer, \n You have Successfully Pay  through PayPal . \n Total Amount : $". $total));
 
-  //   $retval = mail ($user->email,$subject,$message);
-  $details = [
-      'title' => 'Mail from PeekInternational.com',
-      'subject' => 'Dear Customer ,',
-      'message' => 'Payment completed through PayPal',
-      'Total'  =>  $total
-  ];
-  //  $messgae = "Succesfully Transferred";
-   \Mail::to($cust->email)->send(new TechMail($details));
-  //  return response()->json($messgae);
+             $account_sid = "AC6769d3e36e7a9e9ebbea3839d82a4504";
+             $auth_token = "b2229f79769f0b47fa8e7bb685291d0d";
+             $twilio_number = +15124027605;
+             $client = new Client($account_sid, $auth_token);
+             $client->messages->create($phone,
+                 ['from' => $twilio_number, 'body' => $message] );
 
-  $phone = "+".$cust->phoneno;
-//    dd($phone);
-   $message =strip_tags(nl2br("Dear customer,\n You have Successfully Pay  through PayPal \n Total Amount : $". $total));
-   $account_sid = "AC6769d3e36e7a9e9ebbea3839d82a4504";
-   $auth_token = "63376fce491dd77850379488e582f9ee";
-   $twilio_number = +15124027605;
-   $client = new Client($account_sid, $auth_token);
-   $client->messages->create($phone,
-       ['from' => $twilio_number, 'body' => $message] );
-
-      return view('frontend.paymentSuccess');
+                 \Cart::clear();
+                 return redirect()->route('view.cart');
 
     } catch (PayPalConnectionException $ex) {
         echo $ex->getCode();
