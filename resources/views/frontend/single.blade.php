@@ -534,7 +534,7 @@ function getPrice(price,quantity,condition)
 function addToCart(productId)
 {
 
-        console.log($("#getcondit").val());
+        // console.log($("#getcondit").val());
         // var storageId = $("#storageId").val();
         var brand_name = $("#brand_name").val();
         var model_name = $("#model_name").val();
@@ -545,8 +545,11 @@ function addToCart(productId)
         var getcolor = $("#getcolor").val();
         var getprice = $("#getprice").val();
 
-    // var _token = $('input[name="_token"]').val();
-    $.ajax({
+     @if (!Auth::user())
+     window.location.href = "../signin";
+
+     @else
+     $.ajax({
     type:"post",
     url: "{{ route('add.cart') }}",
     headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
@@ -558,16 +561,16 @@ function addToCart(productId)
         console.log(add);
         $("#exampleModalLong").modal("show");
          $("#message").text(add.status);
-    //    $("#divid1").load(" #divid1");
-    if(add.login == '')
-    {
-        window.location.href = "../signin";
-    }
+
+
 
     },error:function(error){
     console.log(error);
     }
     });
+     @endif
+    // var _token = $('input[name="_token"]').val();
+
 
 }
 </script>

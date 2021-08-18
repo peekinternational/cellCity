@@ -15,6 +15,7 @@ use App\Http\Controllers\Controller;
 use App\Mail\TechMail;
 use App\Models\Alert;
 use App\Models\Order;
+use App\Models\Wishlist;
 use Darryldecode\Cart\Cart;
 use Exception;
 use Illuminate\Support\Facades\Auth;
@@ -426,6 +427,12 @@ class ProductController extends Controller
     {
         $products = Product::where('category','phone')->paginate(4);
         // $colors  = ProductColor::all();
+        if(Auth::check())
+        {
+            $products = Product::where('category','phone')->paginate(4);
+            $wishlist  = Wishlist::where('user_id',Auth::user()->id)->first();
+            return view('frontend.buy-phone',compact('products'));
+        }
 
         return view('frontend.buy-phone',compact('products'));
     }
@@ -881,6 +888,7 @@ class ProductController extends Controller
 
 
     }
+
 
 
 }

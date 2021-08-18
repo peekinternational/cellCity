@@ -8,7 +8,7 @@
       <div class="auto-container">
           <ul class="bread-crumb">
                 <li><a href="index-2.html">Home</a></li>
-                <li class="active">Shop</li>
+                <li class="active">Cart List</li>
             </ul>
           <h1>Shop Detail</h1>
         </div>
@@ -163,10 +163,8 @@
       </div>
     </div>
   </div>
-  <div class="other-options col-md-6" style="margin-bottom: 20px">
-    <button type="button"  class="theme-btn btn-style-one add-to-cart btn-block">CheckOut </button>
-    </div>
-    <br>
+
+
         @endsection
         @section('script')
         <script>

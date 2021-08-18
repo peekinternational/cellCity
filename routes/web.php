@@ -14,6 +14,7 @@ use App\Http\Controllers\ProductConditionController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ShippingAddress;
 use App\Http\Controllers\SquareController;
+use App\Http\Controllers\WishlistController;
 use App\Models\RepairOrder;
 
 /*
@@ -244,6 +245,7 @@ Route::namespace('Auth')->middleware('auth:web')->group(function(){
 
 });
 
+
   /////////////////    Ajax Filter  Buy Page
 
     Route::get('/getBrandFilter',[ProductController::class,'getBrandFilter']);
@@ -268,7 +270,11 @@ Route::namespace('Auth')->middleware('auth:web')->group(function(){
     Route::post('/product-payment',[ProductController::class,'payment'])->name('product.payment');
     Route::get('/paypal-success-product',[ProductController::class,"success"])->name('paypal.successProduct');
     Route::get('/paypal-cancel-product',[ProductController::class,'cancel'])->name('paypal.cancelProduct');
-
+    //wishlist Ajax
+    Route::get('/add-wishlist/{id}',[WishlistController::class,'wishlist'])->name('create.wishlist');
+    Route::get('/undo-wishlist/{id}',[WishlistController::class,'undoWishlist']);
+    /// wishlist user side
+    Route::get('/delete-wishlist/{id}',[WishlistController::class,'delete'])->name('wishlist.delete');
 
    //verify email
    Route::get('/userVerify/{token}', [UserController::class,'verifyUserByEmail'])->name('user.verify');

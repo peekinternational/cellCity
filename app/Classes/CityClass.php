@@ -17,6 +17,7 @@ use App\Models\Alert;
 use App\Models\Blog;
 use App\Models\OrderTime;
 use App\Models\ProductCondition;
+use App\Models\Wishlist;
 use Illuminate\Support\Facades\Auth;
 
 class CityClass {
@@ -61,6 +62,21 @@ class CityClass {
     function shippingAddress()
     {
         return ShippingAddr::where('userId',Auth::user()->id)->get();
+    }
+
+    function checkWishlist($id)
+    {
+
+        $check=Wishlist::where('user_id',Auth::user()->id)->where('product_id',$id)->first();
+        if($check)
+        {
+            return "1";
+        }
+        else
+        {
+            return "0";
+        }
+
     }
 
 }

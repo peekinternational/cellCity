@@ -41,6 +41,9 @@
 						<li role="presentation">
 							<a href="#savedAddress" aria-controls="savedAddress" role="tab" data-toggle="tab">Saved Address</a>
 						</li>
+                        <li role="presentation">
+                            <a href="#wishlists" aria-controls="wishlists" role="tab" data-toggle="tab"> Wishlist</a>
+                         </li>
 						<li role="presentation">
 							<a href="{{url('/logout')}}" >Logout</a>
 						</li>
@@ -201,6 +204,49 @@
 								</table>
 							</div>
 						</div>
+                        <div role="tabpanel" class="tab-pane" id="wishlists">
+                            <h3 class="title-section">wishlist</h3><br>
+                            <div class="table-responsive">
+                                <table id="example" class="table table-bordered table-hover" >
+                                    <thead>
+                                        <tr>
+                                            <th colspan="2">Sr#</th>
+                                            <th colspan="2">User</th>
+                                            <th colspan="2">Product</th>
+                                            <th colspan="2">Time & Date</th>
+
+                                            <th colspan="2">Status</th>
+                                            <th colspan="2">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach(Auth::guard('web')->user()->wishlist as $index => $wishl)
+                                        @php
+                                            $product = App\Models\Product::where('id',$wishl->product_id)->first();
+                                            $model = App\Models\Pmodel::where('id',$product->model_id)->first();
+                                        @endphp
+                                        <tr>
+                                            <td colspan="2">{{$index + 1}}</td>
+                                            <td colspan="2">{{$wishl->user->name}}</td>
+                                            <td colspan="2">{{$model->model_name}}</td>
+
+                                            <td colspan="2">{{$wishl->created_at}}</td>
+
+                                            <td colspan="2">
+                                                @if ($wishl->status == 1)
+                                                 <span class="badge badge-pill badge-warning" style="background-color: #f1b44c;">Favourite</span>
+                                                 @endif
+                                            </td>
+
+
+                                           <td><a href="{{url('delete-wishlist',$wishl->id)}}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                           <a href="{{route('product.details',$product->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></a></td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
 						<div role="tabpanel" class="tab-pane" id="savedAddress">
 							<div class="d-flex justify-content-between title-section">
 								<h3>My Address</h3><br>

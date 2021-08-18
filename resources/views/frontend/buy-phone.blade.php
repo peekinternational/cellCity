@@ -376,11 +376,27 @@
                 $condition = App\Models\ProductCondition::where('storage_id',$storage->id)->first();
                 @endphp
 
+
             <div class="shop-item col-md-4 col-sm-6 col-xs-12">
               <div class="inner-box">
+                  @if (Auth::user())
+
+                     @if (CityClass::checkWishlist($product->id) == "1")
+                     <a href="#" onclick="undoWishlist({{$product->id}})"><i class="fa fa-heart" style="font-size: 30px;color:#ff0707"></i></a>
+                     @else
+                     <a href="#" onclick="wishlist({{$product->id}})"><i class="fa fa-heart" style="font-size: 30px;"></i></a>
+                     @endif
+                   @else
+                   <a href="#" onclick="wishlist({{$product->id}})"><i class="fa fa-heart" style="font-size: 30px;"></i></a>
+                  @endif
+
+
+
                   <figure class="image-box">
+
                    <a href="{{route('product.details',$product->id) }}"><img src="{{asset('storage/products/images/'.$image->image)}}" alt="" /></a>
-                  </figure>
+
+                </figure>
                   <!--Lower Content-->
                   <div class="lower-content">
                     <h3><a href="">{{ $model->brand->brand_name }}  {{ $model->model_name }} </a></h3>
@@ -534,5 +550,54 @@
        });
 
       }
+
+      function wishlist(productID)
+      {
+        //   alert(colorID);
+        @if (!Auth::user())
+          window.location.href = "../signin";
+        @else
+        $.ajax({
+            type:"get",
+            url: "{{ url('add-wishlist') }}/"+productID,
+
+            success:function(wishlist)
+            {
+               window.location.reload();
+               alert('Successfully add into your wishlist !');
+
+            },error:function(error){
+               console.log(error);
+            }
+
+            });
+        @endif
+
+
+
+      }
+
+    function undoWishlist(id)
+    {
+        @if (!Auth::user())
+          window.location.href = "../signin";
+        @else
+        $.ajax({
+            type:"get",
+            url: "{{ url('undo-wishlist') }}/"+id,
+
+            success:function(wishlist)
+            {
+               window.location.reload();
+            //    alert('Successfully Re into your wishlist !');
+
+            },error:function(error){
+               console.log(error);
+            }
+
+            });
+        @endif
+    }
+
 </script>
 @endsection
