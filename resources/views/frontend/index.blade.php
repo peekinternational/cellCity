@@ -9,6 +9,7 @@
     color: #fff;
     line-height: 20px;
 }
+
 </style>
 @endsection
 @section('content')
@@ -195,9 +196,9 @@
                 <div class="services-block col-md-3 col-sm-4 col-xs-4">
                 	<div class="inner-box wow fadeIn" data-wow-delay="0ms" data-wow-duration="1500ms">
                     	<!--Icon Box-->
-                    	<a href="">
+                    	<a href="{{url('buy-phone')}}">
                     		<div class="icon-box">
-	                      	<span class="icon flaticon-mobile"></span>
+	                      	<span class="icon flaticon-mobile"  style="color:#00bfa5"></span>
 	                      </div>
 	                      <h3>Phone Repairs</h3>
                     	</a>
@@ -211,7 +212,7 @@
                     	<!--Icon Box-->
                     	<a href="">
                   			<div class="icon-box">
-                  		    <span class="icon flaticon-technology-2"></span>
+                  		    <span class="icon flaticon-technology-2"   style="color:#00bfa5"></span>
                   		  </div>
                   		  <h3>Buy Phones</h3>
                     	</a>
@@ -225,7 +226,7 @@
                     	<!--Icon Box-->
                     	<a href="">
                     			<div class="icon-box">
-                    		    <span class="icon flaticon-technology-1"></span>
+                    		    <span class="icon flaticon-technology-1" style="color:#00bfa5"></span>
                     		  </div>
                     		  <h3>Pay Bills</h3>
                     	</a>
@@ -243,7 +244,7 @@
         	<!--Section Title One-->
             <div class="sec-title-one">
                 <h2>OUR SHOP</h2>
-                <div class="text">Overcome faithful endless salvation enlightenment salvation overcome pious merciful<br>ascetic madness holiest joy passion zarathustra.</div>
+                <div class="text"> We have a phone for everyone</div>
             </div>
 
         	<div class="row clearfix">
@@ -268,7 +269,7 @@
                         <!--Lower Content-->
 
                         <div class="lower-content">
-                        	<h3><a href="{{url('single')}}">{{ $model->brand->brand_name ?? ''}}  {{ $model->model_name?? '' }}</a></h3>
+                        	<h3><a href="{{url('single')}}">{{ $model->brand->brand_name  ?? '' }}  {{ $model->model_name ?? '' }}</a></h3>
                         	<div> <span>{{ $product->memory ?? ''}} - {{$color->color_name ?? ''}} - {{ $product->locked ?? ''}}</span> </div>
 		                        <span>
 		                        Warranty: {{ $product->warranty ?? ''}}
@@ -355,7 +356,7 @@
         	<!--Section Title One-->
         	<div class="sec-title-one">
             	<h2>WHAT OUR CUSTOMERS SAID</h2>
-                <div class="text">Overcome faithful endless salvation enlightenment salvation overcome pious merciful</div>
+                <div class="text"></div>
             </div>
 
         	<div class="testimonial-carousel">
@@ -486,7 +487,7 @@
 
         	<div class="sec-title-one">
                 <h2>OUR BLOG</h2>
-                <div class="text">Gains hope spirit justice chaos society madness suicide god. Virtues will ultimate<br>abstract sexuality mountains marvelous virtues.</div>
+                <div class="text"><br></div>
             </div>
 
         	<div class="row clearfix blogs-carousel">
@@ -517,7 +518,7 @@
         </div>
     </section>
 
-    <section class="repair-section paybill-section">
+    {{-- <section class="repair-section paybill-section">
     	<div class="auto-container">
 
         	<!--Sec Title One-->
@@ -638,7 +639,7 @@
             </div>
           </div>
         </div>
-    </section>
+    </section> --}}
 
 @endsection
 @section('script')

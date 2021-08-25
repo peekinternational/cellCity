@@ -10,12 +10,28 @@
       background-color:#00bfa5;
 
     }
+    @media(max-width:767px){
+      .my-cart-wrapper {
+        position: relative;
+        top: auto; 
+        bottom: 0;
+        right: 0;
+        height: auto;
+        margin: 0 auto;
+      }
+      .content-container {
+        order:0;
+      }
+      .cart-repair{
+        order: 1;
+      }
+    }
     </style>
 @endsection
 @section('content')
 
 <div class="app-container2">
-  <div class="content-container container">
+  <div class="content-container container ">
     <!-- Brands -->
     <div class="row d-flex justify-content-center" id="brand_model">
       <div class="col-md-5 text-center">
@@ -254,15 +270,21 @@
                 <textarea type="text" form="repairType" class="form-control" placeholder="Add address instructions (optional)" name="instructions" id="instructions"></textarea>
               </div>
             </div>
+            
             <div class="select-address-continue-button-wrapper">
               <button type="submit" form="repairType" class="new-action-button">Continue</button>
             </div>
+            @if(!Auth::guard('web')->check())
+            <div style="margin: 10px 0 0;">
+              <span>Already a customer?</span><a href="{{url('signin')}}"> Sign In here</a>
+            </div>
+            @endif
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div>
+  <div class="cart-repair">
     <div class="my-cart-desktop" id="priceCart" style="display: none;">
       <!-- <div class="my-cart-wrapper-not-fixed "></div> -->
       <div class="my-cart-wrapper ">

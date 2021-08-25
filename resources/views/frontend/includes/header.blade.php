@@ -27,7 +27,7 @@
               <div class="navbar-collapse collapse clearfix">
                 <ul class="navigation clearfix">
                   <li class="repair"><a href="{{route('repair.index')}}">Phone Repair</a>
-                    <ul class="repair-dropdown">
+                    {{-- <ul class="repair-dropdown">
                       <li><a href="">Screen</a></li>
                       <li><a href="">Battery</a></li>
                       <li><a href="">MIC</a></li>
@@ -36,7 +36,7 @@
                       <li><a href="">Speaker</a></li>
                       <li><a href="">Proximity Sensor</a></li>
                       <li><a href="">Aux Jack</a></li>
-                    </ul>
+                    </ul> --}}
                   </li>
                   <li class=""><a href="{{url('buy-phone')}}">Buy Phones</a>
                   </li>
@@ -98,7 +98,7 @@
           <div class="navbar-collapse collapse clearfix">
             <ul class="navigation clearfix">
               <li class="repair"><a href="{{route('repair.index')}}">Phone Repair</a>
-                <ul class="repair-dropdown">>
+                {{-- <ul class="repair-dropdown">>
                   <li><a href="">Screen</a></li>
                   <li><a href="">Battery</a></li>
                   <li><a href="">MIC</a></li>
@@ -107,7 +107,7 @@
                   <li><a href="">Speaker</a></li>
                   <li><a href="">Proximity Sensor</a></li>
                   <li><a href="">Aux Jack</a></li>
-                </ul>
+                </ul> --}}
               </li>
               <li class=""><a href="#">Buy Phones</a>
               </li>

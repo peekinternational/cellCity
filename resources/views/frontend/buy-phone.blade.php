@@ -214,7 +214,8 @@
                   </span> </span></div> <!----> <!----></label></div></li>  --}}
                   <span class="_3JZtHpVH kdWBx8BsOXOeHlX8MCQf_">
                       <button data-test="facet-toggler" class="_3wCdvNLg s1Zi9DG5">
-                See more
+                {{-- {{ CityClass::allModels()->links('vendor.pagination.custom') }} --}}
+                see more
               </button></span></ul></li>
               <li class="_2LiMhAnX4MDtEL5YEDIdLy"><h3 class="_2RGsPtNo">
                   Condition
@@ -367,9 +368,9 @@
                   <!--Lower Content-->
                   <div class="lower-content">
                     <h3><a href="">{{ $model->brand->brand_name ?? ''}}  {{ $model->model_name ?? ''}} </a></h3>
-                    <div> <span>{{ $storage->storage }} - {{ $color->color_name }} - {{ $product->locked }}</span> </div>
+                    <div> <span>{{ $storage->storage  ?? ''}} -{{$color->color_name ?? ''}} - {{ $product->locked ?? '' }}</span> </div>
                       <span>
-                      Warranty: {{ $product->warranty }}
+                      Warranty: {{ $product->warranty ?? '' }}
                       </span>
                       <div class="brand-imgs">
                           <div class="brand">

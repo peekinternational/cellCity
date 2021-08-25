@@ -32,7 +32,7 @@ class CityClass {
 	}
 
 	function allModels(){
-	return Pmodel::orderBy('model_name','asc')->get();
+	return Pmodel::orderBy('model_name','asc')->paginate(6);
 	}
 
 	function modelName($id){
