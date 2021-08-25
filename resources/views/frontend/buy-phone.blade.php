@@ -274,7 +274,7 @@
 
                     </li>
                     @endforeach
-
+                  
                   {{-- <li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U"><div><input id="model-001iPhoneXR" type="checkbox" data-test="facet-iPhone XR" class="_3wvnh-Qn"> <label for="model-001iPhoneXR" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
                     iPhone XR
                   </span> </span></div> <!----> <!----></label></div></li><li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U"><div><input id="model-002 iPhone X" type="checkbox" data-test="facet-iPhone X" class="_3wvnh-Qn"> <label for="model-002 iPhone X" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
@@ -288,7 +288,8 @@
                   </span> </span></div> <!----> <!----></label></div></li>  --}}
                   <span class="_3JZtHpVH kdWBx8BsOXOeHlX8MCQf_">
                       <button data-test="facet-toggler" class="_3wCdvNLg s1Zi9DG5">
-                See more
+                {{-- {{ CityClass::allModels()->links('vendor.pagination.custom') }} --}}
+                see more
               </button></span></ul></li>
               <li class="_2LiMhAnX4MDtEL5YEDIdLy"><h3 class="_2RGsPtNo">
                   Condition
@@ -399,10 +400,10 @@
                 </figure>
                   <!--Lower Content-->
                   <div class="lower-content">
-                    <h3><a href="">{{ $model->brand->brand_name }}  {{ $model->model_name }} </a></h3>
-                    <div> <span>{{ $storage->storage }} -{{$color->color_name}} - {{ $product->locked }}</span> </div>
+                    <h3><a href="">{{ $model->brand->brand_name ?? ''}}  {{ $model->model_name ?? ''}} </a></h3>
+                    <div> <span>{{ $storage->storage  ?? ''}} -{{$color->color_name ?? ''}} - {{ $product->locked ?? '' }}</span> </div>
                       <span>
-                      Warranty: {{ $product->warranty }}
+                      Warranty: {{ $product->warranty ?? '' }}
                       </span>
                       <div class="brand-imgs">
                           <div class="brand">

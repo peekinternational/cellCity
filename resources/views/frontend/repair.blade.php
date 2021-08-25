@@ -59,7 +59,7 @@
               <i class="mar-r10 jss76"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="10" viewBox="0 0 10.259 7.151"><path d="M75.14 245.721l-4.983 4.979-2.542-2.542a.8.8 0 0 0-1.133 1.133l3.108 3.108a.8.8 0 0 0 1.133 0l5.549-5.549a.8.8 0 0 0-1.133-1.133zm0 0" fill="#2bc9af" transform="translate(-66.248 -245.486)"></path></svg></i><span class="font16-12">Doorstep Service</span>
             </li>
             <li class="mar-r20 mar-r0-mob layout horizontal  center">
-              <i class="mar-r10 jss76"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="10" viewBox="0 0 10.259 7.151"><path d="M75.14 245.721l-4.983 4.979-2.542-2.542a.8.8 0 0 0-1.133 1.133l3.108 3.108a.8.8 0 0 0 1.133 0l5.549-5.549a.8.8 0 0 0-1.133-1.133zm0 0" fill="#2bc9af" transform="translate(-66.248 -245.486)"></path></svg></i><span class="font16-12">6-months warranty</span>
+              <i class="mar-r10 jss76"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="10" viewBox="0 0 10.259 7.151"><path d="M75.14 245.721l-4.983 4.979-2.542-2.542a.8.8 0 0 0-1.133 1.133l3.108 3.108a.8.8 0 0 0 1.133 0l5.549-5.549a.8.8 0 0 0-1.133-1.133zm0 0" fill="#2bc9af" transform="translate(-66.248 -245.486)"></path></svg></i><span class="font16-12">30-days limited warranty</span>
             </li>
           </ul>
         </div>
@@ -114,7 +114,7 @@
                     <span class="font22-14 font-medium tc-primary text-center">Schedule Service</span>
                   </div>
                 </div>
-                <p class="font16-12 tc-secondary jss94">Book a free technician visit at your home or work at a time slot that best suits your convenience.</p>
+                <p class="font16-12 tc-secondary jss94">Book an appointment at your home or work at a time that best suits your convenience</p>
               </div>
             </div>
           </li>
@@ -158,6 +158,38 @@
                     <img class="flheight" alt="SCREEN" src="{{asset('frontend-assets/images/repair/screen.png')}}">
                   </span>
                   <span class="layout horizontal center-center font12-10 text-center tc-primary line-clamp-3 jss178">SCREEN</span>
+                </a>
+              </li>
+              <li class="mar-r20  pad-tb16 layout horizontal jss175">
+                <a class="layout vertical card-shadow radius-10 pad16 flwidth flheight around-justified jss176" href="/screen-repair">
+                  <span class="layout horizontal start center-justified  flex-1 jss177">
+                    <img class="flheight" alt="SCREEN" src="{{asset('frontend-assets/images/repair/screen.png')}}">
+                  </span>
+                  <span class="layout horizontal center-center font12-10 text-center tc-primary line-clamp-3 jss178">Water Damage</span>
+                </a>
+              </li>
+              <li class="mar-r20  pad-tb16 layout horizontal jss175">
+                <a class="layout vertical card-shadow radius-10 pad16 flwidth flheight around-justified jss176" href="/screen-repair">
+                  <span class="layout horizontal start center-justified  flex-1 jss177">
+                    <img class="flheight" alt="SCREEN" src="{{asset('frontend-assets/images/repair/screen.png')}}">
+                  </span>
+                  <span class="layout horizontal center-center font12-10 text-center tc-primary line-clamp-3 jss178">Front or Rear Camera</span>
+                </a>
+              </li>
+              <li class="mar-r20  pad-tb16 layout horizontal jss175">
+                <a class="layout vertical card-shadow radius-10 pad16 flwidth flheight around-justified jss176" href="/screen-repair">
+                  <span class="layout horizontal start center-justified  flex-1 jss177">
+                    <img class="flheight" alt="SCREEN" src="{{asset('frontend-assets/images/repair/screen.png')}}">
+                  </span>
+                  <span class="layout horizontal center-center font12-10 text-center tc-primary line-clamp-3 jss178">Signal Issue</span>
+                </a>
+              </li>
+              <li class="mar-r20  pad-tb16 layout horizontal jss175">
+                <a class="layout vertical card-shadow radius-10 pad16 flwidth flheight around-justified jss176" href="/screen-repair">
+                  <span class="layout horizontal start center-justified  flex-1 jss177">
+                    <img class="flheight" alt="SCREEN" src="{{asset('frontend-assets/images/repair/screen.png')}}">
+                  </span>
+                  <span class="layout horizontal center-center font12-10 text-center tc-primary line-clamp-3 jss178">Data Recovery</span>
                 </a>
               </li>
               <li class="mar-r20  pad-tb16 layout horizontal jss175">
@@ -234,7 +266,7 @@
           </div>
         </div>
         <div class="layout vertical center card-header pad-t20 jss182">
-          <ul class="layout horizontal wrap justified pad0 mar-b20 flwidth">
+          <ul class="layout horizontal wrap pad0 mar-b20 flwidth">
             <li class="layout horizontal vertical-mob jss183">
               <div class="layout horizontal center-center flwidth jss184">
                 <img class="img-resp" alt="Premium Repair" src="{{asset('frontend-assets/images/repair/whyus-1.png')}}">
@@ -253,22 +285,14 @@
                 <span class="font-medium font14-12 mar-t4 tc-secondary">Mobile Repair on the Spot in Cashify Store or at Home/Office</span>
               </div>
             </li>
-            <li class="layout horizontal vertical-mob jss183">
-              <div class="layout horizontal center-center flwidth jss184">
-                <img class="img-resp" alt="Physical Protection Warranty" src="{{asset('frontend-assets/images/repair/whyus-3.png')}}">
-              </div>
-              <div class="layout vertical flwidth jss185">
-                <span class="font-medium font22-14">Physical Protection Warranty</span>
-                <span class="font-medium font14-12 mar-t4 tc-secondary">Free 1 Month Screen Replacement even if it breaks for all Screen Repair</span>
-              </div>
-            </li>
+            
             <li class="layout horizontal vertical-mob jss183">
               <div class="layout horizontal center-center flwidth jss184">
                 <img class="img-resp" alt="6 Months Warranty" src="{{asset('frontend-assets/images/repair/whyus-4.png')}}">
               </div>
               <div class="layout vertical flwidth jss185">
-                <span class="font-medium font22-14">6 Months Warranty</span>
-                <span class="font-medium font14-12 mar-t4 tc-secondary">Hassle free 6 month warranty on parts replaced</span>
+                <span class="font-medium font22-14">30 days limited warranty</span>
+                <span class="font-medium font14-12 mar-t4 tc-secondary">Hassle free 30 days limited warranty on parts replaced</span>
               </div>
             </li>
             <li class="layout horizontal vertical-mob jss183">

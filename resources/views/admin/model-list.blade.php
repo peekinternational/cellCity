@@ -36,7 +36,7 @@
                                                         <td>
                                                             <div class="avatar-xs">
                                                                 <span class="avatar-title rounded-circle">
-                                                                    {{$index + 1}}
+                                                                   {{ $model->id }}
                                                                 </span>
                                                             </div>
                                                         </td>

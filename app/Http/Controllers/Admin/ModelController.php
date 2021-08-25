@@ -15,6 +15,7 @@ use App\Models\RepairOrder;
 use App\Models\RepairOrderType;
 use App\Models\Admin;
 use App\Models\Alert;
+use App\Models\Product;
 
 class ModelController extends Controller
 {
@@ -104,6 +105,7 @@ class ModelController extends Controller
     public function destroy($id)
     {
         $model = Pmodel::find($id);
+        Product::where('model_id',$model->id)->delete();
         $model->delete();
          return redirect('/admin/models')->with('message', Alert::_message('success', 'Model Delete Successfully.'));
     }

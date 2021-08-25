@@ -6,7 +6,24 @@
         <div class="footer-links" id="company-footer-links">
           <a class="soft-body" href="">About Us</a>
           <a class="soft-body" href="" target="">How It Works</a>
-          <a class="soft-body" href="/faq" target="">FAQ</a><a class="soft-body" href="/join" target="">Become a Tech</a><a class="soft-body" href="/invite-a-friend" target="">Invite a Friend</a><a class="soft-body" href="/pricing" target="">Pricing</a><a class="soft-body" href="/careers" target="">Careers</a><a class="soft-body" href="https://blog.puls.com" target="">Info Hub</a><a class="soft-body" href="/press" target="">Newsroom</a><a class="soft-body" href="mailto:media@puls.com" target="">Media inquiries</a><a class="soft-body" href="/" target="">Home</a></div><label class="col-label h3-headline" for="company-footer-toggle">Company<img class="arrow-toggle" src="https://d7gh5vrfihrl.cloudfront.net/website/arrow.svg"></label></div><div class="col footer-items"><input type="checkbox" id="resources-footer-toggle" style="display:none"><div class="footer-links" id="resources-footer-links"><a class="soft-body" href="https://info.puls.com/resources/tv-mounting">TV Mounting</a><a class="soft-body" href="https://info.puls.com/resources/garage-doors">Garage Doors</a><a class="soft-body" href="https://info.puls.com/resources/appliances">Appliances</a><a class="soft-body" href="https://info.puls.com/resources/refrigerator">Refrigerators</a><a class="soft-body" href="https://info.puls.com/resources/dishwasher">Dishwashers</a><a class="soft-body" href="https://info.puls.com/resources/oven-and-stove">Ovens &amp; Stoves</a><a class="soft-body" href="https://info.puls.com/resources/washing-machine">Washing Machines</a><a class="soft-body" href="https://info.puls.com/resources/dryer">Dryers</a></div><label class="col-label h3-headline" for="resources-footer-toggle">Resources<img class="arrow-toggle" src="https://d7gh5vrfihrl.cloudfront.net/website/arrow.svg"></label></div><div class="col footer-items"><input type="checkbox" id="partnerships-footer-toggle" style="display:none"><div class="footer-links" id="partnerships-footer-links"><a class="soft-body" href="/tcl">TCL</a><a class="soft-body" href="/simplisafe">SimpliSafe</a><a class="soft-body" href="/hisense">Hisense</a><a class="soft-body" href="/business">Puls for business</a></div><label class="col-label h3-headline" for="partnerships-footer-toggle">Partnerships<img class="arrow-toggle" src="https://d7gh5vrfihrl.cloudfront.net/website/arrow.svg"></label></div><div class="col footer-items"><input type="checkbox" id="legals-footer-toggle" style="display:none"><div class="footer-links" id="legals-footer-links"><a class="soft-body" href="/privacy-policy" target="">Privacy</a><a class="soft-body" href="/terms" target="">Terms</a><a class="soft-body" href="/membership-terms-and-conditions" target="">Puls+ Terms</a><a class="soft-body" href="/guarantee" target="">Guarantee</a></div><label class="col-label h3-headline" for="legals-footer-toggle">Legals<img class="arrow-toggle" src="https://d7gh5vrfihrl.cloudfront.net/website/arrow.svg"></label></div></div><div class="stay-in-touch"><p class="subscribe-label">Stay Connected</p><div class="hs-signup-container">
+          <a class="soft-body" href="/faq" target="">FAQ</a>
+   
+          <a class="soft-body" href="/invite-a-friend" target="">Invite a Friend</a>
+          <a class="soft-body" href="/pricing" target="">Pricing</a>
+        </div>
+        <label class="col-label h3-headline" for="company-footer-toggle">Company<img class="arrow-toggle" src="https://d7gh5vrfihrl.cloudfront.net/website/arrow.svg"></label></div>
+        {{-- <div class="col footer-items"><input type="checkbox" id="resources-footer-toggle" style="display:none"><div class="footer-links" id="resources-footer-links">
+          <a class="soft-body" href="https://info.puls.com/resources/tv-mounting">TV Mounting</a>
+          <a class="soft-body" href="https://info.puls.com/resources/garage-doors">Garage Doors</a>
+          <a class="soft-body" href="https://info.puls.com/resources/appliances">Appliances</a>
+          <a class="soft-body" href="https://info.puls.com/resources/refrigerator">Refrigerators</a>
+          <a class="soft-body" href="https://info.puls.com/resources/dishwasher">Dishwashers</a>
+          <a class="soft-body" href="https://info.puls.com/resources/oven-and-stove">Ovens &amp; Stoves</a><a class="soft-body" href="https://info.puls.com/resources/washing-machine">Washing Machines</a><a class="soft-body" href="https://info.puls.com/resources/dryer">Dryers</a></div><label class="col-label h3-headline" for="resources-footer-toggle">Resources<img class="arrow-toggle" src="https://d7gh5vrfihrl.cloudfront.net/website/arrow.svg"></label>
+        </div> --}}
+          {{-- <div class="col footer-items"><input type="checkbox" id="partnerships-footer-toggle" style="display:none"><div class="footer-links" id="partnerships-footer-links"><a class="soft-body" href="/tcl">TCL</a><a class="soft-body" href="/simplisafe">SimpliSafe</a><a class="soft-body" href="/hisense">Hisense</a><a class="soft-body" href="/business">Puls for business</a></div><label class="col-label h3-headline" for="partnerships-footer-toggle">Partnerships<img class="arrow-toggle" src="https://d7gh5vrfihrl.cloudfront.net/website/arrow.svg"></label>
+        </div> --}}
+        <div class="col footer-items"><input type="checkbox" id="legals-footer-toggle" style="display:none"><div class="footer-links" id="legals-footer-links"><a class="soft-body" href="/privacy-policy" target="">Privacy</a><a class="soft-body" href="/terms" target="">Terms</a><a class="soft-body" href="/guarantee" target="">Guarantee</a></div><label class="col-label h3-headline" for="legals-footer-toggle">Legals<img class="arrow-toggle" src="https://d7gh5vrfihrl.cloudfront.net/website/arrow.svg"></label></div></div><div class="stay-in-touch"><p class="subscribe-label">Stay Connected</p>
+          <div class="hs-signup-container">
   <form class="subscribe_form">
             <div class="input-group">
                <input type="text" class="form-control" name="email" placeholder="Enter your email">
@@ -20,15 +37,14 @@
   <a class="footer-icon" style="background-image:url('https://d7gh5vrfihrl.cloudfront.net/website/badges/footer-icons/facebook.png')" href="https://www.facebook.com/pulsdotcom/" target="_blank"></a>
   <a class="footer-icon" style="background-image:url('https://d7gh5vrfihrl.cloudfront.net/website/badges/footer-icons/twitter.png')" href="https://twitter.com/pulscom" target="_blank"></a>
   <a class="footer-icon" style="background-image:url('https://d7gh5vrfihrl.cloudfront.net/website/badges/footer-icons/youtube.png')" href="https://www.youtube.com/channel/UCpXjcgaFLHsfrYSSFoi0vLw" target="_blank"></a>
-  <a class="footer-icon" style="background-image:url('https://d7gh5vrfihrl.cloudfront.net/website/badges/footer-icons/google.png')" href="https://www.google.com/maps/place/Puls+Appliance+Repair+Dallas/@32.8056347,-97.4869899,9z/data=!3m1!4b1!4m5!3m4!1s0x0:0x323b911c1fe315b!8m2!3d32.806883!4d-96.9265378?hl=en" target="_blank"></a>
-  <a class="footer-icon" style="background-image:url('https://d7gh5vrfihrl.cloudfront.net/website/badges/footer-icons/instagram.png')" href="https://www.instagram.com/pulscom/" target="_blank"></a>
+  
 </div>
 <div class="clear-both"></div>
 <label class="support-me">
-  <a href="mailto:support@puls.com?Subject=Help%20me" target="_top">support@cellcity.com</a>
+  <a href="mailto:contact@cellcity.us?Subject=Help%20me" target="_top">contact@cellcity.us</a>
 </label>
 </div>
-<div class="download-links">
+{{-- <div class="download-links">
   <div class="consumer-download-links">
     <a href="https://apps.apple.com/us/app/id1530724750">
       <img src="https://d7gh5vrfihrl.cloudfront.net/website/consumer/ios.png" alt="ios"></a>
@@ -38,7 +54,7 @@
     </div>
   </div>
   <div id="footer-end-separetor"></div>
-  <span id="copy-right-puls"></span><span id="copy-left-puls">© cellcity 2021</span>
+  <span id="copy-right-puls"></span><span id="copy-left-puls">© cellcity 2021</span> --}}
 </div>
 </footer>
 
