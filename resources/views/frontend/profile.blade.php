@@ -161,18 +161,34 @@
 											<th>Quantity</th>
 											<th>Price</th>
 											<th>Status</th>
-											<th>Action</th>
+											{{-- <th>Action</th> --}}
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
-											<td>1</td>
-											<td>Iphone XS</td>
-											<td>2</td>
-											<td>$120</td>
-											<td>Pending</td>
-											<td><a href=""><i class="fa fa-trash text-danger"></i></a></td>
-										</tr>
+                                        @forelse (CityClass::orderlist(Auth::user()->id) as $order)
+                                        <tr>
+                                            <td>1</td>
+											<td>{{$order->brand_name}}  {{$order->model_name}}</td>
+											<td>{{$order->quantity}}</td>
+											<td>${{$order->price}}</td>
+											<td>
+                                                @if ($order->status == 1)
+                                                    <span class="badge badge-success" style="background-color: #56ac05">Complete</span>
+                                                    @else
+                                                    <span><span class="badge badge-danger">not complete</span></span>
+                                                @endif
+                                               </td>
+											{{-- <td><a href=""><i class="fa fa-trash text-danger"></i></a></td> --}}
+                                        </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="5">
+                                                  Soory No Order Yet...
+                                                </td>
+                                            </tr>
+                                        @endforelse
+
+
 									</tbody>
 								</table>
 							</div>

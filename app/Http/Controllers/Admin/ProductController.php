@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Facade\CityClass;
 use App\Models\Product;
 use App\Models\Brand;
 use App\Models\ProductCondition;
@@ -480,13 +481,19 @@ class ProductController extends Controller
         foreach ($images as $image )
         {
 
-             $img .='<li>
-                         <a href="'.asset('storage/products/images/'.$image->image).'" class="lightbox-image" title="Image Caption Here">
+             $img .='<div class="owl-stage-outer"><div class="owl-stage" style="transform: translate3d(-360px, 0px, 0px); transition: all 0.75s ease 0s; width: 720px;"><div class="owl-item" style="width: 360px; margin-right: 0px;">
+                        <li>
+                        <a href="'.asset('storage/products/images/'.$image->image).'" class="lightbox-image" title="Image Caption Here">
                          <img src="'.asset('storage/products/images/'.$image->image).'" alt=""></a>
-                         </li>';
+                     </li></div>';
          }
 
-        return response()->json(['temp'=>$temp ,'img'=> $img,'color'=>$color->color_name]);
+         $imgg = null;
+        foreach($images as $img)
+        {
+            $imgg .='<li><img src="'.asset('storage/products/images/'.$image->image).'" alt=""></li>';
+        }
+        return response()->json(['temp'=>$temp ,'img'=> $img,'color'=>$color->color_name,'imgg'=>$imgg]);
         //return view(['frontend.productmanagment.get-storage'=>$storages,'teams'=>teamInfo,'points'=>pointslist]);
     //return view('frontend.productmanagment.get-storage',compact('storages'));
 
@@ -644,7 +651,7 @@ class ProductController extends Controller
              $messgae = "Succesfully Transferred";
              \Mail::to(Auth::user()->email)->send(new TechMail($details));
             //  return response()->json($messgae);
-          
+
             $phone = "+".Auth::user()->phoneno;
             //  dd($phone);
              $message =strip_tags(nl2br("Dear Customer, \n You have Successfully Pay  through Cash . \n Total Amount : $". $total));
@@ -760,7 +767,7 @@ class ProductController extends Controller
             $color = ProductColor::where('product_id',$cart->associatedModel->id)->first();
             $storage = ProductStorage::where('color_id',$color->id)->first();
             $total = round($cart->quantity*$cart->price);
-            $condition = ProductCondition::where('storage_id',$storage->id)->first();   
+            $condition = ProductCondition::where('storage_id',$storage->id)->first();
             if($cart->quantity <= $condition->quantity)
             {
                $condition->increment('quantity',$cart->quantity);
@@ -784,11 +791,11 @@ class ProductController extends Controller
             $order->grand_price  =$total;
             $order->payment_method = "PayPal";
             $order->status = 1;
-        
+
             $order->save();
             // dd($order);
-           
-        
+
+
 
         }
         $total = \Cart::session($userID)->getTotal();
@@ -802,7 +809,7 @@ class ProductController extends Controller
              \Mail::to(Auth::user()->email)->send(new TechMail($details));
             //  return response()->json($messgae);
 
-           
+
             $phone = "+".Auth::user()->phoneno;
             //  dd($phone);
              $message =strip_tags(nl2br("Dear Customer, \n You have Successfully Pay  through PayPal . \n Total Amount : $". $total));
@@ -839,15 +846,12 @@ class ProductController extends Controller
         //  dd($request->all());
             //  $data = collect([$request->selectedModel]);
             //  dd($data);
+
          if(isset($request->brand))
          {
+            $models = Pmodel::whereIn('brand_Id',explode(',',$request->brand))->get();
+            // dd($model);
 
-    //    $products = Product::with('models')->whereHas('models', function($q) use($brand_Id) {
-    //       $q->whereIn('brand_Id', $brand_Id);
-    //     })->get();
-            // dd($products);
-            // $products = Product::whereIn('brands.id',explode(',',$request->brand))
-            // ->with('models', 'brand')->get();
             $products = DB::table('products')
                           ->join('pmodels','pmodels.id','=','products.model_id')
                           ->join('brands','brands.id','=','pmodels.brand_Id')
@@ -855,38 +859,205 @@ class ProductController extends Controller
                           ->select('products.*')
                           ->get();
 
-                        //   dd($getbrand);
-             return view('frontend.filterProduct.getBrand',compact('products'));
+
+
+           $prod = null;
+              foreach($products as $product)
+              {
+                $color = ProductColor::where('product_id',$product->id)->first();
+                $storage = ProductStorage::where('color_id',$color->id)->first();
+                $model = Pmodel::where('id',$product->model_id)->first();
+                $image = ProductImage::where('product_id',$product->id)->first();
+                $condition = ProductCondition::where('storage_id',$storage->id)->first();
+
+
+               $prod .='<div class="shop-item col-md-4 col-sm-6 col-xs-12"><div class="inner-box">';
+                      if(Auth::user()){
+
+                            if (CityClass::checkWishlist($product->id) == "1")
+                            {
+                                $prod.='<a href="#" onclick="undoWishlist()"><i class="fa fa-heart" style="font-size: 30px;color:#ff0707"></i></a>';
+                             } else{
+                            $prod.='<a href="#" onclick="wishlist('.$product->id.')"><i class="fa fa-heart" style="font-size: 30px;"></i></a>';
+                             }
+                        }
+                        else{
+                        $prod.=' <a href="#" onclick="wishlist('.$product->id.')"><i class="fa fa-heart" style="font-size: 30px;"></i></a>';
+                    }
+
+                  $prod .=' <figure class="image-box">';
+                  $prod .='<a href="'.route('product.details',$product->id) .'"><img src="'.asset('storage/products/images/'.$image->image).'" alt="" /></a>';
+                  $prod .='  </figure>';
+
+                    $prod .=' <div class="lower-content">';
+                    $prod .='<h3><a href="">'. $model->brand->brand_name .'  '.$model->model_name .' </a></h3>';
+                    $prod .='<div> <span>'. $storage->storage .' - '.$color->color_name.' - '. $product->locked .'</span> </div>';
+                    $prod .='<span>';
+                    $prod .=' Warranty: '. $product->warranty .' ';
+                    $prod .='</span>';
+                    $prod .='<div class="brand-imgs">';
+                    $prod .='<div class="brand">';
+                                $prod .='<img src="'.asset('frontend-assets/images/tmobile.svg').'">';
+                            $prod .='</div>';
+                            $prod .='<div class="brand">';
+                                $prod .='<img src=" '.asset('frontend-assets/images/att.svg').'">';
+                            $prod .='</div>';
+                            $prod .='<div class="brand">';
+                               $prod .=' <img src=" '.asset('frontend-assets/images/verizon.svg').'">';
+                            $prod .='</div>';
+                           $prod .=' </div>';
+                        $prod .='<div>Starting from</div>';
+                        $prod .='<div class="price">';
+                        $prod .='<strong>$ '. $condition->price ?? '' .'.00</strong> <del>$'. $product->original_price ?? '' .'</del></div>';
+
+                    $prod .='</div>';
+                    $prod .='</div>';
+                    $prod .='</div>';
+                    $prod .='</div>';
+              }
+
+
+              $mod = null;
+
+              foreach($models as $model)
+              {
+                $mod .='<li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U">
+
+                    <input id="'. $model->id .'" type="checkbox" name="models_name" data-test="facet-'. $model->brand->brand_name ?? '' .'  '. $model->model_name ?? ''.'" class="_3wvnh-Qn  getModelId"  value="'. $model->id .'" onclick="getModels('. $model->id .')">
+                    <label for="'. $model->id  .'" class="_33K8eTZu">
+                    <div class="_3S4CObWg">
+                        <div class="_2OVE0h6V"></div>
+                        <div class="_3xAYCg9N">
+                            <svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg>
+                            </div>
+                        </div>
+                            <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
+                                '. ucwords($model->brand->brand_name) ?? '' .'  '. ucwords($model->model_name) ?? ''.'
+                            </span>
+                            </span>
+                        </div>
+                    </label>
+
+                </li>';
+              }
+
+              return ['product' => $prod , 'modd' => $mod];
+                // view('frontend.filterProduct.getBrand',compact('products','model'));
          }
 
          elseif(isset($request->model))
          {
               $model=$request->model;
-              $products = Product::whereIn('model_id',explode(',',$request->model))->get();
+              $products = Product::whereIn('model_id',explode(',',$model))->get();
             //  dd($model);
-
-               response()->json(['product'=>$products,'model'=>$model]);
-             return view('frontend.filterProduct.getBrand',compact('products','model'));
+            //    response()->json(['product'=>$products,'model'=>$model]);
+             return view('frontend.filterProduct.getBrand',compact('products'));
          }
 
          elseif(isset($request->getCondition))
          {
             //  dd(explode(',',$request->getCondition));
 
-               if(isset($request->selectedModel))
+                if(isset($request->selectedModel))
                {
-                // $model=$request->selectedModel;
-                $products = DB::table('products')
-                            ->join('product_colors','product_colors.product_id','=','products.id')
-                            ->join('product_storages','product_storages.color_id','=','product_colors.id')
-                            ->join('product_conditions','product_conditions.storage_id','=','product_storages.id')
-                            ->whereIn('products.model_id', explode(',',$request->selectedModel))
-                            ->whereIn('product_conditions.condition', explode(',',$request->input('getCondition')))
-                            ->select('products.*')
+                $model=$request->selectedModel;
+                // $model=$request->model;
+                $products = Product::whereIn('model_id',explode(',',$model))->get();
+                // dd($products);
+
+                $modelName =  $products->pluck("id");
+                $modelID = $modelName->all();
+                // dd(implode(",",$modelID));
+                $producdID = implode(",",$modelID);
+
+
+                 $products = DB::table('product_conditions')
+                            ->join('product_storages','product_storages.id','=','product_conditions.storage_id')
+                            ->join('product_colors','product_colors.id','=','product_storages.color_id')
+                            ->join('products','products.id','=','product_colors.product_id')
+                            ->whereIn('products.id',explode(',',$producdID))
+                            ->whereIn('product_conditions.condition',explode(',',$request->input('getCondition')))
+                            ->select('*','products.id')
                             ->get();
-                //  dd($products);
-                  return view('frontend.filterProduct.getBrand',compact('products'));
+
+
+                //    dd($products);
+                  return view('frontend.filterProduct.getCondition',compact('products'));
                }
+         }
+         elseif(isset($request->getStorage))
+         {
+            if(isset($request->selectedModel))
+            {
+             $model=$request->selectedModel;
+
+             $products = Product::whereIn('model_id',explode(',',$model))->get();
+             $modelName =  $products->pluck("id");
+             $modelID = $modelName->all();
+             $producdID = implode(",",$modelID);
+
+             $products = DB::table('product_storages')
+                            ->join('product_colors','product_colors.id','=','product_storages.color_id')
+                            ->join('products','products.id','=','product_colors.product_id')
+                            ->join('product_conditions','product_conditions.storage_id','=','product_storages.id')
+                            ->whereIn('products.id',explode(',',$producdID))
+                            ->whereIn('product_storages.storage',explode(',',$request->input('getStorage')))
+                            ->select('*','products.id')
+                            ->get();
+
+
+             return view('frontend.filterProduct.getCondition',compact('products'));
+
+            }
+            else
+            {
+                $products = DB::table('product_storages')
+                ->join('product_colors','product_colors.id','=','product_storages.color_id')
+                ->join('products','products.id','=','product_colors.product_id')
+                ->join('product_conditions','product_conditions.storage_id','=','product_storages.id')
+                ->whereIn('product_storages.storage',explode(',',$request->input('getStorage')))
+                ->select('*','products.id')
+                ->get();
+
+
+            return view('frontend.filterProduct.getCondition',compact('products'));
+            }
+         }
+         elseif(isset($request->getLocked))
+         {
+            //  dd($request->all());
+            if(isset($request->selectedModel))
+            {
+             $model=$request->selectedModel;
+
+             $products = Product::whereIn('model_id',explode(',',$model))->where('locked',explode(',',$request->input('getLocked')))->get();
+
+            //    dd($products);
+             return view('frontend.filterProduct.getLocked',compact('products'));
+
+            }
+            else
+            {
+                $products = Product::whereIn('locked',explode(',',$request->input('getLocked')))->get();
+                 return view('frontend.filterProduct.getLocked',compact('products'));
+            }
+         }
+
+         elseif(isset($request->maxPrice) || isset($request->minPrice))
+         {
+             $start = $request->minPrice;
+             $end   =$request->maxPrice;
+            $products = DB::table('product_conditions')
+            ->join('product_storages','product_storages.id','=','product_conditions.storage_id')
+            ->join('product_colors','product_colors.id','=','product_storages.color_id')
+            ->join('products','products.id','=','product_colors.product_id')
+            ->where('product_conditions.price','>=',$start)
+            ->where('product_conditions.price','<=',$end)
+            ->select('*','products.id')
+            ->get();
+        //    dd($products);
+           return view('frontend.filterProduct.getCondition',compact('products'));
          }
 
 

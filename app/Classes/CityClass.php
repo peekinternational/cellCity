@@ -15,6 +15,7 @@ use App\Models\RepairOrderType;
 use App\Models\Admin;
 use App\Models\Alert;
 use App\Models\Blog;
+use App\Models\Order;
 use App\Models\OrderTime;
 use App\Models\ProductCondition;
 use App\Models\Wishlist;
@@ -64,6 +65,7 @@ class CityClass {
         return ShippingAddr::where('userId',Auth::user()->id)->get();
     }
 
+
     function checkWishlist($id)
     {
 
@@ -77,6 +79,11 @@ class CityClass {
             return "0";
         }
 
+    }
+
+    function orderlist($id)
+    {
+        return Order::where('user_id',$id)->get();
     }
 
 }

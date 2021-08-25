@@ -1,5 +1,11 @@
 @extends('frontend.layouts.master')
 <link rel="stylesheet" type="text/css" href="{{asset('frontend-assets/css/custom.css')}}">
+<style>
+#slider-container{
+    width:260px;
+    margin:10px;
+}
+</style>
 @section('content')
 <!--Page Title-->
 <!-- <section class="page-title" style="background-image: url(frontend-assets/images/background/3.jpg);">
@@ -14,6 +20,7 @@
 <!--End Page Title-->
 
 <!--Shop Section-->
+
 <section class="shop-section shop-page">
 	<div class="auto-container">
     	<!--Sort By-->
@@ -99,14 +106,21 @@
           <ul class="_1PyjTAdMUxZV6zOWToeiGU">
             <li class="_2LiMhAnX4MDtEL5YEDIdLy">
               <span class="_2RGsPtNo">Price</span>
-              <div data-test="refinements-price-filter" class="_3OhBcjQgxBq443WSs0FQAS">
-                <div data-test="visual-price"><div class="_3T7of6LFMj4NjAv79lCLNc"><div data-test="graph" class="i_meDfDM0blL0WBhbWaWW"><div data-test="graph-bar" class="_3CAIDOLljnRrac-IICYLpg _1HHc7C1_SYqRvZNJZ4lGkO" style="height:17%;"><div class="_6bz8FUsx1GIXd5tF7IpJg"></div></div><div data-test="graph-bar" class="_3CAIDOLljnRrac-IICYLpg _1HHc7C1_SYqRvZNJZ4lGkO" style="height:100%;"><div class="_6bz8FUsx1GIXd5tF7IpJg"></div></div><div data-test="graph-bar" class="_3CAIDOLljnRrac-IICYLpg _1HHc7C1_SYqRvZNJZ4lGkO" style="height:69%;"><div class="_6bz8FUsx1GIXd5tF7IpJg"></div></div><div data-test="graph-bar" class="_3CAIDOLljnRrac-IICYLpg _1HHc7C1_SYqRvZNJZ4lGkO" style="height:44%;"><div class="_6bz8FUsx1GIXd5tF7IpJg"></div></div><div data-test="graph-bar" class="_3CAIDOLljnRrac-IICYLpg _1HHc7C1_SYqRvZNJZ4lGkO" style="height:36%;"><div class="_6bz8FUsx1GIXd5tF7IpJg"></div></div><div data-test="graph-bar" class="_3CAIDOLljnRrac-IICYLpg _1HHc7C1_SYqRvZNJZ4lGkO" style="height:27%;"><div class="_6bz8FUsx1GIXd5tF7IpJg"></div></div><div data-test="graph-bar" class="_3CAIDOLljnRrac-IICYLpg _1HHc7C1_SYqRvZNJZ4lGkO" style="height:13%;"><div class="_6bz8FUsx1GIXd5tF7IpJg"></div></div><div data-test="graph-bar" class="_3CAIDOLljnRrac-IICYLpg _1HHc7C1_SYqRvZNJZ4lGkO" style="height:14%;"><div class="_6bz8FUsx1GIXd5tF7IpJg"></div></div><div data-test="graph-bar" class="_3CAIDOLljnRrac-IICYLpg _1HHc7C1_SYqRvZNJZ4lGkO" style="height:12%;"><div class="_6bz8FUsx1GIXd5tF7IpJg"></div></div><div data-test="graph-bar" class="_3CAIDOLljnRrac-IICYLpg _1HHc7C1_SYqRvZNJZ4lGkO" style="height:7%;"><div class="_6bz8FUsx1GIXd5tF7IpJg"></div></div><div data-test="graph-bar" class="_3CAIDOLljnRrac-IICYLpg _1HHc7C1_SYqRvZNJZ4lGkO" style="height:5%;"><div class="_6bz8FUsx1GIXd5tF7IpJg"></div></div><div data-test="graph-bar" class="_3CAIDOLljnRrac-IICYLpg _1HHc7C1_SYqRvZNJZ4lGkO" style="height:4%;"><div class="_6bz8FUsx1GIXd5tF7IpJg"></div></div><div data-test="graph-bar" class="_3CAIDOLljnRrac-IICYLpg _1HHc7C1_SYqRvZNJZ4lGkO" style="height:1%;"><div class="_6bz8FUsx1GIXd5tF7IpJg"></div></div><div data-test="graph-bar" class="_3CAIDOLljnRrac-IICYLpg _1HHc7C1_SYqRvZNJZ4lGkO" style="height:1%;"><div class="_6bz8FUsx1GIXd5tF7IpJg"></div></div><div data-test="graph-bar" class="_3CAIDOLljnRrac-IICYLpg _1HHc7C1_SYqRvZNJZ4lGkO" style="height:1%;"><div class="_6bz8FUsx1GIXd5tF7IpJg"></div></div><div data-test="graph-bar" class="_3CAIDOLljnRrac-IICYLpg _1HHc7C1_SYqRvZNJZ4lGkO" style="height:1%;"><div class="_6bz8FUsx1GIXd5tF7IpJg"></div></div><div data-test="graph-bar" class="_3CAIDOLljnRrac-IICYLpg _1HHc7C1_SYqRvZNJZ4lGkO" style="height:1%;"><div class="_6bz8FUsx1GIXd5tF7IpJg"></div></div><div data-test="graph-bar" class="_3CAIDOLljnRrac-IICYLpg _1HHc7C1_SYqRvZNJZ4lGkO" style="height:1%;"><div class="_6bz8FUsx1GIXd5tF7IpJg"></div></div><div data-test="graph-bar" class="_3CAIDOLljnRrac-IICYLpg _1HHc7C1_SYqRvZNJZ4lGkO" style="height:1%;"><div class="_6bz8FUsx1GIXd5tF7IpJg"></div></div><div data-test="graph-bar" class="_3CAIDOLljnRrac-IICYLpg _1HHc7C1_SYqRvZNJZ4lGkO" style="height:1%;"><div class="_6bz8FUsx1GIXd5tF7IpJg"></div></div></div> <div data-test="range" class="_3epJu7-V ZcJwQqL1EBPXboL4arnSJ"><div class="_25Xy4QgG _1JoWhPkg"><div data-testid="range-line" class="_2r6hgXul"></div> <span aria-label="Min ($)" aria-orientation="horizontal" aria-valuemax="1500" aria-valuemin="0" aria-valuenow="0" role="slider" tabindex="0" class="z2XK5LsY" style="left:0%;"></span><span aria-label="Max ($)" aria-orientation="horizontal" aria-valuemax="1500" aria-valuemin="0" aria-valuenow="1500" role="slider" tabindex="0" class="z2XK5LsY" style="left:100%;"></span> <div data-testid="range-inner-line" class="_9B9XZ8ug" style="left:0%;width:100%;"></div> <input name="Price Range" type="hidden" value="0,1500"></div></div></div> <div class="_2RTda1QXi5T0_zpF_uf6N6"><div data-test="input-min" inputmode="numeric" max="1500" min="0" pattern="[0-9]*" step="75" class="QnoBHa4Q9Hkjs0N_OI_Qf"><div data-test="input-field-input-wrapper" title="Min ($)" class="_2c3jG0-HjjU2SweT_C8S7n _6OzKFni1I-wKlTg-RSExy input-field-wrapper input-field-wrapper-upper-label"><!----> <label data-test="input-field-label" class="_3B0F79HhJM50lxR0ZFpKV1 input-field-label">
-                Min ($)
-              </label> <input data-test="input-field-input" type="number" value="0" data-test="input-min" inputmode="numeric" max="1500" min="0" pattern="[0-9]*" step="75" class="YHIThiaHsiivDJRiwTcQl input-field-input"> <!----></div> <!----></div> <div data-test="input-max" inputmode="numeric" max="1500" min="0" pattern="[0-9]*" step="75" class="QnoBHa4Q9Hkjs0N_OI_Qf"><div data-test="input-field-input-wrapper" title="Max ($)" class="_2c3jG0-HjjU2SweT_C8S7n _6OzKFni1I-wKlTg-RSExy input-field-wrapper input-field-wrapper-upper-label"><!----> <label data-test="input-field-label" class="_3B0F79HhJM50lxR0ZFpKV1 input-field-label">
-                Max ($)
-              </label> <input data-test="input-field-input" type="number" value="1500" data-test="input-max" inputmode="numeric" max="1500" min="0" pattern="[0-9]*" step="75" class="YHIThiaHsiivDJRiwTcQl input-field-input"> <!----></div> <!----></div></div></div> <span data-test="average-price-filter" class="_3JZtHpVH">
-              The average price is $267.00
-            </span></div></li>
+
+                <div id="slider-container"></div>
+
+                    <p>
+                    <label for="amount">Price range:</label>
+                    <input type="text" id="amount" style="border: 0; color: #f6931f; font-weight: bold;" />
+                    </p>
+
+
+                    <div id="slider-range"></div>
+
+
+
+             </li>
+
             <li class="_2LiMhAnX4MDtEL5YEDIdLy">
               <h3 class="_2RGsPtNo">Brand</h3>
               <ul data-test="filters-facet" class="_26WV8o_nAH1VuLftdiS-6t">
@@ -149,96 +163,7 @@
                   </div>
                 </li>
                 @endforeach
-                {{-- <li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U">
-                  <div>
-                    <input id="brand-1" type="checkbox" data-test="facet- Samsung" class="_3wvnh-Qn">
-                    <label for="brand-1" class="_33K8eTZu">
-                      <div class="_3S4CObWg">
-                        <div class="_2OVE0h6V"></div>
-                        <div class="_3xAYCg9N">
-                          <svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg>
-                        </div>
-                      </div>
-                      <div class="TRSMTVTh">
-                        <span class="_28IelIKC">
-                          <span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">Samsung</span>
-                        </span>
-                      </div> <!----> <!---->
-                    </label>
-                  </div>
-                </li> --}}
-                {{-- <li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U">
-                  <div>
-                    <input id="brand-99" type="checkbox" data-test="facet-Google" class="_3wvnh-Qn">
-                    <label for="brand-99" class="_33K8eTZu">
-                      <div class="_3S4CObWg">
-                        <div class="_2OVE0h6V"></div>
-                        <div class="_3xAYCg9N">
-                          <svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg>
-                        </div>
-                      </div>
-                      <div class="TRSMTVTh">
-                        <span class="_28IelIKC">
-                          <span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k"> Google</span>
-                        </span>
-                      </div> <!----> <!---->
-                    </label>
-                  </div>
-                </li>
-                <li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U">
-                  <div>
-                    <input id="brand-99LG" type="checkbox" data-test="facet-LG" class="_3wvnh-Qn">
-                    <label for="brand-99LG" class="_33K8eTZu">
-                      <div class="_3S4CObWg">
-                        <div class="_2OVE0h6V"></div>
-                        <div class="_3xAYCg9N">
-                          <svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg>
-                        </div>
-                      </div>
-                      <div class="TRSMTVTh">
-                        <span class="_28IelIKC">
-                          <span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">LG</span>
-                        </span>
-                      </div> <!----> <!---->
-                    </label>
-                  </div>
-                </li>
-                <li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U">
-                  <div>
-                    <input id="brand-99Motorola" type="checkbox" data-test="facet-Motorola" class="_3wvnh-Qn">
-                    <label for="brand-99Motorola" class="_33K8eTZu">
-                      <div class="_3S4CObWg">
-                        <div class="_2OVE0h6V"></div>
-                        <div class="_3xAYCg9N">
-                          <svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg>
-                        </div>
-                      </div>
-                      <div class="TRSMTVTh">
-                        <span class="_28IelIKC">
-                          <span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">Motorola</span>
-                        </span>
-                      </div> <!----> <!---->
-                    </label>
-                  </div>
-                </li>
-                <li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U">
-                  <div>
-                    <input id="brand-99OnePlus" type="checkbox" data-test="facet-OnePlus" class="_3wvnh-Qn">
-                    <label for="brand-99OnePlus" class="_33K8eTZu">
-                      <div class="_3S4CObWg">
-                        <div class="_2OVE0h6V"></div>
-                        <div class="_3xAYCg9N">
-                          <svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg>
-                        </div>
-                      </div>
-                      <div class="TRSMTVTh">
-                        <span class="_28IelIKC">
-                          <span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">OnePlus</span>
-                        </span>
-                      </div> <!----> <!---->
-                    </label>
-                  </div>
-                </li> --}}
+
                 <span class="_3JZtHpVH kdWBx8BsOXOeHlX8MCQf_">
                   <button data-test="facet-toggler" class="_3wCdvNLg s1Zi9DG5">See more</button>
                 </span>
@@ -247,7 +172,8 @@
               <li class="_2LiMhAnX4MDtEL5YEDIdLy"><h3 class="_2RGsPtNo">
                   Model
                 </h3>
-                <ul data-test="filters-facet" class="_26WV8o_nAH1VuLftdiS-6t"><li class="_33pDOgQ80LhcEmJTGXNM3U"><div><input id="model-reset" type="checkbox" checked="checked" data-test="facet-reset" class="_3wvnh-Qn"> <label for="model-reset" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC">
+                <ul data-test="filters-facet" class="_26WV8o_nAH1VuLftdiS-6t" id="modelsss">
+                    <li class="_33pDOgQ80LhcEmJTGXNM3U"><div><input id="model-reset" type="checkbox" checked="checked" data-test="facet-reset" class="_3wvnh-Qn"> <label for="model-reset" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC">
                     All
                   </span></span></div> <!----> <!----></label></div></li>
 
@@ -335,28 +261,69 @@
                   Locked or Unlocked
                 </h3> <ul data-test="filters-facet" class="_26WV8o_nAH1VuLftdiS-6t"><li class="_33pDOgQ80LhcEmJTGXNM3U"><div><input id="sim_lock_state-reset" type="checkbox" checked="checked" data-test="facet-reset" class="_3wvnh-Qn"> <label for="sim_lock_state-reset" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC">
                     All
-                  </span></span></div> <!----> <!----></label></div></li> <li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U"><div><input id="sim_lock_state-Locked or Unlocked" type="checkbox" data-test="facet-Locked or Unlocked" class="_3wvnh-Qn"> <label for="sim_lock_state-Locked or Unlocked" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
-                    Locked or Unlocked
-                  </span> </span></div> <!----> <!----></label></div></li><li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U"><div><input id="sim_lock_state-Unlocked only" type="checkbox" data-test="facet-Unlocked only" class="_3wvnh-Qn"> <label for="sim_lock_state-Unlocked only" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
+                  </span></span></div> <!----> <!----></label></div></li>
+                   <li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U"><div>
+                       <input id="sim_lock_state-Locked" type="checkbox" data-test="facet-Locked" class="_3wvnh-Qn getLocked" value="Locked" onclick="getLocked()">
+                       <label for="sim_lock_state-Locked" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
+                    Locked only
+                  </span> </span></div> <!----> <!----></label></div></li>
+                  <li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U"><div>
+                      <input id="sim_lock_state-Unlocked only" type="checkbox" data-test="facet-Unlocked" class="_3wvnh-Qn getLocked" value="Unlocked" onclick="getLocked()">
+                      <label for="sim_lock_state-Unlocked only" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
                     Unlocked only
                   </span> </span></div> <!----> <!----></label></div></li> <!----></ul></li>
                 <li class="_2LiMhAnX4MDtEL5YEDIdLy"><h3 class="_2RGsPtNo">
                   Storage (GB)
                 </h3> <ul data-test="filters-facet" class="_26WV8o_nAH1VuLftdiS-6t"><li class="_33pDOgQ80LhcEmJTGXNM3U"><div><input id="storage-reset" type="checkbox" checked="checked" data-test="facet-reset" class="_3wvnh-Qn"> <label for="storage-reset" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC">
                     All
-                  </span></span></div> <!----> <!----></label></div></li> <li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U"><div><input id="storage-1000 1 GB" type="checkbox" data-test="facet-1 GB" class="_3wvnh-Qn"> <label for="storage-1000 1 GB" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
-                    1 GB
-                  </span> </span></div> <!----> <!----></label></div></li><li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U"><div><input id="storage-4000 4 GB" type="checkbox" data-test="facet-4 GB" class="_3wvnh-Qn"> <label for="storage-4000 4 GB" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
+                  </span></span></div> <!----> <!----></label></div></li>
+                  <li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U"><div>
+                      <input id="storage-2000 2 GB" type="checkbox" data-test="facet-1 GB" class="_3wvnh-Qn getStorage" value="2 GB" onclick="getStorage()">
+                        <label for="storage-2000 2 GB" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
+                     2 GB
+                  </span> </span></div> <!----> <!----></label></div></li>
+
+                  <li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U"><div>
+                      <input id="storage-4000 4 GB" type="checkbox" data-test="facet-4 GB" class="_3wvnh-Qn getStorage" value="4 GB" onclick="getStorage()">
+                         <label for="storage-4000 4 GB" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
                     4 GB
-                  </span> </span></div> <!----> <!----></label></div></li><li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U"><div><input id="storage-8000 8 GB" type="checkbox" data-test="facet-8 GB" class="_3wvnh-Qn"> <label for="storage-8000 8 GB" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
+                  </span> </span></div> <!----> <!----></label></div></li>
+
+                  <li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U"><div>
+                      <input id="storage-8000 8 GB" type="checkbox" data-test="facet-8 GB" class="_3wvnh-Qn getStorage" value="8 GB" onclick="getStorage()">
+                        <label for="storage-8000 8 GB" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
                     8 GB
-                  </span> </span></div> <!----> <!----></label></div></li><li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U"><div><input id="storage-16000 16 GB" type="checkbox" data-test="facet-16 GB" class="_3wvnh-Qn"> <label for="storage-16000 16 GB" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
+                  </span> </span></div> <!----> <!----></label></div></li>
+
+                  <li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U"><div>
+                      <input id="storage-16000 16 GB" type="checkbox" data-test="facet-16 GB" class="_3wvnh-Qn  getStorage" value="16 GB" onclick="getStorage()">
+                        <label for="storage-16000 16 GB" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
                     16 GB
-                  </span> </span></div> <!----> <!----></label></div></li><li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U"><div><input id="storage-32000 32 GB" type="checkbox" data-test="facet-32 GB" class="_3wvnh-Qn"> <label for="storage-32000 32 GB" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
+                  </span> </span></div> <!----> <!----></label></div></li>
+
+                  <li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U"><div>
+                      <input id="storage-32000 32 GB" type="checkbox" data-test="facet-32 GB" class="_3wvnh-Qn  getStorage" value="32 GB" onclick="getStorage()">
+                         <label for="storage-32000 32 GB" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
                     32 GB
-                  </span> </span></div> <!----> <!----></label></div></li><li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U"><div><input id="storage-62000 62 GB" type="checkbox" data-test="facet-62 GB" class="_3wvnh-Qn"> <label for="storage-62000 62 GB" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
-                    62 GB
-                  </span> </span></div> <!----> <!----></label></div></li> <span class="_3JZtHpVH kdWBx8BsOXOeHlX8MCQf_"><button data-test="facet-toggler" class="_3wCdvNLg s1Zi9DG5">
+                  </span></span></div> <!----> <!----></label></div></li>
+
+                  <li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U"><div>
+                      <input id="storage-64000 64 GB" type="checkbox" data-test="facet-62 GB" class="_3wvnh-Qn  getStorage" value="64 GB" onclick="getStorage()" >
+                         <label for="storage-64000 64 GB" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
+                    64 GB
+                  </span> </span></div> <!----> <!----></label></div></li>
+                  <li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U"><div>
+                    <input id="storage-128000 128 GB" type="checkbox" data-test="facet-128 GB" class="_3wvnh-Qn  getStorage" value="128 GB" onclick="getStorage()" >
+                       <label for="storage-128000 128 GB" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
+                  128 GB
+                </span> </span></div> <!----> <!----></label></div></li>
+                <li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U"><div>
+                    <input id="storage-256000 256 GB" type="checkbox" data-test="facet-256 GB" class="_3wvnh-Qn  getStorage" value="256 GB" onclick="getStorage()" >
+                       <label for="storage-256000 256 GB" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
+                  256 GB
+                </span> </span></div> <!----> <!----></label></div></li>
+
+                   <span class="_3JZtHpVH kdWBx8BsOXOeHlX8MCQf_"><button data-test="facet-toggler" class="_3wCdvNLg s1Zi9DG5">
                 See more
               </button></span></ul></li>
               </ul>
@@ -394,13 +361,13 @@
 
                   <figure class="image-box">
 
-                   <a href="{{route('product.details',$product->id) }}"><img src="{{asset('storage/products/images/'.$image->image)}}" alt="" /></a>
+                   <a href="{{ route('product.details',$product->id) }}"><img src="{{asset('storage/products/images/'.$image->image)}}" alt="" /></a>
 
                 </figure>
                   <!--Lower Content-->
                   <div class="lower-content">
-                    <h3><a href="">{{ $model->brand->brand_name }}  {{ $model->model_name }} </a></h3>
-                    <div> <span>{{ $storage->storage }} -{{$color->color_name}} - {{ $product->locked }}</span> </div>
+                    <h3><a href="">{{ $model->brand->brand_name ?? ''}}  {{ $model->model_name ?? ''}} </a></h3>
+                    <div> <span>{{ $storage->storage }} - {{ $color->color_name }} - {{ $product->locked }}</span> </div>
                       <span>
                       Warranty: {{ $product->warranty }}
                       </span>
@@ -449,11 +416,32 @@
         //   alert('asdasd');
         var id = id;
        var  brand = [];
+
+       $(".getCondition").each(function(){
+        if($(this).is(":checked")){
+            $('.getCondition').prop('checked', false);
+        }
+       });
+      ;
+       $(".getStorage").each(function(){
+                if($(this).is(":checked")){
+                    $('.getStorage').prop('checked', false);
+                }
+            });
+
        $(".getBrandId").each(function(){
         if($(this).is(":checked")){
             brand.push($(this).val());
         }
        });
+
+       $('input:checkbox[name=models_name]').each(function()
+            {
+                if($(this).is(':checked'))
+                $('.getModelId').prop('checked', false);
+            //    console.log(selectedBrand);
+            });
+
        var getbrand = brand.toString();
             console.log(getbrand);
        $.ajax({
@@ -463,8 +451,10 @@
         data:"brand=" + brand,
 
         success:function(response){
-          console.log(response);
-          $('#filter').html(response);
+          console.log(response.modd);
+          $('#modelsss').html(response.modd);
+          $('#filter').html(response.product);
+
         //   $('#exampleModal'+id).modal('show');
         },
 
@@ -472,10 +462,27 @@
        });
 
       }
+
       function getModels(id){
         //   alert('asdasd');
         // var id = id;
 
+        $(".getCondition").each(function(){
+        if($(this).is(":checked")){
+            $('.getCondition').prop('checked', false);
+        }
+       });
+        $(".getBrandId").each(function(){
+        if($(this).is(":checked")){
+
+              $('.getBrandId').prop('checked', false);
+        }
+       });
+         $(".getStorage").each(function(){
+                if($(this).is(":checked")){
+                    $('.getStorage').prop('checked', false);
+                }
+            });
          var selectedModel =[];
         $('input:checkbox[name=models_name]').each(function()
             {
@@ -524,6 +531,7 @@
             });
 
             var selectedModel = selectedModel.toString();
+          console.log(selectedModel);
 
 
         var  getCondition = [];
@@ -534,7 +542,7 @@
        });
 
        var getCondition = getCondition.toString();
-            // console.log(getmodels);
+            console.log(getCondition);
        $.ajax({
         url: "{{url('getBrandFilter')}}",
         type:"get",
@@ -550,6 +558,80 @@
        });
 
       }
+      function getStorage()
+        {
+            var selectedModel =[];
+            $('input:checkbox[name=models_name]').each(function()
+                {
+                    if($(this).is(':checked'))
+                    selectedModel.push($(this).val());
+                //    console.log(selectedBrand);
+                });
+
+            var selectedModel = selectedModel.toString();
+
+          console.log(selectedModel);
+            var getStorage= [];
+            $(".getStorage").each(function(){
+                if($(this).is(":checked")){
+                    getStorage.push($(this).val());
+                }
+            });
+
+            var getStorage = getStorage.toString();
+                    console.log(getStorage);
+            $.ajax({
+                url: "{{url('getBrandFilter')}}",
+                type:"get",
+                dataType:"html",
+                data:{getStorage:getStorage,selectedModel:selectedModel},
+
+                success:function(response){
+                console.log(response);
+                $('#filter').html(response);
+                //   $('#exampleModal'+id).modal('show');
+                },
+
+            });
+        }
+
+        function getLocked()
+        {
+
+            var selectedModel =[];
+            $('input:checkbox[name=models_name]').each(function()
+                {
+                    if($(this).is(':checked'))
+                    selectedModel.push($(this).val());
+                //    console.log(selectedBrand);
+                });
+
+            var selectedModel = selectedModel.toString();
+
+          console.log(selectedModel);
+            var getLocked= [];
+            $(".getLocked").each(function(){
+                if($(this).is(":checked")){
+                    getLocked.push($(this).val());
+                }
+            });
+
+            var getLocked = getLocked.toString();
+                    console.log(getLocked);
+            $.ajax({
+                url: "{{url('getBrandFilter')}}",
+                type:"get",
+                dataType:"html",
+                data:{getLocked:getLocked,selectedModel:selectedModel},
+                success:function(response){
+                console.log(response);
+                $('#filter').html(response);
+                //   $('#exampleModal'+id).modal('show');
+                },
+
+            });
+        }
+
 
       function wishlist(productID)
       {
@@ -572,8 +654,6 @@
 
             });
         @endif
-
-
 
       }
 
@@ -599,5 +679,53 @@
         @endif
     }
 
+
+</script>
+
+<script>
+    $(function() {
+        $('#slider-container').slider({
+            range: true,
+            min: 0,
+            max: 1000,
+            values: [0, 1000],
+            slide: function(event, ui) {
+                $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+                var mi = ui.values[ 0 ];
+                var mx = ui.values[ 1 ];
+                filterSystem(mi, mx);
+
+            }
+        });
+      $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
+      " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+
+  });
+
+function filterSystem(minPrice, maxPrice) {
+    console.log(minPrice, maxPrice);
+   ;
+
+            $.ajax({
+                url: "{{url('getBrandFilter')}}",
+                type:"get",
+                dataType:"html",
+                data:{minPrice:minPrice,maxPrice:maxPrice},
+                success:function(response){
+                console.log(response);
+                $('#filter').html(response);
+                //   $('#exampleModal'+id).modal('show');
+                },
+
+            });
+
+	$("#computers div.system").hide().filter(function() {
+
+		var price = parseInt($(this).data("price"), 10);
+
+        return price >= minPrice && price <= maxPrice;
+
+	}).show();
+}
 </script>
 @endsection

@@ -43,8 +43,7 @@ $condition = App\Models\ProductCondition::where('storage_id',$storage->id)->firs
         </div>
       <div>Starting from</div>
       <div class="price">
-      <strong>${{ $condition->price ?? '' }}.00</strong> <del>${{ $product->original_price ?? ''}}</del>
-    </div>
+      <strong>${{ $condition->price ?? '' }}.00</strong> <del>${{ $product->original_price ?? ''}}</del></div>
       <!-- <a href="" class="cart-btn theme-btn btn-style-two">Add to cart</a> -->
   </div>
 </div>

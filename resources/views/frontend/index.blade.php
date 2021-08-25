@@ -268,7 +268,7 @@
                         <!--Lower Content-->
 
                         <div class="lower-content">
-                        	<h3><a href="{{url('single')}}">{{ $model->brand->brand_name }}  {{ $model->model_name?? '' }}</a></h3>
+                        	<h3><a href="{{url('single')}}">{{ $model->brand->brand_name ?? ''}}  {{ $model->model_name?? '' }}</a></h3>
                         	<div> <span>{{ $product->memory ?? ''}} - {{$color->color_name ?? ''}} - {{ $product->locked ?? ''}}</span> </div>
 		                        <span>
 		                        Warranty: {{ $product->warranty ?? ''}}

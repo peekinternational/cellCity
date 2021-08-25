@@ -17,7 +17,9 @@
 
         <link href="{{asset('admin-assets/datatable/dataTables.bootstrap4.min.css')}}" rel="stylesheet" />
          <link href="{{asset('admin-assets/datatable/jquery.dataTables.min.css')}}" rel="stylesheet" />
-		@yield('styling')
+         <link rel='stylesheet' href="{{asset('frontend-assets/css/jquery-ui.css')}}"/>
+
+         @yield('styling')
 	</head>
 
 	<body>
@@ -64,6 +66,7 @@
         <script src="{{asset('admin-assets/datatable/jquery.dataTables.min.js')}}"></script>
         <script src="{{asset('admin-assets/datatable/dataTables.bootstrap4.min.js')}}"></script>
         <script src="{{asset('admin-assets/js/datatable.js')}}"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 		@yield('script')
 	</body>
 </html>

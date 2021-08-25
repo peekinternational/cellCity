@@ -43,7 +43,7 @@
                                     <div class="image-column col-md-4 col-sm-4 col-xs-12">
                                         <!--<figure class="image-box"><img src="images/resource/products/image-9.jpg" alt=""></figure>-->
                                         <div class="carousel-outer wow fadeInLeft">
-                                            <ul class="image-carousel image">
+                                            <ul class="image-carousel" id="images">
 
                                                 @foreach ($images as $image )
                                                 <li><a href="{{asset('storage/products/images/'.$image->image)}}" class="lightbox-image" title="Image Caption Here"><img src="{{asset('storage/products/images/'.$image->image)}}" alt=""></a></li>
@@ -55,13 +55,10 @@
                                                 <li><a href="{{asset('frontend-assets/images/resource/products/shop-image-1.jpg')}}" class="lightbox-image" title="Image Caption Here"><img src="{{asset('frontend-assets/images/resource/products/shop-image-1.jpg')}}" alt=""></a></li> --}}
                                             </ul>
 
-                                            <ul class="thumbs-carousel" >
-                                                @foreach ($images as $image )
+                                            <ul class="thumbs-carousel" id="imgg">
+                                                @foreach ($images as $image)
                                                 <li><img src="{{asset('storage/products/images/'.$image->image)}}" alt=""></li>
                                                 @endforeach
-
-
-
                                             </ul>
 
                                         </div>
@@ -483,11 +480,12 @@
         type:"get",
         success:function(response){
 
-          console.log(response.temp);
+          console.log(response);
 
                 $('#getstorage').html(response.temp);
 
-                $(".image").html(response.img);
+                $("#images").html(response.img);
+                $("#imgg").html(response.imgg);
                 $("#color").html(response.color);
                 $("#getcolor").val(response.color);
         },

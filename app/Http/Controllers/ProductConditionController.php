@@ -128,7 +128,7 @@ class ProductConditionController extends Controller
     }
     public function storeColor(Request $request)// Color Update and Delete
     {
-        dd($request->all());
+        // dd($request->all());
         // $colors = Product::find($id)->color;
 
         return view('admin.color.index',compact('colors'));

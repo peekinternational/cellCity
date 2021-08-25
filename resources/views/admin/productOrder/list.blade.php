@@ -78,67 +78,34 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach($RepairOrders as $order)
+                                                    @foreach($productOrder as $order)
                                                     <tr>
                                                         <td><a href="javascript: void(0);" class="text-body font-weight-bold">{{$order->id}}</a> </td>
                                                         <td>{{$order->created_at->format('Y-m-d')}}</td>
-                                                        <td>{{$order->name}}</td>
+                                                        <td>{{$order->user->name}}</td>
                                                         <td>
-                                                            {{$order->date}}, {{$order->time}}
+
+
+                                                            {{CityClass::modelName($order->product_id)}}
+
+
+                                                        </td>
+                                                        <td>{{$order->shipAddress_id}}</td>
+                                                        <td>
+                                                            {{$order->created_at}}
                                                         </td>
 
                                                         <td>
-                                                           ${{$order->repairorderstypes->sum('price')}}
-                                                        </td>
-                                                         {{-- <td>
-                                                            @if($order->pay_status == 'paid')
-                                                            <span class="badge badge-pill badge-soft-success font-size-12">Paid</span>
-                                                            @else
-                                                             <span class="badge badge-pill badge-soft-warning font-size-12">Unpaid</span>
-                                                            @endif
+                                                           ${{$order->grand_price}}
                                                         </td>
                                                         <td>
-                                                            <!-- Button trigger modal -->
-                                                           <span class="badge badge-pill badge-soft-success font-size-12"> {{$order->pay_method}}</span>
-                                                        </td> --}}
-                                                        @php
-                                                          $techId = App\Models\User::where('id',$order->techId)->first();
-                                                        @endphp
-                                                       <td>
-                                                        @if ($order->order_status == 3 && $order->techId !== null)
-                                                        <span class="badge badge-pill badge-warning">Assign</span>
-
-                                                        @elseif ($order->order_status == 1  && $order->techId !== null)
-                                                        <span class="badge badge-pill badge-warning">Accept</span>
-                                                        @elseif ($order->order_status == 0  && $order->techId !== null)
-                                                        <span class="badge badge-pill badge-secondary">Pendding</span>
-                                                        @elseif ($order->order_status == 2  && $order->techId == null)
-                                                        <span class="badge badge-pill badge-danger">Reject</span>
-                                                        @elseif ($order->order_status == 4 && $order->techId !== null)
-                                                        <span class="badge badge-pill badge-success">Completed</span>
+                                                        @if ($order->status == 1 )
+                                                        <span class="badge badge-pill badge-warning">Paid</span>
                                                         @else
-                                                        <span class="badge badge-pill badge-info">Not Assign</span>
+                                                        <span class="badge badge-pill badge-info">Not Paid</span>
                                                         @endif
                                                        </td>
-                                                        <td id="or{{$order->id}}">
-                                                          @if ($order->techId === null || $order->techId === 0)
-                                                          <select onchange="selectTech(this,'{{$order->id}}')" class="form-control select2">
-                                                            <option selected="">Select Technician</option>
 
-                                                            @foreach(CityClass::allTech() as $tech)
-                                                                <option value="{{$tech->id}}">{{$tech->name}}</option>
-                                                            @endforeach
-
-                                                        </select>
-                                                          @elseif ($order->order_status == 3 && $order->techId !== null)
-                                                          {{$techId->name ?? 'Deleted Tech'}}
-                                                           <button onclick="rejectOrder('{{$order->id}}')" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cancel The order">cancel</button>
-                                                             @else
-                                                             {{$techId->name ?? 'Deleted Tech'}}
-
-                                                           @endif
-
-                                                        </td>
                                                         <td>
                                                             <a href="javascript:void(0);" data-toggle="modal" data-target="#exampleModal{{$order->id}}" onclick="viewDetail('{{$order->id}}')" class="mr-3 text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="View Detail"><i class="mdi mdi-eye font-size-18"></i></a>
                                                             <a href="{{url('admin/modify-order',$order->id)}}" class="mr-3 text-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="mdi mdi-pencil font-size-18"></i></a>
@@ -150,23 +117,7 @@
                                                 </tbody>
                                             </table>
                                         </div>
-                                        {{-- <ul class="pagination pagination-rounded justify-content-end mb-2">
-                                            <li class="page-item disabled">
-                                                <a class="page-link" href="javascript: void(0);" aria-label="Previous">
-                                                    <i class="mdi mdi-chevron-left"></i>
-                                                </a>
-                                            </li>
-                                            <li class="page-item active"><a class="page-link" href="javascript: void(0);">1</a></li>
-                                            <li class="page-item"><a class="page-link" href="javascript: void(0);">2</a></li>
-                                            <li class="page-item"><a class="page-link" href="javascript: void(0);">3</a></li>
-                                            <li class="page-item"><a class="page-link" href="javascript: void(0);">4</a></li>
-                                            <li class="page-item"><a class="page-link" href="javascript: void(0);">5</a></li>
-                                            <li class="page-item">
-                                                <a class="page-link" href="javascript: void(0);" aria-label="Next">
-                                                    <i class="mdi mdi-chevron-right"></i>
-                                                </a>
-                                            </li>
-                                        </ul> --}}
+
                                     </div>
                                 </div>
                             </div>

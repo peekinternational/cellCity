@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\AdminRepairController;
 use App\Http\Controllers\ProductConditionController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\ProductOrderController;
 use App\Http\Controllers\ShippingAddress;
 use App\Http\Controllers\SquareController;
 use App\Http\Controllers\WishlistController;
@@ -87,17 +88,19 @@ Route::name('admin.')->namespace('Admin')->prefix('admin')->group(function(){
     Route::post('/product-storeCondition',[ProductConditionController::class, 'storeCondition']);
     Route::get('/productCondtion-delete/{id}/{id2}',[ProductConditionController::class, 'deleteCondition']);
 
-   ////  View of Product storage
+////  View of Product storage
     Route::get('/product-storage/{id}',[ProductConditionController::class,'storage']);
     Route::post('/productStorage-store',[ProductConditionController::class, 'storeStorage']);
     Route::get('/productStorage-delete/{id}',[ProductConditionController::class, 'deleteStorage']);
-   ////  View of Product image
+////  View of Product image
     Route::get('/product-image/{id}',[ProductConditionController::class,'image']);
-   ////  View of Product color
+////  View of Product color
     Route::get('/product-color/{id}',[ProductConditionController::class,'color']);
     Route::post('/productColor-store',[ProductConditionController::class, 'storeColor']);
     Route::get('/productColor-delete/{id}',[ProductConditionController::class, 'deleteColor']);
 
+    ////Product Order list
+    Route::get('/productOrder',[ProductOrderController::class, 'productOrder']);
 
 
 
@@ -248,7 +251,7 @@ Route::namespace('Auth')->middleware('auth:web')->group(function(){
 
   /////////////////    Ajax Filter  Buy Page
 
-    Route::get('/getBrandFilter',[ProductController::class,'getBrandFilter']);
+    Route::post('/getBrandFilter',[ProductController::class,'getBrandFilter']);
     ///Ajax Jquery Product Single Page
     Route::get('/getStorage/{id}',[ProductController::class,'getStorage']);
     Route::get('/getCondition/{id}',[ProductController::class,'getCondition'])->name('get.condition');
