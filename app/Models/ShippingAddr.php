@@ -18,6 +18,7 @@ class ShippingAddr extends Model
         'state',
         'city',
         'zipcode',
+        'street_address'
     ];
 
       public function user()

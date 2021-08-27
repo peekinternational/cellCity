@@ -625,7 +625,7 @@ class ProductController extends Controller
                 $order->price     = $cart->price;
                 $order->grand_price  =$total;
                 $order->payment_method = "Cash";
-                $order->status = 1;
+                $order->status = 0;
 
                 $order->save();
 
@@ -778,7 +778,7 @@ class ProductController extends Controller
             {
                 return redirect()->route('view.cart')->with('status' ,'Enough Quantity of:' . $condition->name);
             }
-    
+
             $order = new Order;
             $order->user_id = $userID;
             $order->product_id = $cart->associatedModel->id;
@@ -792,7 +792,7 @@ class ProductController extends Controller
             $order->price     = $cart->price;
             $order->grand_price  =$total;
             $order->payment_method = "PayPal";
-            $order->status = 1;
+            $order->status = 0;
 
             $order->save();
             // dd($order);

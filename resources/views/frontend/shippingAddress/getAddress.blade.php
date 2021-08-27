@@ -20,6 +20,10 @@
                 <input type="text" name="shipaddress" class="form-control" placeholder="Full address" value="{{$address->shipaddress}}" required>
             </div>
             <div class="form-group">
+                <label>Street Address</label>
+                <input type="text" name="street_address" class="form-control" value="{{$address->street_address}}" placeholder="Street address" required>
+            </div>
+            <div class="form-group">
                 <div class="row">
                     <div class="col-md-6">
                         <label>Country</label>

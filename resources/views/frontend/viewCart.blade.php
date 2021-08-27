@@ -122,8 +122,12 @@
                                 <input type="text" name="mobileNo" class="form-control" placeholder="Phone Number" required>
                             </div>
                             <div class="form-group">
-                                <label>Full address</label>
+                                <label>Address</label>
                                 <input type="text" name="shipaddress" class="form-control" placeholder="Full address" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Street Address</label>
+                                <input type="text" name="street_address" class="form-control"  placeholder="Street address" required>
                             </div>
                             <div class="form-group">
                                 <div class="row">

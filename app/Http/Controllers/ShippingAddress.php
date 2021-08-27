@@ -43,11 +43,13 @@ class ShippingAddress extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
         $ship= New ShippingAddr;
         $ship->userId=  Auth::guard('web')->user()->id;
         $ship->name= $request->name;
         $ship->mobileNo= $request->mobileNo;
         $ship->shipaddress= $request->shipaddress;
+        $ship->street_address= $request->street_address;
         $ship->country= $request->country;
         $ship->state= $request->state;
         $ship->city= $request->city;
@@ -91,6 +93,7 @@ class ShippingAddress extends Controller
         $ship->name= $request->name;
         $ship->mobileNo= $request->mobileNo;
         $ship->shipaddress= $request->shipaddress;
+        $ship->street_address= $request->street_address;
         $ship->country= $request->country;
         $ship->state= $request->state;
         $ship->city= $request->city;
@@ -142,6 +145,7 @@ class ShippingAddress extends Controller
         $address->name= $request->name;
         $address->mobileNo= $request->mobileNo;
         $address->shipaddress= $request->shipaddress;
+        $address->street_address= $request->street_address;
         $address->country= $request->country;
         $address->state= $request->state;
         $address->city= $request->city;

@@ -151,7 +151,7 @@
 }
 .jss90 img {
     margin: 0 auto;
-}	
+}
 .zipcode{
 	height: 50px !important;
 	border: 0 !important;
@@ -408,6 +408,9 @@
             box-sizing: border-box;
     width: 100%;
 }*/
+
+
+
 
 .content-container > div{
     -webkit-box-sizing: border-box;
