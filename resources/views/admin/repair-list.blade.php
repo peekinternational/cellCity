@@ -37,7 +37,7 @@
                                                         <td>
                                                             <div class="avatar-xs">
                                                                 <span class="avatar-title rounded-circle">
-                                                                    {{$index + 1}}
+                                                                    {{ $RepairType->id }}
                                                                 </span>
                                                             </div>
                                                         </td>
@@ -64,12 +64,13 @@
                                                                     {{csrf_field()}}
                                                                        @method('DELETE')
 
-                                                                       <label for="delZip" data-toggle="tooltip" data-placement="top" title="Delete" style="cursor: pointer;"><i class="mdi mdi-delete-circle-outline"></i></label>
-                                                                       <input id="delZip" type="submit" name="" style="display: none">
+                                                                       {{-- <label for="delZipss" data-toggle="tooltip" data-placement="top" title="Delete" style="cursor: pointer;"><i class="mdi mdi-delete-circle-outline"></i></label>
+                                                                       <input id="delZipss" type="submit" name="" style="display: none"> --}}
+                                                                       <button type="submit" style="border: 0; background: transparent;"><i class="mdi mdi-delete-circle-outline"></i></button>
                                                                    </form>
 
                                                                 </li>
-                                                              <!--   <li class="list-inline-item px-2">
+                                                              <!--<li class="list-inline-item px-2">
                                                                     <a href="" data-toggle="tooltip" data-placement="top" title="Profile"><i class="mdi mdi-account-circle-outline"></i></a>
                                                                 </li> -->
                                                             </ul>

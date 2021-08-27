@@ -68,10 +68,10 @@
           </div>
           <div class="a-cell xs-12 md-3" data-v-2b8789a2="">
             <div class="axop9d4ghf_ZiU7FQc-M8 baseselect-wrapper _2u25sfWmf6NUCbJ_StTs_r" data-v-2b8789a2=""><!---->
-              <select id="simlock" data-formgroup-element="" value="" data-test="simlock" name="simlock" class="_3Iq8JGYZpyTj97wvi5Wyu7 eUlOsp7XbB9G1L8SEMMpU baseselect-field"><option disabled="disabled">Locked or Unlocked</option>
-                <option></option>
-                <option value="Locked or Unlocked">Locked or Unlocked</option>
-                <option value="Unlocked only">Unlocked only </option>
+              <select id="simlock" data-formgroup-element="" onchange="getUnlocked(this)" data-test="simlock" name="simlock" class="_3Iq8JGYZpyTj97wvi5Wyu7 eUlOsp7XbB9G1L8SEMMpU baseselect-field"><option disabled="disabled">Locked or Unlocked</option>
+                <option value="">All</option>
+                <option value="Locked">Locked Only</option>
+                <option value="Unlocked">Unlocked only </option>
               </select>
               <label data-test="baseselect-label" for="simlock" class="PSXfa64BhcchUXTYm8jxr _2Y-fYnDKPqxkYV__KtgvWD baseselect-label">
                 <span class="_1rmkAs0zRQWqTLR2midRVa baseselect-label-content">Locked or Unlocked</span>
@@ -111,7 +111,7 @@
 
                     <p>
                     <label for="amount">Price range:</label>
-                    <input type="text" id="amount" style="border: 0; color: #f6931f; font-weight: bold;" />
+                    <input type="text" id="amount" style="border: 0; color: #00bfa5; font-weight: bold;" />
                     </p>
 
 
@@ -156,7 +156,7 @@
                       </div>
                       <div class="TRSMTVTh">
                         <span class="_28IelIKC">
-                          <span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">{{ucwords($brand->brand_name) }}</span>({{ App\Models\Pmodel::where('brand_Id',$brand->id)->count() }})<span></span>
+                          <span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">{{ucwords($brand->brand_name) }}</span><span></span>
                         </span>
                       </div>
                     </label>
@@ -352,10 +352,10 @@
                      @if (CityClass::checkWishlist($product->id) == "1")
                      <a href="#" onclick="undoWishlist({{$product->id}})"><i class="fa fa-heart" style="font-size: 30px;color:#ff0707"></i></a>
                      @else
-                     <a href="#" onclick="wishlist({{$product->id}})"><i class="fa fa-heart" style="font-size: 30px;"></i></a>
+                     <a href="#" onclick="wishlist({{$product->id}})"><i class="fa fa-heart" style="font-size: 30px;color:#adadad"></i></a>
                      @endif
                    @else
-                   <a href="#" onclick="wishlist({{$product->id}})"><i class="fa fa-heart" style="font-size: 30px;"></i></a>
+                   <a href="#" onclick="wishlist({{$product->id}})"><i class="fa fa-heart" style="font-size: 30px;color:#adadad"></i></a>
                   @endif
 
 
@@ -444,17 +444,20 @@
             });
 
        var getbrand = brand.toString();
-            console.log(getbrand);
+            // console.log(getbrand);
        $.ajax({
         url: "{{url('getBrandFilter')}}",
         type:"get",
-        dataType:"html",
+        dataType: "json",
         data:"brand=" + brand,
 
         success:function(response){
-          console.log(response.modd);
-          $('#modelsss').html(response.modd);
-          $('#filter').html(response.product);
+          console.log(response);
+             var mode=JSON.stringify(response)
+            var brnd = JSON.parse(mode);
+            console.log(brnd);
+          $('#modelsss').html(response.models);
+          $('#filter').html(response.brands);
 
         //   $('#exampleModal'+id).modal('show');
         },
@@ -633,6 +636,10 @@
             });
         }
 
+        function getUnlocked(event)
+        {
+               console.log($(event).val());
+        }
 
       function wishlist(productID)
       {
@@ -689,7 +696,7 @@
             range: true,
             min: 0,
             max: 1000,
-            values: [0, 1000],
+            values: [5, 1000],
             slide: function(event, ui) {
                 $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
                 var mi = ui.values[ 0 ];
@@ -705,7 +712,6 @@
 
 function filterSystem(minPrice, maxPrice) {
     console.log(minPrice, maxPrice);
-   ;
 
             $.ajax({
                 url: "{{url('getBrandFilter')}}",
