@@ -26,6 +26,7 @@
         order: 1;
       }
     }
+   
     </style>
 @endsection
 @section('content')
@@ -59,8 +60,9 @@
 
       <div class="col-md-5 text-center">
         <div class="chance-box-wrapper">
-        <a href=""><i class="fa fa-arrow-left"></i></a>
-          <div>
+       
+          <div class="d-flex">
+          <a href=""><i class="fa fa-arrow-left" style="margin: 8px;"></i></a>
             <p class="medium-font">Select your Phone device model</p>
           </div>
         </div>
@@ -80,10 +82,11 @@
       <div class="col-md-5 text-center">
         <div class="chance-box-wrapper">
       
-           <div>
+           <div class="d-flex">
+           <a onclick="backModel()"><i class="fa fa-arrow-left" style="margin: 8px;"></i></a>
             <p class="medium-font">What can we fix for you?</p>
           </div>
-          <a onclick="backModel()"><i class="fa fa-arrow-left"></i></a>
+         
         </div>
         <div class="question-comp-wrapper" >
          <div id="RepairTypes">
@@ -99,10 +102,11 @@
     <div class="row d-flex" id="time_select" style="display: none;">
       <div class="col-md-10 text-left">
         <div class="chance-box-wrapper text-left">
-          <div>
+          <div class="d-flex">
+          <a onclick="backRrepairType()"><i class="fa fa-arrow-left" style="margin: 8px;"></i></a>
             <p class="medium-font">What can we fix for you?</p>
           </div>
-          <a onclick="backRrepairType()"><i class="fa fa-arrow-left"></i></a>
+        
         </div>
         <div class="select-time-wrapper" id="no-scorll-bar-time-select">
           <div>
@@ -222,10 +226,11 @@
     <div class="row d-flex justify-content-center" id="user_info" style="display: none;">
       <div class="col-md-5 text-center">
         <div class="chance-box-wrapper">
-          <div>
+          <div class="d-flex">
+          <a onclick="backTimeSlot()"><i class="fa fa-arrow-left" style="margin: 8px;"></i></a>
             <p class="medium-font">Where shall we send your technician?</p>
           </div>
-          <a onclick="backTimeSlot()"><i class="fa fa-arrow-left"></i></a>
+          
         </div>
         <div class="select-address-wrapper">
           <div class="select-address-content-wrapper">
