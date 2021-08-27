@@ -4,12 +4,12 @@
 
 @section('content')
 
-                 
+
    @component('admin.common-components.breadcrumb')
          @slot('title') Dashboard  @endslot
          @slot('li_1') Welcome to Skote Dashboard @endslot
      @endcomponent
-          
+
 
                         <div class="row">
                             <div class="col-xl-4">

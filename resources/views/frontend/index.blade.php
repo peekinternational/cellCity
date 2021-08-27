@@ -67,7 +67,7 @@
                 data-elementdelay="0.01"
                 data-endelementdelay="0.3"
                 data-endspeed="1200"
-                data-endeasing="Power4.easeIn"><a href="{{url('buy-phone')}}" class="theme-btn btn-style-one">Repair Device</a></div>
+                data-endeasing="Power4.easeIn"><a href="{{url('repair')}}" class="theme-btn btn-style-one">Repair Device</a></div>
 
                 </li>
 

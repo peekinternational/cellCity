@@ -14,6 +14,7 @@
         "laravel/framework": "^8.40",
         "laravel/tinker": "^2.5",
         "paypal/rest-api-sdk-php": "^1.14",
+        "spatie/laravel-permission": "^4.3",
         "square/square": "13.0.0.20210721",
         "twilio/sdk": "^6.27"
     },

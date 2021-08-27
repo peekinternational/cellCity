@@ -67,43 +67,45 @@
                                                         <th>Order ID</th>
                                                         <th>Order Created</th>
                                                         <th>Billing Name</th>
-                                                        <th>Date & Time</th>
-                                                        <th>Total</th>
+
+                                                        <th>Brand Name</th>
+                                                        <th>color</th>
+                                                        <th>condition</th>
+                                                         <th>Storage</th>
+                                                        <th>Price</th>
                                                         <th>Pay Status</th>
-                                                        {{-- <th>Payment Method</th> --}}
-                                                         <th>Status</th>
-                                                        <th>Technician</th>
 
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @foreach($productOrder as $order)
+                                                    {{-- @php
+                                                        $product = App\Models\Product::where('id',$order->product_id)->first();
+                                                        $model = App\Models\Pmodel::where('id',$product->model_id)->first();
+                                                    @endphp --}}
                                                     <tr>
                                                         <td><a href="javascript: void(0);" class="text-body font-weight-bold">{{$order->id}}</a> </td>
-                                                        <td>{{$order->created_at->format('Y-m-d')}}</td>
+                                                        <td>{{$order->created_at->toDayDateTimeString()}}</td>
                                                         <td>{{$order->user->name}}</td>
                                                         <td>
-
-
-                                                            {{CityClass::modelName($order->product_id)}}
-
+                                                            {{ $order->brand_name ?? ''}} {{ $order->model_name ?? ''}}
 
                                                         </td>
-                                                        <td>{{$order->shipAddress_id}}</td>
-                                                        <td>
-                                                            {{$order->created_at}}
-                                                        </td>
+                                                        <td>{{  $order->color }}</td>
+                                                        <td> {{ $order->condition }} </td>
+                                                        <td> {{ $order->storage }} </td>
 
                                                         <td>
-                                                           ${{$order->grand_price}}
+                                                           ${{ $order->grand_price }}
                                                         </td>
                                                         <td>
-                                                        @if ($order->status == 1 )
+                                                         <span class="badge badge-pill badge-warning">{{$order->payment_method}}</span>
+                                                        {{-- @if ($order->status == 1 )
                                                         <span class="badge badge-pill badge-warning">Paid</span>
                                                         @else
                                                         <span class="badge badge-pill badge-info">Not Paid</span>
-                                                        @endif
+                                                        @endif --}}
                                                        </td>
 
                                                         <td>
@@ -128,9 +130,31 @@
                 <!-- End Page-content -->
 
                 <!-- Modal -->
-                <div id="showModels"></div>
 
 
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Shipping Address </h4>
+        </div>
+        <div class="modal-body">
+            <div id="showModels">
+
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
 
 
 @endsection
@@ -146,12 +170,12 @@ $(document).ready(function() {
 } );
     function viewDetail(id){
    $.ajax({
-        url: "{{url('admin/repairTypes')}}/"+id,
+        url: "{{url('admin/shippingAddress')}}/"+id,
         type:"get",
         success:function(response){
           console.log(response);
           $('#showModels').html(response);
-          $('#exampleModal'+id).modal('show');
+          $('#myModal').modal('show');
         },
 
        });

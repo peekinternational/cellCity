@@ -13,6 +13,8 @@ use App\Models\Admin;
 use App\Models\Alert;
 use App\Models\RepairOrder;
 use Hash;
+use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
 
 class AdminController extends Controller
 {
@@ -192,7 +194,7 @@ class AdminController extends Controller
         {
           $user->jobStatus = 'available';
           $user->update(['jobStatus'=> "available"]);
-     
+
           $order->techId = null;
           $order->order_status= '3';
           $order->update();
@@ -208,4 +210,87 @@ class AdminController extends Controller
         return response()->json($message);
     }
 
+    public function addRole()
+    {
+        return view('admin.role.create');
+    }
+
+    public function storeRole(Request $request)
+    {
+        // dd($request);
+
+        $this->validate($request,[
+            'name' => 'required|min:5|max:50',
+            'phoneno' => 'min:2|max:17',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:5|max:50'
+
+          ],[
+
+            'name.required' =>'Enter Name',
+            'email.unique' => 'Email must be unique',
+            'email.required' => 'Enter Email',
+            'phoneno.required' => 'Enter Mobile Number',
+            'password.required' => 'Enter password',
+          ]);
+            $user = new User;
+            $user->name = $request->name;
+            $user->email =  $request->email;
+            $user->address =  $request->address;
+            $user->phoneno =  $request->phoneno;
+            $user->role = 'admin';
+            $user->password = Hash::make($request->password);
+
+
+            $user->save();
+            $role = $request->role_id;
+            // dd($role);
+            $user->assignRole($role);
+            // $role = Role::create(['name' => $request->role]);
+        return back()->with('message',Alert::_message('success', 'Role Assign Successfully.'));
+    }
+    public function roleList()
+    {
+        $users = User::whereIn('role',['admin'])->get();
+
+        $user_id = $users->pluck('id');
+        $user = $user_id->all();
+        // dd($user);
+        $userID = implode(',',$user);
+
+        $userRoles = DB::table('model_has_roles')->whereIn('model_id',explode("," , $userID))->get();
+        // dd($userRoles);
+
+        return view('admin.role.index',compact('users'));
+
+    }
+
+
+    public function Track()
+    {
+        $id = "EJ123456780US";
+       $host_v = "http://production.shippingapis.com/ShippingAPI.dll?API=TrackV2%20&XML=%3CTrackRequest%20USERID=%22353SNEAK5425%22%3E%20%3CTrackID%20ID=%22".$id."%22%3E%3C/TrackID%3E%3C/TrackRequest%3E";
+       $ch = curl_init();
+       $timeout = 10;
+       curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)');
+       curl_setopt($ch, CURLOPT_URL,$host_v);
+       curl_setopt($ch, CURLOPT_HEADER, 0);
+       curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+       curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+       $result = curl_exec($ch);
+   		curl_close ($ch);
+      $xml = simplexml_load_string($result);
+      $json = json_encode($xml);
+      $array = json_decode($json,TRUE);
+      $check = count($array['TrackInfo']);
+      if ($check == 3) {
+        $description = $array['TrackInfo']['TrackSummary'];
+        $details = $array['TrackInfo']['TrackDetail'];
+      }else {
+        $description = $array['TrackInfo']['Error']['Description'];
+        $details = [];
+      }
+      dd($array);
+    //   return view('admin.track-result',compact('id','description','check','details'));
+    }
 }
