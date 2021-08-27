@@ -160,14 +160,7 @@
                   <span class="layout horizontal center-center font12-10 text-center tc-primary line-clamp-3 jss178">SCREEN</span>
                 </a>
               </li>
-              <li class="mar-r20  pad-tb16 layout horizontal jss175">
-                <a class="layout vertical card-shadow radius-10 pad16 flwidth flheight around-justified jss176" href="/screen-repair">
-                  <span class="layout horizontal start center-justified  flex-1 jss177">
-                    <img class="flheight" alt="SCREEN" src="{{asset('frontend-assets/images/repair/screen.png')}}">
-                  </span>
-                  <span class="layout horizontal center-center font12-10 text-center tc-primary line-clamp-3 jss178">Water Damage</span>
-                </a>
-              </li>
+             
               <li class="mar-r20  pad-tb16 layout horizontal jss175">
                 <a class="layout vertical card-shadow radius-10 pad16 flwidth flheight around-justified jss176" href="/screen-repair">
                   <span class="layout horizontal start center-justified  flex-1 jss177">
@@ -538,7 +531,7 @@ function checkZip(){
      $(this).siblings('.panel-heading').removeClass('active');
    });
    $('#arrowR').click(function(){
-      var pos = $('#AvailableContainer').scrollLeft() + 300;
+      var pos = $('#AvailableContainer').scrollLeft() + 600;
          
       $('#AvailableContainer').scrollLeft(pos);
       $('#arrowL').show();

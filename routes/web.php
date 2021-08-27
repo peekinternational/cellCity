@@ -68,6 +68,7 @@ Route::name('admin.')->namespace('Admin')->prefix('admin')->group(function(){
      Route::resource('/brands', '\App\Http\Controllers\Admin\BrandController');
      Route::resource('/models', '\App\Http\Controllers\Admin\ModelController');
      Route::resource('/repairTypes', '\App\Http\Controllers\Admin\AdminRepairController');
+     
      Route::get('/repairOrders',  [AdminRepairController::class, 'repairOrders']);
      Route::post('/assignTech',  [AdminRepairController::class, 'assignTech']);
      Route::get('/completed-orders',[AdminRepairController::class,'orderCompleted']);
@@ -251,7 +252,7 @@ Route::namespace('Auth')->middleware('auth:web')->group(function(){
 
   /////////////////    Ajax Filter  Buy Page
 
-    Route::post('/getBrandFilter',[ProductController::class,'getBrandFilter']);
+    Route::get('/getBrandFilter',[ProductController::class,'getBrandFilter']);
     ///Ajax Jquery Product Single Page
     Route::get('/getStorage/{id}',[ProductController::class,'getStorage']);
     Route::get('/getCondition/{id}',[ProductController::class,'getCondition'])->name('get.condition');

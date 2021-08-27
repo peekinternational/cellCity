@@ -137,11 +137,19 @@ class AdminRepairController extends Controller
      */
     public function destroy($id)
     {
+        // dd($id);
         $repair = RepairType::find($id);
         $repair->delete();
-        return redirect('/admin/repairTypes')->with('message', Alert::_message('success', 'Repair Type Delete Successfully.'));
+        return back()->with('message', Alert::_message('success', 'Repair Type Delete Successfully.'));
     }
 
+    public function delete($id)
+    {
+        dd($id);
+        $repair = RepairType::find($id);
+        $repair->delete();
+        return back()->with('message', Alert::_message('success', 'Repair Type Delete Successfully.'));
+    }
     public function assignTech(Request $request){
         // dd($request->techid);
         $user = User::find($request->techid);

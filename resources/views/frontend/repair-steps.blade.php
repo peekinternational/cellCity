@@ -59,6 +59,7 @@
 
       <div class="col-md-5 text-center">
         <div class="chance-box-wrapper">
+        <a href=""><i class="fa fa-arrow-left"></i></a>
           <div>
             <p class="medium-font">Select your Phone device model</p>
           </div>
@@ -78,9 +79,11 @@
     <div class="row d-flex justify-content-center" id="repair_type" style="display: none;">
       <div class="col-md-5 text-center">
         <div class="chance-box-wrapper">
-          <div>
+      
+           <div>
             <p class="medium-font">What can we fix for you?</p>
           </div>
+          <a onclick="backModel()"><i class="fa fa-arrow-left"></i></a>
         </div>
         <div class="question-comp-wrapper" >
          <div id="RepairTypes">
@@ -99,6 +102,7 @@
           <div>
             <p class="medium-font">What can we fix for you?</p>
           </div>
+          <a onclick="backRrepairType()"><i class="fa fa-arrow-left"></i></a>
         </div>
         <div class="select-time-wrapper" id="no-scorll-bar-time-select">
           <div>
@@ -221,6 +225,7 @@
           <div>
             <p class="medium-font">Where shall we send your technician?</p>
           </div>
+          <a onclick="backTimeSlot()"><i class="fa fa-arrow-left"></i></a>
         </div>
         <div class="select-address-wrapper">
           <div class="select-address-content-wrapper">
@@ -267,7 +272,7 @@
             <!-- <div style="height: 10px;"></div> -->
             <div class="form-group">
               <div class="new-input-comp">
-                <textarea type="text" form="repairType" class="form-control" placeholder="Add address instructions (optional)" name="instructions" id="instructions"></textarea>
+                <textarea type="text" form="repairType" class="form-control" placeholder="Add Details " name="instructions" id="instructions"></textarea>
               </div>
             </div>
             
@@ -426,6 +431,35 @@
     $('#time_select').hide();
     $('#user_info').show();
   });
+
+  function backModel()
+  {
+           window.location.reload();
+        
+          
+          $('#totalCost').hide();
+          $('#brandName').hide();
+          $('#modelName').hide();
+          $('#brand_model').hide();
+          $('#time_select').hide();
+          $('#repair_type').hide()
+          $('#phone_model').show();
+  }
+
+  function backRrepairType()
+  {
+         
+          $('#phone_model').hide();
+          $('#time_select').hide();
+          $('#repair_type').show();
+  }
+  function backTimeSlot()
+  {
+    $('#time_select').show();
+    $('#user_info').hide();
+    $('#repair_type').show();
+    $('#phone_model').hide();
+  }
 </script>
 <script>
      function checkDat(date)

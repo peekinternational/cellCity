@@ -67,7 +67,7 @@
                 data-elementdelay="0.01"
                 data-endelementdelay="0.3"
                 data-endspeed="1200"
-                data-endeasing="Power4.easeIn"><a href="#" class="theme-btn btn-style-one">Repair Device</a></div>
+                data-endeasing="Power4.easeIn"><a href="{{url('buy-phone')}}" class="theme-btn btn-style-one">Repair Device</a></div>
 
                 </li>
 
@@ -119,7 +119,7 @@
                 data-elementdelay="0.01"
                 data-endelementdelay="0.3"
                 data-endspeed="1200"
-                data-endeasing="Power4.easeIn"><a href="#" class="theme-btn btn-style-one">Buy Phone</a></div>
+                data-endeasing="Power4.easeIn"><a href="{{url('buy-phone')}}" class="theme-btn btn-style-one">Buy Phone</a></div>
 
                 </li>
 
@@ -210,7 +210,7 @@
                 	<div class="inner-box wow fadeIn" data-wow-delay="300ms" data-wow-duration="1500ms">
                     	<!-- <div class="big-letter">Q</div> -->
                     	<!--Icon Box-->
-                    	<a href="">
+                    	<a href="{{url('buy-phone')}}">
                   			<div class="icon-box">
                   		    <span class="icon flaticon-technology-2"   style="color:#00bfa5"></span>
                   		  </div>
