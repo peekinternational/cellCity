@@ -19,6 +19,7 @@
                             <th></th>
                             <th scope="col">Price</th>
                             </tr>
+                         
                         </thead>
                         <tbody>
                             <tr>
@@ -58,6 +59,11 @@
                                 <td>
                                     ${{$order->repairorderstypes->sum('price')}}
                                 </td>
+                            </tr>
+
+                            <tr>
+                                <th>Issue Details</th>
+                                <td class="text-center">{{ $order->instructions }}</td>
                             </tr>
                         </tbody>
                     </table>

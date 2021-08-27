@@ -114,11 +114,7 @@
             <a onclick="backRrepairType()"><i class="fa fa-arrow-left" style="margin: 8px;"></i></a>
             <p class="medium-font selectPhone" >What can we fix for you?</p>
           </div>
-<<<<<<< HEAD
-        
-=======
-          <a onclick="backRepairType()"><i class="fa fa-arrow-left"></i></a>
->>>>>>> bb1c407bf8b8b499b3a2653e5bafc08f52523115
+         
         </div>
         <div class="select-time-wrapper" id="no-scorll-bar-time-select">
           <div>
