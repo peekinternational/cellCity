@@ -20,6 +20,7 @@ use App\Models\OrderTime;
 use App\Models\ProductCondition;
 use App\Models\Wishlist;
 use Illuminate\Support\Facades\Auth;
+use Spatie\Permission\Models\Role;
 
 class CityClass {
 
@@ -84,6 +85,11 @@ class CityClass {
     function orderlist($id)
     {
         return Order::where('user_id',$id)->get();
+    }
+
+    function role()
+    {
+        return Role::all();
     }
 
 }

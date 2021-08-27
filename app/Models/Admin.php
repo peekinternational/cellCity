@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-
+use Spatie\Permission\Traits\HasRoles;
 
 class Admin extends Model implements AuthenticatableContract
 {
-     use HasFactory, Notifiable, Authenticatable;
+     use HasFactory, Notifiable, Authenticatable, HasRoles;
    protected $table = 'users';
 
        protected $fillable = [

@@ -62,6 +62,13 @@ Route::name('admin.')->namespace('Admin')->prefix('admin')->group(function(){
 
      Route::get('rejectOrder/{id}', [AdminController::class, 'rejectOrder'] );
 
+     ///////////////////////////////   Admin Role    //////////////////////////////
+     Route::get('role/list',[AdminController::class, 'roleList'])->name('role.list');
+      Route::get('role/create',[AdminController::class, 'addRole'])->name('role.create');
+      Route::post('role/store',[AdminController::class, 'storeRole'])->name('role.store');
+
+
+
     //////////////////////////////// ZIP CODE //////////////////////////////////
 
      Route::resource('/zipCode', '\App\Http\Controllers\Admin\ZipController');
@@ -80,7 +87,7 @@ Route::name('admin.')->namespace('Admin')->prefix('admin')->group(function(){
       //ajax
       Route::get('/product/getModels/{id}',[ProductController::class,'getModels']);
       Route::post('/store-product',[productController::class,'storeProduct'])->name('storeproduct');
-    //store more color ,condition ,storage using only product id
+        //store more color ,condition ,storage using only product id
       Route::post('/store-more-product',[productController::class,'storeMoreProduct'])->name('store.moreproduct');
 
     ////  View of Product Condition
@@ -88,7 +95,7 @@ Route::name('admin.')->namespace('Admin')->prefix('admin')->group(function(){
     Route::post('/product-storeCondition',[ProductConditionController::class, 'storeCondition']);
     Route::get('/productCondtion-delete/{id}/{id2}',[ProductConditionController::class, 'deleteCondition']);
 
-////  View of Product storage
+    ////  View of Product storage
     Route::get('/product-storage/{id}',[ProductConditionController::class,'storage']);
     Route::post('/productStorage-store',[ProductConditionController::class, 'storeStorage']);
     Route::get('/productStorage-delete/{id}',[ProductConditionController::class, 'deleteStorage']);
@@ -99,8 +106,7 @@ Route::name('admin.')->namespace('Admin')->prefix('admin')->group(function(){
     Route::post('/productColor-store',[ProductConditionController::class, 'storeColor']);
     Route::get('/productColor-delete/{id}',[ProductConditionController::class, 'deleteColor']);
 
-    ////Product Order list
-    Route::get('/productOrder',[ProductOrderController::class, 'productOrder']);
+
 
 
 
@@ -132,8 +138,10 @@ Route::name('admin.')->namespace('Admin')->prefix('admin')->group(function(){
         Route::get('/modify-order/{id}',[AdminRepairController::class,'modifyOrder'])->name('modify.order');
         //Repair Order Update Route
         Route::post('/repairModel-update/{id}',[AdminRepairController::class,'modifyOrderUpdate']);
-
-
+        ////Product Order list
+        Route::get('/productOrder',[ProductOrderController::class, 'productOrder']);
+         //////////////////// Shipping Address ////////////////////////////
+        Route::get('/shippingAddress/{id}',[ProductOrderController::class, 'productShipping']);
     });
 
 });
@@ -354,3 +362,4 @@ Route::namespace('Auth')->middleware('auth:web')->group(function(){
 
 
 
+    Route::get('tracked',[AdminController::class,'Track'])->name('Track');

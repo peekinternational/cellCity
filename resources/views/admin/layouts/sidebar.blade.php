@@ -1,4 +1,5 @@
 <--========== Left Sidebar Start ========== -->
+@role('SuperAdmin|blogs|zipcode')
 <div class="vertical-menu">
 
     <div data-simplebar class="h-100">
@@ -8,7 +9,7 @@
             <!-- Left Menu Start -->
             <ul class="metismenu list-unstyled" id="side-menu">
                 <li class="menu-title">Menu</li>
-
+                @role('SuperAdmin')
                 <li>
                     <a href="{{url('admin')}}" class="waves-effect">
                         <i class="bx bx-home-circle"></i>
@@ -16,8 +17,6 @@
                     </a>
 
                 </li>
-
-
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="bx bxs-user-detail"></i>
@@ -95,7 +94,8 @@
                         <li><a href="ecommerce-add-product">Add Product</a></li>
                     </ul>
                 </li>
-
+                @endrole
+                @role('SuperAdmin|zipcode')
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="bx bxs-user-detail"></i>
@@ -106,9 +106,10 @@
                         <li><a href="{{url('admin/zipCode')}}">Zip Code List</a></li>
                     </ul>
                 </li>
-
+                @endrole
+                @role('SuperAdmin|blogs')
                 <li>
-                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                    <a href="javascript:void(0);" class="has-arrow waves-effect">
                         <i class="bx bxs-user-detail"></i>
                         <span>Blog Management</span>
                     </a>
@@ -117,9 +118,23 @@
                         <li><a href="{{url('admin/blog')}}">Blog List</a></li>
                     </ul>
                 </li>
+                @endrole
+                @role('SuperAdmin')
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="bx bxs-user-detail"></i>
+                        <span>Admin Role</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{url('admin/role/create')}}">Add Role</a></li>
+                        <li><a href="{{url('admin/role/list')}}">Role List</a></li>
+                    </ul>
+                </li>
+                @endrole
             </ul>
         </div>
         <!-- Sidebar -->
     </div>
 </div>
+@endrole
 <!-- Left Sidebar End
