@@ -13,7 +13,7 @@
     @media(max-width:767px){
       .my-cart-wrapper {
         position: relative;
-        top: auto; 
+        top: auto;
         bottom: 0;
         right: 0;
         height: auto;
@@ -79,7 +79,7 @@
     <div class="row d-flex justify-content-center" id="repair_type" style="display: none;">
       <div class="col-md-5 text-center">
         <div class="chance-box-wrapper">
-      
+
            <div>
             <p class="medium-font">What can we fix for you?</p>
           </div>
@@ -102,7 +102,7 @@
           <div>
             <p class="medium-font">What can we fix for you?</p>
           </div>
-          <a onclick="backRrepairType()"><i class="fa fa-arrow-left"></i></a>
+          <a onclick="backRepairType()"><i class="fa fa-arrow-left"></i></a>
         </div>
         <div class="select-time-wrapper" id="no-scorll-bar-time-select">
           <div>
@@ -270,12 +270,12 @@
             </div>
             @endif
             <!-- <div style="height: 10px;"></div> -->
-            <div class="form-group">
+            {{-- <div class="form-group">
               <div class="new-input-comp">
                 <textarea type="text" form="repairType" class="form-control" placeholder="Add Details " name="instructions" id="instructions"></textarea>
               </div>
-            </div>
-            
+            </div> --}}
+
             <div class="select-address-continue-button-wrapper">
               <button type="submit" form="repairType" class="new-action-button">Continue</button>
             </div>
@@ -312,8 +312,23 @@
             <div class="disclaimer-container"></div>
           </div>
         </div>
+
+        {{--Input area  --}}
+        <div class="my-cart-content-wrapper" id="instructions">
+            <div class="my-cart-device-section-wrapper">
+                <div class="form-group">
+                    <textarea name="instructions" class="form-control" form="repairType"  cols="30" placeholder="explain what exactly is the issue" rows="10" required></textarea>
+                </div>
+            </div>
+        </div>
       </div>
+
     </div>
+
+
+
+
+
   </div>
 </div>
 
@@ -397,7 +412,7 @@
      }
 
    $('#continue_btn').click(function(){
-
+       $("#instructions").hide();
 
     checkDat("{{date('Y-m-d') }}");
 
@@ -435,8 +450,6 @@
   function backModel()
   {
            window.location.reload();
-        
-          
           $('#totalCost').hide();
           $('#brandName').hide();
           $('#modelName').hide();
@@ -446,12 +459,13 @@
           $('#phone_model').show();
   }
 
-  function backRrepairType()
+  function backRepairType()
   {
-         
+
           $('#phone_model').hide();
           $('#time_select').hide();
           $('#repair_type').show();
+          $("#instructions").show();
   }
   function backTimeSlot()
   {

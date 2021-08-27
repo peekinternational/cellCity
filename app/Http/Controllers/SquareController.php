@@ -119,7 +119,7 @@ class SquareController extends Controller
              $message =strip_tags(nl2br(" Dear Customer ,\n You have Successfully Pay  through Credit Card . \n Total Amount : $". $request->price));
              $account_sid = "AC6769d3e36e7a9e9ebbea3839d82a4504";
              $auth_token = "b2229f79769f0b47fa8e7bb685291d0d";
-             
+
              $twilio_number = +15124027605;
              $client = new Client($account_sid, $auth_token);
              $client->messages->create($phone,
@@ -214,7 +214,7 @@ class SquareController extends Controller
             $color = ProductColor::where('product_id',$cart->associatedModel->id)->first();
             $storage = ProductStorage::where('color_id',$color->id)->first();
             $total = round($cart->quantity*$cart->price);
-            $condition = ProductCondition::where('storage_id',$storage->id)->first();   
+            $condition = ProductCondition::where('storage_id',$storage->id)->first();
             if($cart->quantity <= $condition->quantity)
             {
                $condition->increment('quantity',$cart->quantity);
@@ -237,12 +237,12 @@ class SquareController extends Controller
             $order->price     = $cart->price;
             $order->grand_price  =$total;
             $order->payment_method = "Square Card";
-            $order->status = 1;
-        
+            $order->status = 0;
+
             $order->save();
             // dd($order);
-           
-        
+
+
 
         }
         $total = \Cart::session($userID)->getTotal();
@@ -256,7 +256,7 @@ class SquareController extends Controller
              \Mail::to(Auth::user()->email)->send(new TechMail($details));
             //  return response()->json($messgae);
 
-           
+
             $phone = "+".Auth::user()->phoneno;
             //  dd($phone);
              $message =strip_tags(nl2br("Dear Customer, \n You have Successfully Pay  through PayPal . \n Total Amount : $". $total));

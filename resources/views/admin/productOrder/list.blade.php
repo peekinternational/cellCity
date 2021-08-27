@@ -100,12 +100,14 @@
                                                            ${{ $order->grand_price }}
                                                         </td>
                                                         <td>
-                                                         <span class="badge badge-pill badge-warning">{{$order->payment_method}}</span>
-                                                        {{-- @if ($order->status == 1 )
-                                                        <span class="badge badge-pill badge-warning">Paid</span>
+                                                         {{-- <span class="badge badge-pill badge-warning">{{$order->payment_method}}</span> --}}
+                                                        @if ($order->status == 1)
+                                                        <span class="badge badge-pill badge-warning">Shipping</span>
+                                                        @elseif ($order->status==2)
+                                                        <span class="badge badge-pill badge-info">Complete</span>
                                                         @else
-                                                        <span class="badge badge-pill badge-info">Not Paid</span>
-                                                        @endif --}}
+                                                        <span class="badge badge-pill badge-info">Pending</span>
+                                                        @endif
                                                        </td>
 
                                                         <td>

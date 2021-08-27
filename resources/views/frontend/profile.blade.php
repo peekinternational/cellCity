@@ -313,8 +313,12 @@
 													<input type="text" name="mobileNo" class="form-control" placeholder="Phone Number" required>
 												</div>
 												<div class="form-group">
-													<label>Full address</label>
-													<input type="text" name="shipaddress" class="form-control" placeholder="Full address" required>
+													<label>Address</label>
+													<input type="text" name="shipaddress" class="form-control" placeholder="address" required>
+												</div>
+                                                <div class="form-group">
+													<label>Street Address</label>
+													<input type="text" name="street_address" class="form-control" placeholder="Street address" required>
 												</div>
 												<div class="form-group">
 													<div class="row">
@@ -374,8 +378,12 @@
 													<input type="text" name="mobileNo" class="form-control" value="{{$shipingAdd->mobileNo}}" placeholder="Phone Number">
 												</div>
 												<div class="form-group">
-													<label>Full address</label>
+													<label>Address</label>
 													<input type="text" name="shipaddress" class="form-control" value="{{$shipingAdd->shipaddress}}" placeholder="Full address">
+												</div>
+                                                <div class="form-group">
+													<label>Street Address</label>
+													<input type="text" name="street_address" class="form-control" value="{{$shipingAdd->street_address}}" placeholder="Street address" required>
 												</div>
 												<div class="form-group">
 													<div class="row">
