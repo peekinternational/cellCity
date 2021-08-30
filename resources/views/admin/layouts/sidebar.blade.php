@@ -83,15 +83,14 @@
                         <span>Products</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-
+                        <li><a href="{{url('admin/product/create')}}">Add Product</a></li>
                         <li><a href="{{url('admin/product')}}">Products List</a></li>
-                        <li><a href="{{url('admin/product/create')}}">Product Create</a></li>
                         <li><a href="{{url('admin/productOrder')}}">Orders</a></li>
                         <li><a href="ecommerce-customers">Customers</a></li>
                         <li><a href="ecommerce-cart">Cart</a></li>
                         <li><a href="ecommerce-checkout">Checkout</a></li>
                         <li><a href="ecommerce-shops">Shops</a></li>
-                        <li><a href="ecommerce-add-product">Add Product</a></li>
+                     
                     </ul>
                 </li>
                 @endrole

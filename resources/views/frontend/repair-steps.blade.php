@@ -111,7 +111,7 @@
       <div class="col-md-10 text-left">
         <div class="chance-box-wrapper text-left">
           <div class="d-flex">
-            <a onclick="backRrepairType()"><i class="fa fa-arrow-left" style="margin: 8px;"></i></a>
+            <a onclick="backRepairType()"><i class="fa fa-arrow-left" style="margin: 8px;"></i></a>
             <p class="medium-font selectPhone" >What can we fix for you?</p>
           </div>
          
@@ -484,7 +484,7 @@
   {
     $('#time_select').show();
     $('#user_info').hide();
-    $('#repair_type').show();
+    $('#repair_type').hide();
     $('#phone_model').hide();
   }
 </script>
