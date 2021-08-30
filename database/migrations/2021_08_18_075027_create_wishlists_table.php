@@ -18,7 +18,6 @@ class CreateWishlistsTable extends Migration
             $table->integer('user_id')->nullable();
             $table->integer('product_id')->nullable();
             $table->string('category')->nullable();
-
             $table->boolean('status')->nullable();
             $table->timestamps();
         });

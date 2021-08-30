@@ -6,6 +6,8 @@ use App\Models\ProductCondition;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\Alert;
+use App\Models\ProductColor;
+use App\Models\ProductImage;
 use App\Models\ProductStorage;
 use DB;
 class ProductConditionController extends Controller
@@ -131,8 +133,47 @@ class ProductConditionController extends Controller
         // dd($request->all());
         // $colors = Product::find($id)->color;
 
-        return view('admin.color.index',compact('colors'));
+        foreach($request->color_name as  $colors)
+        {
+            $q = "DELETE pp FROM `product_colors` pp
+              join products pd on pp.product_id = pd.id
+              WHERE pd.id = ?";
+
+
+             $status = \DB::delete($q, array($request->product_id));
+
+                    $color = new ProductColor;
+                    $color->color_name = $colors;
+                    $color->product_id = $request->product_id;
+                    $color->save();
+
+                    $q = "DELETE pp FROM `product_images` pp
+                    join products pd on pp.product_id = pd.id
+                    WHERE pd.id = ?";
+                     $status = \DB::delete($q, array($request->product_id));
+
+                if($request->hasFile('image'))
+                {
+                    $image = $request->file('image');
+                    $imageName= time().$image->getClientOriginalName();
+                    $destination ='storage/products/images/';
+                    $image->move(public_path($destination), $imageName);
+
+
+                    // dd($imageName);
+                    $imagefile = new ProductImage;
+                    $imagefile->image = $imageName;
+                    $imagefile->product_id = $request->product_id;
+                    $imagefile->color_id = $color->id;
+                    $imagefile->save();
+                }
+
+
+
+        }
+        return back();
     }
+
     public function deleteColor($id)// Color Update and Delete
     {
         $colors = Product::find($id)->color;

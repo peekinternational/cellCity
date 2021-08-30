@@ -23,6 +23,11 @@
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
+
+    .code
+    {
+        margin-bottom:10px;
+    }
     </style>
 
 @endsection
@@ -60,63 +65,58 @@
                                         </div>
 
                                         <div class="table-responsive">
-                                            <table class="table table-centered table-nowrap" id="example3">
-                                                <thead class="thead-light">
+                                            <table id="example" class="table table-bordered table-hover">
+                                                <thead>
                                                     <tr>
-
-                                                        <th>Order ID</th>
-                                                        <th>Order Created</th>
-                                                        <th>Billing Name</th>
-
-                                                        <th>Brand Name</th>
-                                                        <th>color</th>
-                                                        <th>condition</th>
-                                                         <th>Storage</th>
-                                                        <th>Price</th>
-                                                        <th>Pay Status</th>
+                                                        <th>OrderSale ID</th>
+                                                        <th>Name</th>
+                                                        <th>Created At</th>
+                                                        <th>Shipping Address</th>
+                                                        <th>Grand Price</th>
+                                                        <th>Status</th>
 
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach($productOrder as $order)
-                                                    {{-- @php
-                                                        $product = App\Models\Product::where('id',$order->product_id)->first();
-                                                        $model = App\Models\Pmodel::where('id',$product->model_id)->first();
-                                                    @endphp --}}
+                                                    @forelse ($productOrder as $orderSale)
                                                     <tr>
-                                                        <td><a href="javascript: void(0);" class="text-body font-weight-bold">{{$order->id}}</a> </td>
-                                                        <td>{{$order->created_at->toDayDateTimeString()}}</td>
-                                                        <td>{{$order->user->name}}</td>
-                                                        <td>
-                                                            {{ $order->brand_name ?? ''}} {{ $order->model_name ?? ''}}
+                                                        {{-- @php
+                                                            $order= App\Models\Order::where('orderSales_id',$orderSale->id)->first();
+                                                            // dd($order);
+                                                        @endphp --}}
+                                                        <td>{{$orderSale->id}}</td>
+                                                        <td>{{$orderSale->user->name}}</td>
+                                                        <td>{{$orderSale->created_at->format('D-M-y h:s')}}</td>
 
+                                                        <td>{{$orderSale->shipAddress->shipaddress}}</td>
+                                                        <td>
+                                                            ${{$orderSale->grand_total}}
                                                         </td>
-                                                        <td>{{  $order->color }}</td>
-                                                        <td> {{ $order->condition }} </td>
-                                                        <td> {{ $order->storage }} </td>
 
                                                         <td>
-                                                           ${{ $order->grand_price }}
+                                                            @if ($orderSale->status == 2)
+                                                            <span class="badge badge-success">complete</span>
+                                                            @elseif ($orderSale->status == 1)
+                                                            <span class="badge badge-warning">shipping</span>
+                                                            @else
+                                                            <span class="badge badge-secondary">Pending</span>
+                                                            @endif
                                                         </td>
                                                         <td>
-                                                         {{-- <span class="badge badge-pill badge-warning">{{$order->payment_method}}</span> --}}
-                                                        @if ($order->status == 1)
-                                                        <span class="badge badge-pill badge-warning">Shipping</span>
-                                                        @elseif ($order->status==2)
-                                                        <span class="badge badge-pill badge-info">Complete</span>
-                                                        @else
-                                                        <span class="badge badge-pill badge-info">Pending</span>
-                                                        @endif
-                                                       </td>
-
-                                                        <td>
-                                                            <a href="javascript:void(0);" data-toggle="modal" data-target="#exampleModal{{$order->id}}" onclick="viewDetail('{{$order->id}}')" class="mr-3 text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="View Detail"><i class="mdi mdi-eye font-size-18"></i></a>
-                                                            <a href="{{url('admin/modify-order',$order->id)}}" class="mr-3 text-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="mdi mdi-pencil font-size-18"></i></a>
-                                                            <a href="javascript:void(0);" class="text-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="mdi mdi-close font-size-18"></i></a>
+                                                            <a href="#" onclick="orderViewDetails('{{$orderSale->id}}')" class="mr-3 text-success" title="view order"><i class="fa fa-eye font-size-18"></i></a>
+                                                            <a href="#" onclick="sendCode('{{$orderSale->id}}')" class="mr-3 text-warning" title="send Tracking Code" > <i class="fa fa-edit font-size-18"></i></a>
+                                                            {{-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Large modal</button> --}}
                                                         </td>
                                                     </tr>
-                                                    @endforeach
+                                                    @empty
+                                                        <tr>
+                                                            <td colspan="5">
+                                                              Soory No Order Yet...
+                                                            </td>
+                                                        </tr>
+                                                    @endforelse
+
 
                                                 </tbody>
                                             </table>
@@ -158,7 +158,60 @@
 
 </div>
 
+{{-- /////////////order sale modaL --}}
 
+<div class="modal fade" id="empModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Sale Order </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+      <div class="modal-body" id="saleOrder">
+        ...
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  {{-- Send Code  --}}
+<div class="modal fade bd-example-modal-lg" id="codeModel" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Send Shipping tracking code </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+          <div class="modal-body" >
+            <form id="sendcode" method="POST">
+                @csrf
+                <div class="code">
+                   <input type="text" id="code" name="code" class="form-control" placeholder="Enter Code Here">
+                   <input type="hidden" name="id" id="id" >
+                </div>
+                <div class="text-center">
+                   <button id="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+    </div>
+  </div>
 @endsection
 
 @section('script')
@@ -208,20 +261,46 @@ $(document).ready(function() {
 
     }
 
-    function rejectOrder(id)
+
+    function orderViewDetails(id)
     {
         $.ajax({
-        url: "{{url('admin/rejectOrder')}}/"+id,
+        url: "{{url('admin/orderViewDetails')}}/"+id,
         type:"get",
         success:function(response){
           console.log(response);
-
-         location.reload();
-        //   alert(response);
+          $('#saleOrder').html(response);
+          $('#empModal').modal('show');
         },
 
        });
     }
+
+   function sendCode(id)
+   {
+       $('#codeModel').modal('show');
+       $('#id').val(id);
+   }
+    $('#sendcode').on('submit',function(e){
+        e.preventDefault();
+        let name = $('#code').val();
+        let id= $('#id').val();
+        let _token = "{{ csrf_token() }}";
+        // alert(name);
+        $.ajax({
+          url: "{{url('admin/send-code')}}",
+          type:"POST",
+          data:{
+            _token:_token,
+            name:name,
+            id:id,
+          },
+          success:function(response){
+            console.log(response);
+          },
+         });
+        });
+
 </script>
 
 @endsection

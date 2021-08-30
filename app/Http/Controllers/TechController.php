@@ -118,7 +118,7 @@ class TechController extends Controller
     public function repairOrderUpdate(Request $request,$id)
     {
         $customer = User::whereId($request->userId)->first();
-        
+
         $model = explode(',',$request->model_Id);
         $model_Id = $model[0];
 
@@ -177,8 +177,7 @@ class TechController extends Controller
                   $ordertype->price= RepairType::whereId($value)->first()->price;
           }
           else{
-
-                  $ordertype->repair_type= RepairType::where('repair_type',$value)->first()->repair_type;
+                 $ordertype->repair_type= RepairType::where('repair_type',$value)->first()->repair_type;
                   $ordertype->price= RepairType::where('repair_type',$value)->first()->price;
           }
             $ordertype->save();
@@ -187,11 +186,11 @@ class TechController extends Controller
        $details = [
         'title' => 'Mail from PeekInternational.com',
         'subject' => 'Update the repair order,',
-        'message' => 'Techician  ('.$tech->name.')  updated the customer  (id :'.$ordertype->id.'  Name :'.$customer->name.')  repair order,'
+        'message' => 'Techician  ('.$tech->name.')  updated the customer  (id:'.$ordertype->id.'  Name :'.$customer->name.')  repair order,'
     ];
 
 
-     \Mail::to("peek.ali500@gmail.com")->send(new orderModify($details));
+     \Mail::to("cellcityus1@gmail.com")->send(new orderModify($details));
     //   $mail = mail ("admin@gmail.com",$subject,$message);
 
 

@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use App\Models\Tech;
 use App\Models\User;
 use App\Mail\VerifyMail;
+use App\Models\Order;
 use App\Models\RepairOrder;
 use App\Models\RepairOrderType;
 use App\Models\VerifyUser;
@@ -410,5 +411,13 @@ public function success(Request $request)
         dd('payment cancel');
 }
 
+
+//////////////orderViewDetails////////////////
+
+public function orderViewDetails($id)
+{
+   $orders = Order::where('orderSales_id',$id)->get();
+   return view('frontend.order.view',compact('orders'));
+}
 
 }

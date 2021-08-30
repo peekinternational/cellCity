@@ -15,7 +15,7 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id')->nullable();
+            $table->integer('orderSales_id')->nullable();
             $table->integer('product_id')->nullable();
             $table->string('brand_name')->nullable();
             $table->string('model_name')->nullable();
@@ -23,8 +23,10 @@ class CreateOrdersTable extends Migration
             $table->string('condition')->nullable();
             $table->string('storage')->nullable();
             $table->string('quantity')->nullable();
+            $table->string('payment_method')->nullable();
             $table->string('price')->nullable();
             $table->string('grand_price')->nullable();
+            $table->enum('status',['1','2','3'])->nullable();
 
             $table->timestamps();
         });

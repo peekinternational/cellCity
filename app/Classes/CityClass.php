@@ -16,6 +16,7 @@ use App\Models\Admin;
 use App\Models\Alert;
 use App\Models\Blog;
 use App\Models\Order;
+use App\Models\OrderSale;
 use App\Models\OrderTime;
 use App\Models\ProductCondition;
 use App\Models\Wishlist;
@@ -84,7 +85,7 @@ class CityClass {
 
     function orderlist($id)
     {
-        return Order::where('user_id',$id)->get();
+        return OrderSale::where('user_id',$id)->get();
     }
 
     function role()

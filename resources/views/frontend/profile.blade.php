@@ -156,29 +156,33 @@
                                 <table id="example" class="table table-bordered table-hover">
 									<thead>
 										<tr>
-											<th>Sr#</th>
-											<th>Product Name</th>
-											<th>Quantity</th>
-											<th>Price</th>
-											<th>Status</th>
-											{{-- <th>Action</th> --}}
+											<th>OrderSale ID</th>
+                                            <th>Name</th>
+											<th>Created At</th>
+											<th>Shipping Address</th>
+											<th>Grand Price</th>
+
+											<th>Action</th>
 										</tr>
 									</thead>
 									<tbody>
-                                        @forelse (CityClass::orderlist(Auth::user()->id) as $order)
+                                        @forelse (CityClass::orderlist(Auth::user()->id) as $orderSale)
                                         <tr>
-                                            <td>1</td>
-											<td>{{$order->brand_name}}  {{$order->model_name}}</td>
-											<td>{{$order->quantity}}</td>
-											<td>${{$order->price}}</td>
+                                            {{-- @php
+                                                $order= App\Models\Order::where('orderSales_id',$orderSale->id)->first();
+                                                // dd($order);
+                                            @endphp --}}
+                                            <td>{{$orderSale->id}}</td>
+                                            <td>{{$orderSale->user->name}}</td>
+											<td>{{$orderSale->created_at->format('D-M-y h:s')}}</td>
+
+											<td>{{$orderSale->shipAddress->shipaddress}}</td>
 											<td>
-                                                @if ($order->status == 1)
-                                                    <span class="badge badge-success" style="background-color: #56ac05">Complete</span>
-                                                    @else
-                                                    <span><span class="badge badge-danger">not complete</span></span>
-                                                @endif
+                                                ${{$orderSale->grand_total}}
                                                </td>
-											{{-- <td><a href=""><i class="fa fa-trash text-danger"></i></a></td> --}}
+											<td>
+                                                <a href="#" onclick="orderViewDetails('{{$orderSale->id}}')" class="mr-3 text-success"><i class="fa fa-eye font-size-18"></i></a>
+                                            </td>
                                         </tr>
                                         @empty
                                             <tr>
@@ -431,6 +435,27 @@
 	</div>
     <div id="showModels"></div>
 </section>
+
+<div class="modal fade" id="empModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Sale Order </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+      <div class="modal-body" id="saleOrder">
+        ...
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 <!--Shop Section-->
 
 @endsection
@@ -457,6 +482,19 @@
           console.log(response);
           $('#showModels').html(response);
           $('#exampleModal'+id).modal('show');
+        },
+
+       });
+    }
+    function orderViewDetails(id)
+    {
+        $.ajax({
+        url: "{{url('customer/orderViewDetails')}}/"+id,
+        type:"get",
+        success:function(response){
+          console.log(response);
+          $('#saleOrder').html(response);
+          $('#empModal').modal('show');
         },
 
        });

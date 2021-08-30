@@ -598,7 +598,7 @@
                   $("#NextSubmitBtn").hide();
                   $("#prevBtn").hide();
 
-                  alert('asdsa');
+                //   alert('asdsa');
             }
        });
         });
@@ -769,120 +769,7 @@ function getModel(event)
     x[n].className += " active";
   }
   </script>
-  <script>
 
-        // var x = 1; //Initial field counter is 1
-        //Once add button is clicked
-        // $(document).on('click','#add_button2',function(){
-
-        //     //Check maximum number of input fields
-        //     x++;
-        //     // alert(x);
-        //     // alert(x);
-        //     if(x < maxField2){
-        //         var fieldHTML = '<div class="col-md-12 remove-color">'+
-        //                 '<div class="row">'+
-        //               '<div class="col-md-5">'+
-        //                        ' <label for="example-text-input" class=" col-form-label">Color Name</label>'+
-        //                        ' <input class="form-control"  name="color_name['+x+']" type="text" placeholder="Enter mobile color name"  @if(old('color_name')) value="{{ old('color_name') }}" @endif  id="example-text-input">'+
-        //                         '<span class="text-danger">{{ $errors->first('color_name') }}</span>'+
-
-        //                     '</div>'+
-        //                    ' <div class="col-md-5">'+
-        //                        ' <label for="example-text-input" class="col-form-label">Image</label>'+
-        //                        ' <input class="form-control" name="image['+x+'][]"  multiple type="file"   @if(old('image'))  @endif  id="example-text-input">'+
-        //                        ' <span class="text-danger">{{ $errors->first('image') }}</span>'+
-        //                     '</div>'+
-
-        //                     '<div class="col-md-2" style="text-align:center">'+
-        //                       '  <a href="javascript:void(0)" class="btn btn-danger remove_button2" style="margin-top: 36px;"><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Remove</a>'+
-        //                     '</div>'+
-        //                     '</div>'+
-        //                    '<hr>'+
-
-        //                     '<div class="add_storage">'+
-        //                             '<div class="row" id="add_storage'+x+'">'+
-        //                             '<div class="input-group">'+
-        //                             '<div class="col-md-8">'+
-        //                                 '<label for="example-text-input" class="col-form-label">Storage</label>'+
-        //                                 '<select class="form-control" name="storage['+x+'][]" >'+
-        //                                     '<option selected>Select Memory</option>'+
-        //                                     '<option value="64 GB">256 GB</option>'+
-        //                                     '<option value="64 GB">128 GB</option>'+
-
-        //                                     '<option value="64 GB">64 GB</option>'+
-        //                                     '<option value="32 GB">32 GB</option>'+
-        //                                     '<option value="16 GB">16 GB</option>'+
-        //                                     '<option value="8 GB">8 GB</option>'+
-
-        //                                 '</select>'+
-
-        //                                 '</div>'+
-        //                                 '<div class="col-md-4" style="text-align: center;"> '+
-        //                                   '  <a href="javascript:void(0)" class="btn btn-info addMoreStorage" style="margin-top: 36px;" id="add_button2"><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Add Storage</a>'+
-        //                                ' </div>'+
-
-        //                             '</div>'+
-        //                         '</div>'+
-        //                     '</div>'+
-
-        //                     '<div class="add_condition">'+
-        //                         '<div class="row" id="add_condition'+x+'">'+
-        //                        '<div class="input-group">'+
-        //                     '<div class="col-md-3">'+
-        //                        ' <label for="example-text-input" class="col-form-label">Condition</label>'+
-        //                         '<select class="form-control"  name="condition['+x+'][]" id="condition">'+
-        //                                ' <option selected>Select Any One</option>'+
-        //                                ' <option value="fair">fair</option>'+
-        //                                ' <option value="good">good</option>'+
-        //                                 '<option value="excellent">excellent</option>'+
-
-        //                             '</select>'+
-
-        //                     '</div>'+
-        //                     '<div class="col-md-3">'+
-        //                        ' <label for="example-text-input" class="col-form-label">Price</label>'+
-        //                         '<input class="form-control"  name="price['+x+'][]" type="number" placeholder="Enter mobile Price"  @if(old('price')) value="{{ old('price') }}" @endif  id="example-text-input">'+
-        //                        ' <span class="text-danger">{{ $errors->first('price') }}</span>'+
-        //                     '</div>'+
-
-
-        //                    ' <div class="col-md-3">'+
-        //                        ' <label for="example-text-input" class="col-form-label">Quantity</label>'+
-        //                         '<input class="form-control"  name="quantity['+x+'][]" type="number" placeholder="Enter mobile Quantity"  @if(old('quantity')) value="{{ old('quantity') }}" @endif  id="example-text-input">'+
-        //                        ' <span class="text-danger">{{ $errors->first('quantity') }}</span>'+
-        //                     '</div>'+
-        //                     ' <input type="hidden" name="addMoreCondition0" value="'+x+'" id="addMoreCondition'+x+'">'+
-        //                    ' <div class="col-md-3" style="text-align:center"> '+
-        //                        ' <a href="javascript:void(0)" class="btn btn-success addMoreCondition" style="margin-top: 36px;" ><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span>addMoreCondition</a>'+
-        //                     '</div> </div></div></div>'+
-
-        //                '</div>';
-
-        //     $(wrapper2).append(fieldHTML); //Add field html
-        //     }
-
-        // });
-
-
-        //Once remove button is clicked
-        // $(wrapper2).on('click', '.remove', function(e){
-        // 	e.preventDefault();
-        // 	$(this).parent('field_wrapper2').remove(); //Remove field html
-        // 	x--; //Decrement field counter
-        // });
-
-        // $(wrapper2).on('click', '.remove_button2', function(e){
-        //     e.preventDefault();
-        //  console.log($(this).closest('.remove-color'));
-        //     $(this).closest('.remove-color').remove(); //Remove field html
-        //     x--; //Decrement field counter
-        // });
-
-
-    //  Storage section
-
-  </script>
 
 @endsection
 

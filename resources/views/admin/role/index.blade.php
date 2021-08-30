@@ -52,9 +52,12 @@
                                                         </td>
 
                                                        <td>
-                                                           @foreach (CityClass::role() as $rol)
-                                                           <h5 class="font-size-14 mb-1"><a href="#" class="text-dark"></a></h5>
-                                                           @endforeach
+                                                        @if(!empty($user->getRoleNames()))
+                                                        @foreach($user->getRoleNames() as $v)
+
+                                                           <label class="badge badge-success">{{ $v->name}}</label>
+                                                        @endforeach
+                                                      @endif
                                                        </td>
                                                         <td>
                                                             {{-- <ul class="list-inline font-size-20 contact-links mb-0">
