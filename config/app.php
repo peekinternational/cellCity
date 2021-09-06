@@ -167,6 +167,8 @@ return [
          */
         Darryldecode\Cart\CartServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
+        // \App\Providers\AccessoryServiceProvider::class,
+        Codebyray\ReviewRateable\ReviewRateableServiceProvider::class,
         /*
          * Application Service Providers...
          */

@@ -286,25 +286,25 @@
                       @foreach ($items as $item)
 
 
-                    <tr class="cart_item cart-545678">
-                      <td class="t-product-name">{{$item->name}}<strong class="product-quantity">   ×  {{$item->quantity}}</strong></td>
-                      @php
-                      $total = round($item->quantity*$item->price);
-                     @endphp
-                      <td class="t-product-price"><span>${{$total}}</span></td>
-                    </tr>
-                    @endforeach
-                  </tbody>
-                  <tfoot>
-                    @php
-                        $total = Cart::session($userID)->getTotal();
+                        <tr class="cart_item cart-545678">
+                        <td class="t-product-name">{{  $item->name }} -({{$item->associatedModel->category ?? ''}}) -  <strong class="product-quantity">   ×  {{$item->quantity}}</strong></td>
+                        @php
+                        $total = round($item->quantity*$item->price);
+                        @endphp
+                        <td class="t-product-price"><span>${{$total}}</span></td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                    <tfoot>
+                        @php
+                            $total = Cart::session($userID)->getTotal();
 
-                    @endphp
-                    <tr class="order-total">
-                      <th>Total</th>
-                      <td><strong><span class="total-amount">$ {{$total}}</span></strong></td>
-                    </tr>
-                  </tfoot>
+                        @endphp
+                        <tr class="order-total">
+                        <th>Total</th>
+                        <td><strong><span class="total-amount">$ {{$total}}</span></strong></td>
+                        </tr>
+                    </tfoot>
                 </table>
                 <div class="checkout-payment">
                     <!-- <div class="payment_methods">

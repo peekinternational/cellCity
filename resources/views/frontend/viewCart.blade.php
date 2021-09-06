@@ -18,7 +18,7 @@
       <div class="row">
         <div class="col-md-12">
            <div class="card">
-            <div class="product-stock bg-dark" style="margin-top: 100px"><i class="fa fa-info-circle"></i> <span id="quantity"></span> Product in stock</div>
+            <div class="product-stock bg-dark" style="margin-top: 100px"><i class="fa fa-info-circle"></i> <span id="quantity"></span> Product </div>
             <!-- Warenty Box -->
             <div class="warrenty-box">
 
@@ -41,7 +41,12 @@
                         </tr>
                       </thead>
                     <tbody>
+
                     @foreach ($items as $item)
+                    {{-- @php
+                        dd($item->attributes->category);
+                    @endphp --}}
+                    @if ($item->attributes->category != "accessory")
                        <tr>
                             <td>{{$item->name}}</td>
                             <td>{{$item->attributes->color}}</td>
@@ -70,28 +75,82 @@
                                 </div>
                             </td>
                        </tr>
+                        @else
 
-
+                       @endif
                     @endforeach
+
                </tbody>
             </table>
 
             </div>
 
-            {{-- <div class="payment-imgs d-flex">
-            <div class="pay-img">
-                <img src="{{asset('frontend-assets/images/visa.svg')}}">
+
+            <div class="product-stock bg-dark" style="margin-top: 100px"><i class="fa fa-info-circle"></i> <span id="quantity"></span> Accessory </div>
+            <!-- Warenty Box -->
+            <div class="warrenty-box">
+
+                @php
+                     $userID = Auth::user()->id;
+                     $items=\Cart::session($userID)->getContent()
+                @endphp
+                <table class="table table-bordered">
+                     <thead>
+                        <tr>
+                            <th>Brand Name</th>
+
+
+                            <th>Accessory Name</th>
+                            <th>Category</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Total Price</th>
+                            <th>Action</th>
+
+                        </tr>
+                      </thead>
+                    <tbody>
+
+                    @foreach ($items as $item)
+
+                    @if ($item->attributes->category == "accessory")
+                       <tr>
+                            <td>{{$item->name}}</td>
+                            <td>{{$item->associatedModel->name}}</td>
+                            <td>{{$item->associatedModel->category}}</td>
+                            {{-- <td>{{$item->associatedModel->conditition}}</td> --}}
+                            <td><input type="number" onfocus="removeval({{ $item->id }})" class="form-control border-dark w-40px"
+                            onchange="recal({{ $item->id }})"id="change{{ $item->id }}" value="{{ $item->quantity }}"
+                            MIN="1" />
+                            </td>
+                            <td>{{$item->price}}</td>
+                            @php
+                                $total = round($item->quantity*$item->price);
+                            @endphp
+                            <td>{{$total}}</td>
+
+                            <td>
+                                <div class="card-toolbar text-right">
+                                    <form method="post">
+                                        @csrf
+                                        <input type="hidden" value="" name="id">
+                                        <a class="btn btn-danger" type="button" title="Delete"
+                                            onclick="dlt({{ $item->id }})"><i
+                                                class="fa fa-trash"></i></a>
+                                        {{-- confirm-delete --}}
+                                    </form>
+                                </div>
+                            </td>
+                       </tr>
+                        @else
+
+                       @endif
+                    @endforeach
+
+               </tbody>
+            </table>
+
             </div>
-            <div class="pay-img">
-                <img src="{{asset('frontend-assets/images/mastercard.svg')}}">
-            </div>
-            <div class="pay-img">
-                <img src="{{asset('frontend-assets/images/discover.svg')}}">
-            </div>
-            <div class="pay-img">
-                <img src="{{asset('frontend-assets/images/amex.svg')}}">
-            </div>
-            </div> --}}
 
             <div class="warrenty-box">
                 <div class="row">

@@ -276,8 +276,9 @@
                                         {{-- <input type="submit" name="loginBtn" id="loginBtn" value="Login" /> --}}
 
                                         {{-- <input type="button" name="save" class="btn btn-primary" value="Save to database" id="butsave"> --}}
-                                        <button type="button" id="NextSubmitBtn"  style="background:#0415aa">Add More Color</button>
-                                        <button type="button" id="SubmitBtnColor"  style="background:green;display:none">Add More & More Color</button>
+                                        <button type="button" id="NextSubmitBtn" class="btn btn-primary">Add More Color</button>
+                                        <a href="{{url('admin/product/create')}}" id="backBtn" class="btn btn-warning">Back</a>
+                                        <button type="button" id="SubmitBtnColor" class="btn btn-success"  style="display:none">Add More & More Color</button>
                                         </div>
                                     <div class="row">
 
@@ -516,7 +517,7 @@
 
         var  maxField=3;
 		var childern =	$(e.target).closest('.add_condition').find('#'+storeindex).children().length;
-          alert(storeindex);
+        //   alert(storeindex);
 			if(y < maxField ){
                 // alert(childern);
 				var fieldHTML = ' <div class="remove_condition"><div class="row" id="add_condition'+storeindex+'"><div class="input-group">'+
@@ -627,10 +628,13 @@
             success: function(response)
             {
                   console.log(response);
-                  $("#product_id").val(response.product_id);
+                  $("#regForm")[0].reset();
+                  $("#product_id").val(response);
                   $("#SubmitBtnColor").show();
                   $("#NextSubmitBtn").hide();
                   $("#prevBtn").hide();
+                  $("#nextBtn").hide();
+                  alert('Successfully Added Products...');
 
                 //   alert('asdsa');
             }

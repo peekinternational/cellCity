@@ -87,7 +87,7 @@
                                                         @endphp --}}
                                                         <td>{{$orderSale->id}}</td>
                                                         <td>{{$orderSale->user->name}}</td>
-                                                        <td>{{$orderSale->created_at->format('D-M-y h:s')}}</td>
+                                                        <td>{{$orderSale->created_at->format('D-m-Y h:s')}}</td>
 
                                                         <td>{{$orderSale->shipAddress->shipaddress}}</td>
                                                         <td>
@@ -105,7 +105,10 @@
                                                         </td>
                                                         <td>
                                                             <a href="#" onclick="orderViewDetails('{{$orderSale->id}}')" class="mr-3 text-success" title="view order"><i class="fa fa-eye font-size-18"></i></a>
+                                                            @if ($orderSale->status == 0)
                                                             <a href="#" onclick="sendCode('{{$orderSale->id}}')" class="mr-3 text-warning" title="send Tracking Code" > <i class="fa fa-edit font-size-18"></i></a>
+                                                            @endif
+
                                                             {{-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Large modal</button> --}}
                                                         </td>
                                                     </tr>
@@ -292,11 +295,12 @@ $(document).ready(function() {
           type:"POST",
           data:{
             _token:_token,
-            name:name,
+            code:name,
             id:id,
           },
           success:function(response){
             console.log(response);
+            alert('Successfully Send The Shipping Code from Desired User');
           },
          });
         });

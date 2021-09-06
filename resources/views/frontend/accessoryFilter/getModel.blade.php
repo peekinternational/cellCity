@@ -1,5 +1,3 @@
-
-
 @forelse ($models as $model)
 <li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U">
 
@@ -23,4 +21,3 @@
 @empty
     Oop no Brand Model Yet!
 @endforelse
-

@@ -17,6 +17,7 @@ use App\Http\Controllers\ProductOrderController;
 use App\Http\Controllers\ShippingAddress;
 use App\Http\Controllers\SquareController;
 use App\Http\Controllers\WishlistController;
+use App\Models\Accessory;
 use App\Models\RepairOrder;
 
 /*
@@ -95,7 +96,7 @@ Route::name('admin.')->namespace('Admin')->prefix('admin')->group(function(){
     ////  View of Product Condition
     Route::get('/product-condition/{id}',[ProductConditionController::class,'index']);
     Route::post('/product-storeCondition',[ProductConditionController::class, 'storeCondition']);
-    Route::get('/productCondtion-delete/{id}/{id2}',[ProductConditionController::class, 'deleteCondition']);
+    Route::get('/productCondtion-delete/{id}',[ProductConditionController::class, 'deleteCondition'])->name('condition.remove');
 
     ////  View of Product storage
     Route::get('/product-storage/{id}',[ProductConditionController::class,'storage']);
@@ -106,17 +107,24 @@ Route::name('admin.')->namespace('Admin')->prefix('admin')->group(function(){
 ////  View of Product color
     Route::get('/product-color/{id}',[ProductConditionController::class,'color']);
     Route::post('/productColor-store',[ProductConditionController::class, 'storeColor']);
-    Route::get('/productColor-delete/{id}',[ProductConditionController::class, 'deleteColor']);
+    Route::get('/productColor-delete/{id}',[ProductConditionController::class, 'deleteColor'])->name('remove.color');
 
     ///////////////////     Accessories   /////////////////////
     Route::get('/accessory',[AccessoryController::class,'index']);
     Route::get('/accessory/create',[AccessoryController::class,'create']);
-    Route::get('/accessory/store',[AccessoryController::class,'create'])->name('accessory.store');
+    Route::post('/accessory/store',[AccessoryController::class,'store'])->name('accessory.store');
+    Route::get('/accessory/{id}/edit',[AccessoryController::class,'edit'])->name('accessory.edit');
+    Route::post('/accessory/{id}',[AccessoryController::class,'update'])->name('accessory.update');
+
+    Route::get('accessory/getModels/{id}',[AccessoryController::class,'getModel']);
+    Route::get('viewAccessory/{id}',[AccessoryController::class,'viewAccessory']);
+
+    /////// Accessory Order /////////
+    Route::get('/accessoryOrder',[AccessoryController::class,'accessoryOrder']);
 
 
     //////////////////////////// Sale Order view ////////////////////////
    Route::get('/orderViewDetails/{id}',[ProductOrderController::class,'orderViewDetails']);
-
    Route::post('/send-code',[ProductOrderController::class,'sendCode']);
 
      //Check The update
@@ -297,6 +305,11 @@ Route::namespace('Auth')->middleware('auth:web')->group(function(){
     /// wishlist user side
     Route::get('/delete-wishlist/{id}',[WishlistController::class,'delete'])->name('wishlist.delete');
 
+    ////////////accessory-wishlist/////////////////////////
+    Route::get('accessory-wishlist/{id}',[WishlistController::class,'accessoryWishlist'])->name('accessory.wishlist');
+    Route::get('undo-access-wishlist/{id}',[WishlistController::class,'undoAccessoryWishlist'])->name('undo.access.wishlist');
+
+
 
     ///Square
     Route::post('squareProduct',[SquareController::class,'paymentProduct'])->name('square.paymentProduct');
@@ -305,6 +318,25 @@ Route::namespace('Auth')->middleware('auth:web')->group(function(){
    //verify email
    Route::get('/userVerify/{token}', [UserController::class,'verifyUserByEmail'])->name('user.verify');
    Route::post('/checkZipcode', [RepairController::class, 'checkZip']);
+
+
+
+   /////////////////////////     Accessories ///////////////////////////////
+   Route::get('accessory/single/{id}',[AccessoryController::class,'singlePage'])->name('accessory.single');
+   Route::post('accessory-add-cart',[AccessoryController::class,'addToCart'])->name('accessory.add.cart');
+
+   //////////////// Accessory Filter //////////////////////
+   Route::get('getAccessoryFilter',[AccessoryController::class,'getAccessoryFilter']);
+
+   //////////////// Accessory Sorting  / ///////////////////////
+   Route::get('getSortList',[AccessoryController::class,'getSortList']);
+
+   Route::post('trackingNumber',[ShippingAddress::class,'trackingCode']);
+   Route::post('confirm-tracking',[ShippingAddress::class,'confirmTracking']);
+
+   ///////////////////      Raview and Rating            ///////////////////////////
+
+   Route::post('accessory-rating',[AccessoryController::class,'rating'])->name('accessory.rating');
 
 
     Route::get('/', function () {

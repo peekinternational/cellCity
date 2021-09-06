@@ -30,21 +30,22 @@
 
                                                         <th scope="col">Brand Name</th>
                                                         <th scope="col">Model Name</th>
-                                                        <th scope="col">Warranty</th>
-                                                        <th scope="col">Conditions</th>
-                                                        <th scope="col">Storages</th>
-                                                        <th scope="col">Colors/Images</th>
+                                                        <th scope="col">Category</th>
+                                                        <th scope="col">Name</th>
+                                                        <th scope="col">Sell Price</th>
+                                                        <th scope="col">Original Price</th>
+                                                        <th scope="col">Quantity</th>
 
                                                         <th scope="col">Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach($accessories as $index => $product)
+                                                    @foreach($accessories as $index => $accessory)
                                                     <tr>
                                                         <td>{{$index + 1}} </td>
 
                                                         @php
-                                                            $model = App\Models\Pmodel::whereId($product->model_id)->first();
+                                                            $model = App\Models\Pmodel::whereId($accessory->model_id)->first();
                                                             @endphp
                                                         <td>
                                                            {{$model->brand->brand_name}}
@@ -55,22 +56,25 @@
                                                             {{ $model->model_name }}
 
                                                         </td>
-                                                       <td>{{ $product->warranty }}</td>
+                                                       <td>{{ $accessory->category }}</td>
+                                                       <td>{{ $accessory->name }}</td>
+                                                       <td>{{ $accessory->sell_price }}</td>
+                                                       <td>{{ $accessory->orig_price }}</td>
+                                                       <td>{{ $accessory->quantity }}</td>
 
-                                                      <td><a href="{{url('admin/product-condition',$product->id) }}" class="btn btn-primary btn-sm" title="View More"><i class="fa fa-eye"></i></a></td>
-                                                       <td><a href="{{url('admin/product-storage',$product->id) }}" class="btn btn-warning btn-sm" title="View More"><i class="fa fa-eye"></i></a></td>
-                                                         <td><a href="{{url('admin/product-color',$product->id) }}" class="btn btn-success btn-sm" title="View More"><i class="fa fa-eye"></i></a></td>
+
+
 
                                                         <td>
                                                             <ul class="list-inline font-size-20 contact-links mb-0">
                                                                 <li class="list-inline-item px-2">
-                                                                    <a href="{{url('admin/product/'.$product->id.'/show') }}" data-toggle="tooltip" data-placement="top" title="View More"><i class="mdi mdi-eye-outline"></i></a>
+                                                                    <a href="#" onclick="viewAccessory('{{$accessory->id}}')" class="mr-3 text-success" title="view order"><i class="fa fa-eye font-size-18"></i></a>
                                                                 </li>
                                                                 <li class="list-inline-item px-2">
-                                                                    <a href="{{url('admin/product/'.$product->id.'/edit') }}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="mdi mdi-account-edit-outline"></i></a>
+                                                                    <a href="{{url('admin/accessory/'.$accessory->id.'/edit') }}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="mdi mdi-account-edit-outline"></i></a>
                                                                 </li>
                                                                 <li class="list-inline-item px-2">
-                                                                   <form action="{{url('admin/product/'.$product->id)}}" method="post">
+                                                                   <form action="{{url('admin/product/'.$accessory->id)}}" method="post">
                                                                     {{csrf_field()}}
                                                                        @method('DELETE')
 
@@ -89,37 +93,53 @@
                                                 </tbody>
                                             </table>
                                         </div>
-                                      <!--   <div class="row">
-                                            <div class="col-lg-12">
-                                                <ul class="pagination pagination-rounded justify-content-center mt-4">
-                                                    <li class="page-item disabled">
-                                                        <a href="#" class="page-link"><i class="mdi mdi-chevron-left"></i></a>
-                                                    </li>
-                                                    <li class="page-item">
-                                                        <a href="#" class="page-link">1</a>
-                                                    </li>
-                                                    <li class="page-item active">
-                                                        <a href="#" class="page-link">2</a>
-                                                    </li>
-                                                    <li class="page-item">
-                                                        <a href="#" class="page-link">3</a>
-                                                    </li>
-                                                    <li class="page-item">
-                                                        <a href="#" class="page-link">4</a>
-                                                    </li>
-                                                    <li class="page-item">
-                                                        <a href="#" class="page-link">5</a>
-                                                    </li>
-                                                    <li class="page-item">
-                                                        <a href="#" class="page-link"><i class="mdi mdi-chevron-right"></i></a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div> -->
+
                                     </div>
                                 </div>
                             </div>
                         </div>
 
+                        <div class="modal fade" id="empModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Sale Order </h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                              <div class="modal-body" id="viewAccessory">
+                                ...
+                              </div>
+
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+@endsection
+
+@section('script')
+
+<script>
+    function viewAccessory(id)
+    {
+        // alert(id);
+
+        $.ajax({
+        url: "{{url('admin/viewAccessory')}}/"+id,
+        type:"get",
+        success:function(response){
+          console.log(response);
+          $('#viewAccessory').html(response);
+          $('#empModal').modal('show');
+        },
+
+       });
+
+    }
+</script>
 @endsection

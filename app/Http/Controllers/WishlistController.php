@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Accessory;
 use App\Models\Alert;
 use App\Models\Product;
 use App\Models\Wishlist;
@@ -66,6 +67,27 @@ class WishlistController extends Controller
     public function undoWishlist($id)
     {
           Wishlist::where('user_id',Auth::user()->id)->where('product_id',$id)->delete();
+
+          return response()->json();
+    }
+
+    public function accessoryWishlist($id)
+    {
+
+        $accessory = Accessory::find($id);
+        $wishlist =  new Wishlist;
+        $wishlist->accessory_id = $accessory->id;
+        $wishlist->user_id = Auth::user()->id;
+        $wishlist->category = 'accessory';
+        $wishlist->status   = 1;
+        $wishlist->save();
+
+        return response()->json($wishlist);
+
+    }
+    public function undoAccessoryWishlist($id)
+    {
+          Wishlist::where('user_id',Auth::user()->id)->where('accessory_id',$id)->delete();
 
           return response()->json();
     }

@@ -33,8 +33,13 @@ class Pmodel extends Model
        *
        * @return \Illuminate\Database\Eloquent\Relations\belongsTo
        */
-      public function product(): belongsTo
+      public function product()
       {
           return $this->belongsTo(Product::class, 'model_id', 'id');
       }
+      public function accessory()
+      {
+          return $this->hasMany(Accessory::class,'model_id','id');
+      }
+
 }
