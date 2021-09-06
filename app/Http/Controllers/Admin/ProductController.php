@@ -16,6 +16,7 @@ use App\Http\Controllers\Controller;
 use App\Mail\TechMail;
 use App\Models\Alert;
 use App\Models\Order;
+use App\Models\OrderSale;
 use App\Models\Wishlist;
 use Darryldecode\Cart\Cart;
 use Exception;
@@ -431,7 +432,7 @@ class ProductController extends Controller
         // $colors  = ProductColor::all();
         if(Auth::check())
         {
-            $products = Product::where('category','phone')->paginate(4);
+            $products = Product::where('category','phone')->paginate(8);
             $wishlist  = Wishlist::where('user_id',Auth::user()->id)->first();
             return view('frontend.buy-phone',compact('products'));
         }
@@ -595,6 +596,8 @@ class ProductController extends Controller
        return view('frontend.viewCart');
    }
 
+
+   ///////////////////// Payments ////////////////////////////
     public function payment(Request $request)
     {
         $userID = Auth::user()->id;
@@ -602,9 +605,15 @@ class ProductController extends Controller
         $data = $cartCollection->all();
         //    dd($request->all());
         // dd($cartCollection);
+        $totals = \Cart::session($userID)->getTotal();
 
         if($request->payment == "cash")
         {
+            $orderSale =new OrderSale;
+            $orderSale->user_id = $userID;
+            $orderSale->grand_total =$totals;
+            $orderSale->shipping_id = $request->address_id;
+            $orderSale->save();
             foreach ($cartCollection as $cart) {
 
                 $model = Pmodel::where('id',$cart->associatedModel->model_id)->first();
@@ -613,9 +622,9 @@ class ProductController extends Controller
                 $total = round($cart->quantity*$cart->price);
                 // dd($cart->attributes->color);
                 $order = new Order;
-                $order->user_id = $userID;
+                $order->orderSales_id = $orderSale->id;
                 $order->product_id = $cart->associatedModel->id;
-                $order->shipAddress_id = $request->address_id;
+
                 $order->brand_name = $model->brand->brand_name;
                 $order->model_name  = $model->model_name;
                 $order->color       =  $cart->attributes->color;
@@ -657,9 +666,9 @@ class ProductController extends Controller
             //  dd($phone);
              $message =strip_tags(nl2br("Dear Customer, \n You have Successfully Pay  through Cash . \n Total Amount : $". $total));
 
-             $account_sid = "AC6769d3e36e7a9e9ebbea3839d82a4504";
-           $auth_token = "b2229f79769f0b47fa8e7bb685291d0d";
-           $twilio_number = +15124027605;
+             $account_sid = "ACeb30af8343f53c1b366517b35ea44dc2";
+             $auth_token = "41d4275d8e0e3b545e819df1a9f2d286";
+             $twilio_number = +14842553085;
              $client = new Client($account_sid, $auth_token);
              $client->messages->create($phone,
                  ['from' => $twilio_number, 'body' => $message] );
@@ -816,9 +825,9 @@ class ProductController extends Controller
             //  dd($phone);
              $message =strip_tags(nl2br("Dear Customer, \n You have Successfully Pay  through PayPal . \n Total Amount : $". $total));
 
-             $account_sid = "AC6769d3e36e7a9e9ebbea3839d82a4504";
-             $auth_token = "b2229f79769f0b47fa8e7bb685291d0d";
-             $twilio_number = +15124027605;
+             $account_sid = "ACeb30af8343f53c1b366517b35ea44dc2";
+           $auth_token = "41d4275d8e0e3b545e819df1a9f2d286";
+           $twilio_number = +14842553085;
              $client = new Client($account_sid, $auth_token);
              $client->messages->create($phone,
                  ['from' => $twilio_number, 'body' => $message] );

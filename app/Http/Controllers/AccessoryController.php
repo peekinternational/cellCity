@@ -14,7 +14,8 @@ class AccessoryController extends Controller
      */
     public function index()
     {
-        //
+         $accessories = Accessory::all();
+        return view('admin.accessories.index',compact('accessories'));
     }
 
     /**
@@ -24,7 +25,7 @@ class AccessoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.accessories.create');
     }
 
     /**

@@ -22,7 +22,7 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                               
+
                                                 <td>
                                                   @foreach($order->repairorderstypes as $type)
                                                     <div>
@@ -30,9 +30,9 @@
                                                     </div>
                                                      @endforeach
                                                 </td>
-                                               
+
                                                 <td></td>
-                                               
+
                                                 <td>
                                                 @foreach($order->repairorderstypes as $rprice)
 
@@ -41,7 +41,7 @@
                                                  @endforeach
                                                 </td>
                                             </tr>
-                                           
+
                                             <tr>
                                                 <td colspan="2">
                                                     <h6 class="m-0 text-right">Sub Total:</h6>
@@ -50,7 +50,7 @@
                                                     ${{$order->repairorderstypes->sum('price')}}
                                                 </td>
                                             </tr>
-                                         
+
                                             <tr>
                                                 <td colspan="2">
                                                     <h6 class="m-0 text-right">Total:</h6>

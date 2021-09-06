@@ -39,7 +39,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach($products as $index => $product)
+                                                    @foreach($accessories as $index => $product)
                                                     <tr>
                                                         <td>{{$index + 1}} </td>
 

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccessoryController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TechController;
@@ -63,7 +64,7 @@ Route::name('admin.')->namespace('Admin')->prefix('admin')->group(function(){
      Route::get('rejectOrder/{id}', [AdminController::class, 'rejectOrder'] );
 
      ///////////////////////////////   Admin Role    //////////////////////////////
-     Route::get('role/list',[AdminController::class, 'roleList'])->name('role.list');
+      Route::get('role/list',[AdminController::class, 'roleList'])->name('role.list');
       Route::get('role/create',[AdminController::class, 'addRole'])->name('role.create');
       Route::post('role/store',[AdminController::class, 'storeRole'])->name('role.store');
 
@@ -75,7 +76,7 @@ Route::name('admin.')->namespace('Admin')->prefix('admin')->group(function(){
      Route::resource('/brands', '\App\Http\Controllers\Admin\BrandController');
      Route::resource('/models', '\App\Http\Controllers\Admin\ModelController');
      Route::resource('/repairTypes', '\App\Http\Controllers\Admin\AdminRepairController');
-     
+
      Route::get('/repairOrders',  [AdminRepairController::class, 'repairOrders']);
      Route::post('/assignTech',  [AdminRepairController::class, 'assignTech']);
      Route::get('/completed-orders',[AdminRepairController::class,'orderCompleted']);
@@ -107,9 +108,16 @@ Route::name('admin.')->namespace('Admin')->prefix('admin')->group(function(){
     Route::post('/productColor-store',[ProductConditionController::class, 'storeColor']);
     Route::get('/productColor-delete/{id}',[ProductConditionController::class, 'deleteColor']);
 
+    ///////////////////     Accessories   /////////////////////
+    Route::get('/accessory',[AccessoryController::class,'index']);
+    Route::get('/accessory/create',[AccessoryController::class,'create']);
+    Route::get('/accessory/store',[AccessoryController::class,'create'])->name('accessory.store');
 
 
+    //////////////////////////// Sale Order view ////////////////////////
+   Route::get('/orderViewDetails/{id}',[ProductOrderController::class,'orderViewDetails']);
 
+   Route::post('/send-code',[ProductOrderController::class,'sendCode']);
 
      //Check The update
      Route::get('/checkUpdateOrders',[AdminRepairController::class,'checkUpdateOrders']);
@@ -237,7 +245,7 @@ Route::namespace('Auth')->middleware('auth:web')->group(function(){
     // Route::post('customer/payment/{id}',[UserController::class,'payment'])->name('payment.order');
     //View the Order Details
     Route::get('customer/orderRepairView/{id}',[UserController::class,'viewOrderRepair'])->name('view.order');
-
+    Route::get('customer/orderViewDetails/{id}',[UserController::class,'orderViewDetails']);
 
     Route::get('/logout',function(){
             Auth::guard('web')->logout();

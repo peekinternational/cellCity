@@ -90,7 +90,24 @@
                         <li><a href="ecommerce-cart">Cart</a></li>
                         <li><a href="ecommerce-checkout">Checkout</a></li>
                         <li><a href="ecommerce-shops">Shops</a></li>
-                     
+
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="bx bx-store"></i>
+                        <span>Accessories</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{url('admin/accessory/create')}}">Add Accessories</a></li>
+                        <li><a href="{{url('admin/accessory')}}">Accessories List</a></li>
+
+                        <li><a href="{{url('admin/productOrder')}}">Orders</a></li>
+                        <li><a href="ecommerce-customers">Customers</a></li>
+                        <li><a href="ecommerce-cart">Cart</a></li>
+                        <li><a href="ecommerce-checkout">Checkout</a></li>
+                        <li><a href="ecommerce-shops">Shops</a></li>
+
                     </ul>
                 </li>
                 @endrole

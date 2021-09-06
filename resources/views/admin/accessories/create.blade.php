@@ -18,15 +18,16 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <form action="{{route('admin.role.store')}}" method="post">
+                                        <form action="{{route('admin.accessory.store')}}" method="post">
                                             {{csrf_field()}}
 
                                             <div class="form-group row">
-                                                <label for="example-text-input" class="col-md-2 col-form-label">Role</label>
+                                                <label for="example-text-input" class="col-md-2 col-form-label">Brand</label>
                                                 <div class="col-md-10">
                                                 <select name="role_id"  class="form-control">
-                                                    @foreach (CityClass::role() as $rol)
-                                                    <option value="{{$rol->id}}">{{$rol->name}}</option>
+                                                    <option>select anyone</option>
+                                                    @foreach (CityClass::brands() as $brand)
+                                                    <option value="{{$brand->id}}">{{$brand->brand_name}}</option>
                                                     @endforeach
                                                 </select>
                                                 </div>
@@ -39,34 +40,35 @@
                                                 </div>
                                             </div>
                                              <div class="form-group row">
-                                                <label for="example-email-input" class="col-md-2 col-form-label">Email</label>
+                                                <label for="example-email-input" class="col-md-2 col-form-label">Category</label>
                                                 <div class="col-md-10">
-                                                    <input class="form-control" name="email" type="email" @if(old('email')) value="{{ old('email') }}" @endif placeholder="Enter email" id="example-email-input">
+                                                    <input class="form-control" name="category" type="text" @if(old('category')) value="{{ old('category') }}" @endif placeholder="Enter category" id="example-email-input">
                                                     <span class="text-danger">{{ $errors->first('email') }}</span>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="example-search-input" class="col-md-2 col-form-label">Address</label>
+                                                <label for="example-search-input" class="col-md-2 col-form-label">Sell Price</label>
                                                 <div class="col-md-10">
-                                                    <input class="form-control" type="text" placeholder="Enter Address" @if(old('address')) value="{{ old('address') }}" @endif name="address" id="example-search-input">
-                                                    <span class="text-danger">{{ $errors->first('address') }}</span>
+                                                    <input class="form-control" type="number" placeholder="Enter Sell Price" @if(old('sell_price')) value="{{ old('sell_price') }}" @endif name="sell_price" id="example-search-input">
+                                                    <span class="text-danger">{{ $errors->first('sell_price') }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="example-search-input" class="col-md-2 col-form-label"> Original Price</label>
+                                                <div class="col-md-10">
+                                                    <input class="form-control" type="number" placeholder="Enter orig_price" @if(old('orig_price')) value="{{ old('orig_price') }}" @endif name="price" id="example-search-input">
+                                                    <span class="text-danger">{{ $errors->first('orig_price') }}</span>
                                                 </div>
                                             </div>
                                              <div class="form-group row">
-                                                <label for="example-tel-input" class="col-md-2 col-form-label">Telephone</label>
+                                                <label for="example-tel-input" class="col-md-2 col-form-label">Description</label>
                                                 <div class="col-md-10">
-                                                    <input class="form-control" @if(old('phoneno')) value="{{ old('phoneno') }}" @endif name="phoneno" type="tel" placeholder="Enter phone no" id="example-tel-input">
-                                                    <span class="text-danger">{{ $errors->first('phoneno') }}</span>
+                                                    <textarea type="text" name="description" class="form-control" cols="30" rows="10"></textarea>
+                                                    <span class="text-danger">{{ $errors->first('description') }}</span>
                                                 </div>
                                             </div>
 
-                                            <div class="form-group row">
-                                                <label for="example-password-input" class="col-md-2 col-form-label">Password</label>
-                                                <div class="col-md-10">
-                                                    <input class="form-control" name="password" type="password" placeholder="Enter password" id="example-password-input">
-                                                    <span class="text-danger">{{ $errors->first('password') }}</span>
-                                                </div>
-                                            </div>
+
                                         <div class="text-center mt-4">
                                         <button type="submit" class="btn btn-primary waves-effect waves-light">Save</button>
                                     </div>

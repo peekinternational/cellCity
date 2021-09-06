@@ -118,7 +118,7 @@ class TechController extends Controller
     public function repairOrderUpdate(Request $request,$id)
     {
         $customer = User::whereId($request->userId)->first();
-        
+
         $model = explode(',',$request->model_Id);
         $model_Id = $model[0];
 
@@ -177,8 +177,7 @@ class TechController extends Controller
                   $ordertype->price= RepairType::whereId($value)->first()->price;
           }
           else{
-
-                  $ordertype->repair_type= RepairType::where('repair_type',$value)->first()->repair_type;
+                 $ordertype->repair_type= RepairType::where('repair_type',$value)->first()->repair_type;
                   $ordertype->price= RepairType::where('repair_type',$value)->first()->price;
           }
             $ordertype->save();
@@ -187,11 +186,11 @@ class TechController extends Controller
        $details = [
         'title' => 'Mail from PeekInternational.com',
         'subject' => 'Update the repair order,',
-        'message' => 'Techician  ('.$tech->name.')  updated the customer  (id :'.$ordertype->id.'  Name :'.$customer->name.')  repair order,'
+        'message' => 'Techician  ('.$tech->name.')  updated the customer  (id:'.$ordertype->id.'  Name :'.$customer->name.')  repair order,'
     ];
 
 
-     \Mail::to("peek.ali500@gmail.com")->send(new orderModify($details));
+     \Mail::to("cellcityus1@gmail.com")->send(new orderModify($details));
     //   $mail = mail ("admin@gmail.com",$subject,$message);
 
 
@@ -204,9 +203,9 @@ class TechController extends Controller
            $phone ='+'.$phoneno;
         //    dd($phone);
            $message =strip_tags(nl2br(" Dear Customer, \n i have recieved your repair order \n Are you want to repair the order"));
-           $account_sid = "AC6769d3e36e7a9e9ebbea3839d82a4504";
-           $auth_token = "b2229f79769f0b47fa8e7bb685291d0d";
-           $twilio_number = +15124027605;
+           $account_sid = "ACeb30af8343f53c1b366517b35ea44dc2";
+           $auth_token = "41d4275d8e0e3b545e819df1a9f2d286";
+           $twilio_number = +14842553085;
         $client = new Client($account_sid, $auth_token);
         $client->messages->create($phone,
             ['from' => $twilio_number, 'body' => $message] );
