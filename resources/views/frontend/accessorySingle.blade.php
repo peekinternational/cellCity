@@ -9,6 +9,7 @@
     color: #fff;
     line-height: 20px;
 }
+
 </style>
 @endsection
 @section('content')
@@ -46,7 +47,7 @@
                                             <ul class="image-carousel" id="images">
 
                                                 @foreach ($images as $image )
-                                                <li><a href="{{asset('storage/products/images/'.$image->image)}}" class="lightbox-image" title="Image Caption Here"><img src="{{asset('storage/products/images/'.$image->image)}}" alt=""></a></li>
+                                                <li><a href="{{asset('/storage/accessories/images/'.$image->images)}}" class="lightbox-image" title="Image Caption Here"><img src="{{asset('/storage/accessories/images/'.$image->images)}}" alt=""></a></li>
                                                 @endforeach
                                                 {{-- <li><a href="{{asset('frontend-assets/images/resource/products/shop-image-1.jpg')}}" class="lightbox-image" title="Image Caption Here"><img src="{{asset('frontend-assets/images/resource/products/shop-image-1.jpg')}}" alt=""></a></li>
                                                 <li><a href="{{asset('frontend-assets/images/resource/products/shop-image-1.jpg')}}" class="lightbox-image" title="Image Caption Here"><img src="{{asset('frontend-assets/images/resource/products/shop-image-1.jpg')}}" alt=""></a></li>
@@ -57,7 +58,7 @@
 
                                             <ul class="thumbs-carousel" id="imgg">
                                                 @foreach ($images as $image)
-                                                <li><img src="{{asset('storage/products/images/'.$image->image)}}" alt=""></li>
+                                                <li><img src="{{asset('/storage/accessories/images/'.$image->images)}}" alt=""></li>
                                                 @endforeach
                                             </ul>
 
@@ -67,19 +68,8 @@
                                     <div class="info-column col-md-5 col-sm-5 col-xs-12">
 
                                         <div class="details-header">
-                                            <h2>{{ $model->brand->brand_name}}   {{ $model->model_name }}  <span id="storage">{{$storage->storage}}</span> - <span id="color">{{$color->color_name}} </span>- {{$product->locked}}
+                                            <h2>{{ $model->brand->brand_name}}   {{ $model->model_name }}  </h2>  {{ $accessory->category }}  {{ $accessory->name }} {{ $accessory->name }}
 
-                                                @if($product->network == 4)
-                                                   (GSM/CDMA + Lite)
-                                                  @elseif($product->network == 3)
-                                                  (GSM/CDMA)
-                                                @elseif($product->network == 2)
-                                                (GSM)
-                                                @else
-
-                                                @endif
-
-                                            </h2>
                                             {{-- <div class="item-price">${{ $condition->price }}.00</div> --}}
                                         </div>
                                         <div class="product-brand">
@@ -100,77 +90,56 @@
                     <div class="features-list">
                       <div class="star-rating-s15-wrapper">
                         <span class="star-rating-s15 rate-10">
-                            @if ($product->averageRating(1)[0] == 1)
+                            @if ($accessory->averageRating(1)[0] == 1)
                             <i class="fa fa-star   avg-star-1" aria-hidden="true"></i>
                             <i class="fa fa-star-o avg-star-2" aria-hidden="true"></i>
                             <i class="fa fa-star-o avg-star-3" aria-hidden="true"></i>
                             <i class="fa fa-star-o avg-star-4" aria-hidden="true"></i>
                             <i class="fa fa-star-o avg-star-5" aria-hidden="true"></i>
-                            @elseif ($product->averageRating(1)[0] == 2)
+                            @elseif ($accessory->averageRating(1)[0] == 2)
                             <i class="fa fa-star   avg-star-1" aria-hidden="true"></i>
                             <i class="fa fa-star   avg-star-2" aria-hidden="true"></i>
                             <i class="fa fa-star-o avg-star-3" aria-hidden="true"></i>
                             <i class="fa fa-star-o avg-star-4" aria-hidden="true"></i>
                             <i class="fa fa-star-o avg-star-5" aria-hidden="true"></i>
-                            @elseif ($product->averageRating(1)[0] == 3)
+                            @elseif ($accessory->averageRating(1)[0] == 3)
                             <i class="fa fa-star    avg-star-1" aria-hidden="true"></i>
                             <i class="fa fa-star    avg-star-2" aria-hidden="true"></i>
                             <i class="fa fa-star avg-star-3" aria-hidden="true"></i>
                             <i class="fa fa-star-o avg-star-4" aria-hidden="true"></i>
                             <i class="fa fa-star-o avg-star-5" aria-hidden="true"></i>
-                            @elseif ($product->averageRating(1)[0] == 4)
+                            @elseif ($accessory->averageRating(1)[0] == 4)
                             <i class="fa fa-star avg-star-1" aria-hidden="true"></i>
                             <i class="fa fa-star avg-star-2" aria-hidden="true"></i>
                             <i class="fa fa-star avg-star-3" aria-hidden="true"></i>
                             <i class="fa fa-star-o avg-star-4" aria-hidden="true"></i>
                             <i class="fa fa-star-o avg-star-5" aria-hidden="true"></i>
-                            @elseif ($product->averageRating(1)[0] == 5)
+                            @else
                             <i class="fa fa-star avg-star-1" aria-hidden="true"></i>
                             <i class="fa fa-star avg-star-2" aria-hidden="true"></i>
                             <i class="fa fa-star avg-star-3" aria-hidden="true"></i>
                             <i class="fa fa-star avg-star-4" aria-hidden="true"></i>
                             <i class="fa fa-star avg-star-5" aria-hidden="true"></i>
-                            @else
-                            <i class="fa fa-star-o avg-star-1" aria-hidden="true"></i>
-                            <i class="fa fa-star-o avg-star-2" aria-hidden="true"></i>
-                            <i class="fa fa-star-o avg-star-3" aria-hidden="true"></i>
-                            <i class="fa fa-star-o avg-star-4" aria-hidden="true"></i>
-                            <i class="fa fa-star-o avg-star-5" aria-hidden="true"></i>
                             @endif
 
                         </span>
-                        <span>&nbsp {{ $product->averageRating(1)[0] }} /5 by (  {{  $product->countRating()[0] }}  ) customers</span>
+                        <span>&nbsp {{ $accessory->averageRating(1)[0] }} /5 by (  {{$accessory->countRating()[0] }}  ) customers</span>
                       </div>
                     </div>
 
                     <ul class="features-list">
                       <li class="price">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 443.9 476.5" data-test="currency-icon" class="_2_hFKs4efXvyjTEZkKl7eo"><path d="M102.4 349.6c-9.7-10.3-25.3-10.9-36.3-2.6 34.6 48.9 91.5 81 155.9 81 74.3 0 138.6-42.7 170.2-104.8-12.3-7.7-28.6-4.6-37 7.5-30 43.5-80.2 69.5-134.1 69.5-44.9.1-88.2-18.3-118.7-50.6z" opacity=".3"></path><path d="M371.5 87.5c-4-4-10.4-4-14.4 0-1.4 1.4-1.6 3.2-2 5-.2 1-.7 1.9-.6 2.9.2 2.4.9 4.7 2.7 6.5 7.9 7.9 14.9 16.4 21.2 25.4C400.8 159.2 413 197.1 413 237c0 105.3-85.7 191-191 191S31 342.3 31 237 116.7 45.9 222 45.9c5.6 0 10.2-4.6 10.2-10.2s-4.6-10.2-10.2-10.2C105.4 25.6 10.6 120.4 10.6 237S105.4 448.4 222 448.4 433.4 353.6 433.4 237c0-56.5-22-109.6-61.9-149.5z"></path><path d="M237.5 220.2l-22.7-5.1c-15.3-3.6-24-13.4-24-26.8 0-12.2 11.2-25.1 32-25.1 13.3 0 23.5 3.9 34 13.2 2.4 1.9 5.2 2.9 7.9 2.9 6.3 0 11.5-5.3 11.5-11.5 0-3.3-1.3-6.3-3.9-8.9-11.1-10.2-22.8-16-36.9-18.2l-2.9-.4v-23.8c0-6-4.9-10.9-10.9-10.9s-10.9 4.9-10.9 10.9v24.7l-2.6.6c-25 5.6-41.1 24.6-41.1 48.3 0 24.8 15.5 42.2 43.6 48.9l21.8 5.1c20.8 4.7 25.2 16.8 25.2 26.1 0 17-14 27.1-37.3 27.1-12.3 0-25.5-5.7-37.4-16-2.6-3.1-5.8-4.7-9.2-4.7-6.5 0-11.8 5.2-11.8 11.6 0 3 1.3 6 3.6 8.6 11.5 12.1 26.2 20 42.4 22.8l2.8.5v24c0 6 4.9 10.9 10.9 10.9s10.9-4.9 10.9-10.9v-24.4l2.8-.5c32.1-5.6 46.5-28.8 46.5-49.4.1-25.5-15.6-43-44.3-49.6z"></path></svg>
-                        <div class="item-price"><h3><i class="fa fa-usd"></i><span id="htmlprice">{{ $condition->price ?? '' }}</span>.00</h3></div>
+                        <div class="item-price"><h3><i class="fa fa-usd"></i><span id="htmlprice">{{ $accessory->sell_price ?? '' }}</span>.00</h3>     &nbsp &nbsp &nbsp <h3><i class="fa fa-usd"></i><del><span id="htmlprice"> {{ $accessory->orig_price ?? '' }}</span>.00 </del></h3></div>
                       </li>
                     </ul>
-                    <div class="features-list">
+                    {{-- <div class="features-list"> --}}
                       <!-- Color -->
-                      <div class="form-group color-select">
+                      {{-- <div class="form-group color-select">
                         <label>Color</label>
                         <div class="d-grid">
-                        @foreach($colors as $color)
-                          <div class="select-color">
-                              <input type="hidden" name="colorId" id="colorId" value="{{ $color->id }}">
-                           <input type="radio" name="color" class="hidden" id="color{{$color->id}}" >
-                            <label class="color" for="color{{$color->id}}" onclick="getStorage({{$color->id}})">
-                              <span class="color-spe" style="background: #27282D;"></span>
-                              {{$color->color_name}}
-                            </label>
-                          </div>
-                          @endforeach
-                          {{-- <div class="select-color">
-                           <input type="radio" name="color" class="hidden" id="color1">
-                            <label class="color" for="color1">
-                              <span class="color-spe" style="background: #FDDDC6;"></span>
-                              Gold
-                            </label>
-                          </div> --}}
+
+
                         </div>
                       </div>
                       <!-- Storage -->
@@ -190,16 +159,16 @@
                                512 GB
                             </label>
                           </div> --}}
-                        </div>
-                      </div>
+                        {{-- </div>
+                      </div> --}}
                       <!-- Condition -->
-                      <div class="form-group color-select">
+                      {{-- <div class="form-group color-select">
                         <label>Condition</label>
                         <div class="d-grid" id="getCondition">
 
                         </div>
                       </div>
-                    </div>
+                    </div> --}}
                     <ul class="features-list">
                       <li class="price">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 443.9 476.5" data-test="currency-icon" class="_2_hFKs4efXvyjTEZkKl7eo">
@@ -217,10 +186,10 @@
                                             <div class="stock">In Stock</div>
                                         </div> --}}
                     <!--Item Quantity-->
-                                        <div class="other-options clearfix" id="cart" style="display: none">
+                                        <div class="other-options clearfix" id="cart">
                                             <div class="item-quantity">
                                             <input class="quantity-spinner" type="text" id="quantity" value="1" name="quantity"></div>
-                                            <button type="button" class="theme-btn btn-style-one add-to-cart" onclick="addToCart({{ $product->id}})">Add To Cart </button>
+                                            <button type="button" class="theme-btn btn-style-one add-to-cart" onclick="addToCart({{ $accessory->id}})">Add To Cart </button>
                                         </div>
 
                     <!--Item Meta-->
@@ -237,7 +206,7 @@
                                             <!-- Warenty Box -->
                                             <div class="warrenty-box">
                                             <ul>
-                                                <li><i class="fa fa-check-circle text-success"></i> Warranty: {{ $product->warranty }}</li>
+                                                {{-- <li><i class="fa fa-check-circle text-success"></i> Warranty: {{ $accessory->warranty }}</li> --}}
                                                 <li><i class="fa fa-check-circle text-success"></i> 30-day money back guarantee</li>
                                                 <li><i class="fa fa-check-circle text-success"></i> Free standard shipping</li>
                                             </ul>
@@ -301,79 +270,28 @@
                                         <div class="tab active-tab" id="prod-description">
                                             <h3>Product Description</h3>
                                             <div class="content">
-                                               <p> {{ $product->desc }} </p>
+                                               <p>{{ $accessory->description }}</p>
                                             </div>
                                         </div>
 
                                         <!--Tab-->
                                         <div class="tab" id="prod-reviews">
-                                            @php
-                                            $ratings = $product->getAllRatings($product->id, 'desc');
-
-                                            @endphp
-                                            <h3>{{ $ratings->count() }} Reviews Found</h3>
+                                            <h3>3 Reviews Found</h3>
 
                                             <!--Reviews Container-->
                                             <div class="reviews-container">
 
                                                 <!--Reviews-->
-                                                @foreach ($ratings as $rating)
-                                                @php
-                                                     $user = App\Models\User::where('id',$rating->author_id)->first();
-                                                @endphp
                                                 <article class="review-box clearfix">
+                                                    <figure class="rev-thumb"><img src="images/resource/author-thumb-1.jpg" alt=""></figure>
                                                     <div class="rev-content">
-                                                        @if ($rating->rating == 1)
-                                                        <div class="rating">
-                                                            <span class="fa fa-star"></span>
-                                                            <span class="fa fa-star-o"></span>
-                                                            <span class="fa fa-star-o"></span>
-                                                            <span class="fa fa-star-o"></span>
-                                                            <span class="fa fa-star-o"></span>
-                                                        </div>
-                                                        @elseif ($rating->rating == 2)
-                                                        <div class="rating">
-                                                            <span class="fa fa-star"></span>
-                                                            <span class="fa fa-star"></span>
-                                                            <span class="fa fa-star-o"></span>
-                                                            <span class="fa fa-star-o"></span>
-                                                            <span class="fa fa-star-o"></span>
-                                                        </div>
-                                                        @elseif ($rating->rating == 3)
-                                                        <div class="rating">
-                                                            <span class="fa fa-star"></span>
-                                                            <span class="fa fa-star"></span>
-                                                            <span class="fa fa-star"></span>
-                                                            <span class="fa fa-star-o"></span>
-                                                            <span class="fa fa-star-o"></span>
-                                                        </div>
-                                                        @elseif ($rating->rating == 4)
-                                                        <div class="rating">
-                                                            <span class="fa fa-star"></span>
-                                                            <span class="fa fa-star"></span>
-                                                            <span class="fa fa-star"></span>
-                                                            <span class="fa fa-star"></span>
-                                                            <span class="fa fa-star-o"></span>
-                                                        </div>
-                                                        @elseif ($rating->rating == 5)
-                                                        <div class="rating">
-                                                            <span class="fa fa-star"></span>
-                                                            <span class="fa fa-star"></span>
-                                                            <span class="fa fa-star"></span>
-                                                            <span class="fa fa-star"></span>
-                                                            <span class="fa fa-star"></span>
-                                                        </div>
-
-                                                        @endif
-
-                                                        <div class="rev-info">{{ $user->name }} – {{ $rating->created_at->format('D-M-Y  H:s') }}</div>
-                                                        <div class="rev-text"><p>{{ $rating->title }}</p></div>
+                                                        <div class="rating"><span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star-o"></span></div>
+                                                        <div class="rev-info">Admin – April 03, 2016: </div>
+                                                        <div class="rev-text"><p>Sed eget turpis a pede tempor malesuada. Vivamus quis mi at leo pulvinar hendrerit. Cum sociis natoque penatibus et magnis dis</p></div>
                                                     </div>
                                                 </article>
-                                                @endforeach
 
-
-                                                {{-- <article class="review-box clearfix">
+                                                <article class="review-box clearfix">
                                                     <figure class="rev-thumb"><img src="images/resource/author-thumb-2.jpg" alt=""></figure>
                                                     <div class="rev-content">
                                                         <div class="rating"><span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star-o"></span> <span class="fa fa-star-o"></span></div>
@@ -389,11 +307,17 @@
                                                         <div class="rev-info">Sara – March 31, 2016: </div>
                                                         <div class="rev-text"><p>Sed eget turpis a pede tempor malesuada. Vivamus quis mi at leo pulvinar hendrerit. Cum sociis natoque penatibus et magnis dis</p></div>
                                                     </div>
-                                                </article> --}}
+                                                </article>
 
                                             </div>
 
+                                            {{-- <!--Add Review-->
+                                            <div class="add-review">
+                                                <h3>Add a Review</h3>
 
+
+
+                                            </div> --}}
 
 
                                         </div>
@@ -502,14 +426,12 @@
         </div>
       </div>
     </div>
-    <input type="hidden" name="storageId" id="storageId">
+
+
     <input type="hidden" name="model_name" id="model_name" value="{{ $model->model_name }} ">
-    <input type="hidden" name="brand_name" id="brand_name" value="{{ $model->brand->brand_name}} ">
-    <input type="hidden" name="getprice" id="getprice">
-    {{-- <input type="hidden" name="getquantity" id="getquantity"> --}}
-    <input type="text" name="getconditionss" id="getconditionss">
-    <input type="hidden" name="getStorages" id="getStorages">
-    <input type="hidden" name="getcolor" id="getcolor">
+    <input type="hidden" name="brand_name" id="brand_name" value="{{ $model->brand->brand_name}}">
+    <input type="hidden" name="getprice" id="getprice" value="{{ $accessory->sell_price }}">
+
 
 
 
@@ -575,7 +497,7 @@ function getPrice(price,quantity,condition)
 }
 
 
-function addToCart(productId)
+function addToCart(id)
 {
 
         // console.log($("#getcondit").val());
@@ -583,23 +505,17 @@ function addToCart(productId)
         var brand_name = $("#brand_name").val();
         var model_name = $("#model_name").val();
         var quantity = $("#quantity").val();
-        var colorId = $("#colorId").val();
-        var condition = $("#getconditionss").val();
-        var getStorages = $("#getStorages").val();
-        var getcolor = $("#getcolor").val();
         var getprice = $("#getprice").val();
 
      @if (!Auth::user())
-     window.location.href = "../signin";
+     window.location.href = "../../signin";
 
      @else
      $.ajax({
     type:"post",
-    url: "{{ route('add.cart') }}",
+    url: "{{ route('accessory.add.cart') }}",
     headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-    data:{product: productId ,getcolor:getcolor,condition:condition,
-                    model_name:model_name,brand_name:brand_name,
-                    quantity:quantity,getprice:getprice,getStorages:getStorages},
+    data:{id:id,model_name:model_name,brand_name:brand_name,quantity:quantity,getprice:getprice},
     success: function(add)
     {
         console.log(add);

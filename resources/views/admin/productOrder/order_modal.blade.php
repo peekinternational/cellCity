@@ -1,4 +1,5 @@
 <div class="table-responsive">
+    <h2> Product </h2>
     <table class="table table-centered table-nowrap">
         <thead>
             <tr>
@@ -9,11 +10,11 @@
             <th>Quantity</th>
             <th>payment_method</th>
             <th >Price</th>
-            <th > Grand Price</th>
+            <th> Grand Price</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($orders as $order)
+            @forelse($productOrder as $order)
             <tr>
 
                 <td>{{$order->brand_name}}  {{$order->model_name}} </td>
@@ -26,8 +27,47 @@
                 <td>{{$order->grand_price}}</td>
 
             </tr>
+            @empty
+            <tr>
+                <td colspan="6" class="text-center"> Nothing</td>
+             </tr>
+         @endforelse
+        </tbody>
+    </table>
 
-            @endforeach
+    <h2> Accessory </h2>
+    <table class="table table-centered table-nowrap">
+        <thead>
+            <tr>
+            <th>Brand Name</th>
+            <th>Category</th>
+            <th>Name</th>
+
+            <th>Quantity</th>
+            <th>Payment Method</th>
+            <th >Price</th>
+            <th> Grand Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @forelse($accessoryOrder as $order)
+            <tr>
+
+                <td>{{$order->brand_name}}  {{$order->model_name}} </td>
+                <td>{{$order->access_category}}</td>
+                <td>{{$order->access_name}}  </td>
+
+                <td>{{$order->quantity}}</td>
+                <td>{{$order->payment_method}}</td>
+                <td>{{$order->price}}</td>
+                <td>{{$order->grand_price}}</td>
+
+            </tr>
+            @empty
+            <tr>
+               <td colspan="6" class="text-center"> Nothing</td>
+            </tr>
+            @endforelse
         </tbody>
     </table>
 </div>

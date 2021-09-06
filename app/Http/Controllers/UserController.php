@@ -416,8 +416,9 @@ public function success(Request $request)
 
 public function orderViewDetails($id)
 {
-   $orders = Order::where('orderSales_id',$id)->get();
-   return view('frontend.order.view',compact('orders'));
+    $productOrder = Order::where('orderSales_id',$id)->where('type','phone')->get();
+    $accessoryOrder = Order::where('orderSales_id',$id)->where('type','accessory')->get();
+   return view('frontend.order.view',compact('productOrder','accessoryOrder'));
 }
 
 }

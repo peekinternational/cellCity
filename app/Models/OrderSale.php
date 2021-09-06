@@ -20,4 +20,8 @@ class OrderSale extends Model
     {
         return $this->belongsTo(ShippingAddr::class,'shipping_id','id');
     }
+    public function accessoryOrder()
+    {
+         return $this->hasMany(AccessoryOrder::class,'orderSale_id','id');
+    }
 }

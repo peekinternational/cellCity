@@ -29,11 +29,7 @@ class ProductConditionController extends Controller
     {
 
     //    dd($request->all());
-
-
          $condition = $request->condition_id;
-
-
         //  dd($condition);
         if(isset($condition))
          {
@@ -89,13 +85,10 @@ class ProductConditionController extends Controller
         // return view('admin.condition.index',compact('colors'));
     }
 
-    public function deleteCondition($ids,$id2)
+    public function deleteCondition($id)
     {
-      ProductCondition::where('id',$id2)->where('storage_id',$ids)->delete();
-        // $productConditions->where('storage_id', $ids)->delete();
+        ProductCondition::find($id)->delete();
         return back()->with('message', Alert::_message('success', 'Product Condition Deleted Successfully.'));
-
-        // $productConditions->whereIn('storage_id', $productConditions->storage_id)->each->delete();
     }
     /**
      * Show the form for creating a new resource.
@@ -125,37 +118,51 @@ class ProductConditionController extends Controller
     public function color($id)// Color Update and Delete
     {
         $colors = Product::find($id)->color;
+        //  dd($colors);
+
 
         return view('admin.color.index',compact('colors'));
     }
     public function storeColor(Request $request)// Color Update and Delete
     {
-        // dd($request->all());
+        dd($request->all());
         // $colors = Product::find($id)->color;
+        $img = "DELETE pp FROM `product_images` pp
+        join products pd on pp.product_id = pd.id
+        WHERE pd.id = ?";
+         $status = \DB::delete($img, array($request->product_id));
 
-        foreach($request->color_name as  $colors)
+// dd($request->id[3]);
+
+        foreach($request->color_name as $key=> $colors)
         {
-            $q = "DELETE pp FROM `product_colors` pp
-              join products pd on pp.product_id = pd.id
-              WHERE pd.id = ?";
 
+                    //    dd($colors);
 
-             $status = \DB::delete($q, array($request->product_id));
+                    if($request->id[$key] != 'null')
+                    {
+                        $color = ProductColor::find($request->id[$key]);
+                        // dd($color->color_name);
+                        $color->color_name = $colors;
+                        $color->product_id = $request->product_id;
+                        $color->update();
 
-                    $color = new ProductColor;
-                    $color->color_name = $colors;
-                    $color->product_id = $request->product_id;
-                    $color->save();
+                    }
+                    else
+                    {
+                        // dd('asdasd');
+                        $color = new ProductColor;
 
-                    $q = "DELETE pp FROM `product_images` pp
-                    join products pd on pp.product_id = pd.id
-                    WHERE pd.id = ?";
-                     $status = \DB::delete($q, array($request->product_id));
+                        $color->color_name = $colors;
+                        $color->product_id = $request->product_id;
+                        // dd($color);
+                        $color->save();
+                    }
 
-                if($request->hasFile('image'))
-                {
-                    $image = $request->file('image');
-                    $imageName= time().$image->getClientOriginalName();
+                 foreach($request->file('image')[$key] as $image)
+                    {
+
+                    $imageName = time().$image->getClientOriginalName();
                     $destination ='storage/products/images/';
                     $image->move(public_path($destination), $imageName);
 
@@ -166,7 +173,10 @@ class ProductConditionController extends Controller
                     $imagefile->product_id = $request->product_id;
                     $imagefile->color_id = $color->id;
                     $imagefile->save();
-                }
+
+                    }
+
+
 
 
 
@@ -176,9 +186,9 @@ class ProductConditionController extends Controller
 
     public function deleteColor($id)// Color Update and Delete
     {
-        $colors = Product::find($id)->color;
 
-        return view('admin.color.index',compact('colors'));
+        ProductColor::find($id)->delete();
+        return back()->with('message', Alert::_message('success', 'Product Color Deleted Successfully.'));
     }
 
 

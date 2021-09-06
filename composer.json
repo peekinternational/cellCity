@@ -7,6 +7,7 @@
     "require": {
         "php": "^7.3|^8.0",
         "checkout/checkout-sdk-php": "^1.0",
+        "codebyray/laravel-review-rateable": "^1.3",
         "darryldecode/cart": "^4.2",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
@@ -16,7 +17,8 @@
         "paypal/rest-api-sdk-php": "^1.14",
         "spatie/laravel-permission": "^4.3",
         "square/square": "13.0.0.20210721",
-        "twilio/sdk": "^6.27"
+        "twilio/sdk": "^6.27",
+        "willvincent/laravel-rateable": "^2.3"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

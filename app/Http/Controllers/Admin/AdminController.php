@@ -290,7 +290,7 @@ class AdminController extends Controller
         $description = $array['TrackInfo']['Error']['Description'];
         $details = [];
       }
-      dd($array);
+      dd($description);
     //   return view('admin.track-result',compact('id','description','check','details'));
     }
 }

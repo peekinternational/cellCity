@@ -14,6 +14,8 @@ use App\Models\ProductImage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Mail\TechMail;
+use App\Models\Accessory;
+use App\Models\AccessoryOrder;
 use App\Models\Alert;
 use App\Models\Order;
 use App\Models\OrderSale;
@@ -255,11 +257,7 @@ class ProductController extends Controller
     public function destroy($id)
     {
 
-        $product = Product::find($id);
-        // dd($product);
-        ProductImage::where('product_id',$product->id)->delete();
-
-        $product->delete();
+        Product::find($id)->delete();
         return back()->with('message', Alert::_message('success', 'Product Deleted Successfully.'));
 
 
@@ -268,12 +266,9 @@ class ProductController extends Controller
   public function storeProduct(Request $request)
     {
 
-          ;
+
         //         DB::beginTransaction();
         // dd($request->all());
-
-
-
         // try {
             $product = new Product;
             //  $product->insert($request->only($product->getFillable()));
@@ -315,8 +310,8 @@ class ProductController extends Controller
                     $storage->save();
 
 
-                foreach($request->condition[$key2] as $key3=>$condit)
-                {
+                 foreach($request->condition[$key2] as $key3=>$condit)
+                 {
                     //  dd($condition);
                     $condition = new ProductCondition;
                     $condition->condition =$condit;
@@ -324,12 +319,12 @@ class ProductController extends Controller
                     $condition->quantity = $request->quantity[$key2][$key3];
                     $condition->storage_id = $storage->id;
                     $condition->save();
+                 }
                 }
-            }
 
 
 
-            foreach($request->file('image')[$key] as $image)
+             foreach($request->file('image')[$key] as $image)
                 {
 
                     $imageName= time().$image->getClientOriginalName();
@@ -347,10 +342,10 @@ class ProductController extends Controller
 
 
 
-        }
+                }
 
 
-        }
+            }
 
 
         //     DB::commit();
@@ -365,7 +360,7 @@ class ProductController extends Controller
 
     public function storeMoreProduct(Request $request)
     {
-        //    dd($request->all());
+
 
            $product_id = $request->product_id;
 
@@ -415,10 +410,7 @@ class ProductController extends Controller
                    $imagefile->save();
                    // dd($request->condition);
 
-
-
-
-        }
+                    }
 
         }
 
@@ -601,7 +593,9 @@ class ProductController extends Controller
     public function payment(Request $request)
     {
         $userID = Auth::user()->id;
-        $cartCollection=\Cart::session($userID)->getContent();
+
+        $cartCollection =   \Cart::session($userID)->getContent();
+
         $data = $cartCollection->all();
         //    dd($request->all());
         // dd($cartCollection);
@@ -614,41 +608,80 @@ class ProductController extends Controller
             $orderSale->grand_total =$totals;
             $orderSale->shipping_id = $request->address_id;
             $orderSale->save();
-            foreach ($cartCollection as $cart) {
 
-                $model = Pmodel::where('id',$cart->associatedModel->model_id)->first();
-                $color = ProductColor::where('product_id',$cart->associatedModel->id)->first();
-                $storage = ProductStorage::where('color_id',$color->id)->first();
-                $total = round($cart->quantity*$cart->price);
-                // dd($cart->attributes->color);
-                $order = new Order;
-                $order->orderSales_id = $orderSale->id;
-                $order->product_id = $cart->associatedModel->id;
+            foreach ($data as $cart) {
 
-                $order->brand_name = $model->brand->brand_name;
-                $order->model_name  = $model->model_name;
-                $order->color       =  $cart->attributes->color;
-                $order->condition   = $cart->attributes->conditition;
-                $order->storage     = $cart->attributes->storage;
-                $order->quantity     = $cart->quantity;
-                $order->price     = $cart->price;
-                $order->grand_price  =$total;
-                $order->payment_method = "Cash";
-                $order->status = 0;
+                if ($cart->attributes->category != "accessory")
+                {
+                    $model = Pmodel::where('id',$cart->associatedModel->model_id)->first();
+                    $color = ProductColor::where('product_id',$cart->associatedModel->id)->first();
+                    $storage = ProductStorage::where('color_id',$color->id)->first();
+                    $total = round($cart->quantity*$cart->price);
+                    // dd($cart->attributes->color);
+                    $order = new Order;
+                    $order->orderSales_id  = $orderSale->id;
+                    $order->product_id     = $cart->associatedModel->id;
+                    $order->brand_name     = $model->brand->brand_name;
+                    $order->model_name     = $model->model_name;
+                    $order->color          =  $cart->attributes->color;
+                    $order->condition      = $cart->attributes->conditition;
+                    $order->storage        = $cart->attributes->storage;
+                    $order->quantity       = $cart->quantity;
+                    $order->price          = $cart->price;
+                    $order->grand_price    = $total;
+                    $order->type           = "phone";
+                    $order->payment_method = "Cash";
+                    $order->status         = 0;
 
-                $order->save();
+                    $order->save();
 
-                $condition = ProductCondition::where('storage_id',$storage->id)->first();
-             if($cart->quantity <= $condition->quantity)
-              {
-                 $condition->increment('quantity',$cart->quantity);
-              }
-              else
-              {
-                  return redirect()->route('view.cart')->with('status' ,'Enough Quantity of:' . $condition->name);
-              }
 
-            }
+                    $condition = ProductCondition::where('storage_id',$storage->id)->first();
+                    if($cart->quantity <= $condition->quantity)
+                    {
+                        $condition->decrement('quantity',$cart->quantity);
+                    }
+                    else
+                    {
+                        return redirect()->route('view.cart')->with('status' ,'Enough Quantity of:' . $condition->name);
+                    }
+                }
+                else{
+                    // dd('asdsad');
+                    $model = Pmodel::where('id',$cart->associatedModel->model_id)->first();
+                    $total = $cart->quantity*$cart->price;
+                    // dd($cart->attributes->color);
+                    // dd($total);
+                    $order                  = new Order;
+                    $order->orderSales_id   = $orderSale->id;
+                    $order->accessory_id    = $cart->associatedModel->id;
+                    $order->brand_name      = $model->brand->brand_name;
+                    $order->model_name      = $model->model_name;
+                    $order->access_category = $cart->associatedModel->category;
+                    $order->access_name     = $cart->associatedModel->name;
+                    $order->quantity        = $cart->quantity;
+                    $order->price           = $cart->price;
+                    $order->grand_price     = round($cart->quantity*$cart->price);
+                    $order->type            = "accessory";
+                    $order->payment_method  = "Cash";
+
+
+                    $order->save();
+
+                    $accessory = Accessory::find($cart->associatedModel->id);
+                    if($cart->quantity <= $accessory->quantity)
+                     {
+                        $accessory->decrement('quantity',$cart->quantity );
+                     }
+                     else
+                     {
+                         return redirect()->route('view.cart')->with('status' ,'Enough Quantity of:' . $cart->associatedModel->name);
+                     }
+                }
+
+
+
+             }
         //  dd($order);
 
         $total = \Cart::session($userID)->getTotal();
@@ -667,11 +700,11 @@ class ProductController extends Controller
              $message =strip_tags(nl2br("Dear Customer, \n You have Successfully Pay  through Cash . \n Total Amount : $". $total));
 
              $account_sid = "ACeb30af8343f53c1b366517b35ea44dc2";
-             $auth_token = "41d4275d8e0e3b545e819df1a9f2d286";
-             $twilio_number = +14842553085;
-             $client = new Client($account_sid, $auth_token);
-             $client->messages->create($phone,
-                 ['from' => $twilio_number, 'body' => $message] );
+           $auth_token = "41d4275d8e0e3b545e819df1a9f2d286";
+           $twilio_number = +14842553085;
+            $client = new Client($account_sid, $auth_token);
+            $client->messages->create($phone,
+                ['from' => $twilio_number, 'body' => $message] );
 
 
                  \Cart::clear();
@@ -766,49 +799,91 @@ class ProductController extends Controller
         $result = $payment->execute($execution, $apiContext);
         // dd($result->transactions[0]->amount->total);
         $shipAdress_id = $result->transactions[0]->description;
-        // $id = $str;
-        // $total = $result->transactions[0]->amount->total;
-
         $userID = Auth::user()->id;
-        $cartCollection=\Cart::session($userID)->getContent();
+        $totals = \Cart::session($userID)->getTotal();
+
+        $orderSale               = new OrderSale;
+        $orderSale->user_id      = $userID;
+        $orderSale->grand_total  = $totals;
+        $orderSale->shipping_id  = $shipAdress_id;
+        $orderSale->save();
+
+
+        $cartCollection = \Cart::session($userID)->getContent();
         foreach ($cartCollection as $cart) {
 
-            $model = Pmodel::where('id',$cart->associatedModel->model_id)->first();
-            $color = ProductColor::where('product_id',$cart->associatedModel->id)->first();
-            $storage = ProductStorage::where('color_id',$color->id)->first();
-            $total = round($cart->quantity*$cart->price);
-            $condition = ProductCondition::where('storage_id',$storage->id)->first();
-
-            if($cart->quantity <= $condition->quantity)
+            if ($cart->attributes->category != "accessory")
             {
-               $condition->increment('quantity',$cart->quantity);
+                $model = Pmodel::where('id',$cart->associatedModel->model_id)->first();
+                $color = ProductColor::where('product_id',$cart->associatedModel->id)->first();
+                $storage = ProductStorage::where('color_id',$color->id)->first();
+                $total = round($cart->quantity*$cart->price);
+                // dd($cart->attributes->color);
+                $order = new Order;
+                $order->orderSales_id = $orderSale->id;
+                $order->product_id = $cart->associatedModel->id;
+
+                $order->brand_name = $model->brand->brand_name;
+                $order->model_name  = $model->model_name;
+                $order->color       =  $cart->attributes->color;
+                $order->condition   = $cart->attributes->conditition;
+                $order->storage     = $cart->attributes->storage;
+                $order->quantity     = $cart->quantity;
+                $order->price     = $cart->price;
+                $order->grand_price  =$total;
+                $order->payment_method = "PayPal";
+                $order->status = 0;
+
+                $order->save();
+
+
+                $condition = ProductCondition::where('storage_id',$storage->id)->first();
+                if($cart->quantity <= $condition->quantity)
+                {
+                    $condition->increment('quantity',$cart->quantity);
+                }
+                else
+                {
+                    return redirect()->route('view.cart')->with('status' ,'Enough Quantity of:' . $condition->name);
+                }
             }
-            else
-            {
-                return redirect()->route('view.cart')->with('status' ,'Enough Quantity of:' . $condition->name);
+            else{
+                // dd('asdsad');
+
+                $model = Pmodel::where('id',$cart->associatedModel->model_id)->first();
+                $total = round($cart->quantity*$cart->price);
+
+                // dd($cart->attributes->color);
+                $order                  = new Order;
+                    $order->orderSales_id   = $orderSale->id;
+                    $order->accessory_id    = $cart->associatedModel->id;
+                    $order->brand_name      = $model->brand->brand_name;
+                    $order->model_name      = $model->model_name;
+                    $order->access_category = $cart->associatedModel->category;
+                    $order->access_name     = $cart->associatedModel->name;
+                    $order->quantity        = $cart->quantity;
+                    $order->price           = $cart->price;
+                    $order->grand_price     = round($cart->quantity*$cart->price);
+                    $order->type            = "accessory";
+                    $order->payment_method  = "PayPal";
+
+
+                    $order->save();
+
+                    $accessory = Accessory::find($cart->associatedModel->id);
+                    if($cart->quantity <= $accessory->quantity)
+                     {
+                        $accessory->decrement('quantity',$cart->quantity );
+                     }
+                     else
+                     {
+                         return redirect()->route('view.cart')->with('status' ,'Enough Quantity of:' . $cart->associatedModel->name);
+                     }
             }
 
-            $order = new Order;
-            $order->user_id = $userID;
-            $order->product_id = $cart->associatedModel->id;
-            $order->shipAddress_id = $shipAdress_id;
-            $order->brand_name = $model->brand->brand_name;
-            $order->model_name  = $model->model_name;
-            $order->color       =  $cart->attributes->color;
-            $order->condition   = $cart->attributes->conditition;
-            $order->storage     = $cart->attributes->storage;
-            $order->quantity     = $cart->quantity;
-            $order->price     = $cart->price;
-            $order->grand_price  =$total;
-            $order->payment_method = "PayPal";
-            $order->status = 0;
-
-            $order->save();
-            // dd($order);
 
 
-
-        }
+         }
         $total = \Cart::session($userID)->getTotal();
             $details = [
                 'title' => 'Mail from PeekInternational.com',
@@ -836,7 +911,7 @@ class ProductController extends Controller
                  return redirect()->route('view.cart');
 
     } catch (PayPalConnectionException $ex) {
-        echo $ex->getCode();
+        echo $ex->getCode();    
         echo $ex->getData();
         die($ex);
     } catch (Exception $ex) {

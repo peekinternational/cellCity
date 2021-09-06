@@ -68,7 +68,7 @@
           </div>
           <div class="a-cell xs-12 md-3" data-v-2b8789a2="">
             <div class="axop9d4ghf_ZiU7FQc-M8 baseselect-wrapper _2u25sfWmf6NUCbJ_StTs_r" data-v-2b8789a2=""><!---->
-              <select id="simlock" data-formgroup-element="" onchange="getUnlocked(this)" data-test="simlock" name="simlock" class="_3Iq8JGYZpyTj97wvi5Wyu7 eUlOsp7XbB9G1L8SEMMpU baseselect-field"><option disabled="disabled">Locked or Unlocked</option>
+              <select id="simlock" data-formgroup-element="" onchange="getUnlocked(this)" data-test="simlock" name="simlock" class="_3Iq8JGYZpyTj97wvi5Wyu7 eUlOsp7XbB9G1L8SEMMpU baseselect-field">
                 <option value="">All</option>
                 <option value="Locked">Locked Only</option>
                 <option value="Unlocked">Unlocked only </option>
@@ -201,17 +201,7 @@
                     </li>
                     @endforeach
 
-                  {{-- <li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U"><div><input id="model-001iPhoneXR" type="checkbox" data-test="facet-iPhone XR" class="_3wvnh-Qn"> <label for="model-001iPhoneXR" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
-                    iPhone XR
-                  </span> </span></div> <!----> <!----></label></div></li><li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U"><div><input id="model-002 iPhone X" type="checkbox" data-test="facet-iPhone X" class="_3wvnh-Qn"> <label for="model-002 iPhone X" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
-                    iPhone X
-                  </span> </span></div> <!----> <!----></label></div></li><li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U"><div><input id="model-003 iPhone 8" type="checkbox" data-test="facet-iPhone 8" class="_3wvnh-Qn"> <label for="model-003 iPhone 8" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
-                    iPhone 8
-                  </span> </span></div> <!----> <!----></label></div></li><li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U"><div><input id="model-004 Galaxy S9" type="checkbox" data-test="facet-Galaxy S9" class="_3wvnh-Qn"> <label for="model-004 Galaxy S9" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
-                    Galaxy S9
-                  </span> </span></div> <!----> <!----></label></div></li><li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U"><div><input id="model-007 iPhone 11 Pro" type="checkbox" data-test="facet-iPhone 11 Pro" class="_3wvnh-Qn"> <label for="model-007 iPhone 11 Pro" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
-                    iPhone 11 Pro
-                  </span> </span></div> <!----> <!----></label></div></li>  --}}
+
                   <span class="_3JZtHpVH kdWBx8BsOXOeHlX8MCQf_">
                       <button data-test="facet-toggler" class="_3wCdvNLg s1Zi9DG5">
                 {{-- {{ CityClass::allModels()->links('vendor.pagination.custom') }} --}}
@@ -340,7 +330,8 @@
                 $color = App\Models\ProductColor::where('product_id',$product->id)->first();
                 $storage = App\Models\ProductStorage::where('color_id',$color->id)->first();
                 $model = App\Models\Pmodel::where('id',$product->model_id)->first();
-                $image = App\Models\ProductImage::where('product_id',$product->id)->first();
+                $images = App\Models\ProductImage::where('product_id',$product->id)->first();
+                // dd($images);
                 $condition = App\Models\ProductCondition::where('storage_id',$storage->id)->first();
                 @endphp
 
@@ -362,7 +353,7 @@
 
                   <figure class="image-box">
 
-                   <a href="{{ route('product.details',$product->id) }}"><img src="{{asset('storage/products/images/'.$image->image)}}" alt="" /></a>
+                   <a href="{{ route('product.details',$product->id) }}"><img src="{{asset('storage/products/images/'.$images->image ?? '' )}}" alt="" /></a>
 
                 </figure>
                   <!--Lower Content-->
@@ -453,7 +444,7 @@
 
         success:function(response){
           console.log(response);
-             var mode=JSON.stringify(response)
+             var mode= JSON.stringify(response)
             var brnd = JSON.parse(mode);
             console.log(brnd);
           $('#modelsss').html(response.models);
@@ -638,7 +629,31 @@
 
         function getUnlocked(event)
         {
-               console.log($(event).val());
+              var getLocked = $(event).val();
+
+              var selectedModel =[];
+            $('input:checkbox[name=models_name]').each(function()
+                {
+                    if($(this).is(':checked'))
+                    selectedModel.push($(this).val());
+                //    console.log(selectedBrand);
+                });
+
+            var selectedModel = selectedModel.toString();
+
+              $.ajax({
+                url: "{{url('getBrandFilter')}}",
+                type:"get",
+                dataType:"html",
+                data:{getLocked:getLocked,selectedModel:selectedModel},
+                success:function(response){
+                console.log(response);
+                $('#filter').html(response);
+                //   $('#exampleModal'+id).modal('show');
+                },
+
+            });
+
         }
 
       function wishlist(productID)

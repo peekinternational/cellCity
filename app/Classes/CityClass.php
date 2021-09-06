@@ -1,5 +1,7 @@
 <?php
 namespace App\Classes;
+
+use App\Models\Accessory;
 use DB;
 use Session;
 
@@ -82,6 +84,20 @@ class CityClass {
         }
 
     }
+    function accessWishlist($id)
+    {
+
+        $check=Wishlist::where('user_id',Auth::user()->id)->where('accessory_id',$id)->first();
+        if($check)
+        {
+            return "1";
+        }
+        else
+        {
+            return "0";
+        }
+
+    }
 
     function orderlist($id)
     {
@@ -93,6 +109,10 @@ class CityClass {
         return Role::all();
     }
 
+    function accessory()
+    {
+        return Accessory::orderBy('category','asc')->get();
+    }
 }
 
 ?>

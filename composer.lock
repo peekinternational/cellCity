@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3618c8f03de0c7e305423cf6cf5716ed",
+    "content-hash": "726317f8ad4d6af0b7c3f024d0c39d48",
     "packages": [
         {
             "name": "apimatic/jsonmapper",
@@ -294,6 +294,66 @@
                 "source": "https://github.com/checkout/checkout-sdk-php/tree/1.0.16"
             },
             "time": "2021-06-03T13:52:46+00:00"
+        },
+        {
+            "name": "codebyray/laravel-review-rateable",
+            "version": "v1.3.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/codebyray/laravel-review-rateable.git",
+                "reference": "aaea8e743255cfabb95ce89518f58d5b17ab4ba6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/codebyray/laravel-review-rateable/zipball/aaea8e743255cfabb95ce89518f58d5b17ab4ba6",
+                "reference": "aaea8e743255cfabb95ce89518f58d5b17ab4ba6",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "~5.5.0|~5.6.0|~5.7.0|~5.8.0|^6.0|^7.0|^8.0",
+                "illuminate/support": "~5.5.0|~5.6.0|~5.7.0|~5.8.0|^6.0|^7.0|^8.0",
+                "php": "^7.3|^8.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "~3.5.0|~3.6.0|^4.0",
+                "phpunit/phpunit": "^6.3|^7.0|^8.0|^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Codebyray\\ReviewRateable\\ReviewRateableServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Codebyray\\ReviewRateable\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "CodebyRay",
+                    "email": "dev@codebyray.com"
+                }
+            ],
+            "description": "Review & Rating system for Laravel 7",
+            "keywords": [
+                "Ratable",
+                "Rating",
+                "Review-Rateable",
+                "laravel",
+                "reviewable"
+            ],
+            "support": {
+                "issues": "https://github.com/codebyray/laravel-review-rateable/issues",
+                "source": "https://github.com/codebyray/laravel-review-rateable/tree/v1.3.3"
+            },
+            "time": "2021-04-11T05:05:38+00:00"
         },
         {
             "name": "darryldecode/cart",
@@ -5773,6 +5833,72 @@
                 "source": "https://github.com/webmozarts/assert/tree/1.10.0"
             },
             "time": "2021-03-09T10:59:23+00:00"
+        },
+        {
+            "name": "willvincent/laravel-rateable",
+            "version": "2.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/willvincent/laravel-rateable.git",
+                "reference": "f6b3440dbf4b791b235ea4e4bd3fa7f87fed236e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/willvincent/laravel-rateable/zipball/f6b3440dbf4b791b235ea4e4bd3fa7f87fed236e",
+                "reference": "f6b3440dbf4b791b235ea4e4bd3fa7f87fed236e",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "^6.0|^7.0|^8.0",
+                "illuminate/support": "^6.0|^7.0|^8.0",
+                "php": ">=7.2"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.16",
+                "orchestra/testbench": "^5.0",
+                "phpunit/phpunit": "^9.0",
+                "psalm/plugin-laravel": "^1.2",
+                "vimeo/psalm": "^3.11"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "willvincent\\Rateable\\RateableServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "willvincent\\Rateable\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Will Vincent",
+                    "email": "tcindie@gmail.com",
+                    "homepage": "https://willvincent.com"
+                }
+            ],
+            "description": "Allows multiple models to be rated with a fivestar like system.",
+            "homepage": "https://github.com/willvincent/laravel-rateable",
+            "keywords": [
+                "Rating",
+                "fivestar",
+                "laravel",
+                "laravel 7",
+                "rateable",
+                "vote"
+            ],
+            "support": {
+                "issues": "https://github.com/willvincent/laravel-rateable/issues",
+                "source": "https://github.com/willvincent/laravel-rateable/tree/2.3.0"
+            },
+            "time": "2020-11-10T20:18:05+00:00"
         }
     ],
     "packages-dev": [

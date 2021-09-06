@@ -1,4 +1,5 @@
 @extends('frontend.layouts.master')
+
 @section('content')
 <!--Page Title-->
 <!-- <section class="page-title" style="background-image: url(frontend-assets/images/background/3.jpg);">
@@ -11,6 +12,58 @@
     </div>
 </section> -->
 <!--End Page Title-->
+<style>
+    .tracking-card
+    {
+    background: #f3f3f32e;
+    padding-top: 45px;
+    box-shadow: 1px 1px 4px #88888880;
+    box-shadow: 0 ,8px,20px, #000;
+    padding-bottom: 45px;
+    }
+    @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+
+fieldset, label { margin: 0; padding: 0; }
+body{ margin: 20px; }
+h1 { font-size: 1.5em; margin: 10px; }
+
+/****** Style Star Rating Widget *****/
+
+.rating {
+  border: none;
+  float: left;
+}
+
+.rating > input { display: none; }
+.rating > label:before {
+  margin: 5px;
+  font-size: 1.25em;
+  font-family: FontAwesome;
+  display: inline-block;
+  content: "\f005";
+}
+
+.rating > .half:before {
+  content: "\f089";
+  position: absolute;
+}
+
+.rating > label {
+  color: #ddd;
+ float: right;
+}
+
+/***** CSS Magic to Highlight Stars on Hover *****/
+
+.rating > input:checked ~ label, /* show gold star when clicked */
+.rating:not(:checked) > label:hover, /* hover current star */
+.rating:not(:checked) > label:hover ~ label { color: #FFD700;  } /* hover previous stars in list */
+
+.rating > input:checked + label:hover, /* hover current star when changing rating */
+.rating > input:checked ~ label:hover,
+.rating > label:hover ~ input:checked ~ label, /* lighten current selection */
+.rating > input:checked ~ label:hover ~ label { color: #FFED85;  }
+</style>
 
 
 <section class="shop-section shop-page profile-page">
@@ -40,6 +93,9 @@
 						</li>
 						<li role="presentation">
 							<a href="#savedAddress" aria-controls="savedAddress" role="tab" data-toggle="tab">Saved Address</a>
+						</li>
+						<li role="presentation">
+							<a href="#shipTracking" aria-controls="shipTracking" role="tab" data-toggle="tab">Tracking</a>
 						</li>
                         <li role="presentation">
                             <a href="#wishlists" aria-controls="wishlists" role="tab" data-toggle="tab"> Wishlist</a>
@@ -160,6 +216,7 @@
                                             <th>Name</th>
 											<th>Created At</th>
 											<th>Shipping Address</th>
+                                            <th>Status</th>
 											<th>Grand Price</th>
 
 											<th>Action</th>
@@ -180,6 +237,16 @@
 											<td>
                                                 ${{$orderSale->grand_total}}
                                                </td>
+                                               <td>
+                                                @if ($orderSale->status == 2)
+                                                <span class="badge badge-success" style="background: rgb(1, 100, 1)">complete</span>
+                                                @elseif ($orderSale->status == 1)
+                                                <span class="badge badge-warning" style="background: rgb(223, 223, 2)">shipping</span>
+                                                @else
+                                                <span class="badge badge-secondary">Pending</span>
+                                                @endif
+                                               </td>
+
 											<td>
                                                 <a href="#" onclick="orderViewDetails('{{$orderSale->id}}')" class="mr-3 text-success"><i class="fa fa-eye font-size-18"></i></a>
                                             </td>
@@ -266,6 +333,37 @@
                                     </tbody>
                                 </table>
                             </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="shipTracking">
+                            <div class="card tracking-card" >
+
+                                <form  style="max-width:100%">
+
+                                    <div class=" row d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h3 class="title-section" style="margin-top: 5px">Tracking</h3>
+                                        </div>
+
+                                         <div class="d-flex">
+                                        <div class="form-outline">
+                                        <input type="search"  name="trackingNo" id="trackingNo" class="form-control" placeholder="Tracking Number"/>
+
+                                        </div>
+                                        <div>
+                                            <button type="button" onclick="trackNo()" class="btn btn-primary">
+                                                <i class="fa fa-search"></i></button>
+
+                                        </div>
+                                       </div>
+
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+
+                        <div id="trackingOrder">
+
                         </div>
 						<div role="tabpanel" class="tab-pane" id="savedAddress">
 							<div class="d-flex justify-content-between title-section">
@@ -456,6 +554,62 @@
     </div>
   </div>
 </div>
+
+{{-- //////// Review Model --}}
+<div class="modal fade" id="accessReview" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Sale Order </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+      <div class="modal-body" id="saleOrder">
+        <form method="post" action="{{route('accessory.rating')}}">
+            @csrf
+            <div class="row">
+                <div>
+
+                <h1>Review & Rating</h1>
+                <fieldset class="rating">
+                    <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
+                    <input type="radio" id="star4half" name="rating" value="4.5" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
+                    <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
+                    <input type="radio" id="star3half" name="rating" value="3.5" /><label class="half" for="star3half" title="Meh - 3.5 stars"></label>
+                    <input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
+                    <input type="radio" id="star2half" name="rating" value="2.5" /><label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
+                    <input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
+                    <input type="radio" id="star1half" name="rating" value="1.5" /><label class="half" for="star1half" title="Meh - 1.5 stars"></label>
+                    <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
+                    <input type="radio" id="starhalf" name="rating" value="0.5" /><label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
+                </fieldset>
+                 <input type="hidden" name="accessoryID" id="orderID">
+                 <input type="hidden" name="productID" id="productID">
+                </div>
+                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+					<label>Your Review</label>
+                    <textarea name="review" class="form-control"></textarea>
+
+                </div>
+                <div class="form-group text-right col-md-12 col-sm-12 col-xs-12">
+                    <button type="submit" class="theme-btn btn-style-one">Add Review</button>
+                </div>
+            </div>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
 <!--Shop Section-->
 
 @endsection
@@ -499,6 +653,54 @@
 
        });
     }
+
+    function trackNo()
+    {
+        var trackingNo =$("#trackingNo").val();
+        // alert(trackingNo);
+        var _token = $('input[name="_token"]').val();
+
+        $.ajax({
+            type: "POST",
+            url: "{{url('trackingNumber')}}",
+            data: {trackingNo:trackingNo,_token:_token},
+
+            success:function(response){
+                console.log(response);
+                $('#trackingOrder').html(response);
+                // $('#empModal').modal('show');
+                },
+            });
+    }
+
+    function confirmOrder()
+    {
+        var orderID =$("#orderID").val();
+        // alert(trackingNo);
+        var _token = $('input[name="_token"]').val();
+        $.ajax({
+            type: "POST",
+            url: "{{url('confirm-tracking')}}",
+            data: {orderID:orderID,_token:_token},
+
+            success:function(response){
+                console.log(response);
+                alert('Complete Your Shipping Order . <br> Thanks For Choosing Us...')
+                },
+            });
+    }
+
+
+function accessoryReview(id)
+{
+    $('#orderID').val(id);
+    $('#accessReview').modal('show');
+}
+function productReview(id)
+{
+    $('#productID').val(id);
+    $('#accessReview').modal('show');
+}
 </script>
 
 @endsection

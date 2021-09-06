@@ -3,11 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Codebyray\ReviewRateable\Contracts\ReviewRateable;
+use Codebyray\ReviewRateable\Traits\ReviewRateable as ReviewRateableTrait;
+
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class Product extends Model implements ReviewRateable
 {
-    use HasFactory;
+    use HasFactory,ReviewRateableTrait;
 
     protected $fillable = ['locked','sim_card_format','memory','warranty'
                             ,'model_id','category','network',
