@@ -116,32 +116,31 @@ class ProductConditionController extends Controller
 
 
     public function color($id)// Color Update and Delete
-    {
+    {   $product = Product::find($id);
         $colors = Product::find($id)->color;
         //  dd($colors);
 
 
-        return view('admin.color.index',compact('colors'));
+        return view('admin.color.index',compact('colors','product'));
     }
     public function storeColor(Request $request)// Color Update and Delete
     {
-        dd($request->all());
+        // dd($request->all());
         // $colors = Product::find($id)->color;
         $img = "DELETE pp FROM `product_images` pp
         join products pd on pp.product_id = pd.id
         WHERE pd.id = ?";
-         $status = \DB::delete($img, array($request->product_id));
+        $status = \DB::delete($img, array($request->product_id));
 
-// dd($request->id[3]);
+        //dd($request->conditionID[1][0][0]);
 
         foreach($request->color_name as $key=> $colors)
         {
-
                     //    dd($colors);
 
-                    if($request->id[$key] != 'null')
+                    if($request->color_id[$key] != 'null')
                     {
-                        $color = ProductColor::find($request->id[$key]);
+                        $color = ProductColor::find($request->color_id[$key]);
                         // dd($color->color_name);
                         $color->color_name = $colors;
                         $color->product_id = $request->product_id;
@@ -159,15 +158,63 @@ class ProductConditionController extends Controller
                         $color->save();
                     }
 
+                    foreach($request->storage[$key] as $key2=>$value)
+                    {
+                        if($request->storageID[$key][$key2] != 'null')
+                        {
+                            $storg = ProductStorage::find($request->storageID[$key][$key2]);
+                            // dd($color->color_name);
+                            $storg->storage = $value;
+                            $storg->color_id = $color->id;
+                            $storg->update();
+                        }
+                        else
+                        {
+                            $storg = new ProductStorage;
+                            $storg->storage = $value;
+                            $storg->color_id = $color->id;
+                            $storg->save();
+                        }
+
+                        // dd($request->condition[$key]);
+                        foreach($request->condition[$key][$key2] as $key3=>$val)
+                        {
+
+                            if($request->conditionID[$key][$key2][$key3] != 'null')
+                            {
+                                // dd($request->conditionID[$key][$key2][$key3]);
+
+                                $condit = ProductCondition::find($request->conditionID[$key][$key2][$key3]);
+
+                                $condit->condition = $val;
+                                $condit->price = $request->price[$key][$key2][$key3];
+                                $condit->quantity = $request->quantity[$key][$key2][$key3];
+                                $condit->storage_id = $storg->id;
+                                $condit->update();
+                            }
+                            else
+                            {
+                                $condit = new ProductCondition;
+                                $condit->condition = $val;
+                                $condit->price = $request->price[$key][$key2][$key3];
+                                $condit->quantity = $request->quantity[$key][$key2][$key3];
+                                $condit->storage_id = $storg->id;
+                                $condit->save();
+                            }
+                        }
+
+
+                    }
+                    // dd($request->file('image')[$key]);
+
                  foreach($request->file('image')[$key] as $image)
                     {
 
+
                     $imageName = time().$image->getClientOriginalName();
-                    $destination ='storage/products/images/';
+                    $destination ='storage/images/products';
                     $image->move(public_path($destination), $imageName);
 
-
-                    // dd($imageName);
                     $imagefile = new ProductImage;
                     $imagefile->image = $imageName;
                     $imagefile->product_id = $request->product_id;
@@ -175,18 +222,12 @@ class ProductConditionController extends Controller
                     $imagefile->save();
 
                     }
-
-
-
-
-
-        }
-        return back();
+          }
+                 return back();
     }
 
     public function deleteColor($id)// Color Update and Delete
     {
-
         ProductColor::find($id)->delete();
         return back()->with('message', Alert::_message('success', 'Product Color Deleted Successfully.'));
     }

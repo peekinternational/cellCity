@@ -13,11 +13,13 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\AdminRepairController;
 use App\Http\Controllers\ProductConditionController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\CouponController;
 use App\Http\Controllers\ProductOrderController;
 use App\Http\Controllers\ShippingAddress;
 use App\Http\Controllers\SquareController;
 use App\Http\Controllers\WishlistController;
 use App\Models\Accessory;
+use App\Models\ProductCondition;
 use App\Models\RepairOrder;
 
 /*
@@ -78,6 +80,8 @@ Route::name('admin.')->namespace('Admin')->prefix('admin')->group(function(){
      Route::resource('/models', '\App\Http\Controllers\Admin\ModelController');
      Route::resource('/repairTypes', '\App\Http\Controllers\Admin\AdminRepairController');
 
+     Route::resource('/coupon','\App\Http\Controllers\CouponController');
+
      Route::get('/repairOrders',  [AdminRepairController::class, 'repairOrders']);
      Route::post('/assignTech',  [AdminRepairController::class, 'assignTech']);
      Route::get('/completed-orders',[AdminRepairController::class,'orderCompleted']);
@@ -125,6 +129,7 @@ Route::name('admin.')->namespace('Admin')->prefix('admin')->group(function(){
 
     //////////////////////////// Sale Order view ////////////////////////
    Route::get('/orderViewDetails/{id}',[ProductOrderController::class,'orderViewDetails']);
+   Route::get('/delete-productorder/{id}',[ProductOrderController::class,'deleteOrderSale'])->name('delete.productorder');
    Route::post('/send-code',[ProductOrderController::class,'sendCode']);
 
      //Check The update
@@ -159,6 +164,10 @@ Route::name('admin.')->namespace('Admin')->prefix('admin')->group(function(){
         Route::get('/productOrder',[ProductOrderController::class, 'productOrder']);
          //////////////////// Shipping Address ////////////////////////////
         Route::get('/shippingAddress/{id}',[ProductOrderController::class, 'productShipping']);
+
+             ///////////////////////////////////////////// Coupon /////////////
+
+
     });
 
 });
@@ -338,6 +347,10 @@ Route::namespace('Auth')->middleware('auth:web')->group(function(){
 
    Route::post('accessory-rating',[AccessoryController::class,'rating'])->name('accessory.rating');
 
+
+   ////////////////////////////// Coupon ///////////////////////////
+   Route::post('/apply-coupon',[CouponController::class,'coupon'])->name('apply.coupon');
+   Route::get('/remove-coupon',[CouponController::class,'couponRemove'])->name('coupon.remove');
 
     Route::get('/', function () {
         return view('frontend.index');

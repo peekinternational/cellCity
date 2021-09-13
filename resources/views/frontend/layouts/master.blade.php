@@ -22,7 +22,7 @@
          @yield('styling')
 	</head>
 
-	<body>
+	<body onload="myFunction()">
 		<div class="page-wrapper">
 		@include('frontend.includes.header')
 			<!-- Main Content-->
@@ -32,7 +32,8 @@
 		@include('frontend.includes.footer')
 		</div>
 		<!--Scroll to top-->
-<div class="scroll-to-top scroll-to-target" data-target=".main-header"><span class="icon fa fa-long-arrow-up"></span></div>
+<div class="scroll-to-top scroll-to-target" data-target=".main-header"><span class="icon fa fa-long-arrow-up"></span>
+</div>
 
 <!--Search Popup-->
 <div id="search-popup" class="search-popup">

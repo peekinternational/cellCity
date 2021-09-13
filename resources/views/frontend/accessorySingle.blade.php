@@ -276,38 +276,69 @@
 
                                         <!--Tab-->
                                         <div class="tab" id="prod-reviews">
-                                            <h3>3 Reviews Found</h3>
+                                            @php
+                                            $ratings = $accessory->getAllRatings($accessory->id, 'desc');
+
+                                            @endphp
+                                            <h3>{{ $ratings->count() }} Reviews Found</h3>
 
                                             <!--Reviews Container-->
                                             <div class="reviews-container">
 
-                                                <!--Reviews-->
+                                                @foreach ($ratings as $rating)
+                                                @php
+                                                     $user = App\Models\User::where('id',$rating->author_id)->first();
+                                                @endphp
                                                 <article class="review-box clearfix">
-                                                    <figure class="rev-thumb"><img src="images/resource/author-thumb-1.jpg" alt=""></figure>
                                                     <div class="rev-content">
-                                                        <div class="rating"><span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star-o"></span></div>
-                                                        <div class="rev-info">Admin – April 03, 2016: </div>
-                                                        <div class="rev-text"><p>Sed eget turpis a pede tempor malesuada. Vivamus quis mi at leo pulvinar hendrerit. Cum sociis natoque penatibus et magnis dis</p></div>
-                                                    </div>
-                                                </article>
+                                                        @if ($rating->rating == 1)
+                                                        <div class="rating">
+                                                            <span class="fa fa-star"></span>
+                                                            <span class="fa fa-star-o"></span>
+                                                            <span class="fa fa-star-o"></span>
+                                                            <span class="fa fa-star-o"></span>
+                                                            <span class="fa fa-star-o"></span>
+                                                        </div>
+                                                        @elseif ($rating->rating == 2)
+                                                        <div class="rating">
+                                                            <span class="fa fa-star"></span>
+                                                            <span class="fa fa-star"></span>
+                                                            <span class="fa fa-star-o"></span>
+                                                            <span class="fa fa-star-o"></span>
+                                                            <span class="fa fa-star-o"></span>
+                                                        </div>
+                                                        @elseif ($rating->rating == 3)
+                                                        <div class="rating">
+                                                            <span class="fa fa-star"></span>
+                                                            <span class="fa fa-star"></span>
+                                                            <span class="fa fa-star"></span>
+                                                            <span class="fa fa-star-o"></span>
+                                                            <span class="fa fa-star-o"></span>
+                                                        </div>
+                                                        @elseif ($rating->rating == 4)
+                                                        <div class="rating">
+                                                            <span class="fa fa-star"></span>
+                                                            <span class="fa fa-star"></span>
+                                                            <span class="fa fa-star"></span>
+                                                            <span class="fa fa-star"></span>
+                                                            <span class="fa fa-star-o"></span>
+                                                        </div>
+                                                        @elseif ($rating->rating == 5)
+                                                        <div class="rating">
+                                                            <span class="fa fa-star"></span>
+                                                            <span class="fa fa-star"></span>
+                                                            <span class="fa fa-star"></span>
+                                                            <span class="fa fa-star"></span>
+                                                            <span class="fa fa-star"></span>
+                                                        </div>
 
-                                                <article class="review-box clearfix">
-                                                    <figure class="rev-thumb"><img src="images/resource/author-thumb-2.jpg" alt=""></figure>
-                                                    <div class="rev-content">
-                                                        <div class="rating"><span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star-o"></span> <span class="fa fa-star-o"></span></div>
-                                                        <div class="rev-info">Ahsan – April 01, 2016: </div>
-                                                        <div class="rev-text"><p>Sed eget turpis a pede tempor malesuada. Vivamus quis mi at leo pulvinar hendrerit. Cum sociis natoque penatibus et magnis dis</p></div>
-                                                    </div>
-                                                </article>
+                                                        @endif
 
-                                                <article class="review-box clearfix">
-                                                    <figure class="rev-thumb"><img src="images/resource/author-thumb-1.jpg" alt=""></figure>
-                                                    <div class="rev-content">
-                                                        <div class="rating"><span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span></div>
-                                                        <div class="rev-info">Sara – March 31, 2016: </div>
-                                                        <div class="rev-text"><p>Sed eget turpis a pede tempor malesuada. Vivamus quis mi at leo pulvinar hendrerit. Cum sociis natoque penatibus et magnis dis</p></div>
+                                                        <div class="rev-info">{{ $user->name }} – {{ $rating->created_at->format('D-M-Y  H:s') }}</div>
+                                                        <div class="rev-text"><p>{{ $rating->title }}</p></div>
                                                     </div>
                                                 </article>
+                                                @endforeach
 
                                             </div>
 

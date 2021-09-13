@@ -330,7 +330,6 @@
                                 </div>
                             </div>
 
-
                             <hr>
                                 <div class="add_condition">
                                  <div class="add_condition">
@@ -346,7 +345,6 @@
                                                 <option value="excellent">excellent</option>
 
                                             </select>
-
                                     </div>
                                     <div class="col-md-3">
                                         <label for="example-text-input" class="col-form-label">Price</label>

@@ -130,7 +130,7 @@
   }
 </style>
 @section('content')
-<section class="shop-section shop-page">
+<section class="shop-section shop-page" >
   <div class="container">
 
     <!-- checkout-area start -->
@@ -266,14 +266,28 @@
                   </div>
                 </div>
                 <!-- </form> -->
-            </form></div>
+            </form>
+        </div>
             @php
             $userID = Auth::user()->id;
             $items=\Cart::session($userID)->getContent()
             @endphp
+
+
             <div class="col-lg-6  col-xl-6 col-sm-12">
               <div class="checkout-review-order">
-                <!-- <form action="#"> -->
+
+                    @csrf
+                    <div class="row">
+                    <div class="col-md-6">
+
+                         <input type="text" name="coupon" id="coupon" class="form-control" placeholder="Enter Coupon Code">
+                         </div>
+                         <div class="col-md-6">
+                              <button onclick="couponCode()" class="btn btn-primary">Apply Coupon</button>
+                         </div>
+                    </div>
+
                 <h3 class="shoping-checkboxt-title">Your order</h3>
                 <table class="checkout-review-order-table">
                   <thead>
@@ -284,8 +298,6 @@
                   </thead>
                   <tbody>
                       @foreach ($items as $item)
-
-
                         <tr class="cart_item cart-545678">
                         <td class="t-product-name">{{  $item->name }} -({{$item->associatedModel->category ?? ''}}) -  <strong class="product-quantity">   ×  {{$item->quantity}}</strong></td>
                         @php
@@ -298,11 +310,11 @@
                     <tfoot>
                         @php
                             $total = Cart::session($userID)->getTotal();
-
                         @endphp
                         <tr class="order-total">
                         <th>Total</th>
-                        <td><strong><span class="total-amount">$ {{$total}}</span></strong></td>
+                        <td><strong><span class="total-amount" id="total">$ {{$total}}</span></strong></td>
+                        <td id="totalss"></td>
                         </tr>
                     </tfoot>
                 </table>
@@ -316,10 +328,10 @@
                         <p class="text-dark text-uppercase font-weight-bold"><strong>Payment Method</strong></p>
                       </div>
                     </div>
-                    <form action="{{route('product.payment')}}" method="post">
+                    <form action="#" method="post">
                       {{csrf_field()}}
                     <div class="row">
-                       <input type="hidden" name="address_id" value="{{$address->id}}">
+                       <input type="hidden" name="address_id" id="address_id" value="{{$address->id}}">
                       <div class="col-lg-12 pl-0 pr-0 pb-3">
                       <div class="form-group">
 
@@ -328,17 +340,17 @@
                           <button type="button"  data-toggle="modal" data-target="#exampleModalCenter"> Credit Card </button>
                         </label>
                         <label for="cash" class="payment-methd">
-                          <input type="radio" id="cash" name="payment" value="cash"> Cash
+                          <input type="radio" id="payment" name="payment" value="cash"> Cash
                         </label>
                         @else
                         <label for="cash" class="payment-methd">
-                          <input type="radio" id="cash" name="payment" value="cash"> Cash
+                          <input type="radio" id="payment" name="payment" value="cash"> Cash
                         </label>
                         <label for="paypal" class="payment-methd">
-                          <input type="radio" id="paypal" name="payment" value="paypal" onchange="valueChanged()"> Paypal
+                          <input type="radio" id="payment" name="payment" value="paypal" onchange="valueChanged()"> Paypal
                         </label>
                         <label for="apple-pay" class="payment-methd">
-                          <input type="radio" id="apple-pay" name="payment" value="" onchange="valueChanged()"> Apple Pay
+                          <input type="radio" id="payment" name="payment" value="" onchange="valueChanged()"> Apple Pay
                         </label>
                         <label for="credit-card" class="payment-methd">
                           <button type="button"  data-toggle="modal" data-target="#exampleModalCenter"> Credit Card </button>
@@ -350,7 +362,7 @@
                     </div>
                     </div>
                     {{-- <button class="btn btn-checkout" id="card-button" type="submit">Checkout</button> --}}
-                    <button type="submit" class="btn btn-primary btn-style-one">Save</button>
+                    <button type="button"  class="btn btn-primary btn-style-one  btn-submit">Save</button>
                   </form>
                   </div>
 
@@ -381,7 +393,7 @@
                <button type="button" class="btn btn-primary btn-style-one" data-dismiss="modal" style="margin-bottom: 5px;    margin-left: 5px">Close</button>
                 <button id="card-button" class="btn btn-primary btn-style-one" type="button" style="margin-bottom: 5px">Pay</button>
               </form>
-    </div>
+        </div>
 
       </div>
 
@@ -411,8 +423,8 @@
       const card = await payments.card();
       await card.attach('#card-container');
 
-      async function eventHandler(event) {8
-        event.preventDefault();
+      async function eventHandler(event) {
+              event.preventDefault();
 
         try {
           const result = await card.tokenize();
@@ -455,4 +467,78 @@
     main();
   </script>
 
+<script>
+
+function couponCode()
+{
+        var coupon =$('#coupon').val();
+        var _token = $('input[name="_token"]').val();
+        $.ajax({
+            type: "POST",
+            url: "{{route('apply.coupon')}}",
+            data: {coupon:coupon,_token:_token},
+            success: function (response)
+            {
+                    console.log(response);
+                    if(response == "null")
+                    {
+                        alert('Coupon Code is Not Valid.');
+                    }
+                    else{
+                        alert('Coupon Code Apply Successfully');
+                        // window.location.reload();
+                        $("#total").hide();
+                        var total = '<strong><span class="total-amount" id="totalss">$'+response+'</span></strong>';
+                        $("#totalss").append(total);
+
+                    }
+            }
+    });
+}
+
+
+
+// window.onload = function() {
+//     var reloading = sessionStorage.getItem("reloading");
+//     if (reloading) {
+//         sessionStorage.removeItem("reloading");
+//         myFunction();
+//     }
+// }
+
+function myFunction() {
+
+    $.ajax({
+            type: "get",
+            url: "{{route('coupon.remove')}}",
+            success: function (response)
+            {
+                // console.log(response);
+                // alert('Coupon Remove');
+
+
+            }
+    });
+}
+
+$(".btn-submit").click(function(e){
+e.preventDefault();
+
+var address_id = $("#address_id").val();
+var payment = $("#payment").val();
+var _token = $('input[name="_token"]').val();
+
+        $.ajax({
+            type: "POST",
+            url: "{{route('product.payment')}}",
+            data: {payment:payment,_token:_token,address_id:address_id},
+            success: function (response)
+            {
+                console.log(response);
+
+            }
+    });
+
+});
+</script>
 @endsection

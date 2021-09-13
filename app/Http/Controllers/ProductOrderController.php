@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\ShipppingCode;
-
+use App\Models\Alert;
 use App\Models\Order;
 use App\Models\OrderSale;
 use App\Models\ShippingAddr;
@@ -21,29 +21,23 @@ class ProductOrderController extends Controller
         $productOrder = OrderSale::orderBy('created_at', 'desc')->get();
 
         OrderSale::where('notification', '=', 0)
-            ->update(['notification' => 1]);
-
+                        ->update(['notification' => 1]);
         return view('admin.productOrder.list', compact('productOrder'));
+
     }
 
     public function productShipping($id)
     {
-
         $productOrder = Order::find($id);
         $shippingAddress = ShippingAddr::where('id', $productOrder->shipAddress_id)->first();
-
         return view('admin.productOrder.shippingAdr', compact('shippingAddress'));
     }
 
     public function orderViewDetails($id)
     {
-        // dd($id);
-
+        //dd($id);
         $productOrder = Order::where('orderSales_id', $id)->where('type', 'phone')->get();
         $accessoryOrder = Order::where('orderSales_id', $id)->where('type', 'accessory')->get();
-        // dd($orders);
-        // $accessoryOrder = AccessoryOrder::where('orderSales_id',$id)->get();
-        // dd($accessoryOrder);
         return view('admin.productOrder.order_modal', compact('productOrder', 'accessoryOrder'));
     }
 
@@ -56,7 +50,6 @@ class ProductOrderController extends Controller
         $productOrder->status = 1;
         $productOrder->tracking_code = $request->code;
         $productOrder->update();
-
         $phone = '+'.$user->phoneno;
         $email =      $user->email;
         $shippingCode = $request->code;
@@ -82,5 +75,12 @@ class ProductOrderController extends Controller
             ['from' => $twilio_number, 'body' => $message]
         );
         return response()->json();
+    }
+
+    public function deleteOrderSale($id)
+    {
+        //dd($id);
+        OrderSale::find($id)->delete();
+        return back()->with('message', Alert::_message('success', 'Delete Order Successfully.'));
     }
 }

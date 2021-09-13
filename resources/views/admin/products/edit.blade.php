@@ -43,7 +43,7 @@
                                                      <option value="{{$brand->id}}"{{ $brand->id == $model->brand_Id  ? 'selected' : '' }}>{{$brand->brand_name}}</option>
                                                     @endforeach
                                                 </select>
-    
+
                                             </div>
                                         </div>
                                         <div class="form-group row" id="showModels">
@@ -55,34 +55,20 @@
                                             </select>
                                         </div>
                                     </div>
-                                        {{-- <div class="form-group row">
-                                            <label for="example-text-input" class="col-md-2 col-form-label">Storage</label>
-                                            <div class="col-md-10">
-                                                <select class="form-control selectpic" name="storage" id="storage">
-                                                    <option selected="">Select Storage</option>
-                                                    <option value="256 GB" {{ $product->storage == '256GB' ? 'selected':'' }}>256 GB</option>
-                                                    <option value="128GB"{{ $product->storage == '128GB' ? 'selected':'' }}>128 GB</option>
-                                                    <option value="64GB"{{ $product->storage == '64GB' ? 'selected':'' }}>64 GB</option>
-                                                    <option value="32GB"{{ $product->storage == '32GB'? 'selected':'' }}>32 GB</option>
-                                                    <option value="16GB"{{ $product->storage == '16GB' ? 'selected':'' }}>16 GB</option>
-                                                    <option value="8GB"{{ $product->storage == '8GB' ? 'selected':'' }}>8 GB</option>
-                                                    <option value="4GB"{{ $product->storage == '4GB' ? 'selected':'' }}>4 GB</option>
-                                                    <option value="2GB"{{ $product->storage == '2GB' ? 'selected':'' }}>2 GB</option>
-                                                </select>
-                                            </div>
-                                        </div> --}}
+
+
                                         <div class="form-group row">
-                                            <label for="example-text-input" class="col-md-2 col-form-label">Ram</label>
+                                            <label for="example-text-input" class="col-md-2 col-form-label">memory</label>
                                             <div class="col-md-10">
-                                                <select class="form-control selectpic" name="ram" id="ram">
+                                                <select class="form-control selectpic" name="memory" id="memory">
                                                     <option selected="">Select Memory</option>
-                                                    <option value="64GB" {{ $product->ram == '64GB' ? 'selected':'' }}>64 GB</option>
-                                                    <option value="32GB" {{ $product->ram == '32GB' ? 'selected':'' }}>32 GB</option>
-                                                    <option value="16GB" {{ $product->ram == '16GB' ? 'selected':'' }}>16 GB</option>
-                                                    <option value="8GB" {{ $product->ram == '8GB' ? 'selected':'' }}>8 GB</option>
-                                                    <option value="6GB" {{ $product->ram == '6GB' ? 'selected':'' }}>6 GB</option>
-                                                    <option value="4GB" {{ $product->ram == '4GB' ? 'selected':'' }}>4 GB</option>
-                                                    <option value="2GB" {{ $product->ram == '2GB' ? 'selected':'' }}>2 GB</option>
+                                                    <option value="64 GB" {{ $product->memory == '64 GB' ? 'selected':'' }}>64 GB</option>
+                                                    <option value="32 GB" {{ $product->memory == '32 GB' ? 'selected':'' }}>32 GB</option>
+                                                    <option value="16 GB" {{ $product->memory == '16 GB' ? 'selected':'' }}>16 GB</option>
+                                                    <option value="8 GB" {{ $product->memory == '8 GB' ? 'selected':'' }}>8 GB</option>
+                                                    <option value="6 GB" {{ $product->memory == '6 GB' ? 'selected':'' }}>6 GB</option>
+                                                    <option value="4 GB" {{ $product->memory == '4 GB' ? 'selected':'' }}>4 GB</option>
+                                                    <option value="2 GB" {{ $product->memory == '2 GB' ? 'selected':'' }}>2 GB</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -91,9 +77,9 @@
                                             <div class="col-md-10">
                                                 <select class="form-control selectpic" name="locked" id="locked">
                                                     <option selected="">Select Any One</option>
-                                                    <option value="locked" {{ $product->locked == 'locked' ? 'selected':'' }}>Locked</option>
-                                                    <option value="unlocked" {{ $product->locked == 'unlocked' ? 'selected':'' }}>UnLocked</option>
-                                    
+                                                    <option value="Locked" {{ $product->locked == 'Locked' ? 'selected':'' }}>Locked</option>
+                                                    <option value="Unlocked" {{ $product->locked == 'Unlocked' ? 'selected':'' }}>UnLocked</option>
+
                                                 </select>
                                             </div>
                                         </div>
@@ -104,7 +90,7 @@
                                                     <option selected="">Select Any One</option>
                                                     <option value="phone" {{ $product->category == 'phone' ? 'selected':'' }}>Phone</option>
                                                     <option value="accessory" {{ $product->category == 'accessory' ? 'selected':'' }}>Accessory</option>
-                                    
+
                                                 </select>
                                             </div>
                                         </div>
@@ -117,68 +103,97 @@
                                                     <option value="window phone" {{ $product->OS == 'window phone' ? 'selected':'' }}>Window Phone</option>
                                                     <option value="apple phone" {{ $product->OS == 'apple phone' ? 'selected':'' }}>Apple Phone</option>
                                                     <option value="all smartphone" {{ $product->OS == 'all smartphone' ? 'selected':'' }}>All Smartphone</option>
-                                    
+
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-md-2 col-form-label">Quantity</label>
-                                            <div class="col-md-10">
-                                                <input class="form-control" name="quantity" type="number" placeholder="Enter mobile quantity"  @if(old('quantity')) value="{{ old('quantity') }}" @endif value="{{ $product->quantity  }}"  id="example-text-input">
-                                                <span class="text-danger">{{ $errors->first('quantity') }}</span>
-                                            </div>
-                                        </div>
-                                        {{-- <div class="form-group row">
-                                            <label for="example-text-input" class="col-md-2 col-form-label">Colors</label>
-                                            <div class="col-md-10">
-                                                <input class="form-control" name="colors" type="text" placeholder="Enter mobile colors"  @if(old('colors'))" @endif value="{{ $product->colors }}"  id="example-text-input">
-                                                <span class="text-danger">{{ $errors->first('colors') }}</span>
-                                            </div>
-                                        </div> --}}
-                              
-                                       
+
+
+
                                         <div class="form-group row">
                                             <label for="example-text-input" class="col-md-2 col-form-label">Warranty</label>
                                             <div class="col-md-10">
-                                                <input class="form-control" name="warranty" type="text" placeholder="Enter mobile warranty"  @if(old('warranty')) " @endif value="{{ $product->warranty }}"  id="example-text-input">
+                                                <input class="form-control" name="warranty" type="text" placeholder="Enter mobile warranty"   value="{{ $product->warranty }}"  id="example-text-input">
                                                 <span class="text-danger">{{ $errors->first('warranty') }}</span>
                                             </div>
                                         </div>
+
                                         <div class="form-group row">
-                                            <label for="example-text-input" class="col-md-2 col-form-label">Sell Price</label>
+                                            <label for="example-text-input" class="col-md-2 col-form-label">megapixel</label>
                                             <div class="col-md-10">
-                                                <input class="form-control" name="sell_price" type="number" placeholder="Enter mobile Sell Price"  @if(old('sell_price'))  @endif value="{{ $product->sell_price }}" id="example-text-input">
-                                                <span class="text-danger">{{ $errors->first('sell_price') }}</span>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-md-2 col-form-label">Original Price</label>
-                                            <div class="col-md-10">
-                                                <input class="form-control" name="original_price" type="text" placeholder="Enter mobile Original Price"  @if(old('original_price')) @endif value="{{ $product->original_price }}" id="example-text-input">
-                                                <span class="text-danger">{{ $errors->first('original_price') }}</span>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-md-2 col-form-label">Camera</label>
-                                            <div class="col-md-10">
-                                                <input class="form-control" name="cameraMp" type="text" placeholder="Enter mobile cameraMp"  @if(old('cameraMp')) @endif value="{{ $product->cameraMp }}" id="example-text-input">
-                                                <span class="text-danger">{{ $errors->first('cameraMp') }}</span>
+                                                <input class="form-control" name="megapixel" type="text" placeholder="Enter mobile camememoryp"  @if(old('megapixel')) @endif value="{{ $product->megapixel }}" id="example-text-input">
+                                                <span class="text-danger">{{ $errors->first('megapixel') }}</span>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="example-text-input" class="col-md-2 col-form-label">LCD(Display)</label>
                                             <div class="col-md-10">
-                                                <input class="form-control" name="display" type="text" placeholder="Enter mobile display"  @if(old('display'))  }}" @endif value="{{ $product->display }}" id="example-text-input">
-                                                <span class="text-danger">{{ $errors->first('display') }}</span>
+                                                <input class="form-control" name="screen_type" type="text" placeholder="Enter mobile display"  @if(old('display'))  }}" @endif value="{{ $product->screen_type }}" id="example-text-input">
+                                                <span class="text-danger">{{ $errors->first('screen_type') }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="example-text-input" class="col-md-2 col-form-label">Screen Size</label>
+                                            <div class="col-md-10">
+                                                <input class="form-control" name="screen_size" type="text" placeholder="Enter mobile display"  @if(old('display'))  }}" @endif value="{{ $product->screen_size }}" id="example-text-input">
+                                                <span class="text-danger">{{ $errors->first('screen_size') }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="example-text-input" class="col-md-2 col-form-label">Network</label>
+                                            <div class="col-md-10">
+                                                <select class="form-control selectpic"  name="network" id="network">
+                                                    <option selected>Select Any One</option>
+                                                    <option value="2" {{ $product->network == '2' ? 'selected':'' }}>GSM</option>
+                                                    <option value="3" {{ $product->network == '3' ? 'selected':'' }}>GSM/CDMA</option>
+                                                    <option value="4" {{ $product->network == '4' ? 'selected':'' }}>GSM/CDMA + Lite</option>
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="example-text-input" class="col-md-2 col-form-label">Sim Card Format</label>
+                                            <div class="col-md-10">
+                                                <select class="form-control selectpic"  name="sim_card_format" id="sim_card_format">
+                                                    <option selected>Select Any One</option>
+                                                    <option value="nano" {{ $product->sim_card_format == 'nano' ? 'selected':'' }}>Nano</option>
+                                                    <option value="mini" {{ $product->sim_card_format == 'mini' ? 'selected':'' }}>Mini</option>
+                                                    <option value="micro" {{ $product->sim_card_format == 'micro' ? 'selected':'' }}>Micro</option>
+
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="example-text-input" class="col-md-2 col-form-label">Resolution</label>
                                             <div class="col-md-10">
-                                                <input class="form-control" name="resolution" type="text" placeholder="Enter mobile resolution"  @if(old('resolution')) value="{{ old('resolution') }}" @endif  value="{{ $product->resolution }}" id="example-text-input">
-                                                <span class="text-danger">{{ $errors->first('resolution') }}</span>
+                                                <select class="form-control selectpic"  name="resolution" id="resolution">
+                                                    <option selected>Select Any One</option>
+                                                    <option value="828 x 1792" {{ $product->resolution == '828 x 1792' ? 'selected':'' }} >828 x 1792</option>
+                                                    <option value="1125 x 2436" {{ $product->resolution == '1125 x 2436' ? 'selected':'' }}>1125 x 2436	</option>
+                                                    <option value="1242 x 2688" {{ $product->resolution == '1242 x 2688' ? 'selected':'' }}>1242 x 2688	</option>
+
+                                                </select>
                                             </div>
                                         </div>
+                                        <div class="form-group row">
+                                            <label for="example-text-input" class="col-md-2 col-form-label">Double Sim</label>
+                                            <div class="col-md-10">
+                                                <select class="form-control selectpic"  name="double_sim" id="double_sim">
+                                                    <option selected>Select Any One</option>
+                                                    <option value="Yes" {{ $product->double_sim == 'Yes' ? 'selected':'' }}>Yes</option>
+                                                    <option value="No" {{ $product->double_sim == 'No' ? 'selected':'' }}>No</option>
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="example-text-input" class="col-md-2 col-form-label">Release Year</label>
+                                            <div class="col-md-10">
+                                                <input class="form-control"  name="release_year" type="date" placeholder="Enter mobile release year"   value="{{ $product->release_year}}"   id="example-text-input">
+                                                <span class="text-danger">{{ $errors->first('release_year') }}</span>
+                                            </div>
+                                        </div>
+
                                         <div class="form-group row">
                                             <label for="example-text-input" class="col-md-2 col-form-label">Description</label>
                                             <div class="col-md-10">
@@ -272,14 +287,14 @@ function getModel(event)
     function readURL(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
-    
+
             reader.onload = function (e) {
                 $('#blah')
                     .attr('src', e.target.result)
                     .width(150)
                     .height(150);
             };
-    
+
             reader.readAsDataURL(input.files[0]);
         }
     }

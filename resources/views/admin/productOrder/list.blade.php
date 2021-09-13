@@ -68,7 +68,7 @@
                                             <table id="example" class="table table-bordered table-hover">
                                                 <thead>
                                                     <tr>
-                                                        <th>OrderSale ID</th>
+                                                        <th>ID</th>
                                                         <th>Name</th>
                                                         <th>Created At</th>
                                                         <th>Shipping Address</th>
@@ -103,13 +103,12 @@
                                                             <span class="badge badge-secondary">Pending</span>
                                                             @endif
                                                         </td>
-                                                        <td>
+                                                        <td style="display: flex">
                                                             <a href="#" onclick="orderViewDetails('{{$orderSale->id}}')" class="mr-3 text-success" title="view order"><i class="fa fa-eye font-size-18"></i></a>
                                                             @if ($orderSale->status == 0)
                                                             <a href="#" onclick="sendCode('{{$orderSale->id}}')" class="mr-3 text-warning" title="send Tracking Code" > <i class="fa fa-edit font-size-18"></i></a>
                                                             @endif
-
-                                                            {{-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Large modal</button> --}}
+                                                            <a href="{{route('admin.delete.productorder',$orderSale->id)}}" class="mr-3 text-danger" title="delete order"><i class="fa fa-trash font-size-18"></i></a>
                                                         </td>
                                                     </tr>
                                                     @empty
@@ -174,7 +173,7 @@
             </button>
           </div>
       <div class="modal-body" id="saleOrder">
-        ...
+
       </div>
 
       <div class="modal-footer">

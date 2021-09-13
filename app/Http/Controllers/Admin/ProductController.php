@@ -203,47 +203,24 @@ class ProductController extends Controller
     {
         // dd($request);
         $product = Product::find($id);
-        //  $product->insert($request->only($product->getFillable()));
-
-         $product->storage = $request->storage;
-         $product->colors = $request->colors;
-         $product->ram = $request->ram;
+         $product->category = $request->category;
+         $product->memory = $request->memory;
          $product->locked = $request->locked;
          $product->warranty = $request->warranty;
-         $product->sell_price = $request->sell_price;
-         $product->original_price = $request->original_price;
          $product->desc = $request->desc;
-         $product->display = $request->display;
-         $product->cameraMp = $request->cameraMp;
+         $product->screen_size = $request->screen_size;
+         $product->megapixel = $request->megapixel;
          $product->OS = $request->OS;
          $product->resolution = $request->resolution;
-         $product->quantity = $request->quantity;
-
-         $product->category = $request->category;
+         $product->screen_type = $request->screen_type;
+         $product->network = $request->network;
+         $product->sim_card_format = $request->sim_card_format;
+         $product->double_sim = $request->double_sim;
+         $product->release_year = $request->release_year;
          $product->model_id = $request->model_Id;
          $product->update();
-        //  dd($product);
 
 
-                $q = "DELETE pp FROM `product_images` pp
-                    join products pd on pp.product_id = pd.id
-                    WHERE pd.id = ?";
-
-
-                $status = \DB::delete($q, array($id));
-
-
-        foreach($request->file('image') as $image)
-        {
-            $imageName= time().$image->getClientOriginalName();
-            $image->move('storage/products/images/', $imageName);
-
-            $imagefile = new ProductImage;
-            $imagefile->image ='storage/products/images/'. $imageName;
-            $imagefile->product_id = $product->id;
-            $imagefile->save();
-
-        }
 
         return back()->with('message', Alert::_message('success', 'Product Updated Successfully.'));
     }
@@ -328,7 +305,7 @@ class ProductController extends Controller
                 {
 
                     $imageName= time().$image->getClientOriginalName();
-                    $destination ='storage/products/images/';
+                    $destination ='storage/images/products';
                     $image->move(public_path($destination), $imageName);
 
                     // dd($imageName);
@@ -399,7 +376,7 @@ class ProductController extends Controller
                {
 
                    $imageName= time().$image->getClientOriginalName();
-                   $destination ='storage/products/images/';
+                   $destination ='storage/images/products';
                    $image->move(public_path($destination), $imageName);
 
                    // dd($imageName);
@@ -471,23 +448,23 @@ class ProductController extends Controller
         }
 
 
-       $img = null;
+       $imgs = null;
         foreach ($images as $image )
         {
 
-             $img .='<div class="owl-stage-outer"><div class="owl-stage" style="transform: translate3d(-360px, 0px, 0px); transition: all 0.75s ease 0s; width: 720px;"><div class="owl-item" style="width: 360px; margin-right: 0px;">
-                        <li>
-                        <a href="'.asset('storage/products/images/'.$image->image).'" class="lightbox-image" title="Image Caption Here">
-                         <img src="'.asset('storage/products/images/'.$image->image).'" alt=""></a>
+
+             $imgs .='<div class="owl-item" style="width:360px; margin-right: 0;"><li>
+                        <a href="'.asset('storage/images/products/'.$image->image).'" class="lightbox-image" title="Image Caption Here">
+                         <img src="'.asset('storage/images/products/'.$image->image).'" alt=""></a>
                      </li></div>';
          }
 
          $imgg = null;
         foreach($images as $img)
         {
-            $imgg .='<li><img src="'.asset('storage/products/images/'.$image->image).'" alt=""></li>';
+            $imgg .='<div class="owl-item active"><li><img src="'.asset('storage/images/products/'.$img->image).'" alt=""></li></div>';
         }
-        return response()->json(['temp'=>$temp ,'img'=> $img,'color'=>$color->color_name,'imgg'=>$imgg]);
+        return response()->json(['temp'=>$temp ,'imgs'=> $imgs,'color'=>$color->color_name,'imgg'=>$imgg]);
         //return view(['frontend.productmanagment.get-storage'=>$storages,'teams'=>teamInfo,'points'=>pointslist]);
     //return view('frontend.productmanagment.get-storage',compact('storages'));
 
@@ -592,15 +569,17 @@ class ProductController extends Controller
    ///////////////////// Payments ////////////////////////////
     public function payment(Request $request)
     {
+
+        // dd($request->all());
         $userID = Auth::user()->id;
 
-        $cartCollection =   \Cart::session($userID)->getContent();
+        $cartCollection = \Cart::session($userID)->getContent();
 
         $data = $cartCollection->all();
         //    dd($request->all());
         // dd($cartCollection);
         $totals = \Cart::session($userID)->getTotal();
-
+        // dd($totals);
         if($request->payment == "cash")
         {
             $orderSale =new OrderSale;
@@ -632,9 +611,7 @@ class ProductController extends Controller
                     $order->type           = "phone";
                     $order->payment_method = "Cash";
                     $order->status         = 0;
-
                     $order->save();
-
 
                     $condition = ProductCondition::where('storage_id',$storage->id)->first();
                     if($cart->quantity <= $condition->quantity)
@@ -646,6 +623,7 @@ class ProductController extends Controller
                         return redirect()->route('view.cart')->with('status' ,'Enough Quantity of:' . $condition->name);
                     }
                 }
+
                 else{
                     // dd('asdsad');
                     $model = Pmodel::where('id',$cart->associatedModel->model_id)->first();
@@ -828,8 +806,8 @@ class ProductController extends Controller
                 $order->color       =  $cart->attributes->color;
                 $order->condition   = $cart->attributes->conditition;
                 $order->storage     = $cart->attributes->storage;
-                $order->quantity     = $cart->quantity;
-                $order->price     = $cart->price;
+                $order->quantity    = $cart->quantity;
+                $order->price       = $cart->price;
                 $order->grand_price  =$total;
                 $order->payment_method = "PayPal";
                 $order->status = 0;
@@ -853,8 +831,8 @@ class ProductController extends Controller
                 $model = Pmodel::where('id',$cart->associatedModel->model_id)->first();
                 $total = round($cart->quantity*$cart->price);
 
-                // dd($cart->attributes->color);
-                $order                  = new Order;
+                    //dd($cart->attributes->color);
+                    $order                  = new Order;
                     $order->orderSales_id   = $orderSale->id;
                     $order->accessory_id    = $cart->associatedModel->id;
                     $order->brand_name      = $model->brand->brand_name;
@@ -911,7 +889,7 @@ class ProductController extends Controller
                  return redirect()->route('view.cart');
 
     } catch (PayPalConnectionException $ex) {
-        echo $ex->getCode();    
+        echo $ex->getCode();
         echo $ex->getData();
         die($ex);
     } catch (Exception $ex) {
@@ -1103,6 +1081,8 @@ class ProductController extends Controller
         //    dd($products);
            return view('frontend.filterProduct.getCondition',compact('products'));
          }
+
+
 
 
     }

@@ -128,7 +128,7 @@ class ShippingAddress extends Controller
 
     public function checkAddress(Request $request)
     {
-        //  dd($request->all());
+
 
          if($request->address == 'exist')
          {
@@ -137,6 +137,7 @@ class ShippingAddress extends Controller
 
              return view('frontend.checkout',compact('address'));
          }
+
     }
 
     public function createAddress(Request $request)
@@ -164,17 +165,13 @@ class ShippingAddress extends Controller
        $track = $request->trackingNo;
        $date = Carbon::now();
        $order = OrderSale::where('tracking_code',$track)->first();
-       if($order->status == 1 || $order->status == 0)
-       {
-             $orderID = $order->id;
-       }
-       else
-       {
-        $orderID = $order->id;
-           return view('frontend.track-message',compact('orderID','track','date'));
-       }
-
-       $host_v = "http://production.shippingapis.com/ShippingAPI.dll?API=TrackV2%20&XML=%3CTrackRequest%20USERID=%22353SNEAK5425%22%3E%20%3CTrackID%20ID=%22".$track."%22%3E%3C/TrackID%3E%3C/TrackRequest%3E";
+    //    dd($order);
+        if(isset($order))
+         {
+            if($order->status == 1 || $order->status == 0)
+            {
+                    $orderID = $order->id;
+        $host_v = "http://production.shippingapis.com/ShippingAPI.dll?API=TrackV2%20&XML=%3CTrackRequest%20USERID=%209CELLC3721%22%3E%20%3CTrackID%20ID=%22".$track."%22%3E%3C/TrackID%3E%3C/TrackRequest%3E";
        $ch = curl_init();
        $timeout = 10;
        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)');
@@ -187,7 +184,9 @@ class ShippingAddress extends Controller
       $xml = simplexml_load_string($result);
       $json = json_encode($xml);
       $array = json_decode($json,TRUE);
+    //   dd($array);
       $check = count($array['TrackInfo']);
+      dd($check);
       if ($check == 3) {
         $description = $array['TrackInfo']['TrackSummary'];
         $details = $array['TrackInfo']['TrackDetail'];
@@ -195,10 +194,26 @@ class ShippingAddress extends Controller
         $description = $array['TrackInfo']['Error']['Description'];
         $details = null;
       }
-    //   dd($check);
+      dd($description);
     //if check== 2 then it means there are no any tracking yet ....
 
       return view('frontend.track-result',compact('track','description','check','details','date','orderID'));
+            }
+            else
+            {
+                $orderID = $order->id;
+                return view('frontend.track-message',compact('orderID','track','date'));
+            }
+
+
+          }
+          else
+          {
+
+
+
+
+    }
     }
 
     public function confirmTracking(Request $request)
