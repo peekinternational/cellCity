@@ -291,6 +291,6 @@ class AdminController extends Controller
         $details = [];
       }
       dd($description);
-    //   return view('admin.track-result',compact('id','description','check','details'));
+      return view('admin.track-result',compact('id','description','check','details'));
     }
 }

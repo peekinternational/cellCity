@@ -69,12 +69,12 @@ class ProductOrderController extends Controller
             'OrderID'     =>  $productOrder->id
                 ];
 
-        \Mail::to('shan57409@gmail.com')->send(new ShipppingCode($details));
+        \Mail::to($email)->send(new ShipppingCode($details));
 
         $message = strip_tags(nl2br("Dear Customer, \n Your Shipping Address Code is :. \n Shipping Code :" .$shippingCode.'Order ID'.$productOrder->id));
 
         $account_sid = "AC6769d3e36e7a9e9ebbea3839d82a4504";
-        $auth_token = "b2229f79769f0b47fa8e7bb685291d0d";
+        $auth_token = "ecc8e9d376d7ef8a19ed22778bb466f8";
         $twilio_number = +15124027605;
         $client = new Client($account_sid, $auth_token);
         $client->messages->create(
