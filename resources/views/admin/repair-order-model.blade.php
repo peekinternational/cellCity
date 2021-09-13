@@ -59,7 +59,10 @@
                                                     ${{$order->repairorderstypes->sum('price')}}
                                                 </td>
                                             </tr>
-                                            
+                                            <tr>
+                                                <th>Issue Details</th>
+                                                <td class="text-center">{{ $order->instructions }}</td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>

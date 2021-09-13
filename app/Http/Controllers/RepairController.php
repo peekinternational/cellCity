@@ -150,9 +150,9 @@ public function saverepairType(Request $request){
 
      $message =strip_tags(nl2br("Dear customer,\n Order Placed successfully, \n A technician will reach out to you as soon as possible.\n Thank you!!"));
 
-     $account_sid = "AC6769d3e36e7a9e9ebbea3839d82a4504";
-     $auth_token = "b2229f79769f0b47fa8e7bb685291d0d";
-     $twilio_number = +15124027605;
+     $account_sid = "ACeb30af8343f53c1b366517b35ea44dc2";
+             $auth_token = "41d4275d8e0e3b545e819df1a9f2d286";
+             $twilio_number = +14842553085;
        $client = new Client($account_sid, $auth_token);
        $client->messages->create($phone,
            ['from' => $twilio_number, 'body' => $message] );

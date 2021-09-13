@@ -5,6 +5,13 @@
     /*padding-left: 5vw;*/
     /*padding-right: 5vw;*/
 }
+
+.chance-box-wrapper .medium-font.selectPhone
+{
+    margin-left: 44px !important;
+}
+/* select phone css end */
+
 .layout {
     display: flex;
 }
@@ -468,6 +475,9 @@
     bottom: 0;
     top: 0;
 }*/
+
+
+
 .single-answer-component-wrapper .answer-content {
     margin: 0 15px;
     margin-bottom: 10px;
