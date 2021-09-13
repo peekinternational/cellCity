@@ -302,12 +302,12 @@ class AccessoryController extends Controller
             }
             elseif($request->sort == "hl")
             {
-                $accessories = Accessory::orderBy('sell_price','asc')->get();
+                $accessories = Accessory::orderBy('sell_price','desc')->get();
                 return view('frontend.accessoryFilter.getAccessorySort',compact('accessories'));
             }
             elseif($request->sort == "lh")
             {
-                $accessories = Accessory::orderBy('sell_price','desc')->get();
+                $accessories = Accessory::orderBy('sell_price','asc')->get();
                 return view('frontend.accessoryFilter.getAccessorySort',compact('accessories'));
             }
             elseif($request->sort == "no")
@@ -361,9 +361,9 @@ class AccessoryController extends Controller
             {
                 $order = Order::where('id',$request->productID)->first();
                  $product = Product::where('id',$order->product_id)->first();
-                // dd($accessory);
-                $user = User::where('id',Auth::user()->id)->first();
 
+                $user = User::where('id',Auth::user()->id)->first();
+                // dd($order);
 
                 $userReview = DB::table('reviews')
                                 ->where('reviewrateable_id',$product->id)

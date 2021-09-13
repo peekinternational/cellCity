@@ -29,18 +29,23 @@
 
                         <div class="tab" id="">Color and Image
 
-                            <div id="field_wrapper2">
-                                <div class="form-group row">
-                                    {{-- <input type="hidden" name="product_id" id="product_id" value="product_id"> --}}
 
-                                    <div class="col-md-12">
+                            <input type="hidden" name="product_id" id="product_id" value="{{ $product->id }}">
+                            @php
+                                $count = $colors->count();
+                                //   dd($count);
+                            @endphp
 
-                                        @foreach ($colors as $key0 => $color)
-                                            @php
-                                                $images = App\Models\ProductImage::where('color_id', $color->id)->first();
-                                                $storage = App\Models\ProductStorage::where('color_id', $color->id)->get();
 
-                                            @endphp
+                            @foreach ($colors as $key0 => $color)
+                                @php
+                                    $images = App\Models\ProductImage::where('color_id', $color->id)->first();
+                                    $storage = App\Models\ProductStorage::where('color_id', $color->id)->get();
+
+                                @endphp
+                                <div id="field_wrapper2">
+                                    <div class="form-group row">
+                                        <div class="col-md-12">
                                             <div class="row">
 
                                                 <div class="col-md-4">
@@ -50,20 +55,22 @@
                                                         placeholder="Enter mobile color name"
                                                         value="{{ $color->color_name }}" id="example-text-input">
                                                     <span class="text-danger">{{ $errors->first('color_name') }}</span>
-                                                    <input type="hidden" name="color_id[]" value="{{$color->id}}">
-                                                    <input type="hidden" name="image_id[{{$key0}}][]" value="{{$images->id}}">
+                                                    <input type="hidden" name="color_id[]" value="{{ $color->id }}">
+                                                    <input type="hidden" name="image_id[{{ $key0 }}][]"
+                                                        value="{{ $images->id }}">
                                                 </div>
                                                 <div class="col-md-4">
                                                     <label for="example-text-input" class="col-form-label">Image</label>
-                                                    <input class="form-control" name="image[{{$key0}}][]" multiple type="file"
-                                                        @if (old('image'))  @endif id="image-input">
+                                                    <input class="form-control" name="image[{{ $key0 }}][]"
+                                                        multiple type="file" @if (old('image'))  @endif id="image-input">
                                                     <span class="text-danger">{{ $errors->first('image') }}</span>
 
                                                 </div>
                                                 <div class="col-md-4" style="text-align: center;">
                                                     @if ($loop->index + 1 == 1)
                                                         <a href="javascript:void(0)" class="btn btn-primary addMoreColor"
-                                                            id="addMoreColor" style="margin-top: 36px;"><span
+                                                            id="addMoreColor"
+                                                            style="margin-top: 36px;"><span
                                                                 class="glyphicon glyphicon glyphicon-plus"
                                                                 aria-hidden="true"></span> Add Color</a>
                                                         {{-- <a href="{{url('admin/productStorage-delete',$storag->id)}}" class="btn btn-danger " style="margin-top: 36px;"><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Remove</a> --}}
@@ -72,31 +79,43 @@
                                                             class="btn btn-success " style="margin-top: 36px;"><span
                                                                 class="glyphicon glyphicon glyphicon-plus"
                                                                 aria-hidden="true"></span> Remove Color</a>
-                                                        <a href="javascript:void(0)" class="btn btn-info addMoreStorage"
+                                                        <a href="javascript:void(0)"
+                                                            class="btn btn-info addMoreStorage"
                                                             style="margin-top: 36px;"><span
                                                                 class="glyphicon glyphicon glyphicon-plus"
                                                                 aria-hidden="true"></span> Add Storage</a>
                                                     @endif
                                                 </div>
                                             </div>
+                                                       @php
+                                                           $storageCount = $storage->count();
+                                                        //    dd($storageCount);
+                                                       @endphp
 
-                                            <div class="addstorage" id="addstorage">
-                                                <div class="add_storage">
                                                     @foreach ($storage as $key => $storag)
                                                         @php
                                                             $condition = App\Models\ProductCondition::where('storage_id', $storag->id)->get();
                                                         @endphp
-                                                        <div id="add_storage0">
+
+                                                        <div class="addstorage{{$key0.$key}}">
+                                                        <div class="add_storage" id="addstorage{{$key}}">
+                                                        <div>
                                                             <div class="row">
 
                                                                 <div class="input-group">
-                                                                    <input type="hidden" name="storage_id[{{ $key0 }}][]" value="{{$storag->id}}">
+                                                                    <input type="hidden" name="storage_count" value="{{ $storageCount}}">
+                                                                    <input type="hidden" name="storage_id" value="{{ $key0 }}">
+
                                                                     <input type="hidden" name="addMoreStorage0" value="0"
                                                                         id="addMoreStorage0">
+
+                                                                        <input type="hidden" name="storageID[{{ $key0 }}][]" value="{{ $storag->id }}">
+
                                                                     <div class="col-md-8">
                                                                         <label for="example-text-input"
                                                                             class="col-form-label">Storage</label>
-                                                                        <select class="form-control" name="storage[{{ $key0 }}][]">
+                                                                        <select class="form-control"
+                                                                            name="storage[{{ $key0 }}][]">
                                                                             <option selected>Select Memory</option>
                                                                             <option value="256 GB"
                                                                                 {{ $storag->storage == '256 GB' ? 'selected' : '' }}>
@@ -134,11 +153,11 @@
                                                                                     class="glyphicon glyphicon glyphicon-plus"
                                                                                     aria-hidden="true"></span> Remove</a>
                                                                         @else
-                                                                            {{-- <a href="#" class="btn btn-danger "
+                                                                            <a href="#" class="btn btn-danger "
                                                                                 style="margin-top: 36px;"><span
                                                                                     class="glyphicon glyphicon glyphicon-plus"
                                                                                     aria-hidden="true"></span> Remove
-                                                                                Storage</a> --}}
+                                                                                Storage</a>
                                                                         @endif
                                                                     </div>
 
@@ -147,18 +166,25 @@
                                                             </div>
                                                         </div>
 
-                                                        <div class="add_condition">
+                                                    @foreach ($condition as $key2 => $condit)
+                                                        <div class="addcondition{{$key0.$key.$key2}}">
                                                             <div class="add_condition">
-                                                                @foreach ($condition as $condit)
-
-                                                                    <div class="row" id="add_condition0">
+                                                                    <div class="row" id="add_condition{{$key2}}">
                                                                         <div class="input-group">
                                                                             <div class="col-md-3">
-                                                                                <input type="hidden" name="condition_id[{{ $key0 }}][{{$key}}][]" value="{{ $condit->id}}">
+                                                                                <input type="hidden"
+                                                                                    name="condition_count"
+                                                                                    value="{{ $condition->count() }}">
+                                                                                <input type="hidden" name="colr_id" value="{{ $key0 }}">
+                                                                                <input type="hidden" name="stora_id" value="{{ $key }}">
+
+                                                                                    <input type="hidden" name="conditionID[{{$key0}}][{{$key}}][{{$key2}}]"
+                                                                                    value="{{ $condit->id }}">
                                                                                 <label for="example-text-input"
                                                                                     class="col-form-label">Condition</label>
                                                                                 <select class="form-control"
-                                                                                    name="condition[{{ $key0 }}][{{$key}}][]" id="condition">
+                                                                                    name="condition[{{ $key0 }}][{{ $key }}][]"
+                                                                                    id="condition">
                                                                                     <option selected>Select Any One</option>
                                                                                     <option value="fair"
                                                                                         {{ $condit->condition == 'fair' ? 'selected' : '' }}>
@@ -177,7 +203,8 @@
                                                                                 <label for="example-text-input"
                                                                                     class="col-form-label">Price</label>
                                                                                 <input class="form-control"
-                                                                                    name="price[{{ $key0 }}][{{$key}}][]" type="number"
+                                                                                    name="price[{{ $key0 }}][{{ $key }}][]"
+                                                                                    type="number"
                                                                                     placeholder="Enter mobile Price"
                                                                                     value="{{ $condit->price }}"
                                                                                     id="example-text-input">
@@ -191,7 +218,8 @@
                                                                                 <label for="example-text-input"
                                                                                     class="col-form-label">Quantity</label>
                                                                                 <input class="form-control"
-                                                                                    name="quantity[{{ $key0 }}][{{$key}}][]" type="number"
+                                                                                    name="quantity[{{ $key0 }}][{{ $key }}][]"
+                                                                                    type="number"
                                                                                     placeholder="Enter mobile Quantity"
                                                                                     value="{{ $condit->quantity }}"
                                                                                     id="example-text-input">
@@ -202,7 +230,8 @@
                                                                                 style="text-align: center;">
                                                                                 @if ($loop->index + 1 == 1)
                                                                                     <a href="javascript:void(0)"
-                                                                                        class="btn btn-success addMoreCondition" id="addMoreCondition"
+                                                                                        class="btn btn-success addMoreCondition"
+                                                                                        id="addMoreCondition"
                                                                                         style="margin-top: 36px;"><span
                                                                                             class="glyphicon glyphicon glyphicon-plus"
                                                                                             aria-hidden="true"></span> Add
@@ -226,21 +255,23 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                @endforeach
+
                                                             </div>
 
                                                         </div>
+                                                        @endforeach
                                                         <hr>
-                                                    @endforeach
 
 
 
                                                 </div>
                                             </div>
-                                        @endforeach
+                                            @endforeach
+
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            @endforeach
                         </div>
 
                         <button type="submit" class="btn btn-primary">submit</button>
@@ -264,37 +295,45 @@
 
     {{-- nested add field storage --}}
     <script type="text/javascript">
+
+        var x = 0;
+        var y = 1;
+        var z = 1;
         $(document).ready(function() {
             //color
 
             var addButton2 = $('#addMoreColor'); //Add button selector
             var wrapper2 = $('#field_wrapper2');
             //Input field wrapper
-            var x = 0;
+            /// count -1 get from color
+            var colorCount = '{{ $count }}';
+            // alert(colorCount);
+             x = colorCount - 1;
 
 
 
-            //    condition section
+            // condition section
 
             $(document).on('click', '.addMoreColor', function(e) {
                 // alert('asdasd');
-
+               y = 1;
+               z = 1;
                 x++;
                 var maxField = 3;
                 // var childern = $(e.target).closest('.add_condition').find('#' + storeindex).children()
-
                 // alert(maxField);
                 if (x < maxField) {
                     // alert(childern);
-                    var fieldHTML2 = '<div  id="removeColor"><div class="row"><div class="col-md-4">' +
+                    var fieldHTML2 = '<div  id="removeColor" class=""><div class="row"><div class="col-md-4">' +
                         '<label for="example-text-input" class=" col-form-label">Color Name</label>' +
                         '<input class="form-control"  name="color_name[]" type="text" placeholder="Enter mobile color name"    id="example-text-input">' +
                         ' </div>' +
                         ' <div class="col-md-4">' +
-                        ' <input type="hidden" name="color_id[]" value="null">'+
-                        '<input type="hidden" name="image_id[][]" value="null">'+
+                        ' <input type="hidden" name="color_id[]" value="null">' +
+                        '<input type="hidden" name="image_id[]" value="null">' +
                         ' <label for="example-text-input" class="col-form-label">Image</label>' +
-                        '<input class="form-control" name="image['+x+'][]"  multiple type="file"   @if (old('image'))  @endif  id="image-input">' +
+                        '<input class="form-control" name="image[' + x +
+                        '][]"  multiple type="file"   @if (old('image'))  @endif  id="image-input">' +
                         ' </div>' +
                         ' <div class="col-md-4" style="text-align: center;">' +
                         '<a href="javascript:void(0)" class="btn btn-success  removeColor" style="margin-top: 36px;"><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Remove Color</a>' +
@@ -302,16 +341,17 @@
                         '</div>' +
                         '</div>' +
                         '<hr>' +
-                        '<div class="addstorage" id="addstorage">' +
-                        '<div class="add_storage">' +
-                        '<div id="add_storage0">' +
+                        '<div class="addstorageadd">'+
+                         ' <div class="add_storage'+x+'">'+
                         '<div class="row">' +
                         '<div class="input-group" >' +
+                        ' <input type="hidden" name="storage_count"  value="">'+
+                        ' <input type="hidden" name="storage_id" value="">'+
                         '<input type="hidden" name="addMoreStorage0" value="0" id="addMoreStorage0">' +
-                        ' <input type="hidden" name="storage_id[][]" value="null">'+
+                        '<input type="hidden" name="storageID['+x+'][]" value="null">' +
                         '<div class="col-md-8">' +
                         '<label for="example-text-input" class="col-form-label">Storage</label>' +
-                        '<select class="form-control" name="storage['+x+'][]" >' +
+                        '<select class="form-control" name="storage[' + x + '][]" >' +
                         ' <option selected>Select Memory</option>' +
                         '<option value="256 GB">256 GB</option>' +
                         '<option value="128 GB">128 GB</option>' +
@@ -323,20 +363,20 @@
                         '</select>' +
                         '</div>' +
                         ' <div class="col-md-4" style="text-align: center;">' +
-                        '<a href="javascript:void(0)" class="btn btn-info addMoreStorage" style="margin-top: 36px;"><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Add Storage</a>' +
+                        '<a href="javascript:void(0)" class="btn btn-info MoreStorage" style="margin-top: 36px;"><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Add Storage</a>' +
 
                         ' </div>' +
                         '</div>' +
                         '</div>' +
-                        ' </div>' +
-                        '<div class="add_condition">' +
-                        '<div class="add_condition">' +
-                        '<div class="row" id="add_condition0">' +
+
+                        '<div class="addconditionadd">' +
+                        '<div class="add_condition'+x+'">' +
+                        '<div class="row">' +
                         '<div class="input-group">' +
                         '<div class="col-md-3">' +
                         '<label for="example-text-input" class="col-form-label">Condition</label>' +
 
-                        '<select class="form-control"  name="condition[][][]" id="condition">' +
+                        '<select class="form-control"  name="condition[' + x + '][][]" id="condition">' +
                         '<option selected>Select Any One</option>' +
                         '<option value="fair" >fair</option>' +
                         '<option value="good" >good</option>' +
@@ -345,18 +385,20 @@
                         '</div>' +
                         '<div class="col-md-3">' +
                         '<label for="example-text-input" class="col-form-label">Price</label>' +
-                        '<input class="form-control"  name="price[][][]" type="number" placeholder="Enter mobile Price" id="example-text-input">' +
+                        '<input class="form-control"  name="price[' + x +
+                        '][][]" type="number" placeholder="Enter mobile Price" id="example-text-input">' +
 
                         '</div>' +
                         '<input type="hidden" name="addMoreCondition0" value="0" id="addMoreCondition0">' +
 
                         '<div class="col-md-3">' +
                         '<label for="example-text-input" class="col-form-label">Quantity</label>' +
-                        '<input class="form-control"  name="quantity[][][]" type="number" placeholder="Enter mobile Quantity"   id="example-text-input">' +
-                        '<input type="hidden" name="condition_id[][][]" value="null">'+
+                        '<input class="form-control"  name="quantity[' + x +
+                        '][][]" type="number" placeholder="Enter mobile Quantity"   id="example-text-input">' +
+                        '<input type="hidden" name="conditionID['+ x +'][][]" value="null">' +
                         '</div>' +
                         '<div class="col-md-3" style="text-align: center;">' +
-                        ' <a href="javascript:void(0)" class="btn btn-warning addMoreCondition" id="addMoreCondition" style="margin-top: 36px;"><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Add Condition</a>' +
+                        ' <a href="javascript:void(0)" class="btn btn-warning MoreCondition" id="addMoreCondition" style="margin-top: 36px;"><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Add Condition</a>' +
                         '</div>' +
                         '</div>' +
                         ' </div>' +
@@ -397,26 +439,32 @@
             var x = 0;
             var y = 0;
             var z = 0;
+            var storageindex=0;
 
+            var storageCount = '{{ $storageCount }}';
             $(document).on('click', '.addMoreStorage', function(e) {
-                // alert(product);
-                y++;
-                console.log($(e.target).closest('.add_storage').children()[0]);
+                // alert(storageCount);
 
-                var storageid = $(e.target).closest('.add_storage').children()[0].id;
-                console.log(storageid);
+            //    var y = storageCount;
 
-                var storageindex = y;
 
+            storageindex= $(e.target).closest('.add_storage').children().find('input')[0].value;
+            colorindex= $(e.target).closest('.add_storage').children().find('input')[1].value;
+            console.log(colorindex);
+            var appendkey = storageindex - 1;
+                    // console.log(storageindex);
+                // var storageindex = y;
                 var maxField = 3;
                 // var childern = $(e.target).find('#' + storageindex).children().length;
                 //  alert(childern);
-                if (y < maxField) {
+                if (storageindex < maxField) {
                     // alert(childern);
-                    var fieldHTML = '<div class="add_storage"> <div class="row " id="add_storage' + y +'"><div class="input-group">' +
+                    var fieldHTML = '<div class="add_storage"> <div class="row " id="add_storage' + storageindex +
+                        '"><div class="input-group">' +
                         '<div class="col-md-8">' +
+                        '<input type="hidden" name="storageID['+colorindex+'][]" value="null">' +
                         '<label for="example-text-input" class="col-form-label">Storage</label>' +
-                        '<select class="form-control" name="storage[0][]" >' +
+                        '<select class="form-control" name="storage['+colorindex+'][]" >' +
                         '<option selected>Select Memory</option>' +
                         '<option value="256 GB">256 GB</option>' +
                         '<option value="128 GB">128 GB</option>' +
@@ -428,15 +476,18 @@
 
                         '</div>' +
                         '<div class="col-md-4" style="text-align: center;"> ' +
-                        '  <a href="javascript:void(0)" class="btn btn-danger remove_storage" style="margin-top: 36px;" id="add_button2"><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Remove Storage </a>'+
+                        '  <a href="javascript:void(0)" class="btn btn-danger remove_storage" style="margin-top: 36px;" id="add_button2"><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Remove Storage </a>' +
                         ' </div>' +
 
-                        '<div class="add_condition">' +
-                        '<div class="row" id="add_condition' + storageindex + '">' +
+                        '<div class="addCondition '+ colorindex +'">' +
+                        '<div class="row" >' +
                         '<div class="input-group">' +
+                        '<input type="hidden" name="colorIn" value="'+colorindex+'">'+
+                        '<input type="hidden" name="apendStorg" value="'+appendkey+'">'+
+                        '<input type="hidden" name="conditionID['+ colorindex +']['+appendkey+'][]" value="null">' +
                         ' <div class="col-md-3">' +
                         ' <label for="example-text-input" class="col-form-label">Condition</label>' +
-                        ' <select class="form-control"  name="condition[' + storageindex +'][]" id="condition">' +
+                        ' <select class="form-control"  name="condition['+ colorindex +']['+appendkey+'][]" id="condition">' +
                         '  <option selected>Select Any One</option>' +
                         '  <option value="fair">fair</option>' +
                         '  <option value="good">good</option>' +
@@ -445,22 +496,24 @@
                         ' </div>' +
                         ' <div class="col-md-3">' +
                         ' <label for="example-text-input" class="col-form-label">Price</label>' +
-                        ' <input class="form-control"  name="price[' + storageindex +'][]" type="number" placeholder="Enter mobile Price"  @if (old('price')) value="{{ old('price') }}" @endif  id="example-text-input">' +
+                        ' <input class="form-control"  name="price['+ colorindex +']['+appendkey+'][]" type="number" placeholder="Enter mobile Price"  @if (old('price')) value="{{ old('price') }}" @endif  id="example-text-input">' +
                         ' <span class="text-danger">{{ $errors->first('price') }}</span>' +
                         ' </div><div class="col-md-3">' +
                         ' <label for="example-text-input" class="col-form-label">Quantity</label>' +
-                        ' <input class="form-control"  name="quantity[' + storageindex +'][]" type="number" placeholder="Enter mobile Quantity"   id="example-text-input">' +
+                        ' <input class="form-control"  name="quantity['+ colorindex +']['+appendkey+'][]" type="number" placeholder="Enter mobile Quantity"   id="example-text-input">' +
                         '  <span class="text-danger">{{ $errors->first('quantity') }}</span>' +
                         ' </div>' +
                         '<div class="col-md-3" style="text-align:center"> ' +
-                        ' <a href="javascript:void(0)" class="btn btn-warning addMoreCondition" style="margin-top: 36px;"><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Add Condition # '+ storageindex + '</a>' +
+                        ' <a href="javascript:void(0)" class="btn btn-warning MoreCondition" style="margin-top: 36px;"><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Add Condition # </a>' +
                         ' </div>' +
                         ' </div>' +
                         ' </div>' +
                         ' </div>' +
                         '</div>';
                     //$('#field_wrapper_size'+z).append(fieldHTML); //Add field html
-                    $('#addstorage').append(fieldHTML);
+                    // $('#addstorage').append(fieldHTML);
+                    console.log($(e.target).closest('.addstorage').find('#addstorage' + appendkey));
+                    $('.addstorage'+colorindex+appendkey).append(fieldHTML);
                 }
             });
 
@@ -479,52 +532,56 @@
             $(document).on('click', '.addMoreCondition', function(e) {
                 // alert('asdsad');
 
-                console.log($(e.target).closest('.add_condition').children()[0]);
+                 condindex= $(e.target).closest('.add_condition').children().find('input')[0].value;
+                 colorindex= $(e.target).closest('.add_condition').children().find('input')[1].value;
+                 storindex= $(e.target).closest('.add_condition').children().find('input')[2].value;
+                // console.log(colorindex);
+                // console.log(condindex);
+                // console.log(storindex);
+            var appendkey = condindex - 1;
 
-                var conditionid = $(e.target).closest('.add_condition').children()[0].id;
-                console.log(conditionid);
-                alert(conditionid);
-                var storeindex = conditionid.slice(13, 14);
-                        console.log(storeindex);
+            // console.log(appendkey);
 
                 var maxField = 3;
-                var childern = $(e.target).closest('.add_condition').find('#'+storeindex).children()
-                    .length;
+                // var childern = $(e.target).closest('.add_condition').find('#' + storeindex).children()
+                //     .length;
                 //   alert(storeindex);
-                if (y < maxField) {
+                if (storindex < maxField) {
                     // alert(childern);
                     var fieldHTML = ' <div class="remove_condition"><div class="row" id="add_condition' +
-                        storeindex + '"><div class="input-group">' +
+                        storindex + '"><div class="input-group">' +
                         ' <div class="col-md-3">' +
                         ' <label for="example-text-input" class="col-form-label">Condition</label>' +
-                        ' <select class="form-control"  name="condition[' + storeindex +
-                        '][]" id="condition">' +
+                        ' <select class="form-control"  name="condition[' + colorindex +
+                        ']['+storindex+'][]" id="condition">' +
                         '  <option selected>Select Any One</option>' +
                         '  <option value="fair">fair</option>' +
                         '  <option value="good">good</option>' +
                         '  <option value="excellent">excellent</option>' +
                         ' </select> ' +
                         ' </div>' +
+                        '<input type="hidden" name="conditionID['+ colorindex +'][' +storindex+ '][]" value="null">' +
                         ' <div class="col-md-3">' +
                         ' <label for="example-text-input" class="col-form-label">Price</label>' +
-                        ' <input class="form-control"  name="price[' + storeindex +
-                        '][]" type="number" placeholder="Enter mobile Price"  @if (old('price')) value="{{ old('price') }}" @endif  id="example-text-input">' +
+                        ' <input class="form-control"  name="price[' + colorindex +
+                        ']['+storindex+'][]" type="number" placeholder="Enter mobile Price"  @if (old('price')) value="{{ old('price') }}" @endif  id="example-text-input">' +
                         ' <span class="text-danger">{{ $errors->first('price') }}</span>' +
                         ' </div>    <div class="col-md-3">' +
                         ' <label for="example-text-input" class="col-form-label">Quantity</label>' +
-                        ' <input class="form-control"  name="quantity[' + storeindex +
-                        '][]" type="number" placeholder="Enter mobile Quantity"  @if (old('quantity')) value="{{ old('quantity') }}" @endif  id="example-text-input">' +
+                        ' <input class="form-control"  name="quantity[' + colorindex +
+                        ']['+storindex+'][]" type="number" placeholder="Enter mobile Quantity"  @if (old('quantity')) value="{{ old('quantity') }}" @endif  id="example-text-input">' +
                         '  <span class="text-danger">{{ $errors->first('quantity') }}</span>' +
-                        ' </div>' +
+                         ' </div>' +
                         '<div  class="col-md-3" style="text-align:center"> ' +
                         ' <a href="javascript:void(0)" class="btn btn-secondary removeCondition" style="margin-top: 36px;"><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Remove Condition#' +
-                        storeindex + '</a>' +
+                            condindex + '</a>' +
                         ' </div>' +
                         '</div>' +
                         '</div>' +
                         '</div>';
                     //$('#field_wrapper_size'+z).append(fieldHTML); //Add field html
-                    $(e.target).closest('.form-group').find('#' + conditionid).append(fieldHTML);
+                    // $(e.target).closest('.form-group').find('#' + conditionid).append(fieldHTML);
+                    $('.addcondition'+colorindex+storindex+appendkey).append(fieldHTML);
                 }
             });
 
@@ -539,8 +596,144 @@
 
 
 
+//////////More Condition releated to storage
+
+
+
+//    condition section
+
+
+
+//////////
+
+        $(document).on('click','.MoreStorage',function(e){
+		// alert("asdas");
+
+
+
+        var  maxField=3;
+
+            //  alert(childern);
+			if(y < maxField){
+                // alert(childern);
+				var fieldHTML = '<div class="row remove_storage"><div class="input-group">'+
+                                        '<div class="col-md-8">'+
+                                        '<label for="example-text-input" class="col-form-label">Storage</label>'+
+                                        '<select class="form-control" name="storage['+x+']['+y+']" >'+
+                                            '<option selected>Select Memory</option>'+
+                                            '<option value="256 GB">256 GB</option>'+
+                                            '<option value="128 GB">128 GB</option>'+
+                                            '<option value="64 GB">64 GB</option>'+
+                                            '<option value="32 GB">32 GB</option>'+
+                                            '<option value="16 GB">16 GB</option>'+
+                                            '<option value="8 GB">8 GB</option>'+
+                                        '</select>'+
+                                        '<input type="hidden" name="storageID['+x+']['+y+']" value="null">' +
+                                        '</div>'+
+                                        '<div class="col-md-4" style="text-align: center;"> '+
+                                        '  <a href="javascript:void(0)" class="btn btn-danger removeStorage" style="margin-top: 36px;" id="add_button2"><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Remove Storage #</a>'+
+                                        ' </div>'+
+                                        '<input type="hidden" name="conditionID['+x+']['+y+'][]" value="null">' +
+                                        '<div class="add_condition">'+
+                                          '<div class="row" id="add_condition'+y+'">'+
+                                           '<div class="input-group">'+
+                                          ' <div class="col-md-3">'+
+                                          ' <label for="example-text-input" class="col-form-label">Condition</label>'+
+                                          ' <select class="form-control"  name="condition['+x+']['+y+'][]" id="condition">'+
+                                                 '  <option selected>Select Any One</option>'+
+                                                 '  <option value="fair">fair</option>'+
+                                                 '  <option value="good">good</option>'+
+                                                 '  <option value="excellent">excellent</option>'+
+                                              ' </select> '+
+                                      ' </div>'+
+                                      ' <div class="col-md-3">'+
+                                          ' <label for="example-text-input" class="col-form-label">Price</label>'+
+                                          ' <input class="form-control"  name="price['+x+']['+y+'][]" type="number" placeholder="Enter mobile Price"  @if(old('price')) value="{{ old('price') }}" @endif  id="example-text-input">'+
+                                          ' <span class="text-danger">{{ $errors->first('price') }}</span>'+
+                                      ' </div><div class="col-md-3">'+
+                                          ' <label for="example-text-input" class="col-form-label">Quantity</label>'+
+                                          ' <input class="form-control"  name="quantity['+x+']['+y+'][]" type="number" placeholder="Enter mobile Quantity"  @if(old('quantity')) value="{{ old('quantity') }}" @endif  id="example-text-input">'+
+                                         '  <span class="text-danger">{{ $errors->first('quantity') }}</span>'+
+                                      ' </div>'+
+                                       '<div class="col-md-3" style="text-align:center"> '+
+                                          ' <a href="javascript:void(0)" class="btn btn-warning MoreCondition" style="margin-top: 36px;"><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Add Condition</a>'+
+                                      ' </div>'+
+                                      ' </div>'+
+                                      ' </div>'+
+                                       '</div>';
+				//$('#field_wrapper_size'+z).append(fieldHTML); //Add field html
+
+               $(this).parents('.addstorageadd').append(fieldHTML);
+				// $('.addstorage'+x).append(fieldHTML);
+                y++;
+			}
+	});
+
+     $(document).on('click', '.removeStorage', function(e){
+
+            e.preventDefault();
+         console.log($(this).parents('.remove_storage'));
+
+        $(this).parents('.remove_storage').remove(); //Remove field html
+                y--;
+                // console.log(y--);
+        });
+
+
+        $(document).on('click','.MoreCondition',function(e){
+
+
+            var  maxField=3;
+            // var childern =	$(e.target).closest('.add_condition').find('#'+storeindex).children().length;
+
+                if(z < maxField ){
+                    // alert(childern);
+                    var fieldHTML = ' <div class="remove_condition"><div class="row" id="add_condition'+z+'"><div class="input-group">'+
+                                            ' <div class="col-md-3">'+
+                                            ' <label for="example-text-input" class="col-form-label">Condition</label>'+
+                                            ' <select class="form-control"  name="condition['+x+']['+y+']['+z+']" id="condition">'+
+                                                    '  <option selected>Select Any One</option>'+
+                                                    '  <option value="fair">fair</option>'+
+                                                    '  <option value="good">good</option>'+
+                                                    '  <option value="excellent">excellent</option>'+
+                                                ' </select> '+
+                                        ' </div>'+
+                                        '<input type="hidden" name="conditionID['+x+']['+y+']['+z+']" value="null">' +
+                                        ' <div class="col-md-3">'+
+                                            ' <label for="example-text-input" class="col-form-label">Price</label>'+
+                                            ' <input class="form-control"  name="price['+x+']['+y+']['+z+']" type="number" placeholder="Enter mobile Price"  @if(old('price')) value="{{ old('price') }}" @endif  id="example-text-input">'+
+                                            ' <span class="text-danger">{{ $errors->first('price') }}</span>'+
+                                        ' </div> <div class="col-md-3">'+
+                                            ' <label for="example-text-input" class="col-form-label">Quantity</label>'+
+                                            ' <input class="form-control"  name="quantity['+x+']['+y+']['+z+']" type="number" placeholder="Enter mobile Quantity"  @if(old('quantity')) value="{{ old('quantity') }}" @endif  id="example-text-input">'+
+                                            '  <span class="text-danger">{{ $errors->first('quantity') }}</span>'+
+                                        ' </div>'+
+                                            '<div  class="col-md-3" style="text-align:center"> '+
+                                            ' <a href="javascript:void(0)" class="btn btn-secondary removeCondition" style="margin-top: 36px;"><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Remove Condition#'+z+'</a>'+
+                                        ' </div>'+
+                                            '</div>'+
+                                            '</div>'+
+                                            '</div>';
+                    //$('#field_wrapper_size'+z).append(fieldHTML); //Add field html
+
+                    $(this).parents('.addconditionadd').append(fieldHTML);
+                    z++;
+                }
+        });
+
+
+        $(document).on('click', '.removeCondition', function(e){
+                e.preventDefault();
+            console.log($(this).parents('.remove_condition'));
+
+            $(this).parents('.remove_condition').remove(); //Remove field html
+                z--; //Decrement field counter
+            });
+
 
         });
     </script>
+
+
 
 @endsection

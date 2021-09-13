@@ -1,10 +1,10 @@
 @extends('admin.layouts.master')
 
-@section('title') Customer Add @endsection
+@section('title') Technician Add @endsection
 
 @section('content')
    @component('admin.common-components.breadcrumb')
-         @slot('title') Customer Add  @endslot
+         @slot('title') Technician Add  @endslot
          @slot('li_1')  @endslot
          @slot('li_2')@endslot
      @endcomponent
@@ -48,7 +48,7 @@
                                                 <span class="text-danger">{{ $errors->first('phoneno') }}</span>
                                             </div>
                                         </div>
-                                        
+
                                         <div class="form-group row">
                                             <label for="example-password-input" class="col-md-2 col-form-label">Password</label>
                                             <div class="col-md-10">
@@ -56,7 +56,7 @@
                                                 <span class="text-danger">{{ $errors->first('password') }}</span>
                                             </div>
                                         </div>
-                                    
+
                                         <div class="text-center mt-4">
                                         <button type="submit" class="btn btn-primary waves-effect waves-light">Save</button>
                                     </div>

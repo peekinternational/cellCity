@@ -9,6 +9,15 @@
     color: #fff;
     line-height: 20px;
 }
+#imgg .owl-stage-outer .owl-stage{
+    transform: translate3d(0px, 0px, 0px);
+    transition: all 0s ease 0s;
+    width: 300px;
+}
+#imgg .owl-stage-outer .owl-stage .owl-item{
+    width: 80px;
+    margin-right: 20px;
+}
 </style>
 @endsection
 @section('content')
@@ -46,18 +55,14 @@
                                             <ul class="image-carousel" id="images">
 
                                                 @foreach ($images as $image )
-                                                <li><a href="{{asset('storage/products/images/'.$image->image)}}" class="lightbox-image" title="Image Caption Here"><img src="{{asset('storage/products/images/'.$image->image)}}" alt=""></a></li>
+                                                <li><a href="{{asset('storage/images/products/'.$image->image)}}" class="lightbox-image" title="Image Caption Here"><img src="{{asset('storage/images/products/'.$image->image)}}" alt=""></a></li>
                                                 @endforeach
-                                                {{-- <li><a href="{{asset('frontend-assets/images/resource/products/shop-image-1.jpg')}}" class="lightbox-image" title="Image Caption Here"><img src="{{asset('frontend-assets/images/resource/products/shop-image-1.jpg')}}" alt=""></a></li>
-                                                <li><a href="{{asset('frontend-assets/images/resource/products/shop-image-1.jpg')}}" class="lightbox-image" title="Image Caption Here"><img src="{{asset('frontend-assets/images/resource/products/shop-image-1.jpg')}}" alt=""></a></li>
-                                                <li><a href="{{asset('frontend-assets/images/resource/products/shop-image-1.jpg')}}" class="lightbox-image" title="Image Caption Here"><img src="{{asset('frontend-assets/images/resource/products/shop-image-1.jpg')}}" alt=""></a></li>
-                                                <li><a href="{{asset('frontend-assets/images/resource/products/shop-image-1.jpg')}}" class="lightbox-image" title="Image Caption Here"><img src="{{asset('frontend-assets/images/resource/products/shop-image-1.jpg')}}" alt=""></a></li>
-                                                <li><a href="{{asset('frontend-assets/images/resource/products/shop-image-1.jpg')}}" class="lightbox-image" title="Image Caption Here"><img src="{{asset('frontend-assets/images/resource/products/shop-image-1.jpg')}}" alt=""></a></li> --}}
+
                                             </ul>
 
                                             <ul class="thumbs-carousel" id="imgg">
                                                 @foreach ($images as $image)
-                                                <li><img src="{{asset('storage/products/images/'.$image->image)}}" alt=""></li>
+                                                <li><img src="{{asset('storage/images/products/'.$image->image)}}" alt=""></li>
                                                 @endforeach
                                             </ul>
 
@@ -530,8 +535,8 @@
 
                 $('#getstorage').html(response.temp);
 
-                $("#images").html(response.img);
-                $("#imgg").html(response.imgg);
+                $("#images .owl-stage-outer .owl-stage").html(response.imgs);
+                $("#imgg .owl-stage-outer .owl-stage").html(response.imgg);
                 $("#color").html(response.color);
                 $("#getcolor").val(response.color);
         },

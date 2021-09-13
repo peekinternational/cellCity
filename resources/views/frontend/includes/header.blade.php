@@ -47,7 +47,14 @@
 
                   @if(Auth::guard('web')->check())
                    <li><a href="{{url('profile')}}">My Profile</a> </li>
-                   <li><a href="{{url('view-cart')}}"><i class="fa fa-cart-plus"></i> Cart</a> </li>
+                   @php
+                      $userID = Auth::user()->id;
+                     $items=\Cart::session($userID)->getContent()
+                   @endphp
+                   <li>
+                       {{-- <span class="badge  bagde->success">{{$items->count()}}</span> --}}
+                       <a href="{{url('view-cart')}}"><i class="fa fa-cart-plus"></i> Cart</a>
+                    </li>
 
                   @else
                    <li class="dropdown"><a href="#">Sign In</a>
@@ -116,7 +123,9 @@
               <li><a href="{{url('contact-us')}}">Contact Us</a></li>
               @if(Auth::guard('web')->check())
                    <li><a href="{{url('profile')}}">My Profile</a> </li>
-                   <li><a href="{{url('view-cart')}}"><i class="fa fa-cart-plus"></i>Cart</a> </li>
+                   <li>
+                    {{-- <span class="badge  bagde->success">{{$items->count()}}</span> --}}
+                    <a href="{{url('view-cart')}}"><i class="fa fa-cart-plus"></i>Cart</a> </li>
 
                   @else
                    <li class="dropdown"><a href="#">Sign In</a>

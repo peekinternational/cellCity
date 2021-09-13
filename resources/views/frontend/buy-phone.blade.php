@@ -353,7 +353,7 @@
 
                   <figure class="image-box">
 
-                   <a href="{{ route('product.details',$product->id) }}"><img src="{{asset('storage/products/images/'.$images->image ?? '' )}}" alt="" /></a>
+                   <a href="{{ route('product.details',$product->id) }}"><img src="{{asset('storage/images/products/'.$images->image ?? '' )}}" alt="" /></a>
 
                 </figure>
                   <!--Lower Content-->
