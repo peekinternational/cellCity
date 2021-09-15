@@ -1,258 +1,181 @@
-
+<link type='text/css' rel='stylesheet' href='https://shippo-static.s3.amazonaws.com/css/branded-trackpage.css?v=2'>
 <style>
-
-
-.card {
-    margin: auto;
-    width: 100%;
-    /* max-width: 600px; */
-    padding: 4vh 0;
-    box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    border-top: 3px solid rgb(252, 103, 49);
-    border-bottom: 3px solid rgb(252, 103, 49);
-    border-left: none;
-    border-right: none
-}
-
-@media(max-width:768px) {
-    .card {
-        width: 90%
+    /* ACCENT COLOR OVERRIDES */
+    .Timeline::before {
+        background-color: #B4B4B4;
     }
-}
 
-.title {
-    color: rgb(252, 103, 49);
-    font-weight: 600;
-    margin-bottom: 2vh;
-    padding: 0 8%;
-    font-size: initial
-}
+    .Timeline-item::before {
+        border-color: #B4B4B4;
+    }
 
-#details {
-    font-weight: 400
-}
+    .Timeline-item.is-current::before {
+        background-color: #B4B4B4;
+    }
 
-.info {
-    padding: 5% 8%
-}
+    .Timeline-item.is-current header {
+        color: #B4B4B4;
+    }
 
-.info .col-5 {
-    padding: 0
-}
+    /* Logo image style temporary override to fix mobile view overflow. */
+    /* In case updated static css file is not collected. */
+    .Logo {
+        max-height: 60px;
+        max-width: 100%;
+    }
 
-#heading {
-    color: grey;
-    line-height: 6vh
-}
-
-.pricing {
-    background-color: #ddd3;
-    padding: 2vh 8%;
-    font-weight: 400;
-    line-height: 2.5
-}
-
-.pricing .col-3 {
-    padding: 0
-}
-
-.total {
-    padding: 2vh 8%;
-    color: rgb(252, 103, 49);
-    font-weight: bold
-}
-
-.total .col-3 {
-    padding: 0
-}
-
-.footer {
-    padding: 0 8%;
-    font-size: x-small;
-    color: black
-}
-
-.footer img {
-    height: 5vh;
-    opacity: 0.2
-}
-
-.footer a {
-    color: rgb(252, 103, 49)
-}
-
-.footer .col-10,
-.col-2 {
-    display: flex;
-    padding: 3vh 0 0;
-    align-items: center
-}
-
-.footer .row {
-    margin: 0
-}
-
-#progressbar {
-    margin-bottom: 3vh;
-    overflow: hidden;
-    color: rgb(252, 103, 49);
-    padding-left: 0px;
-    margin-top: 3vh
-}
-
-#progressbar li {
-    list-style-type: none;
-    font-size: x-small;
-    width: 25%;
-    float: left;
-    position: relative;
-    font-weight: 400;
-    color: rgb(160, 159, 159)
-}
-
-#progressbar #step1:before {
-    content: "";
-    color: rgb(252, 103, 49);
-    width: 5px;
-    height: 5px;
-    margin-left: 0px !important
-}
-
-#progressbar #step2:before {
-    content: "";
-    color: #fff;
-    width: 5px;
-    height: 5px;
-    margin-left: 32%
-}
-
-#progressbar #step3:before {
-    content: "";
-    color: #fff;
-    width: 5px;
-    height: 5px;
-    margin-right: 32%
-}
-
-#progressbar #step4:before {
-    content: "";
-    color: #fff;
-    width: 5px;
-    height: 5px;
-    margin-right: 0px !important
-}
-
-#progressbar li:before {
-    line-height: 29px;
-    display: block;
-    font-size: 12px;
-    background: #ddd;
-    border-radius: 50%;
-    margin: auto;
-    z-index: -1;
-    margin-bottom: 1vh
-}
-
-#progressbar li:after {
-    content: '';
-    height: 2px;
-    background: #ddd;
-    position: absolute;
-    left: 0%;
-    right: 0%;
-    margin-bottom: 2vh;
-    top: 1px;
-    z-index: 1
-}
-
-.progress-track {
-    padding: 0 8%
-}
-
-#progressbar li:nth-child(2):after {
-    margin-right: auto
-}
-
-#progressbar li:nth-child(1):after {
-    margin: auto
-}
-
-#progressbar li:nth-child(3):after {
-    float: left;
-    width: 68%
-}
-
-#progressbar li:nth-child(4):after {
-    margin-left: auto;
-    width: 132%
-}
-
-#progressbar li.active {
-    color: black
-}
-
-#progressbar li.active:before,
-#progressbar li.active:after {
-    background: rgb(252, 103, 49)
-}
 </style>
 
-<div class="card">
-    <div class="title">Purchase Reciept</div>
-    <div class="info">
-        <div class="row">
-            <div class="col-7"> <span id="heading">Date</span><br> <span id="details">{{$date->format('D-M-Y    H:s')}}</span> </div>
-            <div class="col-7"><span id="heading">Order No.</span><br> <span id="details">{{ $track }}</span> </div>
-        </div>
-    </div>
-    <div class="pricing">
-        @if (isset($details))
+<div class="TrackContainer">
+    <main class="TrackPanel">
+        <section class="Eta TrackPanel-body TrackPanel-body--flush">
+            <header class="Eta-heading">Estimated Arrival</header>
+            <div class='Eta-banner' style="background-color: #B4B4B4;">
+                <h2>
+                    <time datetime="2021-09-18T07:26:44.083580+00:00" data-dateformat="l, F jS, Y">
+                        &nbsp;
+                        @php
+                            $date= date('l, F jS, Y', strtotime($tracking->tracking_status->status_date));
+                        @endphp
+                        {{ $date }}
+                    </time>
+                </h2>
+                {{-- <p>{{$tracking->tracking_status->status_details}}</p> --}}
+                <p>Your order is in {{$tracking->tracking_status->status}}</p>
+            </div>
+        </section>
+        <div class="TrackPanel-body">
+            <section>
+                <h5 class="TrackPanel-heading">Items</h5>
+                <ul class="list-unstyled">
+                    @foreach ($order as $ord)
 
-        <div class="row">
-            <div class="col-9"> <span id="name">BEATS Solo 3 Wireless Headphones</span> </div>
-            <div class="col-3"> <span id="price">£299.99</span> </div>
-        </div>
-        <div class="row">
-            <div class="col-9"> <span id="name">Shipping</span> </div>
-            <div class="col-3"> <span id="price">£33.00</span> </div>
-        </div>
-        @else
-        <div>
-            <h4>{{$description}}</h4>
-        </div>
-        @endif
-    </div>
+                    @endforeach
+                    <li class="LineItem">
+                        {{ $ord->brand_name }}  {{ $ord->model_name }}
+                        <span class="pull-right">x  {{ $ord->quantity }}</span>
+                    </li>
+                    {{-- <li class="LineItem">
+                        Goose
+                        <span class="pull-right">x 1</span>
+                    </li> --}}
+                </ul>
+            </section>
+            <section>
+                <h5 class="TrackPanel-heading">Tracking</h5>
+                <div class="border-bottom">
+                    <div class="Timeline">
+                        @foreach ($tracking->tracking_history as $track)
+                        <div class="Timeline-item">
+                            <div class="Timeline-itemDate">
+                                <time datetime="{{ $track->status_date }}" data-dateformat="l, M j"
+                                    data-title-dateformat="g:i a">
 
-    @if (isset($details))
-    <div class="total">
-        <div class="row">
-            <div class="col-9"></div>
-            <div class="col-3"><big>£262.99</big></div>
+                                    &nbsp;
+
+                                    @php
+                                    $date= date('l, F jS, Y', strtotime($track->status_date));
+                                @endphp
+                                {{ $date }}
+                            </time>
+                            </div>
+                            <div class="Timeline-itemContent">
+                                <header>{{$track->status_details}}</header>
+                                <p>{{$track->status}}<br>
+                                    {{ $track->location->city ?? 'shipped' }}, {{ $track->location->state ?? ''}}
+                                </p>
+
+
+
+
+                            </div>
+                        </div>
+                        @endforeach
+
+                            {{-- <div class="Timeline-item is-toggle is-hidden">
+                                <div class="Timeline-itemDate">
+                                    <time datetime="2021-09-13T03:16:44.103794+00:00" data-dateformat="l, M j"
+                                        data-title-dateformat="g:i a">
+                                        &nbsp;
+                                    </time>
+                                </div>
+                                <div class="Timeline-itemContent">
+                                    <header>The carrier has received the electronic shipment information.</header>
+                                    <p>San Francisco, CA</p>
+                                </div>
+                            </div>
+                            <div class="Timeline-item is-toggle is-hidden">
+                                <div class="Timeline-itemDate">
+                                    <time datetime="2021-09-14T05:21:44.103819+00:00" data-dateformat="l, M j"
+                                        data-title-dateformat="g:i a">
+                                        &nbsp;
+                                    </time>
+                                </div>
+                                <div class="Timeline-itemContent">
+                                    <header>Your shipment has departed from the origin.</header>
+                                    <p>San Francisco, CA</p>
+                                </div>
+                            </div>
+                            <div class="Timeline-item is-current">
+                                <div class="Timeline-itemDate">
+                                    <time datetime="2021-09-14T05:21:44.103819+00:00" data-dateformat="l, M j"
+                                        data-title-dateformat="g:i a">
+                                        &nbsp;
+                                    </time>
+                                </div>
+                                <div class="Timeline-itemContent">
+                                    <header>Transit</header>
+                                    <p>San Francisco, CA</p>
+                                </div>
+                            </div> --}}
+                    </div>
+                </div>
+                <div style="padding-top: 20px;">
+                    <button type="button" class="btn btn-default btn-default--muted btn-rounded center-block"
+                        onclick="$('.is-toggle').toggle()">
+                        <span class="is-toggle">See Tracking Details</span>
+                        <span class="is-toggle is-hidden">Hide Tracking Details</span>
+                    </button>
+                </div>
+            </section>
         </div>
-    </div>
-    <div class="tracking">
-        <div class="title">Tracking Order</div>
-    </div>
-    <div class="progress-track">
-        <ul id="progressbar">
-            <li class="step0 active " id="step1">Ordered</li>
-            <li class="step0 active text-center" id="step2">Shipped</li>
-            <li class="step0 active text-right" id="step3">On the way</li>
-            <li class="step0 text-right" id="step4">Delivered</li>
-        </ul>
-    </div>
-    @else
-        <div>
-            <input type="hidden" name="orderID" id="orderID" value="{{$orderID}}">
-            <button class="btn btn-primary" onclick="confirmOrder()">Confirm Order</button>
-        </div>
-    @endif
-    {{-- <div class="footer">
-        <div class="row">
-            <div class="col-2"><img class="img-fluid" src="https://i.imgur.com/YBWc55P.png"></div>
-            <div class="col-10">Want any help? Please &nbsp;<a> contact us</a></div>
-        </div>
-    </div> --}}
+        <section class="TrackPanel-body SocialIcons">
+            <ul class="list-inline text-center">
+            </ul>
+        </section>
+    </main>
+    {{-- <footer class="TrackFooter">
+        <a href="/">
+            <img src="https://shippo-static.s3.amazonaws.com/img/branded-pages/poweredbyshippo.svg?v=2"
+                alt="Powered by Shippo">
+        </a>
+    </footer> --}}
 </div>
+<script src="https://cdn.jsdelivr.net/npm/php-date-formatter@1.3.4/js/php-date-formatter.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Adjust timestamps to be in local timezone
+        // Using php-date-formatter because it matches django template date filter syntax
+        $('time').each(function() {
+            var formatter = new DateFormatter();
+            var $el = $(this);
 
+            // Convert date
+            var ts = new Date($el.attr('datetime'));
+            if (isNaN(ts.getTime())) {
+                // Skip if invalid / blank
+                return;
+            }
 
+            // Format text
+            var dateformat = $el.data('dateformat');
+            $el.text(formatter.formatDate(ts, dateformat));
+
+            // Format title
+            var title_dateformat = $el.data('titleDateformat');
+            if (title_dateformat) {
+                $el.attr('title', formatter.formatDate(ts, title_dateformat));
+            }
+        });
+    });
+</script>

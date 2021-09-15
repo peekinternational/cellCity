@@ -309,14 +309,35 @@ h1 { font-size: 1.5em; margin: 10px; }
                                     <tbody>
                                         @foreach(Auth::guard('web')->user()->wishlist as $index => $wishl)
                                         @php
-                                            $product = App\Models\Product::where('id',$wishl->product_id)->first();
+                                        // dd($wishl);
+                                        $product = App\Models\Product::where('id',$wishl->product_id)->first();
+                                        $accessory = App\Models\Accessory::where('id',$wishl->accessory_id)->first();
+
+                                        if (isset($product)) {
                                             $model = App\Models\Pmodel::where('id',$product->model_id)->first();
+                                        }
+                                        elseif (isset($accessory)) {
+                                            $model = App\Models\Pmodel::where('id',$accessory->model_id)->first();
+                                            // dd($accessory);
+                                        }
+                                        else {
+                                            # code...
+                                        }
+
+
+                                            // dd($model);
                                         @endphp
                                         <tr>
-                                            <td colspan="2">{{$index + 1}}</td>
+                                            <td colspan="2">{{$index}}</td>
                                             <td colspan="2">{{$wishl->user->name}}</td>
                                             <td colspan="2">{{$model->model_name}}</td>
-
+                                            <td>
+                                                @if (isset($wishl->product_id))
+                                                <span class="badge badge-pill badge-success" style="background-color: #f1b44c;">Phone</span>
+                                                @else
+                                                <span class="badge badge-pill badge-warning" style="background-color: #337ab7;">Accessory</span>
+                                                @endif
+                                            </td>
                                             <td colspan="2">{{$wishl->created_at}}</td>
 
                                             <td colspan="2">
@@ -324,10 +345,15 @@ h1 { font-size: 1.5em; margin: 10px; }
                                                  <span class="badge badge-pill badge-warning" style="background-color: #f1b44c;">Favourite</span>
                                                  @endif
                                             </td>
+                                           <td>
+                                            <a href="{{url('delete-wishlist',$wishl->id)}}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                            @if (isset($wishl->product_id))
+                                            <a href="{{route('product.details',$product->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></a></td>
+                                            @elseif (isset($wishl->accessory_id))
+                                            <a href="{{route('accessory.details',$accessory->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></a></td>
 
+                                            @endif
 
-                                           <td><a href="{{url('delete-wishlist',$wishl->id)}}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                           <a href="{{route('product.details',$product->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></a></td>
                                         </tr>
                                         @endforeach
                                     </tbody>
@@ -359,12 +385,13 @@ h1 { font-size: 1.5em; margin: 10px; }
                                     </div>
                                 </form>
 
+
+                            </div>
+                            <div id="trackingOrder">
+
                             </div>
                         </div>
 
-                        <div id="trackingOrder">
-
-                        </div>
 						<div role="tabpanel" class="tab-pane" id="savedAddress">
 							<div class="d-flex justify-content-between title-section">
 								<h3>My Address</h3><br>

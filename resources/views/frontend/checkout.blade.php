@@ -340,17 +340,17 @@
                           <button type="button"  data-toggle="modal" data-target="#exampleModalCenter"> Credit Card </button>
                         </label>
                         <label for="cash" class="payment-methd">
-                          <input type="radio" id="payment" name="payment" value="cash"> Cash
+                          <input type="radio"  id="cash" name="payment" value="cash"> Cash
                         </label>
                         @else
                         <label for="cash" class="payment-methd">
-                          <input type="radio" id="payment" name="payment" value="cash"> Cash
+                          <input type="radio" id="cash" name="payment" value="cash"> Cash
                         </label>
                         <label for="paypal" class="payment-methd">
-                          <input type="radio" id="payment" name="payment" value="paypal" onchange="valueChanged()"> Paypal
+                          <input type="radio" id="paypal" name="payment" value="paypal" onchange="valueChanged()"> Paypal
                         </label>
                         <label for="apple-pay" class="payment-methd">
-                          <input type="radio" id="payment" name="payment" value="" onchange="valueChanged()"> Apple Pay
+                          <input type="radio" id="apple-pay" name="payment" value="apple-pay" onchange="valueChanged()"> Apple Pay
                         </label>
                         <label for="credit-card" class="payment-methd">
                           <button type="button"  data-toggle="modal" data-target="#exampleModalCenter"> Credit Card </button>
@@ -525,7 +525,8 @@ $(".btn-submit").click(function(e){
 e.preventDefault();
 
 var address_id = $("#address_id").val();
-var payment = $("#payment").val();
+// var payment = $("#payment").val();
+var payment = $("input[name='payment']:checked").val();
 var _token = $('input[name="_token"]').val();
 
         $.ajax({
@@ -534,8 +535,8 @@ var _token = $('input[name="_token"]').val();
             data: {payment:payment,_token:_token,address_id:address_id},
             success: function (response)
             {
-                console.log(response);
 
+                window.location = '{{ route('view.cart') }}';
             }
     });
 

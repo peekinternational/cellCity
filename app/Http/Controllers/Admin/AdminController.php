@@ -257,40 +257,80 @@ class AdminController extends Controller
         $user = $user_id->all();
         // dd($user);
         $userID = implode(',',$user);
-
+        // $roles = Role::all();
+        // dd($users);
         $userRoles = DB::table('model_has_roles')->whereIn('model_id',explode("," , $userID))->get();
         // dd($userRoles);
 
-        return view('admin.role.index',compact('users'));
+
+        return view('admin.role.index',compact('users','userRoles'));
 
     }
 
-
-    public function Track()
+    public function editRole($id)
     {
-        $id = "EJ123456780US";
-       $host_v = "http://production.shippingapis.com/ShippingAPI.dll?API=TrackV2%20&XML=%3CTrackRequest%20USERID=%22353SNEAK5425%22%3E%20%3CTrackID%20ID=%22".$id."%22%3E%3C/TrackID%3E%3C/TrackRequest%3E";
-       $ch = curl_init();
-       $timeout = 10;
-       curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)');
-       curl_setopt($ch, CURLOPT_URL,$host_v);
-       curl_setopt($ch, CURLOPT_HEADER, 0);
-       curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-       curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
-       $result = curl_exec($ch);
-   		curl_close ($ch);
-      $xml = simplexml_load_string($result);
-      $json = json_encode($xml);
-      $array = json_decode($json,TRUE);
-      $check = count($array['TrackInfo']);
-      if ($check == 3) {
-        $description = $array['TrackInfo']['TrackSummary'];
-        $details = $array['TrackInfo']['TrackDetail'];
-      }else {
-        $description = $array['TrackInfo']['Error']['Description'];
-        $details = [];
-      }
-      dd($description);
-    //   return view('admin.track-result',compact('id','description','check','details'));
+        $user = User::find($id);
+        return view('admin.role.edit',compact('user'));
     }
+
+     public function updateRole(Request $request,$id)
+    {
+        $this->validate($request,[
+            'name' => 'required|min:5|max:50',
+            'phoneno' => 'min:2|max:17',
+            'email' => 'required|email|exists:users',
+            // 'password' => 'required|min:5|max:50'
+
+          ],[
+
+            'name.required' =>'Enter Name',
+            'email.unique' => 'Email must be unique',
+            'email.required' => 'Enter Email',
+            'phoneno.required' => 'Enter Mobile Number',
+            // 'password.required' => 'Enter password',
+          ]);
+            $user = User::find($id);
+            $user->name = $request->name;
+            $user->email =  $request->email;
+            $user->address =  $request->address;
+            $user->phoneno =  $request->phoneno;
+            $user->role = 'admin';
+            $user->update();
+
+            DB::table('model_has_roles')->where('model_id',$id)->delete();
+            // dd($user);
+            $role = $request->role_id;
+            // dd($role);
+            $user->assignRole($role);
+
+        return back()->with('message',Alert::_message('success', 'Role Udated Successfully.'));
+    }
+
+    // public function Track()
+    // {
+    //     $id = "EJ123456780US";
+    //    $host_v = "http://production.shippingapis.com/ShippingAPI.dll?API=TrackV2%20&XML=%3CTrackRequest%20USERID=%22353SNEAK5425%22%3E%20%3CTrackID%20ID=%22".$id."%22%3E%3C/TrackID%3E%3C/TrackRequest%3E";
+    //    $ch = curl_init();
+    //    $timeout = 10;
+    //    curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)');
+    //    curl_setopt($ch, CURLOPT_URL,$host_v);
+    //    curl_setopt($ch, CURLOPT_HEADER, 0);
+    //    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    //    curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+    //    $result = curl_exec($ch);
+   	// 	curl_close ($ch);
+    //   $xml = simplexml_load_string($result);
+    //   $json = json_encode($xml);
+    //   $array = json_decode($json,TRUE);
+    //   $check = count($array['TrackInfo']);
+    //   if ($check == 3) {
+    //     $description = $array['TrackInfo']['TrackSummary'];
+    //     $details = $array['TrackInfo']['TrackDetail'];
+    //   }else {
+    //     $description = $array['TrackInfo']['Error']['Description'];
+    //     $details = [];
+    //   }
+    //   dd($description);
+    // //   return view('admin.track-result',compact('id','description','check','details'));
+    // }
 }

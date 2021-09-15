@@ -66,9 +66,9 @@ class ProductOrderController extends Controller
 
         $message = strip_tags(nl2br("Dear Customer, \n Your Shipping Address Code is :. \n Shipping Code :" .$shippingCode.'Order ID'.$productOrder->id));
 
-        $account_sid = "AC6769d3e36e7a9e9ebbea3839d82a4504";
-        $auth_token = "b2229f79769f0b47fa8e7bb685291d0d";
-        $twilio_number = +15124027605;
+        $account_sid = "ACeb30af8343f53c1b366517b35ea44dc2";
+        $auth_token = "ecc8e9d376d7ef8a19ed22778bb466f8";
+        $twilio_number = +14842553085;
         $client = new Client($account_sid, $auth_token);
         $client->messages->create(
             $phone,

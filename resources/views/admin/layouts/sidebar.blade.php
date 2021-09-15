@@ -131,13 +131,16 @@
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{route('admin.coupon.create')}}">Add Coupon</a></li>
                         <li><a href="{{route('admin.coupon.index')}}">Coupon List</a></li>
-
-                        {{-- <li><a href="{{url('admin/accessoryOrder')}}">Accessories Orders</a></li> --}}
-                        {{-- <li><a href="ecommerce-customers">Customers</a></li>
-                        <li><a href="ecommerce-cart">Cart</a></li>
-                        <li><a href="ecommerce-checkout">Checkout</a></li>
-                        <li><a href="ecommerce-shops">Shops</a></li> --}}
-
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="bx bx-store"></i>
+                        <span>Phone Service</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{route('admin.service.create')}}">Add Phone Service</a></li>
+                        <li><a href="{{route('admin.service.index')}}">Phone Service List</a></li>
                     </ul>
                 </li>
                 @endrole

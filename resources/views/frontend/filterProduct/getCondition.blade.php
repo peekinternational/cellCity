@@ -21,7 +21,7 @@ $image = App\Models\ProductImage::where('color_id',$product->color_id)->first();
   <a href="#" onclick="wishlist({{$product->id}})"><i class="fa fa-heart" style="font-size: 30px;"></i></a>
  @endif
   <figure class="image-box">
-   <a href="{{route('product.details',$product->id) }}"><img src="{{asset('storage/products/images/'.$image->image)}}" alt="" /></a>
+    <a href="{{ route('product.details',$product->id) }}"><img src="{{asset('storage/images/products/'.$image->image ?? '' )}}" alt="" /></a>
   </figure>
   <!--Lower Content-->
   <div class="lower-content">

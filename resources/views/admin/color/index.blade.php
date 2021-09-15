@@ -57,7 +57,7 @@
                                                     <span class="text-danger">{{ $errors->first('color_name') }}</span>
                                                     <input type="hidden" name="color_id[]" value="{{ $color->id }}">
                                                     <input type="hidden" name="image_id[{{ $key0 }}][]"
-                                                        value="{{ $images->id }}">
+                                                        >
                                                 </div>
                                                 <div class="col-md-4">
                                                     <label for="example-text-input" class="col-form-label">Image</label>
@@ -153,7 +153,7 @@
                                                                                     class="glyphicon glyphicon glyphicon-plus"
                                                                                     aria-hidden="true"></span> Remove</a>
                                                                         @else
-                                                                            <a href="#" class="btn btn-danger "
+                                                                            <a href="{{ url('admin/productStorage-delete', $storag->id) }}" class="btn btn-danger "
                                                                                 style="margin-top: 36px;"><span
                                                                                     class="glyphicon glyphicon glyphicon-plus"
                                                                                     aria-hidden="true"></span> Remove

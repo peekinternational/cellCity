@@ -70,6 +70,9 @@ Route::name('admin.')->namespace('Admin')->prefix('admin')->group(function(){
       Route::get('role/list',[AdminController::class, 'roleList'])->name('role.list');
       Route::get('role/create',[AdminController::class, 'addRole'])->name('role.create');
       Route::post('role/store',[AdminController::class, 'storeRole'])->name('role.store');
+      Route::get('role/{id}/edit',[AdminController::class, 'editRole'])->name('role.edit');
+      Route::post('role/{id}',[AdminController::class, 'updateRole'])->name('role.update');
+      Route::delete('role/{id}',[AdminController::class, 'deleteRole'])->name('role.destroy');
 
 
 
@@ -81,6 +84,7 @@ Route::name('admin.')->namespace('Admin')->prefix('admin')->group(function(){
      Route::resource('/repairTypes', '\App\Http\Controllers\Admin\AdminRepairController');
 
      Route::resource('/coupon','\App\Http\Controllers\CouponController');
+     Route::resource('/service','\App\Http\Controllers\PhoneServiceController');
 
      Route::get('/repairOrders',  [AdminRepairController::class, 'repairOrders']);
      Route::post('/assignTech',  [AdminRepairController::class, 'assignTech']);
@@ -388,6 +392,7 @@ Route::namespace('Auth')->middleware('auth:web')->group(function(){
 
 
     Route::get('/product-single/{id}',[ProductController::class,'productDetail'])->name('product.details');
+    Route::get('/accessory-single/{id}',[ProductController::class,'accessoryDetails'])->name('accessory.details');
 
     // Route::get('/single', function () {
     //     return view('frontend.single');

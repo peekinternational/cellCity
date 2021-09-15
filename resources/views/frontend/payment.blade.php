@@ -188,7 +188,7 @@
             <div class="col-lg-6  col-xl-6 col-sm-12">
               <div class="checkout-review-order">
                 <!-- <form action="#"> -->
-              
+
 
 
                 <div class="checkout-payment">
@@ -265,7 +265,7 @@
                 <input type="hidden" name="order_id" id="order_id" value="{{$repairOrder->id}}" >
                 <input type="hidden" name="total" id="price" value="{{$repairOrderType->sum('price')}}">
                 <div id="card-container"></div>
-            </div>  
+            </div>
                <button type="button" class="btn btn-primary btn-style-one" data-dismiss="modal" style="margin-bottom: 5px;    margin-left: 5px">Close</button>
                 <button id="card-button" class="btn btn-primary btn-style-one" type="button" style="margin-bottom: 5px">Pay</button>
               </form>

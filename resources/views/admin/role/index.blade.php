@@ -33,7 +33,12 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach($users as $index => $user)
+                                                    @foreach($userRoles as $index => $userRol)
+                                                        @php
+                                                            $user = App\Models\User::where('id',$userRol->model_id)->first();
+                                                            $role = Spatie\Permission\Models\Role::where('id',$userRol->role_id)->first();
+                                                        @endphp
+
                                                     <tr>
                                                         <td>
                                                             <div class="avatar-xs">
@@ -52,33 +57,32 @@
                                                         </td>
 
                                                        <td>
-                                                        @if(!empty($user->getRoleNames()))
-                                                        @foreach($user->getRoleNames() as $v)
-
-                                                           <label class="badge badge-success">{{ $v->name}}</label>
-                                                        @endforeach
-                                                      @endif
+                                                        {{-- {{-- @if(!empty($user->getRoleNames()))
+                                                        @foreach($user->getRoleNames() as $v) --}}
+                                                           <label class="badge badge-success">{{ $role->name}}</label>
+                                                        {{-- @endforeach
+                                                      @endif --}}
                                                        </td>
-                                                        <td>
-                                                            {{-- <ul class="list-inline font-size-20 contact-links mb-0">
-                                                                <li class="list-inline-item px-2">
-                                                                    <a href="{{url('admin/repairTypes/'.$users->id.'/edit') }}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="mdi mdi-account-edit-outline"></i></a>
-                                                                </li>
-                                                                <li class="list-inline-item px-2">
-                                                                   <form action="{{url('admin/repairTypes/'.$users->id)}}" method="post">
-                                                                    {{csrf_field()}}
-                                                                       @method('DELETE')
+                                                       <td>
+                                                        <ul class="list-inline font-size-20 contact-links mb-0">
 
-                                                                       <label for="delZip" data-toggle="tooltip" data-placement="top" title="Delete" style="cursor: pointer;"><i class="mdi mdi-delete-circle-outline"></i></label>
-                                                                       <input id="delZip" type="submit" name="" style="display: none">
-                                                                   </form>
+                                                            <li class="list-inline-item px-2">
+                                                                <a href="{{url('admin/role/'.$user->id.'/edit') }}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="mdi mdi-account-edit-outline"></i></a>
+                                                            </li>
+                                                            <li class="list-inline-item px-2">
+                                                               <form action="{{url('admin/role/'.$user->id)}}" method="post">
+                                                                {{csrf_field()}}
+                                                                   @method('DELETE')
 
-                                                                </li>
-                                                              <!--   <li class="list-inline-item px-2">
-                                                                    <a href="" data-toggle="tooltip" data-placement="top" title="Profile"><i class="mdi mdi-account-circle-outline"></i></a>
-                                                                </li> -->
-                                                            </ul> --}}
-                                                        </td>
+                                                                   <label for="delZip" data-toggle="tooltip" data-placement="top" title="Delete" style="cursor: pointer;"><i class="mdi mdi-delete-circle-outline"></i></label>
+                                                                   <input id="delZip" type="submit" name="" style="display: none">
+                                                               </form>
+
+                                                            </li>
+
+                                                        </ul>
+                                                    </td>
+
                                                     </tr>
                                                     @endforeach
                                                 </tbody>
