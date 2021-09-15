@@ -123,4 +123,10 @@ class BlogContoller extends Controller
         return back()->with('message', Alert::_message('success','Blog Successfully Deleted'));
 
     }
+
+    public function single($id)
+    {
+        $blog = Blog::find($id);
+        return view('frontend.blog',compact('blog'));
+    }
 }

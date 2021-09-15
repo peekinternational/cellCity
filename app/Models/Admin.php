@@ -14,7 +14,7 @@ class Admin extends Model implements AuthenticatableContract
 {
      use HasFactory, Notifiable, Authenticatable, HasRoles;
      protected $table = 'users';
-     protected $guard_name="admin";
+     protected $guard_name = "admin";
 
        protected $fillable = [
         'name',

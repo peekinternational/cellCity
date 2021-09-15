@@ -251,7 +251,7 @@ class UserController extends Controller
         'title' => 'Mail from PeekInternational.com',
         'subject' => 'Dear Customer ,',
         'message' => 'Payment completed Successfully through Cash',
-        'Total'  =>'$'.$request->total
+        'Total'  =>$request->total
     ];
      $messgae = "Succesfully Transferred";
      \Mail::to($cust->email)->send(new TechMail($details));

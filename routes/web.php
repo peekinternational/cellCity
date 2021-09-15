@@ -371,10 +371,11 @@ Route::namespace('Auth')->middleware('auth:web')->group(function(){
         return view('frontend.repair');
     })->name('repair.index');
 
-    Route::get('/blog', function () {
-        return view('frontend.blog');
-    })->name('blog.index');
+    Route::get('/faq', function () {
+        return view('frontend.faq');
+    })->name('faq');
 
+    Route::get('blog/{id}',[BlogContoller::class,'single'])->name('blog.single');
     Route::get('/repair-step/{id}', [RepairController::class, 'getBrands']);
     Route::get('/getModels/{id}', [RepairController::class, 'getModels']);
     Route::get('/getrepairTypes/{id}', [RepairController::class, 'getrepairTypes']);

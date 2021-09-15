@@ -6,8 +6,8 @@
         <div class="footer-links" id="company-footer-links">
           <a class="soft-body" href="">About Us</a>
           <a class="soft-body" href="" target="">How It Works</a>
-          <a class="soft-body" href="/faq" target="">FAQ</a>
-   
+          <a class="soft-body" href="{{route('faq')}}" target="">FAQ</a>
+
           <a class="soft-body" href="/invite-a-friend" target="">Invite a Friend</a>
           <a class="soft-body" href="/pricing" target="">Pricing</a>
         </div>
@@ -37,7 +37,7 @@
   <a class="footer-icon" style="background-image:url('https://d7gh5vrfihrl.cloudfront.net/website/badges/footer-icons/facebook.png')" href="https://www.facebook.com/pulsdotcom/" target="_blank"></a>
   <a class="footer-icon" style="background-image:url('https://d7gh5vrfihrl.cloudfront.net/website/badges/footer-icons/twitter.png')" href="https://twitter.com/pulscom" target="_blank"></a>
   <a class="footer-icon" style="background-image:url('https://d7gh5vrfihrl.cloudfront.net/website/badges/footer-icons/youtube.png')" href="https://www.youtube.com/channel/UCpXjcgaFLHsfrYSSFoi0vLw" target="_blank"></a>
-  
+
 </div>
 <div class="clear-both"></div>
 <label class="support-me">
@@ -63,7 +63,7 @@
 <!-- <section class="main-footer">
  <div class="auto-container">
    <div class="row clearfix">
-    
+
      <div class="big-column col-md-6 col-sm-12 col-xs-12">
        <div class="row clearfix">
 
@@ -100,7 +100,7 @@
      <div class="row clearfix">
 
    <div class="footer-column col-md-6 col-sm-6 col-xs-12">
-   
+
     <div class="footer-widget get-touch-widget">
       <h2>GET IN TOUCH</h2>
       <ul>
@@ -112,10 +112,10 @@
      </div>
    </div>
    <div class="footer-column col-md-6 col-sm-6 col-xs-12">
-      
+
       <div class="footer-widget logo-widget">
         <h2>STAY Connected</h2>
-        
+
         <form class="subscribe_form">
             <div class="input-group">
                <input type="text" class="form-control" name="email" placeholder="Enter your email">
@@ -140,7 +140,7 @@
 
 <div class="footer-bottom">
  <div class="auto-container text-left">
-   
+
    <div class="copyright">Copyright &copy;; 2021 Cell City Phone Repair. All Rights Reserved</div>
  </div>
 </div>

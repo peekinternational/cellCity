@@ -436,11 +436,11 @@
                 	<div class="inner-box">
                     	<!--Image Box-->
                     	<div class="image-box wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1500ms">
-                    		<a href="{{route('blog.index')}}"><img src="{{asset($blog->image)}}" /></a>
+                    		<a href="{{route('blog.single',$blog->id)}}"><img src="{{asset($blog->image)}}" /></a>
                    		</div>
                         <!--Lower Content-->
                         <div class="lower-content">
-                        	<h3><a href="{{route('blog.index')}}">{{$blog->title}}</a></h3>
+                        	<h3><a href="{{route('blog.single',$blog->id)}}">{{$blog->title}}</a></h3>
                           <div class="text">{{$blog->desc}}</div>
                           <ul class="list">
                               <li><span class="icon flaticon-business"></span> {{$blog->created_at->format('d M Y')}}</li>
