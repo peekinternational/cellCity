@@ -15,10 +15,13 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Mail\TechMail;
 use App\Models\Accessory;
-use App\Models\AccessoryOrder;
+use App\Models\AccessoryImage;
+
 use App\Models\Alert;
 use App\Models\Order;
 use App\Models\OrderSale;
+use App\Models\PhoneSerivceProduct;
+
 use App\Models\Wishlist;
 use Darryldecode\Cart\Cart;
 use Exception;
@@ -79,10 +82,12 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         // dd($request->all());
-        // dd($request->file('image'));
-//         DB::beginTransaction();
 
-// try {
+        // dd($service);
+        // dd($request->file('image'));
+        //DB::beginTransaction();
+
+        //try {
         $product = new Product;
         //  $product->insert($request->only($product->getFillable()));
 
@@ -103,6 +108,7 @@ class ProductController extends Controller
          $product->model_id = $request->model_id;
         //  dd($product);
         $product->save();
+
 
 
 
@@ -153,15 +159,24 @@ class ProductController extends Controller
                 // dd($storage);
 
 
-    }
+        }
 
-    }
-    //     DB::commit();
+        }
+        $service = $request->phone_service;
+        foreach($service as $serve)
+        {
+                $phoneService = new PhoneSerivceProduct;
+                $phoneService->phone_service_id = $serve;
+                $phoneService->product_id =  $product->id;
+                $phoneService->save();
 
-    // } catch (\Exception $e) {
-    //     DB::rollback();
-    //     return back()->with('message', Alert::_message('success', 'somthing wrong.'));
-    // }
+        }
+        //     DB::commit();
+
+        // } catch (\Exception $e) {
+        //     DB::rollback();
+        //     return back()->with('message', Alert::_message('success', 'somthing wrong.'));
+        // }
 
         return back()->with('message', Alert::_message('success', 'Product Created Successfully.'));
 
@@ -221,7 +236,15 @@ class ProductController extends Controller
          $product->update();
 
 
+         $service = $request->phone_service;
+         foreach($service as $serve)
+         {
+                 $phoneService = new PhoneSerivceProduct;
+                 $phoneService->phone_service_id = $serve;
+                 $phoneService->product_id =  $product->id;
+                 $phoneService->save();
 
+         }
         return back()->with('message', Alert::_message('success', 'Product Updated Successfully.'));
     }
 
@@ -399,12 +422,12 @@ class ProductController extends Controller
     {
         $products = Product::where('category','phone')->paginate(4);
         // $colors  = ProductColor::all();
-        if(Auth::check())
-        {
-            $products = Product::where('category','phone')->paginate(8);
-            $wishlist  = Wishlist::where('user_id',Auth::user()->id)->first();
-            return view('frontend.buy-phone',compact('products'));
-        }
+        // if(Auth::check())
+        // {
+        //     $products = Product::where('category','phone')->paginate(8);
+        //     $wishlist  = Wishlist::where('user_id',Auth::user()->id)->first();
+        //     return view('frontend.buy-phone',compact('products'));
+        // }
 
         return view('frontend.buy-phone',compact('products'));
     }
@@ -423,6 +446,16 @@ class ProductController extends Controller
        $condition = ProductCondition::where('storage_id',$storage->id)->first();
        return view('frontend.single',compact('product','color','model','condition','images','storage',
        'colors'));
+   }
+
+   public function accessoryDetails($id)
+   {
+       $accessory  = Accessory::find($id);
+       $images     = AccessoryImage::where('accessory_id',$accessory->id)->get();
+
+       $model      = Pmodel::where('id',$accessory->model_id)->first();
+
+       return view('frontend.accessorySingle',compact('accessory','images','model'));
    }
 
 
@@ -686,7 +719,7 @@ class ProductController extends Controller
 
 
                  \Cart::clear();
-                 return redirect()->route('view.cart');
+                 return redirect()->route('view.cart')->with('message', Alert::_message('success', 'Payment Successfully.'));;
         }
     elseif($request->payment == "paypal")
     {
@@ -1080,6 +1113,46 @@ class ProductController extends Controller
             ->get();
         //    dd($products);
            return view('frontend.filterProduct.getCondition',compact('products'));
+         }
+
+         elseif(isset($request->phoneService))
+         {
+
+            if(isset($request->selectedModel))
+            {
+            $model=$request->selectedModel;
+            // $model=$request->model;
+            $products = Product::whereIn('model_id',explode(',',$model))->get();
+            // dd($products);
+
+            $modelName =  $products->pluck("id");
+            $modelID = $modelName->all();
+            // dd(implode(",",$modelID));
+            $producdID = implode(",",$modelID);
+
+             $products = DB::table('phone_serivce_products')
+                        ->join('products','products.id','=','phone_serivce_products.product_id')
+                        ->join('phone_services','phone_services.id','=','phone_serivce_products.phone_service_id')
+                        ->whereIn('products.id',explode(',',$producdID))
+                        ->whereIn('phone_services.id',explode(',',$request->phoneService))
+                        ->select('*','products.id')
+                        ->get();
+            //   dd($products);
+            return view('frontend.filterProduct.getLocked',compact('products'));
+            }
+            else
+            {
+            //     $users = Product::with('roles') // Eager loading
+            //    ->get();
+                $products = DB::table('phone_serivce_products')
+                ->join('products','products.id','=','phone_serivce_products.product_id')
+                ->join('phone_services','phone_services.id','=','phone_serivce_products.phone_service_id')
+                ->whereIn('phone_services.id',explode(',',$request->phoneService))
+                ->select('*','products.id')
+                ->get();
+
+                return view('frontend.filterProduct.getLocked',compact('products'));
+            }
          }
 
 

@@ -15,7 +15,6 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-
             $table->string('category')->default('phone');
             $table->string('memory');
             $table->enum('locked', ['Locked', 'Unlocked'])->default('Unlocked');
@@ -32,6 +31,7 @@ class CreateProductsTable extends Migration
             $table->enum('double_sim', ['Yes','No']);
             $table->date('release_year');
             $table->integer('model_id');
+            $table->integer('service_id');
 
             $table->timestamps();
         });

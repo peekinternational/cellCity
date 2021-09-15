@@ -20,6 +20,7 @@ use App\Models\Blog;
 use App\Models\Order;
 use App\Models\OrderSale;
 use App\Models\OrderTime;
+use App\Models\PhoneService;
 use App\Models\ProductCondition;
 use App\Models\Wishlist;
 use Illuminate\Support\Facades\Auth;
@@ -112,6 +113,10 @@ class CityClass {
     function accessory()
     {
         return Accessory::orderBy('category','asc')->get();
+    }
+    function phoneServices()
+    {
+        return PhoneService::orderBy('created_at','asc')->get();
     }
 }
 

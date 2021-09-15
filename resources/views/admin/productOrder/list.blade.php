@@ -300,6 +300,7 @@ $(document).ready(function() {
           success:function(response){
             console.log(response);
             alert('Successfully Send The Shipping Code from Desired User');
+            window.location.reload();
           },
          });
         });

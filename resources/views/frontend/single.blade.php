@@ -263,7 +263,7 @@
                                                 </table>
                                             </div>
                                             <div class="other-options clearfix">
-                                            <button type="button" class="theme-btn btn-style-one add-to-cart btn-block">Buy </button>
+                                            <a href="{{url('view-cart')}}" class="theme-btn btn-style-one add-to-cart btn-block">Buy </a>
                                             </div>
                                             <div class="payment-imgs d-flex">
                                             <div class="pay-img">

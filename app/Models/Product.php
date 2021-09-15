@@ -15,7 +15,7 @@ class Product extends Model implements ReviewRateable
     protected $fillable = ['locked','sim_card_format','memory','warranty'
                             ,'model_id','category','network',
                             'desc','screen_size','screen_type','OS','resolution','megapixel',
-                           'double_sim','release_year'
+                           'double_sim','release_year','service_id'
                         ];
 
 
@@ -24,7 +24,7 @@ class Product extends Model implements ReviewRateable
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function productImage(): HasMany
+    public function productImage()
     {
         return $this->hasMany(ProductImage::class, 'product_id', 'id');
     }
@@ -49,5 +49,10 @@ class Product extends Model implements ReviewRateable
     public function wishlist()
     {
         return $this->hasMany(Wishlist::class,'product_id');
+    }
+
+    public function service()
+    {
+        return $this->belongsToMany(PhoneService::class,'phone_serivce_products');
     }
 }

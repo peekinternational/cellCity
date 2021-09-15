@@ -29,42 +29,21 @@
         <h3 class="_2B3yYCfeT_icE3-czlIZpA _24G233rJGINfRvQy6b013n fp6kZqTX1H1PmSmQgEG_U _6d15qX6LWY1Hi6Z98JjWP">I need a phone that works with ...</h3>
         <div class="a-cell row" data-v-2b8789a2="">
           <div class="a-cell xs-12 md-9 _114juaGTKcgQcFQKoPzirv" data-v-2b8789a2="">
+
+            @forelse (CityClass::phoneServices() as $phoneservice)
             <label data-qa="0  AT&amp;T-checkbox-label" data-test="checkbox-AT&amp;T" class="_2dZyu6FGSL9sjsXTxboSwL _3FFHvPz39UA03ZA4Mv13pX" data-v-2b8789a2="">
-              <input data-test="input" name="0  AT&amp;T" type="checkbox" class="_2X8Raljpwo5umcD_HYzefT">
+              <input data-test="input" name="service" type="checkbox" class="_2X8Raljpwo5umcD_HYzefT getPhoneService" value="{{$phoneservice->id}}" onclick="phoneService()">
               <span data-test="checkbox-span" class="_2Q2hhB3NvM2sAldZj6fGXU"></span>
               <span class="L5UAN0lD0YKf94yOvozYH">
                 <div class="_2QOueHT- HWdZT4KgOk8JhBI9OzX9g"><!---->
-                  <img src="https://d28i4xct2kl5lp.cloudfront.net/bo_merchant/img/carriers/att.svg" alt="AT&amp;T" loading="lazy" class="wrAXteFB">
+                    <img src="{{asset('storage/service/'.$phoneservice->image)}}" alt="AT&amp;T" loading="lazy" class="wrAXteFB">
                 </div>
               </span>
             </label>
-            <label data-qa="1  Sprint-checkbox-label" data-test="checkbox-Sprint" class="_2dZyu6FGSL9sjsXTxboSwL _3FFHvPz39UA03ZA4Mv13pX" data-v-2b8789a2="">
-              <input data-test="input" name="1  Sprint" type="checkbox" class="_2X8Raljpwo5umcD_HYzefT">
-              <span data-test="checkbox-span" class="_2Q2hhB3NvM2sAldZj6fGXU"></span>
-              <span class="L5UAN0lD0YKf94yOvozYH">
-                <div class="_2QOueHT- HWdZT4KgOk8JhBI9OzX9g"><!---->
-                  <img src="https://d28i4xct2kl5lp.cloudfront.net/bo_merchant/img/carriers/sprint.svg" alt="Sprint" loading="lazy" class="wrAXteFB">
-                </div>
-              </span>
-            </label>
-            <label data-qa="2  T-Mobile-checkbox-label" data-test="checkbox-T-Mobile" class="_2dZyu6FGSL9sjsXTxboSwL _3FFHvPz39UA03ZA4Mv13pX" data-v-2b8789a2="">
-              <input data-test="input" name="2  T-Mobile" type="checkbox" class="_2X8Raljpwo5umcD_HYzefT">
-              <span data-test="checkbox-span" class="_2Q2hhB3NvM2sAldZj6fGXU"></span>
-              <span class="L5UAN0lD0YKf94yOvozYH">
-                <div class="_2QOueHT- HWdZT4KgOk8JhBI9OzX9g"><!---->
-                  <img src="https://d28i4xct2kl5lp.cloudfront.net/bo_merchant/img/carriers/tmobile.svg" alt="T-Mobile" loading="lazy" class="wrAXteFB">
-                </div>
-              </span>
-            </label>
-            <label data-qa="3  Verizon-checkbox-label" data-test="checkbox-Verizon" class="_2dZyu6FGSL9sjsXTxboSwL _3FFHvPz39UA03ZA4Mv13pX" data-v-2b8789a2="">
-              <input data-test="input" name="3  Verizon" type="checkbox" class="_2X8Raljpwo5umcD_HYzefT">
-              <span data-test="checkbox-span" class="_2Q2hhB3NvM2sAldZj6fGXU"></span>
-              <span class="L5UAN0lD0YKf94yOvozYH">
-                <div class="_2QOueHT- HWdZT4KgOk8JhBI9OzX9g"><!---->
-                  <img src="https://d28i4xct2kl5lp.cloudfront.net/bo_merchant/img/carriers/verizon.svg" alt="Verizon" loading="lazy" class="wrAXteFB">
-                </div>
-              </span>
-            </label>
+            @empty
+                    Ops No data.....
+            @endforelse
+
           </div>
           <div class="a-cell xs-12 md-3" data-v-2b8789a2="">
             <div class="axop9d4ghf_ZiU7FQc-M8 baseselect-wrapper _2u25sfWmf6NUCbJ_StTs_r" data-v-2b8789a2=""><!---->
@@ -229,25 +208,29 @@
                       <label for="backbox_grades_list-12 Fair" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
                     Fair
                   </span> <!----></span></div> <!----> <!----></label></div></li> <!----></ul></li>
-                <li class="_2LiMhAnX4MDtEL5YEDIdLy"><h3 class="_2RGsPtNo">
+
+
+
+                  <li class="_2LiMhAnX4MDtEL5YEDIdLy"><h3 class="_2RGsPtNo">
                   Phone Services Provider
                 </h3> <ul data-test="filters-facet" class="_26WV8o_nAH1VuLftdiS-6t"><li class="_33pDOgQ80LhcEmJTGXNM3U"><div><input id="compatible_carriers_facet-reset" type="checkbox" checked="checked" data-test="facet-reset" class="_3wvnh-Qn"> <label for="compatible_carriers_facet-reset" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC">
                     All
-                  </span></span></div> <!----> <!----></label></div></li> <li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U"><div><input id="compatible_carriers_facet-0  AT&amp;T" type="checkbox" data-test="facet- AT&amp;T" class="_3wvnh-Qn"> <label for="compatible_carriers_facet-0  AT&amp;T" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
-                     AT&amp;T
-                  </span> </span></div> <!----> <!----></label></div></li><li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U"><div><input id="compatible_carriers_facet-1  Sprint" type="checkbox" data-test="facet- Sprint" class="_3wvnh-Qn"> <label for="compatible_carriers_facet-1  Sprint" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
-                     Sprint
-                  </span> </span></div> <!----> <!----></label></div></li><li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U"><div><input id="compatible_carriers_facet-2  T-Mobile" type="checkbox" data-test="facet- T-Mobile" class="_3wvnh-Qn"> <label for="compatible_carriers_facet-2  T-Mobile" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
-                     T-Mobile
-                  </span> </span></div> <!----> <!----></label></div></li><li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U"><div><input id="compatible_carriers_facet-3  Verizon" type="checkbox" data-test="facet- Verizon" class="_3wvnh-Qn"> <label for="compatible_carriers_facet-3  Verizon" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
-                     Verizon
-                  </span> </span></div> <!----> <!----></label></div></li><li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U"><div><input id="compatible_carriers_facet-99 US Cellular" type="checkbox" data-test="facet-US Cellular" class="_3wvnh-Qn"> <label for="compatible_carriers_facet-99 US Cellular" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
-                    US Cellular
-                  </span> </span></div> <!----> <!----></label></div></li><li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U"><div><input id="compatible_carriers_facet-99 Cricket" type="checkbox" data-test="facet-Cricket" class="_3wvnh-Qn"> <label for="compatible_carriers_facet-99 Cricket" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
-                    Cricket
-                  </span> </span></div> <!----> <!----></label></div></li> <span class="_3JZtHpVH kdWBx8BsOXOeHlX8MCQf_"><button data-test="facet-toggler" class="_3wCdvNLg s1Zi9DG5">
+                  </span></span></div> <!----> <!----></label></div></li>
+                  @forelse (CityClass::phoneServices() as $phoneservice)
+                  <li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U"><div>
+                      <input id="{{$phoneservice->id}}" name="service" type="checkbox" data-test="facet-{{$phoneservice->service_name}}" class="_3wvnh-Qn getPhoneService" value="{{$phoneservice->id}}" onclick="phoneService()">
+                       <label for="{{$phoneservice->id}}" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
+                     {{$phoneservice->service_name}}
+                  </span> </span></div> <!----> <!----></label></div></li>
+                  @empty
+
+                  @endforelse
+
+
+                <span class="_3JZtHpVH kdWBx8BsOXOeHlX8MCQf_"><button data-test="facet-toggler" class="_3wCdvNLg s1Zi9DG5">
                 See more
               </button></span></ul></li>
+
               <li class="_2LiMhAnX4MDtEL5YEDIdLy"><h3 class="_2RGsPtNo">
                   Locked or Unlocked
                 </h3> <ul data-test="filters-facet" class="_26WV8o_nAH1VuLftdiS-6t"><li class="_33pDOgQ80LhcEmJTGXNM3U"><div><input id="sim_lock_state-reset" type="checkbox" checked="checked" data-test="facet-reset" class="_3wvnh-Qn"> <label for="sim_lock_state-reset" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC">
@@ -364,15 +347,13 @@
                       Warranty: {{ $product->warranty ?? '' }}
                       </span>
                       <div class="brand-imgs">
+                          @foreach ($product->service as $service)
+
+
                           <div class="brand">
-                            <img src="{{asset('frontend-assets/images/tmobile.svg')}}">
+                            <img src="{{asset('storage/service/'.$service->image)}}">
                           </div>
-                          <div class="brand">
-                            <img src="{{asset('frontend-assets/images/att.svg')}}">
-                          </div>
-                          <div class="brand">
-                            <img src="{{asset('frontend-assets/images/verizon.svg')}}">
-                          </div>
+                          @endforeach
                         </div>
                       <div>Starting from</div>
                       <div class="price">
@@ -655,6 +636,45 @@
             });
 
         }
+
+       function phoneService()
+       {
+                    var selectedModel =[];
+                    $('input:checkbox[name=models_name]').each(function()
+                        {
+                            if($(this).is(':checked'))
+                            selectedModel.push($(this).val());
+                        //    console.log(selectedBrand);
+                        });
+
+                        var selectedModel = selectedModel.toString();
+                    console.log(selectedModel);
+
+
+                    var  phoneService = [];
+                $(".getPhoneService").each(function(){
+                    if($(this).is(":checked")){
+                        phoneService.push($(this).val());
+                    }
+                });
+
+                var phoneService = phoneService.toString();
+                        console.log(phoneService);
+                $.ajax({
+                    url: "{{url('getBrandFilter')}}",
+                    type:"get",
+                    dataType:"html",
+                    data:{phoneService:phoneService,selectedModel:selectedModel},
+
+                    success:function(response){
+                    console.log(response);
+                    $('#filter').html(response);
+                    //   $('#exampleModal'+id).modal('show');
+                    },
+
+                });
+
+       }
 
       function wishlist(productID)
       {

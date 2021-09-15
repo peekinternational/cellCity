@@ -193,6 +193,33 @@
                                                 <span class="text-danger">{{ $errors->first('release_year') }}</span>
                                             </div>
                                         </div>
+                                        <div class="form-group row">
+                                            <label for="example-text-input" class="col-md-2 col-form-label">Phone Service Provider</label>
+                                            <div class="col-md-10">
+                                                <div data-test="carrier-filters" class="_37xvF8QgM_NvGXx3HcYuJ2">
+                                                    <div class="a-cell row" data-v-2b8789a2="">
+                                                      <div class="a-cell xs-12 md-9 _114juaGTKcgQcFQKoPzirv" data-v-2b8789a2="">
+                                                            @forelse (CityClass::phoneServices() as $phoneservice)
+                                                                <label data-qa="0  AT&amp;T-checkbox-label" data-test="checkbox-AT&amp;T" class="_2dZyu6FGSL9sjsXTxboSwL _3FFHvPz39UA03ZA4Mv13pX" data-v-2b8789a2="">
+                                                                    <input  name="phone_service[]" type="checkbox" class="_2X8Raljpwo5umcD_HYzefT" value="{{$phoneservice->id}}">
+                                                                    <span data-test="checkbox-span" class="_2Q2hhB3NvM2sAldZj6fGXU"></span>
+                                                                    <span class="L5UAN0lD0YKf94yOvozYH">
+                                                                    <div class="_2QOueHT- HWdZT4KgOk8JhBI9OzX9g">
+                                                                        <img src="{{asset('storage/service/'.$phoneservice->image)}}" alt="AT&amp;T" loading="lazy" class="wrAXteFB">
+                                                                    </div>
+                                                                    </span>
+                                                                </label>
+                                                                @empty
+
+                                                            @endforelse
+
+
+                                                      </div>
+
+                                                    </div>
+                                                  </div>
+                                            </div>
+                                        </div>
 
                                         <div class="form-group row">
                                             <label for="example-text-input" class="col-md-2 col-form-label">Description</label>
