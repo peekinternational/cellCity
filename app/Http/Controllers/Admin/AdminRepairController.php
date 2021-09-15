@@ -145,7 +145,7 @@ class AdminRepairController extends Controller
 
     public function delete($id)
     {
-        dd($id);
+        // dd($id);
         $repair = RepairType::find($id);
         $repair->delete();
         return back()->with('message', Alert::_message('success', 'Repair Type Delete Successfully.'));

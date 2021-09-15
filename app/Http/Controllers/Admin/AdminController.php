@@ -275,35 +275,35 @@ class AdminController extends Controller
 
      public function updateRole(Request $request,$id)
     {
-        $this->validate($request,[
-            'name' => 'required|min:5|max:50',
-            'phoneno' => 'min:2|max:17',
-            'email' => 'required|email|exists:users',
-            // 'password' => 'required|min:5|max:50'
+      $this->validate($request,[
+        'name' => 'required|min:5|max:50',
+        'phoneno' => 'min:2|max:17',
+        'email' => 'required|email|exists:users',
+        // 'password' => 'required|min:5|max:50'
 
-          ],[
+      ],[
 
-            'name.required' =>'Enter Name',
-            'email.unique' => 'Email must be unique',
-            'email.required' => 'Enter Email',
-            'phoneno.required' => 'Enter Mobile Number',
-            // 'password.required' => 'Enter password',
-          ]);
-            $user = User::find($id);
-            $user->name = $request->name;
-            $user->email =  $request->email;
-            $user->address =  $request->address;
-            $user->phoneno =  $request->phoneno;
-            $user->role = 'admin';
-            $user->update();
+        'name.required' =>'Enter Name',
+        'email.unique' => 'Email must be unique',
+        'email.required' => 'Enter Email',
+        'phoneno.required' => 'Enter Mobile Number',
+        // 'password.required' => 'Enter password',
+      ]);
+        $user = User::find($id);
+        $user->name = $request->name;
+        $user->email =  $request->email;
+        $user->address =  $request->address;
+        $user->phoneno =  $request->phoneno;
+        $user->role = 'admin';
+        $user->update();
 
-            DB::table('model_has_roles')->where('model_id',$id)->delete();
-            // dd($user);
-            $role = $request->role_id;
-            // dd($role);
-            $user->assignRole($role);
+        DB::table('model_has_roles')->where('model_id',$id)->delete();
+        // dd($user);
+        $role = $request->role_id;
+        // dd($role);
+        $user->assignRole($role);
 
-        return back()->with('message',Alert::_message('success', 'Role Udated Successfully.'));
+    return back()->with('message',Alert::_message('success', 'Role Udated Successfully.'));
     }
 
     // public function Track()
