@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class orderAssign extends Mailable
+class SendMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -30,7 +30,7 @@ class orderAssign extends Mailable
     public function build()
     {
         return $this->subject('Mail from Peekinternational.com')
-        ->view('emails.orderAssign');
+        ->view('emails.sendmail');
         // return $this->view('email.techmail');
     }
 }

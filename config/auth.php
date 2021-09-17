@@ -52,7 +52,7 @@ return [
             'provider' => 'techs',
         ],
 
-         'admin' => [
+        'admin' => [
             'driver' => 'session',
             'provider' => 'admins',
         ]
@@ -81,12 +81,12 @@ return [
             'model' => App\Models\User::class,
         ],
 
-            'techs' => [
+        'techs' => [
             'driver' => 'eloquent',
             'model' => App\Models\Tech::class,
         ],
 
-          'admins' => [
+        'admins' => [
             'driver' => 'eloquent',
             'model' => App\Models\Admin::class,
         ]
@@ -119,14 +119,14 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
-        
-          'techs' => [
+
+        'techs' => [
             'provider' => 'techs',
             'table' => 'password_resets',
             'expire' => 60,
         ],
 
-          'admins' => [
+        'admins' => [
             'provider' => 'admins',
             'table' => 'password_resets',
             'expire' => 60,

@@ -38,6 +38,7 @@ return [
 
         'roles' => 'roles',
 
+
         /*
          * When using the "HasPermissions" trait from this package, we need to know which
          * table should be used to retrieve your permissions. We have chosen a basic

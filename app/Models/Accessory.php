@@ -12,7 +12,7 @@ class Accessory extends Model implements ReviewRateable
 {
     use HasFactory,ReviewRateableTrait;
 
-    protected $fillable = ['model_id','name','category','sell_price','orig_price','description','images','quantity'];
+    protected $fillable = ['model_id','name','category','sell_price','orig_price','description','quantity'];
 
     public function models()
     {

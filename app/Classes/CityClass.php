@@ -17,6 +17,7 @@ use App\Models\RepairOrderType;
 use App\Models\Admin;
 use App\Models\Alert;
 use App\Models\Blog;
+use App\Models\Faq;
 use App\Models\Order;
 use App\Models\OrderSale;
 use App\Models\OrderTime;
@@ -44,6 +45,10 @@ class CityClass {
 	 return Pmodel::whereId($id)->first()->model_name;
 	}
 
+	function allAdmin(){
+
+		return User::whereRole('admin')->get();
+	}
 	function allTech(){
 
 		return User::whereRole('tech')->where('jobStatus','available')->get();
@@ -112,11 +117,16 @@ class CityClass {
 
     function accessory()
     {
-        return Accessory::orderBy('category','asc')->get();
+        return Accessory::orderBy('category','asc')->paginate(3);
     }
     function phoneServices()
     {
         return PhoneService::orderBy('created_at','asc')->get();
+    }
+
+    function faqs()
+    {
+        return Faq::orderBy('created_at','asc')->get();
     }
 }
 

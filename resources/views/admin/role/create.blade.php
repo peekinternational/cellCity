@@ -11,11 +11,11 @@
 
                         <div class="row">
                               @if(Session::has('message'))
-                              <div class="col-12">
+                              <div class="col-md-12">
                                   {!!Session::get('message')!!}
                               </div>
                               @endif
-                            <div class="col-12">
+                            <div class="col-md-8">
                                 <div class="card">
                                     <div class="card-body">
                                         <form action="{{route('admin.role.store')}}" method="post">
@@ -69,6 +69,42 @@
                                             </div>
                                         <div class="text-center mt-4">
                                         <button type="submit" class="btn btn-primary waves-effect waves-light">Save</button>
+                                    </div>
+
+                                   </form>
+
+                                    </div>
+                                </div>
+                            </div> <!-- end col -->
+                            <div class="col-md-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <form action="{{route('admin.assigned_role')}}" method="POST">
+                                            @csrf
+
+                                            <div class="form-group row">
+                                                <label for="example-text-input" class="col-md-2 col-form-label">Role</label>
+                                                <div class="col-md-10">
+                                                <select name="role_id"  class="form-control">
+                                                    @foreach (CityClass::role() as $rol)
+                                                    <option value="{{$rol->id}}">{{$rol->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="example-text-input" class="col-md-2 col-form-label">Role</label>
+                                                <div class="col-md-10">
+                                                <select name="user_id"  class="form-control">
+                                                    @foreach (CityClass::allAdmin() as $admin)
+                                                    <option value="{{$admin->id}}">{{$admin->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                                </div>
+                                            </div>
+
+                                        <div class="text-center mt-4">
+                                        <button type="submit" class="btn btn-primary waves-effect waves-light">Assign Role</button>
                                     </div>
 
                                    </form>

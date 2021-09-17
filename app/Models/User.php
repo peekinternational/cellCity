@@ -6,8 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-
-
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
@@ -61,11 +60,11 @@ class User extends Authenticatable
         {
         return $this->hasOne(VerifyUser::class, 'userId');
         }
-        public function order()
+      public function order()
         {
-          return $this->hasMany(Order::class,'user_id');
+            return $this->hasMany(Order::class,'user_id');
         }
-        public function wishlist()
+      public function wishlist()
         {
             return $this->hasMany(Wishlist::class,'user_id');
         }

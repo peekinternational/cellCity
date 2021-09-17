@@ -513,6 +513,8 @@ class ProductController extends Controller
 
       foreach($conditions as $condition)
       {
+          if($condition->quantity > 0)
+          {
         $condit .=' <div class="select-color">
 
                     <input type="radio" name="condition" class="hidden condition" id="'.$condition->condition.'">
@@ -520,6 +522,17 @@ class ProductController extends Controller
                     '.$condition->condition.' <br> $'.$condition->price.'
                     </label>
                     </div>';
+          }
+          else
+          {
+            $condit .=' <div class="select-color">
+
+            <input type="radio" name="condition" class="hidden condition" id="'.$condition->condition.'" readonly>
+            <label class="color" style="opacity: .4;">
+            '.$condition->condition.' <br> Sold out
+            </label>
+            </div>';
+          }
       }
 
       return response()->json(['condit'=>$condit,'storage'=>$storage->storage]);

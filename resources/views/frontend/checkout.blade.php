@@ -271,20 +271,20 @@
             @php
             $userID = Auth::user()->id;
             $items=\Cart::session($userID)->getContent()
+
             @endphp
 
 
             <div class="col-lg-6  col-xl-6 col-sm-12">
               <div class="checkout-review-order">
 
-                    @csrf
                     <div class="row">
                     <div class="col-md-6">
 
                          <input type="text" name="coupon" id="coupon" class="form-control" placeholder="Enter Coupon Code">
                          </div>
                          <div class="col-md-6">
-                              <button onclick="couponCode()" class="btn btn-primary">Apply Coupon</button>
+                              <button onclick="couponCode()" class="btn btn-primary" style="background-color: #00bfa5">Apply Coupon</button>
                          </div>
                     </div>
 
@@ -313,8 +313,8 @@
                         @endphp
                         <tr class="order-total">
                         <th>Total</th>
-                        <td><strong><span class="total-amount" id="total">$ {{$total}}</span></strong></td>
-                        <td id="totalss"></td>
+                        <td id="totalss"><strong><span class="total-amount" id="total">$ {{$total}}</span></strong></td>
+
                         </tr>
                     </tfoot>
                 </table>
@@ -361,9 +361,17 @@
 
                     </div>
                     </div>
-                    {{-- <button class="btn btn-checkout" id="card-button" type="submit">Checkout</button> --}}
-                    <button type="button"  class="btn btn-primary btn-style-one  btn-submit">Save</button>
+
+                    @if ($items->count() > 0)
+                    <button type="button"  class="btn btn-primary btn-style-one  btn-submit">Checkout</button>
+                    @else
+                    <p>Your Cart is empty Please add one or more product or accessory into cart for checkout..
+                        <a href="{{url('buy-phone')}}">Add To Cart</a>
+                    </p>
+                    @endif
+
                   </form>
+
                   </div>
 
               </div>
@@ -483,10 +491,13 @@ function couponCode()
                     if(response == "null")
                     {
                         alert('Coupon Code is Not Valid.');
+
+                        $('#coupon').val('');
                     }
                     else{
                         alert('Coupon Code Apply Successfully');
                         // window.location.reload();
+
                         $("#total").hide();
                         var total = '<strong><span class="total-amount" id="totalss">$'+response+'</span></strong>';
                         $("#totalss").append(total);
@@ -535,7 +546,7 @@ var _token = $('input[name="_token"]').val();
             data: {payment:payment,_token:_token,address_id:address_id},
             success: function (response)
             {
-
+                alert('Thanks ,You have Successfully done the checkout..');
                 window.location = '{{ route('view.cart') }}';
             }
     });

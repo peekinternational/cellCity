@@ -13,7 +13,9 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\AdminRepairController;
 use App\Http\Controllers\ProductConditionController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\CouponController;
+use App\Http\Controllers\FaqController;
 use App\Http\Controllers\ProductOrderController;
 use App\Http\Controllers\ShippingAddress;
 use App\Http\Controllers\SquareController;
@@ -67,12 +69,15 @@ Route::name('admin.')->namespace('Admin')->prefix('admin')->group(function(){
      Route::get('rejectOrder/{id}', [AdminController::class, 'rejectOrder'] );
 
      ///////////////////////////////   Admin Role    //////////////////////////////
+     Route::post('role/assign',[AdminController::class, 'roleAssign'])->name('assigned_role');
       Route::get('role/list',[AdminController::class, 'roleList'])->name('role.list');
       Route::get('role/create',[AdminController::class, 'addRole'])->name('role.create');
       Route::post('role/store',[AdminController::class, 'storeRole'])->name('role.store');
       Route::get('role/{id}/edit',[AdminController::class, 'editRole'])->name('role.edit');
       Route::post('role/{id}',[AdminController::class, 'updateRole'])->name('role.update');
       Route::delete('role/{id}',[AdminController::class, 'deleteRole'])->name('role.destroy');
+
+
 
 
 
@@ -85,6 +90,7 @@ Route::name('admin.')->namespace('Admin')->prefix('admin')->group(function(){
 
      Route::resource('/coupon','\App\Http\Controllers\CouponController');
      Route::resource('/service','\App\Http\Controllers\PhoneServiceController');
+     Route::resource('/faqs','\App\Http\Controllers\FaqController');
 
      Route::get('/repairOrders',  [AdminRepairController::class, 'repairOrders']);
      Route::post('/assignTech',  [AdminRepairController::class, 'assignTech']);
@@ -170,7 +176,6 @@ Route::name('admin.')->namespace('Admin')->prefix('admin')->group(function(){
         Route::get('/shippingAddress/{id}',[ProductOrderController::class, 'productShipping']);
 
              ///////////////////////////////////////////// Coupon /////////////
-
 
     });
 
@@ -375,6 +380,7 @@ Route::namespace('Auth')->middleware('auth:web')->group(function(){
         return view('frontend.faq');
     })->name('faq');
 
+    Route::post('send-message',[ContactUsController::class,'store']);
     Route::get('blog/{id}',[BlogContoller::class,'single'])->name('blog.single');
     Route::get('/repair-step/{id}', [RepairController::class, 'getBrands']);
     Route::get('/getModels/{id}', [RepairController::class, 'getModels']);

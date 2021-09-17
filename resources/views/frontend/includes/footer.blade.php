@@ -6,7 +6,7 @@
         <div class="footer-links" id="company-footer-links">
           <a class="soft-body" href="">About Us</a>
           <a class="soft-body" href="" target="">How It Works</a>
-          <a class="soft-body" href="{{route('faq')}}" target="">FAQ</a>
+          <a class="soft-body" href="{{route('faq')}}" target="">FAQs</a>
 
           <a class="soft-body" href="/invite-a-friend" target="">Invite a Friend</a>
           <a class="soft-body" href="/pricing" target="">Pricing</a>

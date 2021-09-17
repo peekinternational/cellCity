@@ -19,9 +19,8 @@
     	<!--Sort By-->
       <h3 class="_3n9_eRVa OCgW6kA95RgHDgyrkt-3F">Buy Accessories</h3>
       <div data-test="carrier-filters" class="_37xvF8QgM_NvGXx3HcYuJ2">
-        <h3 class="_2B3yYCfeT_icE3-czlIZpA _24G233rJGINfRvQy6b013n fp6kZqTX1H1PmSmQgEG_U _6d15qX6LWY1Hi6Z98JjWP">I need a phone that works with ...</h3>
         <div class="a-cell row" data-v-2b8789a2="">
-          <div class="a-cell xs-12 md-9 _114juaGTKcgQcFQKoPzirv" data-v-2b8789a2="">
+          {{-- <div class="a-cell xs-12 md-9 _114juaGTKcgQcFQKoPzirv" data-v-2b8789a2="">
             <label data-qa="0  AT&amp;T-checkbox-label" data-test="checkbox-AT&amp;T" class="_2dZyu6FGSL9sjsXTxboSwL _3FFHvPz39UA03ZA4Mv13pX" data-v-2b8789a2="">
               <input data-test="input" name="0  AT&amp;T" type="checkbox" class="_2X8Raljpwo5umcD_HYzefT">
               <span data-test="checkbox-span" class="_2Q2hhB3NvM2sAldZj6fGXU"></span>
@@ -58,7 +57,7 @@
                 </div>
               </span>
             </label>
-          </div>
+          </div> --}}
           <div class="a-cell xs-12 md-3" data-v-2b8789a2="">
             <div class="axop9d4ghf_ZiU7FQc-M8 baseselect-wrapper _2u25sfWmf6NUCbJ_StTs_r" data-v-2b8789a2=""><!---->
               <select id="simlock" onchange="sortList(this)" name="sort" class="_3Iq8JGYZpyTj97wvi5Wyu7 eUlOsp7XbB9G1L8SEMMpU baseselect-field">
@@ -110,16 +109,15 @@
                         <input type="text" id="amount" style="border: 0; color: #00bfa5; font-weight: bold;" />
                       </p>
 
-
                       <div id="slider-range"></div>
-               </li>
+                   </li>
 
             <li class="_2LiMhAnX4MDtEL5YEDIdLy">
               <h3 class="_2RGsPtNo">Brand</h3>
               <ul data-test="filters-facet" class="_26WV8o_nAH1VuLftdiS-6t">
                 <li class="_33pDOgQ80LhcEmJTGXNM3U">
                   <div>
-                    <input id="brand-reset" type="checkbox" checked="checked" data-test="facet-reset" class="_3wvnh-Qn">
+                    <input id="brand-reset" type="checkbox" name="brand_name" checked="checked" data-test="facet-reset" value="all_brand" class="_3wvnh-Qn getAll" onclick="getAll()">
                     <label for="brand-reset" class="_33K8eTZu">
                       <div class="_3S4CObWg">
                         <div class="_2OVE0h6V"></div>
@@ -166,7 +164,8 @@
                   Model
                 </h3>
                  <ul data-test="filters-facet" class="_26WV8o_nAH1VuLftdiS-6t" id="modelsss">
-                     <li class="_33pDOgQ80LhcEmJTGXNM3U"><div><input id="model-reset" type="checkbox" checked="checked" data-test="facet-reset" class="_3wvnh-Qn"> <label for="model-reset" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC">
+                     <li class="_33pDOgQ80LhcEmJTGXNM3U"><div>
+                         <input id="model-reset" type="checkbox" name="model_name" checked="checked" data-test="facet-reset" class="_3wvnh-Qn getAllModel" onclick="getAllModel()"> <label for="model-reset" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC">
                     All
                   </span></span></div> <!----> <!----></label></div></li>
 
@@ -304,10 +303,8 @@
         	<!-- Styled Pagination -->
             <div class="styled-pagination">
                 <ul>
-                    <li><a href="#" class="active">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a class="next" href="#"><span class="fa fa-angle-right"></span></a></li>
+                    <li>{{ CityClass::accessory()->links('vendor.pagination.custom') }}</li>
+
                 </ul>
             </div>
         </div>
@@ -318,10 +315,45 @@
 @section('script')
 
 <script>
+  function getAll()
+  {
+    var  brand = [];
+    $(".getAll").each(function(){
+        if($(this).is(":checked")){
+            brand.push($(this).val());
+        }
+       });
 
+       $(".getBrandId").each(function(){
+                if($(this).is(":checked")){
+                    $('.getBrandId').prop('checked', false);
+                }
+            });
+            window.location.reload();
+    // alert(brand);
+    // $.ajax({
+    //     url: "{{url('getAccessoryFilter')}}",
+    //     type:"get",
+    //     dataType: "json",
+    //     data:"brand=" + brand,
+
+    //     success:function(response){
+    //       console.log(response);
+    //         var mode= JSON.stringify(response)
+    //         var brnd = JSON.parse(mode);
+    //         console.log(brnd);
+    //       $('#modelsss').html(response.models);
+    //       $('#filter').html(response.brands);
+
+    //     //   $('#exampleModal'+id).modal('show');
+    //     },
+
+
+    //    });
+  }
 
     function getBrand(id){
-        //   alert('asdasd');
+
         var id = id;
 
         var  brand = [];
@@ -330,7 +362,13 @@
             $('.getCondition').prop('checked', false);
         }
        });
-      ;
+
+       $(".getAll").each(function(){
+                if($(this).is(":checked")){
+                    $('.getAll').prop('checked', false);
+                }
+            });
+
        $(".getStorage").each(function(){
                 if($(this).is(":checked")){
                     $('.getStorage').prop('checked', false);
@@ -377,7 +415,11 @@
       function getModels(id){
         //   alert('asdasd');
         // var id = id;
-
+        $(".getAllModel").each(function(){
+                if($(this).is(":checked")){
+                    $('.getAllModel').prop('checked', false);
+                }
+            });
 
         $(".getBrandId").each(function(){
         if($(this).is(":checked")){

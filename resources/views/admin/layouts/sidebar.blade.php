@@ -143,6 +143,17 @@
                         <li><a href="{{route('admin.service.index')}}">Phone Service List</a></li>
                     </ul>
                 </li>
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="bx bx-store"></i>
+                        <span>FAQs Management</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{route('admin.faqs.index')}}">FAQs List</a></li>
+                        <li><a href="{{route('admin.faqs.create')}}">Add FAQs</a></li>
+
+                    </ul>
+                </li>
                 @endrole
                 @role('SuperAdmin|zipcode')
                 <li>

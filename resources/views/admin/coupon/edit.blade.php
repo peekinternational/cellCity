@@ -18,14 +18,15 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <form action="{{route('admin.coupon.store')}}" method="post" enctype="multipart/form-data">
+                                        <form action="{{route('admin.coupon.update',$coupon->id)}}" method="post" enctype="multipart/form-data">
                                             {{csrf_field()}}
+                                            @method('PUT')
 
 
                                             <div class="form-group row">
                                                 <label for="example-text-input" class="col-md-2 col-form-label">Coupon Name</label>
                                                 <div class="col-md-10">
-                                                    <input class="form-control" name="name" type="text" placeholder="Enter name" @if(old('name')) value="{{ old('name') }}" @endif  name="name" id="example-text-input">
+                                                    <input class="form-control" name="name" type="text" placeholder="Enter name" value="{{ $coupon->name }}"  name="name" id="example-text-input">
                                                     <span class="text-danger">{{ $errors->first('name') }}</span>
                                                 </div>
                                             </div>
@@ -33,29 +34,38 @@
                                             <div class="form-group row">
                                                 <label for="example-search-input" class="col-md-2 col-form-label">Coupon Code</label>
                                                 <div class="col-md-10">
-                                                    <input class="form-control" type="text" placeholder="Enter Coupon Code" @if(old('code')) value="{{ old('code') }}" @endif name="code" id="example-search-input">
+                                                    <input class="form-control" type="text" placeholder="Enter Coupon Code" value="{{ $coupon->code }}" name="code" id="example-search-input">
                                                     <span class="text-danger">{{ $errors->first('code') }}</span>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label for="example-search-input" class="col-md-2 col-form-label"> Coupon Type</label>
                                                 <div class="col-md-10">
-                                                    <input class="form-control" type="text" placeholder="Enter type" @if(old('type')) value="{{ old('type') }}" @endif name="type" id="example-search-input">
+                                                    <input class="form-control" type="text" placeholder="Enter type" value="{{ $coupon->type }}" name="type" id="example-search-input">
                                                     <span class="text-danger">{{ $errors->first('orig_price') }}</span>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label for="example-search-input" class="col-md-2 col-form-label"> value</label>
                                                 <div class="col-md-10">
-                                                    <input class="form-control" type="text" placeholder="Enter value" @if(old('value')) value="{{ old('value') }}" @endif name="value" id="example-search-input">
+                                                    <input class="form-control" type="text" placeholder="Enter value" value="{{ $coupon->value }}" name="value" id="example-search-input">
                                                     <span class="text-danger">{{ $errors->first('quantity') }}</span>
                                                 </div>
                                             </div>
                                              <div class="form-group row">
                                                 <label for="example-tel-input" class="col-md-2 col-form-label">Description</label>
                                                 <div class="col-md-10">
-                                                    <textarea type="text" name="description" class="form-control" cols="30" rows="10"></textarea>
+                                                    <textarea type="text" name="description" class="form-control" >{{ $coupon->description }}</textarea>
                                                     <span class="text-danger">{{ $errors->first('description') }}</span>
+                                                </div>
+                                            </div>
+                                             <div class="form-group row">
+                                                <label for="example-tel-input" class="col-md-2 col-form-label">Status</label>
+                                                <div class="col-md-10">
+                                                  <select name="status" class="form-control">
+                                                    <option value="1"> Active </option>
+                                                    <option value="0"> InActive </option>
+                                                  </select>
                                                 </div>
                                             </div>
 

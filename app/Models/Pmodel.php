@@ -14,12 +14,12 @@ class Pmodel extends Model
     ];
 
 
-    public function brand()
+        public function brand()
 		  {
 		    return $this->belongsTo(Brand::class,'brand_Id','id');
 		  }
 
-	public function repairTypes()
+     	public function repairTypes()
           {
             return $this->hasMany(RepairType::class,'model_Id');
           }

@@ -243,10 +243,18 @@ class AdminController extends Controller
 
 
             $user->save();
-            $role = $request->role_id;
-            // dd($role);
-            $user->assignRole($role);
-            // $role = Role::create(['name' => $request->role]);
+            // $role = $request->role_id;
+            // // dd($role);
+            // $user->assignRole($role);
+            // // $role = Role::create(['name' => $request->role]);
+        return back()->with('message',Alert::_message('success', 'Role Assign Successfully.'));
+    }
+
+    public function roleAssign(Request $request)
+    {
+        $user = User::find($request->user_id);
+        $role = $request->role_id;
+        $user->assignRole($role);
         return back()->with('message',Alert::_message('success', 'Role Assign Successfully.'));
     }
     public function roleList()

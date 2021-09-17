@@ -443,7 +443,7 @@
                         	<h3><a href="{{route('blog.single',$blog->id)}}">{{$blog->title}}</a></h3>
                           <div class="text">{{$blog->desc}}</div>
                           <ul class="list">
-                              <li><span class="icon flaticon-business"></span> {{$blog->created_at->format('d M Y')}}</li>
+                              <li><span class="icon flaticon-business"></span> {{$blog->created_at->format('d F Y')}}</li>
                           </ul>
                         </div>
                     </div>

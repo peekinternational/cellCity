@@ -55,7 +55,8 @@
                                                         </td>
                                                        <td>{{ $coup->type }}</td>
                                                        <td>{{ $coup->value }}</td>
-                                                       <td>@if ($coup->status == 1)
+                                                       <td>
+                                                        @if ($coup->status == 1)
                                                         <span class="badge badge-pill badge-success">Active</span>
                                                         @else
                                                         <span class="badge badge-pill badge-danger">InActive</span>

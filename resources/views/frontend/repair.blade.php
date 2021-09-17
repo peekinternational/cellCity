@@ -26,7 +26,7 @@
     -webkit-transform: rotate(180deg);
     -moz-transform: rotate(180deg);
     transform: rotate(180deg);
-  } 
+  }
   .testimonial-block-two {
     margin: 0 10px 0 0 !important;
   }
@@ -64,7 +64,7 @@
           </ul>
         </div>
         <div class="jsx-4182953111 jsx-3431082034 flwidth layout vertical list-search">
-          
+
             <label class="layout horizontal center pad10 flwidth drill-search card-shadow radius-10">
               <input type="text" placeholder="Enter Zip Code" id="zipcode" class="form-control zipcode">
 
@@ -73,7 +73,7 @@
               </button>
             </label>
             <span id="msgZip" style="display:none;color:#00bfa5"> SORRY! We do not cover that area... yet! </span>
-          
+
           <div id="pd_list_search_container" class="jsx-4182953111 jsx-3431082034 flwidth list-container card radius-6 hide">
             <ul id="pd_list_search_ul" class="jsx-4182953111 jsx-3431082034 layout vertical"></ul>
           </div>
@@ -81,7 +81,7 @@
       </div>
       <div class="flex-3 flex-none-mob flwidth-mob jss75 jss81"></div>
     </div>
-  </section>  
+  </section>
   <div class="pad-b50-30">
     <section class="frame-size mar-b25">
       <div class="jss91">
@@ -160,7 +160,7 @@
                   <span class="layout horizontal center-center font12-10 text-center tc-primary line-clamp-3 jss178">SCREEN</span>
                 </a>
               </li>
-             
+
               <li class="mar-r20  pad-tb16 layout horizontal jss175">
                 <a class="layout vertical card-shadow radius-10 pad16 flwidth flheight around-justified jss176" href="/screen-repair">
                   <span class="layout horizontal start center-justified  flex-1 jss177">
@@ -278,7 +278,7 @@
                 <span class="font-medium font14-12 mar-t4 tc-secondary">Mobile Repair on the Spot in Cashify Store or at Home/Office</span>
               </div>
             </li>
-            
+
             <li class="layout horizontal vertical-mob jss183">
               <div class="layout horizontal center-center flwidth jss184">
                 <img class="img-resp" alt="6 Months Warranty" src="{{asset('frontend-assets/images/repair/whyus-4.png')}}">
@@ -310,7 +310,7 @@
         </div>
       </div>
     </section>
-  </div>	
+  </div>
     <!-- FAQ -->
   <div class="frame-size mar-b40 mar-t20">
     <div class="jss96 jss100 layout vertical">
@@ -319,21 +319,25 @@
     <div class="mar-b8">
       <section class="card-shadow radius-10 jss101">
         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-          <div class="panel panel-default">
-            <div class="panel-heading active" role="tab" id="headingOne">
+            @foreach (CityClass::faqs() as $faq)
+            <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="heading{{$faq->id}}">
               <h4 class="panel-title">
-                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                  Collapsible Group Item #1
+                <a role="button" class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse{{$faq->id}}" aria-expanded="false" aria-controls="collapse{{$faq->id}}">
+                  {{ $faq->question }}
                 </a>
               </h4>
             </div>
-            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+            <div id="collapse{{$faq->id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{$faq->id}}">
               <div class="panel-body">
-                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+
+                {{ $faq->answer }}
+
               </div>
             </div>
           </div>
-          <div class="panel panel-default">
+        @endforeach
+          {{-- <div class="panel panel-default">
             <div class="panel-heading" role="tab" id="headingTwo">
               <h4 class="panel-title">
                 <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
@@ -360,7 +364,7 @@
                 Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
               </div>
             </div>
-          </div>
+          </div> --}}
         </div>
       </section>
     </div>
@@ -374,10 +378,10 @@
       </div>
       <!-- <div class="jsx-146361224 jsx-2802770802 slider-view-more"></div> -->
     </div>
-    
+
     <div class="testimonial-carousel pad-tb16">
       <div class="testimonial-carousel-two">
-        
+
         <!--Testimonial Block-->
         <div class="testimonial-block-two">
           <div class="inner-box">
@@ -396,7 +400,7 @@
             <div class="reviwer-section soft-body-text"><div class="reviwer">Adrienne | Los Angeles, CA</div><img class="b-lazy b-loaded" src="https://d7gh5vrfihrl.cloudfront.net/website/badges/stars.svg"></div>
           </div>
         </div>
-        
+
         <!--Testimonial Block-->
         <div class="testimonial-block-two">
           <div class="inner-box">
@@ -415,7 +419,7 @@
             <div class="reviwer-section soft-body-text"><div class="reviwer">Adrienne | Los Angeles, CA</div><img class="b-lazy b-loaded" src="https://d7gh5vrfihrl.cloudfront.net/website/badges/stars.svg"></div>
           </div>
         </div>
-        
+
         <!--Testimonial Block-->
         <div class="testimonial-block-two">
           <div class="inner-box">
@@ -434,7 +438,7 @@
             <div class="reviwer-section soft-body-text"><div class="reviwer">Adrienne | Los Angeles, CA</div><img class="b-lazy b-loaded" src="https://d7gh5vrfihrl.cloudfront.net/website/badges/stars.svg"></div>
           </div>
         </div>
-        
+
         <!--Testimonial Block-->
         <div class="testimonial-block-two">
           <div class="inner-box">
@@ -453,7 +457,7 @@
             <div class="reviwer-section soft-body-text"><div class="reviwer">Adrienne | Los Angeles, CA</div><img class="b-lazy b-loaded" src="https://d7gh5vrfihrl.cloudfront.net/website/badges/stars.svg"></div>
           </div>
         </div>
-        
+
         <!--Testimonial Block-->
         <div class="testimonial-block-two">
           <div class="inner-box">
@@ -472,7 +476,7 @@
             <div class="reviwer-section soft-body-text"><div class="reviwer">Adrienne | Los Angeles, CA</div><img class="b-lazy b-loaded" src="https://d7gh5vrfihrl.cloudfront.net/website/badges/stars.svg"></div>
           </div>
         </div>
-        
+
         <!--Testimonial Block-->
         <div class="testimonial-block-two">
           <div class="inner-box">
@@ -491,7 +495,7 @@
             <div class="reviwer-section soft-body-text"><div class="reviwer">Adrienne | Los Angeles, CA</div><img class="b-lazy b-loaded" src="https://d7gh5vrfihrl.cloudfront.net/website/badges/stars.svg"></div>
           </div>
         </div>
-        
+
       </div>
     </div>
   </section>
@@ -501,7 +505,7 @@
 @section('script')
 <script>
 function checkZip(){
- 
+
   let zipcode= $('#zipcode').val();
   let _token   = $('meta[name="csrf-token"]').attr('content');
 
@@ -513,7 +517,7 @@ function checkZip(){
           _token: _token
         },
         success:function(response){
-          
+
           if(response.status == 0) {
             $('#msgZip').show();
           }else{
@@ -532,22 +536,22 @@ function checkZip(){
    });
    $('#arrowR').click(function(){
       var pos = $('#AvailableContainer').scrollLeft() + 600;
-         
+
       $('#AvailableContainer').scrollLeft(pos);
       $('#arrowL').show();
       $(this).hide();
       // $('#AvailableContainer').animate({'left':'-=300px'});
-         
+
      });
-     
+
      $('#arrowL').click(function(){
-                    
-        var pos = $('#AvailableContainer').scrollLeft() - 300;
+
+        var pos = $('#AvailableContainer').scrollLeft() - 600;
         $('#AvailableContainer').scrollLeft(pos);
         $('#arrowR').show();
         $(this).hide();
-         
+
      });
 </script>
-    
+
 @endsection

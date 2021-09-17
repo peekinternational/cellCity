@@ -65,7 +65,8 @@ class CouponController extends Controller
      */
     public function edit($id)
     {
-        //
+         $coupon = Coupon::find($id);
+         return view('admin.coupon.edit',compact('coupon'));
     }
 
     /**
@@ -77,7 +78,9 @@ class CouponController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $coupon = Coupon::find($id);
+        $coupon->update($request->only($coupon->getFillable()));
+        return back()->with('message', Alert::_message('success', 'Coupon Updated Successfully.'));
     }
 
     /**

@@ -90,15 +90,11 @@
                                         <div class="product-brand">
                       <span>Works with:</span>
                       <div class="brand-images">
+                        @foreach ($product->service as $service)
                         <div class="brand">
-                          <img src="{{asset('frontend-assets/images/tmobile.svg')}}">
+                          <img src="{{asset('storage/service/'.$service->image)}}">
                         </div>
-                        <div class="brand">
-                          <img src="{{asset('frontend-assets/images/att.svg')}}">
-                        </div>
-                        <div class="brand">
-                          <img src="{{asset('frontend-assets/images/verizon.svg')}}">
-                        </div>
+                        @endforeach
                       </div>
                     </div>
 

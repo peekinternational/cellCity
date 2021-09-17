@@ -26,62 +26,66 @@
                      $userID = Auth::user()->id;
                      $items=\Cart::session($userID)->getContent()
                 @endphp
-                <table class="table table-bordered">
-                     <thead>
-                        <tr>
-                            <th>Product</th>
-                            <th>Color</th>
-                            <th>Storage</th>
-                            <th>Condition</th>
-                            <th>Quantity</th>
-                            <th>Price</th>
-                            <th>Total Price</th>
-                            <th>Action</th>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                           <tr>
+                               <th>Product</th>
+                               <th>Color</th>
+                               <th>Storage</th>
+                               <th>Condition</th>
+                               <th>Quantity</th>
+                               <th>Price</th>
+                               <th>Total Price</th>
+                               <th>Action</th>
 
-                        </tr>
-                      </thead>
-                    <tbody>
+                           </tr>
+                         </thead>
+                       <tbody>
 
-                    @foreach ($items as $item)
-                    {{-- @php
-                        dd($item->attributes->category);
-                    @endphp --}}
-                    @if ($item->attributes->category != "accessory")
-                       <tr>
-                            <td>{{$item->name}}</td>
-                            <td>{{$item->attributes->color}}</td>
-                            <td>{{$item->attributes->storage}}</td>
-                            <td>{{$item->attributes->conditition}}</td>
-                            <td><input type="number" onfocus="removeval({{ $item->id }})" class="form-control border-dark w-40px"
-                            onchange="recal({{ $item->id }})"id="change{{ $item->id }}" value="{{ $item->quantity }}"
-                            MIN="1" />
-                            </td>
-                            <td>{{$item->price}}</td>
-                            @php
-                                $total = round($item->quantity*$item->price);
-                            @endphp
-                            <td>{{$total}}</td>
+                       @forelse ($items as $item)
+                       {{-- @php
+                           dd($item->attributes->category);
+                       @endphp --}}
+                       @if ($item->attributes->category != "accessory")
+                          <tr>
+                               <td>{{$item->name}}</td>
+                               <td>{{$item->attributes->color}}</td>
+                               <td>{{$item->attributes->storage}}</td>
+                               <td>{{$item->attributes->conditition}}</td>
+                               <td><input type="number" onfocus="removeval({{ $item->id }})" class="form-control border-dark w-40px"
+                               onchange="recal({{ $item->id }})"id="change{{ $item->id }}" value="{{ $item->quantity }}"
+                               MIN="1" />
+                               </td>
+                               <td>{{$item->price}}</td>
+                               @php
+                                   $total = round($item->quantity*$item->price);
+                               @endphp
+                               <td>{{$total}}</td>
 
-                            <td>
-                                <div class="card-toolbar text-right">
-                                    <form method="post">
-                                        @csrf
-                                        <input type="hidden" value="" name="id">
-                                        <a class="btn btn-danger" type="button" title="Delete"
-                                            onclick="dlt({{ $item->id }})"><i
-                                                class="fa fa-trash"></i></a>
-                                        {{-- confirm-delete --}}
-                                    </form>
-                                </div>
-                            </td>
-                       </tr>
-                        @else
+                               <td>
+                                   <div class="card-toolbar text-right">
+                                       <form method="post">
+                                           @csrf
+                                           <input type="hidden" value="" name="id">
+                                           <a class="btn btn-danger" type="button" title="Delete"
+                                               onclick="dlt({{ $item->id }})"><i
+                                                   class="fa fa-trash"></i></a>
+                                           {{-- confirm-delete --}}
+                                       </form>
+                                   </div>
+                               </td>
+                          </tr>
+                           @else
 
-                       @endif
-                    @endforeach
+                          @endif
+                          @empty
+                          <td colspan="7" class="text-center"><b>Your Product Cart is empty..</b></td>
+                       @endforelse
 
-               </tbody>
-            </table>
+                  </tbody>
+               </table>
+                </div>
 
             </div>
 
@@ -94,61 +98,65 @@
                      $userID = Auth::user()->id;
                      $items=\Cart::session($userID)->getContent()
                 @endphp
-                <table class="table table-bordered">
-                     <thead>
-                        <tr>
-                            <th>Brand Name</th>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                           <tr>
+                               <th>Brand Name</th>
 
 
-                            <th>Accessory Name</th>
-                            <th>Category</th>
-                            <th>Quantity</th>
-                            <th>Price</th>
-                            <th>Total Price</th>
-                            <th>Action</th>
+                               <th>Accessory Name</th>
+                               <th>Category</th>
+                               <th>Quantity</th>
+                               <th>Price</th>
+                               <th>Total Price</th>
+                               <th>Action</th>
 
-                        </tr>
-                      </thead>
-                    <tbody>
+                           </tr>
+                         </thead>
+                       <tbody>
 
-                    @foreach ($items as $item)
+                       @forelse ($items as $item)
 
-                    @if ($item->attributes->category == "accessory")
-                       <tr>
-                            <td>{{$item->name}}</td>
-                            <td>{{$item->associatedModel->name}}</td>
-                            <td>{{$item->associatedModel->category}}</td>
-                            {{-- <td>{{$item->associatedModel->conditition}}</td> --}}
-                            <td><input type="number" onfocus="removeval({{ $item->id }})" class="form-control border-dark w-40px"
-                            onchange="recal({{ $item->id }})"id="change{{ $item->id }}" value="{{ $item->quantity }}"
-                            MIN="1" />
-                            </td>
-                            <td>{{$item->price}}</td>
-                            @php
-                                $total = round($item->quantity*$item->price);
-                            @endphp
-                            <td>{{$total}}</td>
+                       @if ($item->attributes->category == "accessory")
+                          <tr>
+                               <td>{{$item->name}}</td>
+                               <td>{{$item->associatedModel->name}}</td>
+                               <td>{{$item->associatedModel->category}}</td>
+                               {{-- <td>{{$item->associatedModel->conditition}}</td> --}}
+                               <td><input type="number" onfocus="removeval({{ $item->id }})" class="form-control border-dark w-40px"
+                               onchange="recal({{ $item->id }})"id="change{{ $item->id }}" value="{{ $item->quantity }}"
+                               MIN="1" />
+                               </td>
+                               <td>{{$item->price}}</td>
+                               @php
+                                   $total = round($item->quantity*$item->price);
+                               @endphp
+                               <td>{{$total}}</td>
 
-                            <td>
-                                <div class="card-toolbar text-right">
-                                    <form method="post">
-                                        @csrf
-                                        <input type="hidden" value="" name="id">
-                                        <a class="btn btn-danger" type="button" title="Delete"
-                                            onclick="dlt({{ $item->id }})"><i
-                                                class="fa fa-trash"></i></a>
-                                        {{-- confirm-delete --}}
-                                    </form>
-                                </div>
-                            </td>
-                       </tr>
-                        @else
+                               <td>
+                                   <div class="card-toolbar text-right">
+                                       <form method="post">
+                                           @csrf
+                                           <input type="hidden" value="" name="id">
+                                           <a class="btn btn-danger" type="button" title="Delete"
+                                               onclick="dlt({{ $item->id }})"><i
+                                                   class="fa fa-trash"></i></a>
+                                           {{-- confirm-delete --}}
+                                       </form>
+                                   </div>
+                               </td>
+                          </tr>
+                           @else
 
-                       @endif
-                    @endforeach
+                          @endif
+                          @empty
+                          <td colspan="7" class="text-center"><b>Your Accessory Cart is empty..</b></td>
+                       @endforelse
 
-               </tbody>
-            </table>
+                  </tbody>
+               </table>
+                </div>
 
             </div>
 
@@ -276,7 +284,7 @@
         function getAddress(event)
         {
             var id = $(event).val();
-            alert(id);
+            // alert(id);
             console.log(id);
             if(id==0)
             {

@@ -21,7 +21,7 @@ class CreateAccessoriesTable extends Migration
             $table->string('sell_price');
             $table->string('orig_price');
             $table->string('quantity');
-            $table->string('images');
+
             $table->text('description');
             $table->timestamps();
         });
