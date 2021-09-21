@@ -1,23 +1,14 @@
-@forelse ($models as $model)
-<li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U">
 
-    <input id="{{ $model->id }}" type="checkbox" name="models_name" data-test="facet-{{ $model->brand->brand_name ?? '' }}  {{ $model->model_name ?? ''}}" class="_3wvnh-Qn  getModelId"  value="{{ $model->id }}" onclick="getModels({{ $model->id }})">
-     <label for="{{{ $model->id }}}" class="_33K8eTZu">
-      <div class="_3S4CObWg">
-         <div class="_2OVE0h6V"></div>
-         <div class="_3xAYCg9N">
-             <svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg">
-              <path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg>
-              </div>
-          </div>
-              <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
-                  {{ ucwords($model->brand->brand_name) ?? '' }}  {{ ucwords($model->model_name) ?? ''}}
-              </span>
-              </span>
-          </div> <!----> <!---->
-      </label>
+<select id="category_id"  name="category_id" class="_3Iq8JGYZpyTj97wvi5Wyu7 eUlOsp7XbB9G1L8SEMMpU baseselect-field">
+    <option selected>Select Category ....</option>
+    @forelse (CityClass::accessCategory() as $category)
+    <option value="{{$category->id}}">{{$category->category}}</option>
+    @endforeach
+  </select>
+  <label data-test="baseselect-label" class="PSXfa64BhcchUXTYm8jxr _2Y-fYnDKPqxkYV__KtgvWD baseselect-label">
+    {{-- <span class="_1rmkAs0zRQWqTLR2midRVa baseselect-label-content">Best Selling</span> --}}
+  </label>
+  <div class="_3CTJYWu3hsWyWna_ZcsF5I">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 443.9 476.5" data-test="baseselect-icon" class="-S5BM_soVHE3yxeKelL2Q _1-GUUYIHoGjHHKudYw6-sr"><path d="M220.2 355.7c-3.1 0-6.1-1.2-8.5-3.5L9.1 149.6c-4.7-4.7-4.7-12.3 0-17 4.7-4.7 12.3-4.7 17 0l194.1 194.1 197-197c4.7-4.7 12.3-4.7 17 0 4.7 4.7 4.7 12.3 0 17L228.7 352.2c-2.4 2.3-5.4 3.5-8.5 3.5z"></path></svg>
+  </div>
 
-</li>
-@empty
-    Oop no Brand Model Yet!
-@endforelse

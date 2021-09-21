@@ -1,37 +1,16 @@
 
 
- @foreach ($accessories as $accessory)
- @php
-     $model = App\Models\Pmodel::where('id',$accessory->model_id)->first();
-     $imag = App\Models\AccessoryImage::where('accessory_id',$accessory->id)->first();
- @endphp
-<div class="shop-item col-md-4 col-sm-6 col-xs-12">
-    <div class="inner-box">
-        @if (Auth::user())
+ <select id="model_id" onchange="getModel(this)" name="model_id" class="_3Iq8JGYZpyTj97wvi5Wyu7 eUlOsp7XbB9G1L8SEMMpU baseselect-field">
+    <option selected>Select Model ....</option>
+    @foreach($models as $model)
+    <option value="{{$model->id}}">{{$model->model_name}}</option>
+   @endforeach
 
-        @if (CityClass::accessWishlist($accessory->id) == "1")
-        <a href="#" onclick="undoWishlist({{$accessory->id}})"><i class="fa fa-heart" style="font-size: 30px;color:#ff0707"></i></a>
-        @else
-        <a href="#" onclick="wishlist({{$accessory->id}})"><i class="fa fa-heart" style="font-size: 30px;color:#adadad"></i></a>
-        @endif
-      @else
-      <a href="#" onclick="wishlist({{$accessory->id}})"><i class="fa fa-heart" style="font-size: 30px;color:#adadad"></i></a>
-     @endif
-        <figure class="image-box">
-            <a href="{{route('accessory.single',$accessory->id)}}"><img src="{{asset('/storage/accessories/images/'.$imag->images)}}" alt="" /></a>
-          </figure>
-          <!--Lower Content-->
-          <div class="lower-content">
-            <h3><a href="">{{ $model->brand->brand_name }} {{ $model->model_name }}</a></h3>
-            <div> <span>{{ $accessory->category }} - {{ $accessory->name }}</span> </div>
-              <span>
-              {{-- Warranty: 12 months --}}
-              </span>
-              <div>Starting from</div>
-              <div class="price">
-              <strong>${{ $accessory->sell_price }}.00</strong> <del>${{ $accessory->orig_price }}.00</del></div>
-              <!-- <a href="{{url('single')}}" class="cart-btn theme-btn btn-style-two">Add to cart</a> -->
-          </div>
-      </div>
+  </select>
+  <label data-test="baseselect-label" class="PSXfa64BhcchUXTYm8jxr _2Y-fYnDKPqxkYV__KtgvWD baseselect-label">
+    {{-- <span class="_1rmkAs0zRQWqTLR2midRVa baseselect-label-content">Best Selling</span> --}}
+  </label>
+  <div class="_3CTJYWu3hsWyWna_ZcsF5I">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 443.9 476.5" data-test="baseselect-icon" class="-S5BM_soVHE3yxeKelL2Q _1-GUUYIHoGjHHKudYw6-sr"><path d="M220.2 355.7c-3.1 0-6.1-1.2-8.5-3.5L9.1 149.6c-4.7-4.7-4.7-12.3 0-17 4.7-4.7 12.3-4.7 17 0l194.1 194.1 197-197c4.7-4.7 12.3-4.7 17 0 4.7 4.7 4.7 12.3 0 17L228.7 352.2c-2.4 2.3-5.4 3.5-8.5 3.5z"></path></svg>
   </div>
-@endforeach
+

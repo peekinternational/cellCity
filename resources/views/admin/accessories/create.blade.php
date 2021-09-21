@@ -25,7 +25,7 @@
                                                 <label for="example-text-input" class="col-md-2 col-form-label">Brand</label>
                                                 <div class="col-md-10">
                                                 <select name="brand_id"  class="form-control selectpic" onchange="getModel(this)">
-                                                    <option>select anyone</option>
+                                                    <option>Select Brand</option>
                                                     @foreach (CityClass::brands() as $brand)
                                                     <option value="{{$brand->id}}">{{$brand->brand_name}}</option>
                                                     @endforeach
@@ -35,18 +35,20 @@
                                             <div class="form-group row">
                                                 <label for="example-text-input" class="col-md-2 col-form-label">Model</label>
                                                 <div class="col-md-10" id="showModels">
+                                                    <select name="brand_id"  class="form-control selectpic" onchange="getModel(this)">
+                                                        <option>Select Model</option>
 
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label for="example-email-input" class="col-md-2 col-form-label">Category</label>
                                                 <div class="col-md-10">
-                                                    <select name="category"  class="form-control selectpic">
-                                                       <option>select anyone</option>
-                                                       <option value="charger">Charger</option>
-                                                       <option value="protector">Screen Protector</option>
-                                                       <option value="cables">Cable</option>
-                                                       <option value="battery">Battery</option>
+                                                    <select name="category_id"  class="form-control selectpic">
+                                                       <option>Select Category</option>
+                                                       @foreach (CityClass::accessCategory() as $category)
+                                                       <option value="{{ $category->id }}">{{ $category->category }}</option>
+                                                       @endforeach
                                                    </select>
                                                 </div>
                                             </div>
@@ -57,21 +59,28 @@
                                                     <span class="text-danger">{{ $errors->first('name') }}</span>
                                                 </div>
                                             </div>
-
-                                            <div class="form-group row">
-                                                <label for="example-search-input" class="col-md-2 col-form-label">Sell Price</label>
-                                                <div class="col-md-10">
-                                                    <input class="form-control" type="number" placeholder="Enter Sell Price" @if(old('sell_price')) value="{{ old('sell_price') }}" @endif name="sell_price" id="example-search-input">
-                                                    <span class="text-danger">{{ $errors->first('sell_price') }}</span>
-                                                </div>
-                                            </div>
                                             <div class="form-group row">
                                                 <label for="example-search-input" class="col-md-2 col-form-label"> Original Price</label>
                                                 <div class="col-md-10">
-                                                    <input class="form-control" type="number" placeholder="Enter orig_price" @if(old('orig_price')) value="{{ old('orig_price') }}" @endif name="orig_price" id="example-search-input">
+                                                    <input class="form-control" id="orig_price" type="number" placeholder="Enter orig_price" @if(old('orig_price')) value="{{ old('orig_price') }}" @endif name="orig_price" id="example-search-input">
                                                     <span class="text-danger">{{ $errors->first('orig_price') }}</span>
                                                 </div>
                                             </div>
+                                            <div class="form-group row">
+                                                <label for="example-search-input" class="col-md-2 col-form-label">Discount</label>
+                                                <div class="col-md-10">
+                                                    <input class="form-control" id="discount" type="number" placeholder="Enter only number" @if(old('discount')) value="{{ old('discount') }}" @endif name="discount" id="example-search-input">
+                                                    <span class="text-danger">{{ $errors->first('discount') }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="example-search-input" class="col-md-2 col-form-label">Sell Price</label>
+                                                <div class="col-md-10">
+                                                    <input class="form-control" id="sale_price" type="number" placeholder="Enter Sell Price" @if(old('sell_price')) value="{{ old('sell_price') }}" @endif name="sell_price" id="example-search-input" readonly>
+                                                    <span class="text-danger">{{ $errors->first('sell_price') }}</span>
+                                                </div>
+                                            </div>
+
                                             <div class="form-group row">
                                                 <label for="example-search-input" class="col-md-2 col-form-label"> Quantity</label>
                                                 <div class="col-md-10">
@@ -133,5 +142,22 @@ $('.selectpic').select2();
 
        });
     }
+
+
+    $(function() {
+    $("#discount").on("keyup", sum);
+	function sum() {
+	    var firstValue   = parseInt($("#discount").val());
+	    var secondValue  =  parseInt($("#orig_price").val());
+	//    alert(firstValue);
+            console.log(secondValue);
+
+            var percent = (secondValue / 100) * firstValue;
+            var dicount = secondValue - percent;
+           $("#sale_price").val(dicount);
+
+	}
+});
+
 </script>
 @endsection

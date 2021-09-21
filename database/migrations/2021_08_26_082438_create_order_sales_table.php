@@ -15,7 +15,7 @@ class CreateOrderSalesTable extends Migration
     {
         Schema::create('order_sales', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
+            $table->integer('user_id')->nullable();
             $table->string('grand_total');
             $table->integer('shipping_id');
             $table->timestamps();

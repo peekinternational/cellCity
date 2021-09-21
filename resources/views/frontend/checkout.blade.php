@@ -146,7 +146,7 @@
                   <div class="col-lg-6">
                     <p class="single-form-row">
                       <label>First name <span class="required">*</span></label>
-                      <input type="text" class="form-control" name="first_name" value="{{Auth::user()->name}}" required="">
+                      <input type="text" class="form-control" name="first_name" value="{{ $address->name }}" required="">
                     </p>
                   </div>
                   {{-- <div class="col-lg-6">
@@ -158,13 +158,18 @@
                   <div class="col-lg-6">
                     <p class="single-form-row">
                       <label>Email <span class="required">*</span></label>
-                      <input type="email" class="form-control" name="email" value="{{Auth::user()->email}}" required="">
+                      <input type="email" id="email" class="form-control" id="email" name="email" value="{{ $address->email ?? ''}}" required="">
                     </p>
                   </div>
                   <div class="col-lg-12">
                     <p class="single-form-row">
                       <label>Street address <span class="required">*</span></label>
                       <input type="text" class="form-control" name="shipping_address" id="address" placeholder="House number and street name" value="{{$address->shipaddress}}" required="">
+                    </p>
+                  </div>
+                  <div class="col-lg-12">
+                    <p class="single-form-row">
+                      <input type="string" class="form-control" id="phoneno" name="phoneno" value="{{ $address->mobileNo }}" placeholder="Enter Phone" required>
                     </p>
                   </div>
                   <div class="col-lg-12">
@@ -210,22 +215,7 @@
                     <h3 class="shoping-checkboxt-title">Billing Address</h3>
                     <div class="row">
 
-                      <!-- <div class="col-lg-12">
-                <div class="single-form-row">
-                <label>Country <span class="required">*</span></label>
-                <div class="nice-select wide">
-                <select>
-                <option>Select Country...</option>
-                <option>Albania</option>
-                <option>Angola</option>
-                <option>Argentina</option>
-                <option>Austria</option>
-                <option>Azerbaijan</option>
-                <option>Bangladesh</option>
-              </select>
-            </div>
-          </div>
-        </div> -->
+
                       <div class="col-lg-12">
                         <p class="single-form-row">
                           <label>Street address <span class="required">*</span></label>
@@ -269,8 +259,17 @@
             </form>
         </div>
             @php
-            $userID = Auth::user()->id;
-            $items=\Cart::session($userID)->getContent()
+                if (Auth::check()) {
+                    $userID = Auth::user()->id;
+                    $total = Cart::session($userID)->getTotal();
+                    $items=\Cart::session($userID)->getContent();
+
+                }
+                else {
+                    $collection=\Cart::getContent();
+
+                }
+
 
             @endphp
 
@@ -297,19 +296,32 @@
                     </tr>
                   </thead>
                   <tbody>
-                      @foreach ($items as $item)
+                      @if (Auth::Check())
+                        @foreach ($items as $item)
                         <tr class="cart_item cart-545678">
                         <td class="t-product-name">{{  $item->name }} -({{$item->associatedModel->category ?? ''}}) -  <strong class="product-quantity">   ×  {{$item->quantity}}</strong></td>
                         @php
-                        $total = round($item->quantity*$item->price);
+                        $total = $item->quantity*$item->price;
                         @endphp
                         <td class="t-product-price"><span>${{$total}}</span></td>
                         </tr>
                         @endforeach
+                        @else
+                            @foreach ($collection as $item)
+                                <tr class="cart_item cart-545678">
+                                <td class="t-product-name">{{  $item->name }} -({{$item->associatedModel->accessoryCategory->category ?? ''}}) -  <strong class="product-quantity">   ×  {{$item->quantity}}</strong></td>
+                                @php
+                                $total =$item->quantity*$item->price;
+                                @endphp
+                                <td class="t-product-price"><span>${{$total}}</span></td>
+                                </tr>
+                            @endforeach
+                      @endif
+
                     </tbody>
                     <tfoot>
                         @php
-                            $total = Cart::session($userID)->getTotal();
+
                         @endphp
                         <tr class="order-total">
                         <th>Total</th>
@@ -361,7 +373,7 @@
 
                     </div>
                     </div>
-
+                    @if (Auth::check())
                     @if ($items->count() > 0)
                     <button type="button"  class="btn btn-primary btn-style-one  btn-submit">Checkout</button>
                     @else
@@ -369,6 +381,16 @@
                         <a href="{{url('buy-phone')}}">Add To Cart</a>
                     </p>
                     @endif
+                    @else
+                    @if ($collection->count() > 0)
+                    <button type="button"  class="btn btn-primary btn-style-one  btn-submit">Checkout</button>
+                    @else
+                    <p>Your Cart is empty Please add one or more product or accessory into cart for checkout..
+                        <a href="{{url('buy-phone')}}">Add To Cart</a>
+                    </p>
+                    @endif
+                    @endif
+
 
                   </form>
 
@@ -532,18 +554,23 @@ function myFunction() {
     });
 }
 
-$(".btn-submit").click(function(e){
-e.preventDefault();
+        $(".btn-submit").click(function(e){
+        e.preventDefault();
 
-var address_id = $("#address_id").val();
-// var payment = $("#payment").val();
-var payment = $("input[name='payment']:checked").val();
-var _token = $('input[name="_token"]').val();
+        var address_id = $("#address_id").val();
+        var email = $("#email").val();
+        var phoneno = $("#phoneno").val();
+        var payment = $("#payment").val();
+        var payment = $("input[name='payment']:checked").val();
+        var _token = $('input[name="_token"]').val();
 
         $.ajax({
             type: "POST",
             url: "{{route('product.payment')}}",
-            data: {payment:payment,_token:_token,address_id:address_id},
+            data: {payment:payment,_token:_token,
+                    address_id:address_id,
+                    phoneno:phoneno,email:email
+                    },
             success: function (response)
             {
                 alert('Thanks ,You have Successfully done the checkout..');

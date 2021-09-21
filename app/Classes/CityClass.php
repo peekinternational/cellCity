@@ -2,6 +2,7 @@
 namespace App\Classes;
 
 use App\Models\Accessory;
+use App\Models\AccessoryCategory;
 use DB;
 use Session;
 
@@ -117,7 +118,7 @@ class CityClass {
 
     function accessory()
     {
-        return Accessory::orderBy('category','asc')->paginate(3);
+        return Accessory::orderBy('id','asc')->paginate(9);
     }
     function phoneServices()
     {
@@ -127,6 +128,10 @@ class CityClass {
     function faqs()
     {
         return Faq::orderBy('created_at','asc')->get();
+    }
+    function accessCategory()
+    {
+        return AccessoryCategory::orderBy('created_at','asc')->get();
     }
 }
 

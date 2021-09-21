@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Accessory;
+use App\Models\AccessoryCategory;
 use App\Models\AccessoryImage;
 use App\Models\AccessoryOrder;
 use App\Models\Alert;
@@ -52,7 +53,8 @@ class AccessoryController extends Controller
         $accessory               = new Accessory;
         $accessory->name         = $request->name;
         $accessory->model_id     = $request->model_id;
-        $accessory->category     = $request->category;
+        $accessory->category_id  = $request->category_id;
+        $accessory->discount     = $request->discount;
         $accessory->sell_price   = $request->sell_price;
         $accessory->orig_price   = $request->orig_price;
         $accessory->quantity     = $request->quantity;
@@ -117,7 +119,8 @@ class AccessoryController extends Controller
         $accessory              = Accessory::find($id);
         $accessory->name        = $request->name;
         $accessory->model_id    = $request->model_id;
-        $accessory->category    = $request->category;
+        $accessory->discount     = $request->discount;
+        $accessory->category_id = $request->category_id;
         $accessory->sell_price  = $request->sell_price;
         $accessory->orig_price  = $request->orig_price;
         $accessory->quantity    = $request->quantity;
@@ -125,15 +128,16 @@ class AccessoryController extends Controller
         $accessory->update();
 
 
-        $q = "DELETE pp FROM `accessory_images` pp
+
+
+        if($request->hasFile('images'))
+        {
+            $q = "DELETE pp FROM `accessory_images` pp
         join accessories pd on pp.accessory_id = pd.id
         WHERE pd.id = ?";
 
 
         $status = \DB::delete($q, array($id));
-
-        if($request->hasFile('images'))
-        {
         foreach($request->file('images') as $img)
         {
                    $imageName   = time().$img->getClientOriginalName();
@@ -186,10 +190,11 @@ class AccessoryController extends Controller
     {
         $accessory  = Accessory::find($id);
         $images     = AccessoryImage::where('accessory_id',$accessory->id)->get();
-
         $model      = Pmodel::where('id',$accessory->model_id)->first();
+        $related    = Accessory::where('category_id',$accessory->category_id)->limit(4)->get();
+        // dd($related);
 
-        return view('frontend.accessorySingle',compact('accessory','images','model'));
+        return view('frontend.accessorySingle',compact('accessory','images','model','related'));
     }
 
     public function addToCart(Request $request)
@@ -198,12 +203,14 @@ class AccessoryController extends Controller
 
         $accessory  = Accessory::find($request->id);
 
-        $userID = Auth::user()->id;
+
         $id = mt_rand(100, 9000);
 
 
-
-        $cart= \Cart::session($userID)->add(array(
+        if(Auth::check())
+        {
+            $userID = Auth::user()->id;
+             $cart= \Cart::session($userID)->add(array(
             'id'              =>  $id,
             'name'            =>  $request->brand_name.' '.$request->model_name,
             'price'           => $request->getprice,
@@ -213,6 +220,20 @@ class AccessoryController extends Controller
                                 ),
             'associatedModel' => $accessory
         ));
+         }
+         else
+         {
+            $cart= \Cart::add(array(
+                'id'              =>  $id,
+                'name'            =>  $request->brand_name.' '.$request->model_name,
+                'price'           => $request->getprice,
+                'quantity'        => $request->quantity,
+                'attributes'      => array(
+                                    'category'=> "accessory",
+                                    ),
+                'associatedModel' => $accessory
+            ));
+         }
 
 
     // dd($items);
@@ -228,64 +249,52 @@ class AccessoryController extends Controller
 
 
 
-    public function getAccessoryFilter(Request $request)
+    public function getBrand($id)
     {
+        // dd($id);
 
-        if(isset($request->brand))
-        {
-           $models = Pmodel::whereIn('brand_Id',explode(',',$request->brand))->get();
-           // dd($model);
-
-           $accessories  = DB::table('accessories')
-                         ->join('pmodels','pmodels.id','=','accessories.model_id')
-                         ->join('brands','brands.id','=','pmodels.brand_Id')
-                         ->whereIn('brands.id',explode(',',$request->brand))
-                         ->select('accessories.*')
-                         ->get();
-
-            $getbrands  = view('frontend.accessoryFilter.getBrand',compact('accessories'))->render();
-            $models     = view('frontend.accessoryFilter.getModel',compact('models'))->render();
-
-            return response()->json(['brands' => $getbrands, 'models' => $models]);
-
-        }
-        elseif(isset($request->model))
-         {
-              $model=$request->model;
-              $accessories = Accessory::whereIn('model_id',explode(',',$model))->get();
-            //  dd($model);
-            //    response()->json(['product'=>$products,'model'=>$model]);
-             return view('frontend.accessoryFilter.getBrand',compact('accessories'));
-         }
-        elseif(isset($request->maxPrice) || isset($request->minPrice))
-        {
-            $start = $request->minPrice;
-            $end   =$request->maxPrice;
-
-            if(isset($request->selectedModel))
-            {
-                $model=$request->selectedModel;
+        $models = Pmodel::where('brand_Id',$id)->get();
+        return view('frontend.accessoryFilter.getBrand',compact('models'));
 
 
-                $accessories = Accessory::whereIn('model_id',explode(',',$model))
-                                        ->where('sell_price','>=',$start)
-                                        ->where('sell_price','<=',$end)
-                                        ->get();
-                //  dd($accessories);
-
-                return view('frontend.accessoryFilter.getAccessory',compact('accessories'));
-            }
-            else
-            {
-                $accessories = Accessory::where('sell_price','>=',$start)
-                ->where('sell_price','<=',$end)
-                ->get();
-
-                return view('frontend.accessoryFilter.getAccessory',compact('accessories'));
-            }
-
-        }
     }
+    public function getAccessoryModel($id)
+    {
+        // dd($id);
+
+        $accessories = Accessory::where('model_id',$id)->get();
+        return view('frontend.accessoryFilter.getModel',compact('accessories'));
+
+
+    }
+
+    public function searcAccesory(Request $request)
+    {
+        // dd($request->all());
+        $accessories =  Accessory::where('model_id',$request->model_id)
+                                    ->where('category_id',$request->category_id)
+                                    ->get();
+                                    // dd($accessories);
+        return view('frontend.accessoryFilter.getCategory',compact('accessories'));
+    }
+
+    public function getCategory(Request $request)
+    {
+        // dd($request->all());
+        $accessories = Accessory::whereIn('category_id',explode(',',$request->getCategory))->get();
+        return view('frontend.accessoryFilter.getCategory',compact('accessories'));
+
+    }
+   public function getPriceFilter(Request $request)
+   {
+        // dd($request->all());
+             $start = $request->minPrice;
+             $end   = $request->maxPrice;
+
+             $accessories = Accessory::whereBetween('sell_price', [$start,$end])->get();
+            //  dd($accessories);
+            return view('frontend.accessoryFilter.getCategory',compact('accessories'));
+   }
 
     public function getSortList(Request $request)
     {

@@ -340,7 +340,11 @@ Route::get('accessory/single/{id}', [AccessoryController::class, 'singlePage'])-
 Route::post('accessory-add-cart', [AccessoryController::class, 'addToCart'])->name('accessory.add.cart');
 
 //////////////// Accessory Filter //////////////////////
-Route::get('getAccessoryFilter', [AccessoryController::class, 'getAccessoryFilter']);
+Route::get('getAccessoryFilter/{id}', [AccessoryController::class, 'getBrand']);
+Route::get('getAccessoryModel/{id}', [AccessoryController::class, 'getAccessoryModel']);
+Route::post('search-accessory', [AccessoryController::class, 'searcAccesory'])->name('search.accessory');
+Route::get('getcategory', [AccessoryController::class, 'getCategory'])->name('getcategory');
+Route::get('getPriceFilter', [AccessoryController::class, 'getPriceFilter'])->name('getPriceFilter');
 
 //////////////// Accessory Sorting  / ///////////////////////
 Route::get('getSortList', [AccessoryController::class, 'getSortList']);

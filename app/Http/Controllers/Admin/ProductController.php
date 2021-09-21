@@ -623,21 +623,31 @@ class ProductController extends Controller
    ///////////////////// Payments ////////////////////////////
     public function payment(Request $request)
     {
-
         // dd($request->all());
-        $userID = Auth::user()->id;
+        if(Auth::check())
+        {
+             $userID = Auth::user()->id;
+             $cartCollection = \Cart::session($userID)->getContent();
+             $data = $cartCollection->all();
+             $totals = \Cart::session($userID)->getTotal();
+             $total = \Cart::session($userID)->getTotal();
+        }
+        else
+        {
+            $cartCollection = \Cart::getContent();
+            $data = $cartCollection->all();
+            $totals = \Cart::getTotal();
+            $total = \Cart::getTotal();
+        }
 
-        $cartCollection = \Cart::session($userID)->getContent();
-
-        $data = $cartCollection->all();
-        //    dd($request->all());
-        // dd($cartCollection);
-        $totals = \Cart::session($userID)->getTotal();
         // dd($totals);
         if($request->payment == "cash")
         {
             $orderSale =new OrderSale;
-            $orderSale->user_id = $userID;
+            if(Auth::check())
+            {
+                $orderSale->user_id = $userID;
+            }
             $orderSale->grand_total =$totals;
             $orderSale->shipping_id = $request->address_id;
             $orderSale->save();
@@ -693,7 +703,7 @@ class ProductController extends Controller
                     $order->access_name     = $cart->associatedModel->name;
                     $order->quantity        = $cart->quantity;
                     $order->price           = $cart->price;
-                    $order->grand_price     = round($cart->quantity*$cart->price);
+                    $order->grand_price     = $cart->quantity*$cart->price;
                     $order->type            = "accessory";
                     $order->payment_method  = "Cash";
 
@@ -716,7 +726,7 @@ class ProductController extends Controller
              }
         //  dd($order);
 
-        $total = \Cart::session($userID)->getTotal();
+
             $details = [
                 'title' => 'Mail from PeekInternational.com',
                 'subject' => 'Dear Customer ,',
@@ -724,10 +734,10 @@ class ProductController extends Controller
                 'Total'  => $total
             ];
              $messgae = "Succesfully Transferred";
-             \Mail::to(Auth::user()->email)->send(new TechMail($details));
+             \Mail::to($request->email)->send(new TechMail($details));
             //  return response()->json($messgae);
-
-            $phone = "+".Auth::user()->phoneno;
+            \Cart::clear();
+            $phone = "+".$request->phoneno;
             //  dd($phone);
              $message =strip_tags(nl2br("Dear Customer, \n You have Successfully Pay  through Cash . \n Total Amount : $". $total));
 

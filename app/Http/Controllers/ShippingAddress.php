@@ -145,8 +145,12 @@ class ShippingAddress extends Controller
     {
         // dd($request);
         $address= New ShippingAddr;
-        $address->userId=  Auth::guard('web')->user()->id;
+        if(Auth::check())
+        {
+            $address->userId=  Auth::guard('web')->user()->id;
+        }
         $address->name= $request->name;
+        $address->email= $request->email;
         $address->mobileNo= $request->mobileNo;
         $address->shipaddress= $request->shipaddress;
         $address->street_address= $request->street_address;

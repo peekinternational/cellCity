@@ -43,12 +43,11 @@
                                             <div class="form-group row">
                                                 <label for="example-email-input" class="col-md-2 col-form-label">Category</label>
                                                 <div class="col-md-10">
-                                                    <select name="category"  class="form-control selectpic">
-                                                       <option>select anyone</option>
-                                                       <option value="charger" {{$accessory->category =='charger' ? 'selected' : ''}}>Charger</option>
-                                                       <option value="protector" {{$accessory->category == 'protector'  ? 'selected' : ''}} >Screen Protector</option>
-                                                       <option value="cables" {{$accessory->category == 'cables'  ? 'selected' : ''}} >Cable</option>
-                                                       <option value="battery" {{$accessory->category == 'battery'  ? 'selected' : ''}} >Battery</option>
+                                                    <select name="category_id"  class="form-control selectpic">
+                                                       <option>Select Category</option>
+                                                       @foreach (CityClass::accessCategory() as $category)
+                                                       <option value="{{ $category->id }}" {{$category->id ==$accessory->category_id ? 'selected' : ''}}>{{ $category->category }}</option>
+                                                       @endforeach
                                                    </select>
                                                 </div>
                                             </div>
@@ -59,21 +58,28 @@
                                                     <span class="text-danger">{{ $errors->first('name') }}</span>
                                                 </div>
                                             </div>
-
-                                            <div class="form-group row">
-                                                <label for="example-search-input" class="col-md-2 col-form-label">Sell Price</label>
-                                                <div class="col-md-10">
-                                                    <input class="form-control" type="number" placeholder="Enter Sell Price"  value="{{ $accessory->sell_price }}" name="sell_price" id="example-search-input">
-                                                    <span class="text-danger">{{ $errors->first('sell_price') }}</span>
-                                                </div>
-                                            </div>
                                             <div class="form-group row">
                                                 <label for="example-search-input" class="col-md-2 col-form-label"> Original Price</label>
                                                 <div class="col-md-10">
-                                                    <input class="form-control" type="number" placeholder="Enter orig_price"  value="{{ $accessory->orig_price }}" name="orig_price" id="example-search-input">
+                                                    <input class="form-control" type="number" placeholder="Enter orig_price" id="orig_price"  value="{{ $accessory->orig_price }}" name="orig_price" id="example-search-input">
                                                     <span class="text-danger">{{ $errors->first('orig_price') }}</span>
                                                 </div>
                                             </div>
+                                            <div class="form-group row">
+                                                <label for="example-search-input" class="col-md-2 col-form-label">Discount</label>
+                                                <div class="col-md-10">
+                                                    <input class="form-control" type="number" placeholder="Enter discount" id="discount" value="{{ $accessory->discount }}" name="discount" id="example-search-input">
+                                                    <span class="text-danger">{{ $errors->first('discount') }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="example-search-input" class="col-md-2 col-form-label">Sell Price</label>
+                                                <div class="col-md-10">
+                                                    <input class="form-control" type="number" placeholder="Enter Sell Price" id="sale_price" value="{{ $accessory->sell_price }}" name="sell_price" id="example-search-input">
+                                                    <span class="text-danger">{{ $errors->first('sell_price') }}</span>
+                                                </div>
+                                            </div>
+
                                             <div class="form-group row">
                                                 <label for="example-search-input" class="col-md-2 col-form-label"> Quantity</label>
                                                 <div class="col-md-10">
@@ -184,5 +190,20 @@ $('.selectpic').select2();
 
        });
     }
+
+    $(function() {
+    $("#discount").on("keyup", sum);
+	function sum() {
+	    var firstValue   = parseInt($("#discount").val());
+	    var secondValue  =  parseInt($("#orig_price").val());
+	//    alert(firstValue);
+            console.log(secondValue);
+
+            var percent = (secondValue / 100) * firstValue;
+            var dicount = secondValue - percent;
+           $("#sale_price").val(dicount);
+
+	}
+});
 </script>
 @endsection
