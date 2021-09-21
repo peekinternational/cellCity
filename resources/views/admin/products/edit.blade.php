@@ -8,7 +8,6 @@
          @slot('li_1')  @endslot
          @slot('li_2')@endslot
      @endcomponent
-
                         <div class="row">
                             <div class="col-12">
                                 @if(Session::has('message'))

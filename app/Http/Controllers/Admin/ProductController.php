@@ -217,7 +217,7 @@ class ProductController extends Controller
      */
     public function update(Request $request,$id)
     {
-        // dd($request);
+        dd($request);
         $product = Product::find($id);
          $product->category = $request->category;
          $product->type = $request->type;

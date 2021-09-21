@@ -550,16 +550,15 @@
 
       var x = conditionid.slice(13,14);
 
-
         var  maxField=3;
-		var childern =	$(e.target).closest('.add_condition').find('#'+storeindex).children().length;
+		// var childern =	$(e.target).closest('.add_condition').find('#'+storeindex).children().length;
         //   alert(storeindex);
 			if(y < maxField ){
                 // alert(childern);
-				var fieldHTML = ' <div class="remove_condition"><div class="row" id="add_condition'+storeindex+'"><div class="input-group">'+
+				var fieldHTML = ' <div class="remove_condition"><div class="row" id="add_condition'+x+'"><div class="input-group">'+
                                            ' <div class="col-md-3">'+
                                            ' <label for="example-text-input" class="col-form-label">Condition</label>'+
-                                           ' <select class="form-control"  name="condition['+storeindex+'][]" id="condition">'+
+                                           ' <select class="form-control"  name="condition['+x+'][]" id="condition">'+
                                                   '  <option selected>Select Any One</option>'+
                                                   '  <option value="fair">fair</option>'+
                                                   '  <option value="good">good</option>'+
@@ -568,15 +567,15 @@
                                        ' </div>'+
                                        ' <div class="col-md-3">'+
                                            ' <label for="example-text-input" class="col-form-label">Price</label>'+
-                                           ' <input class="form-control"  name="price['+storeindex+'][]" type="number" placeholder="Enter mobile Price"  @if(old('price')) value="{{ old('price') }}" @endif  id="example-text-input">'+
+                                           ' <input class="form-control"  name="price['+x+'][]" type="number" placeholder="Enter mobile Price"  @if(old('price')) value="{{ old('price') }}" @endif  id="example-text-input">'+
                                            ' <span class="text-danger">{{ $errors->first('price') }}</span>'+
                                        ' </div>    <div class="col-md-3">'+
                                            ' <label for="example-text-input" class="col-form-label">Quantity</label>'+
-                                           ' <input class="form-control"  name="quantity['+storeindex+'][]" type="number" placeholder="Enter mobile Quantity"  @if(old('quantity')) value="{{ old('quantity') }}" @endif  id="example-text-input">'+
+                                           ' <input class="form-control"  name="quantity['+x+'][]" type="number" placeholder="Enter mobile Quantity"  @if(old('quantity')) value="{{ old('quantity') }}" @endif  id="example-text-input">'+
                                           '  <span class="text-danger">{{ $errors->first('quantity') }}</span>'+
                                        ' </div>'+
                                         '<div  class="col-md-3" style="text-align:center"> '+
-                                           ' <a href="javascript:void(0)" class="btn btn-secondary removeCondition" style="margin-top: 36px;"><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Remove Condition#'+storeindex+'</a>'+
+                                           ' <a href="javascript:void(0)" class="btn btn-secondary removeCondition" style="margin-top: 36px;"><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Remove Condition#'+x+'</a>'+
                                        ' </div>'+
                                         '</div>'+
                                         '</div>'+
