@@ -160,7 +160,7 @@
                               <input type="hidden" name="colorId" id="colorId" value="{{ $color->id }}">
                            <input type="radio" name="color" class="hidden" id="color{{$color->id}}" >
                             <label class="color" for="color{{$color->id}}" onclick="getStorage({{$color->id}})">
-                              <span class="color-spe" style="background: #27282D;"></span>
+                              <span class="color-spe" ></span>
                               {{$color->color_name}}
                             </label>
                           </div>
@@ -179,18 +179,6 @@
                         <label>Storage</label>
                         <div class="d-grid" id="getstorage">
 
-                          {{-- <div class="select-color">
-                          <input type="radio" name="storage" class="hidden" id="storage1">
-                            <label class="color" for="storage1">
-                               256 GB
-                            </label>
-                          </div>
-                          <div class="select-color">
-                          <input type="radio" name="storage" class="hidden" id="storage2">
-                            <label class="color" for="storage2">
-                               512 GB
-                            </label>
-                          </div> --}}
                         </div>
                       </div>
                       <!-- Condition -->
@@ -209,7 +197,7 @@
                       </li>
                       <li class="price">
                         <svg data-name="Calque 1" xmlns="http://www.w3.org/2000/svg" width="463.04" height="535.78" viewBox="0 0 463.04 535.78" class="_2_hFKs4efXvyjTEZkKl7eo _1yWeSwv6BpCWk0OMzO3TPg"><g opacity=".26"><path d="M256.12 359.06a33.72 33.72 0 005.73-18.33l.5-34.61h-34.31l-1 28.91a17.28 17.28 0 01-2.75 8.63l-20.74 31.57h41.69zM195.34 271.51l-.07 5 .19-5.53c0 .18-.11.34-.12.53zM262.81 272.34a33.74 33.74 0 00-33.22-34.08h-.37a16.39 16.39 0 011 4.71l-1 29.37z"></path><path d="M429.29 481.46V96.6A20.64 20.64 0 00408.66 76h-.57c-7.92 6.17-13.34 15.37-13.34 26.2v366.31l-211.2-1.35 39-58.17h-39.1a16 16 0 01-1.83-.37l-57.17 87.05a38.68 38.68 0 01-5.45 6.36h289.66a20.63 20.63 0 0020.63-20.57z"></path></g><path d="M131.37 207.51h206.79a16.88 16.88 0 000-33.75H131.37a17.74 17.74 0 00-16.87 16.88 16.87 16.87 0 0016.87 16.87zM68.06 472.43a16.87 16.87 0 0016.88-16.87v-.26a16.75 16.75 0 00-16.87-16.74 16.94 16.94 0 000 33.88z"></path><path d="M408.66 42.25h-36.5A54.37 54.37 0 00319.29 0H184.63a54.4 54.4 0 00-54.34 54.31v9.59a54.44 54.44 0 0054.38 54.38h134.62a54.38 54.38 0 0052.89-42.29h36.5a20.64 20.64 0 0120.61 20.61v384.86a20.63 20.63 0 01-20.63 20.6H119a38.68 38.68 0 005.45-6.36l57.17-87.05a16 16 0 001.83.37h154.71a16.88 16.88 0 000-33.75H203.55l20.74-31.61a17.28 17.28 0 002.77-8.67l1-28.91h110.1a16.88 16.88 0 100-33.75h-109l1-29.37a16.39 16.39 0 00-1-4.71c-1-3.73-2.75-7.2-6-9.53a16.65 16.65 0 00-15.69-2.21l-87 31.57a16.83 16.83 0 00-8.18 6.38 40804.33 40804.33 0 00-37.71 55.58V119.7a16.88 16.88 0 10-33.75 0v246.9a16.06 16.06 0 00.56 2.79c-18 27.1-29 44.47-35 55.77a10.7 10.7 0 00-1.29 1.15l.43.46c-3 5.8-4.58 9.92-5.21 13.08h-.33l.13 1.45a9.41 9.41 0 00.33 4l.46 5.44a75.61 75.61 0 0041.13 60.64 71.78 71.78 0 0011.45 4.22c10.23 12.43 25.36 20.2 41.68 20.2h313.49a54.27 54.27 0 0053.63-46.52 53.49 53.49 0 00.79-7.82V96.6a54.43 54.43 0 00-54.42-54.35zm-68.79 21.66a20.64 20.64 0 01-20.58 20.63H184.63A20.66 20.66 0 01164 63.91v-9.6a20.63 20.63 0 0120.63-20.57h134.66a20.6 20.6 0 0120.6 20.57zm-305.33 384l-.49-5.93c12.29-19.64 66.81-100.46 103.13-154l58.44-21.19-.14 4.19-.19 5.53-1.82 52.55-66.46 101.24-30.72 46.81a16.62 16.62 0 01-1.72 1.55 17.75 17.75 0 01-2.2 1.61 34.49 34.49 0 01-24.46 4.38 16.29 16.29 0 00-2.46-.45 39.31 39.31 0 01-8.15-3 41.63 41.63 0 01-22.76-33.32z"></path></svg>
-                        <div class="item-price"> Warranty: 12 months</div>
+                        <div class="item-price"> Warranty: {{ $product->warranty }}</div>
                       </li>
                     </ul>
                     <!--Text-->
@@ -226,7 +214,7 @@
 
                     <!--Item Meta-->
                                         <ul class="item-meta">
-                                            <li>Categories: <a href="#">Headphone</a> , <a href="#">Mobile Accessories</a></li>
+                                            <li>Categories: <a href="#">{{ $product->OS }}</a> </li>
                                         </ul>
 
                                     </div>
@@ -243,21 +231,7 @@
                                                 <li><i class="fa fa-check-circle text-success"></i> Free standard shipping</li>
                                             </ul>
                                             </div>
-                                            <div class="warrenty-box">
-                                                <table>
-                                                     <thead>
-                                                         <tr>
 
-                                                             <th>Quantity</th>
-                                                             <th>Total Price</th>
-
-                                                         </tr>
-                                                     </thead>
-                                                     <tbody id="addToCart">
-
-                                                     </tbody>
-                                                </table>
-                                            </div>
                                             <div class="other-options clearfix">
                                             <a href="{{url('view-cart')}}" class="theme-btn btn-style-one add-to-cart btn-block">Buy </a>
                                             </div>
@@ -418,67 +392,63 @@
               <div class="product-title col-md-12">
                   <h4>Related Products</h4>
                 </div>
+                @forelse ($related as $relate )
 
-                <!--Shop Item-->
-                <div class="shop-item col-md-3 col-sm-6 col-xs-12">
-                  <div class="inner-box">
-                      <figure class="image-box">
-                          <a href="shop-single.html"><img src="{{asset('frontend-assets/images/resource/products/image-5.png')}}" alt="" /></a>
-                        </figure>
-                        <!--Lower Content-->
-                        <div class="lower-content">
-                          <h3><a href="shop-single.html">XBOX 1 and PS4</a></h3>
-                            <div class="price">$125.00</div>
-                            <a href="shop-single.html" class="cart-btn theme-btn btn-style-two">Add to cart</a>
-                        </div>
-                    </div>
-                </div>
+                @php
+                $color = App\Models\ProductColor::where('product_id',$relate->id)->first();
+                $storage = App\Models\ProductStorage::where('color_id',$color->id)->first();
+                $model = App\Models\Pmodel::where('id',$relate->model_id)->first();
+                $images = App\Models\ProductImage::where('product_id',$relate->id)->first();
+                // dd($images);
+                $condition = App\Models\ProductCondition::where('storage_id',$storage->id)->first();
+                @endphp
 
-                <!--Shop Item-->
-                <div class="shop-item col-md-3 col-sm-6 col-xs-12">
-                  <div class="inner-box">
-                      <figure class="image-box">
-                          <a href="shop-single.html"><img src="{{asset('frontend-assets/images/resource/products/image-6.png')}}" alt="" /></a>
-                            <div class="product-tag">Sale</div>
-                        </figure>
-                        <!--Lower Content-->
-                        <div class="lower-content">
-                          <h3><a href="shop-single.html">APPLE MOUSE</a></h3>
-                            <div class="price">$30.00</div>
-                            <a href="shop-single.html" class="cart-btn theme-btn btn-style-two">Add to cart</a>
-                        </div>
-                    </div>
-                </div>
 
-                <!--Shop Item-->
-                <div class="shop-item col-md-3 col-sm-6 col-xs-12">
-                  <div class="inner-box">
-                      <figure class="image-box">
-                          <a href="shop-single.html"><img src="{{asset('frontend-assets/images/resource/products/image-7.png')}}" alt="" /></a>
-                        </figure>
-                        <!--Lower Content-->
-                        <div class="lower-content">
-                          <h3><a href="shop-single.html">SENHEISER WIRED HEADSET</a></h3>
-                            <div class="price">$12.00</div>
-                            <a href="shop-single.html" class="cart-btn theme-btn btn-style-two">Add to cart</a>
-                        </div>
-                    </div>
-                </div>
+            <div class="shop-item col-md-3 col-sm-6 col-xs-12">
+              <div class="inner-box">
+                  @if (Auth::user())
 
-                <!--Shop Item-->
-                <div class="shop-item col-md-3 col-sm-6 col-xs-12">
-                  <div class="inner-box">
-                      <figure class="image-box">
-                          <a href="shop-single.html"><img src="{{asset('frontend-assets/images/resource/products/image-8.png')}}" alt="" /></a>
-                        </figure>
-                        <!--Lower Content-->
-                        <div class="lower-content">
-                          <h3><a href="shop-single.html">HP NOTEBOOK</a></h3>
-                            <div class="price">$542.00</div>
-                            <a href="shop-single.html" class="cart-btn theme-btn btn-style-two">Add to cart</a>
+                     @if (CityClass::checkWishlist($relate->id) == "1")
+                     <a href="#" onclick="undoWishlist({{$relate->id}})"><i class="fa fa-heart" style="font-size: 30px;color:#ff0707"></i></a>
+                     @else
+                     <a href="#" onclick="wishlist({{$relate->id}})"><i class="fa fa-heart" style="font-size: 30px;color:#adadad"></i></a>
+                     @endif
+                   @else
+                   <a href="#" onclick="wishlist({{$relate->id}})"><i class="fa fa-heart" style="font-size: 30px;color:#adadad"></i></a>
+                  @endif
+                  <figure class="image-box">
+
+                   <a href="{{ route('product.details',$relate->id) }}"><img src="{{asset('storage/images/products/'.$images->image ?? '' )}}" alt="" /></a>
+
+                </figure>
+                  <!--Lower Content-->
+                  <div class="lower-content">
+                    <h3><a href="">{{ $model->brand->brand_name ?? ''}}  {{ $model->model_name ?? ''}} </a></h3>
+                    <div> <span>{{ $storage->storage  ?? ''}} -{{$color->color_name ?? ''}} - {{ $relate->locked ?? '' }}</span> </div>
+                      <span>
+                      Warranty: {{ $relate->warranty ?? '' }}
+                      </span>
+                      <div class="brand-imgs">
+                          @foreach ($relate->service as $service)
+                          <div class="brand">
+                            <img src="{{asset('storage/service/'.$service->image)}}">
+                          </div>
+                          @endforeach
                         </div>
-                    </div>
+                      <div>Starting from</div>
+                      <div class="price">
+                      <strong>${{ $condition->price ?? '' }}.00</strong> <del>${{ $relate->original_price ?? ''}}</del></div>
+                      <!-- <a href="" class="cart-btn theme-btn btn-style-two">Add to cart</a> -->
+                  </div>
                 </div>
+            </div>
+
+
+                @empty
+
+                @endforelse
+                <!--Shop Item-->
+
 
             </div>
 

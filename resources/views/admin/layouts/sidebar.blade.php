@@ -115,9 +115,9 @@
                         <li><a href="{{url('admin/accessory/create')}}">Add Accessories</a></li>
                         <li><a href="{{url('admin/accessory')}}">Accessories List</a></li>
 
-                        {{-- <li><a href="{{url('admin/accessoryOrder')}}">Accessories Orders</a></li> --}}
-                        {{-- <li><a href="ecommerce-customers">Customers</a></li>
-                        <li><a href="ecommerce-cart">Cart</a></li>
+                        <li><a href="{{route('admin.category.create')}}">Add Category</a></li>
+                        <li><a href="{{route('admin.category.index')}}">Category List</a></li>
+                        {{-- <li><a href="ecommerce-cart">Cart</a></li>
                         <li><a href="ecommerce-checkout">Checkout</a></li>
                         <li><a href="ecommerce-shops">Shops</a></li> --}}
 

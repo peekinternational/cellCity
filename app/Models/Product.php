@@ -15,7 +15,7 @@ class Product extends Model implements ReviewRateable
     protected $fillable = ['locked','sim_card_format','memory','warranty'
                             ,'model_id','category','network',
                             'desc','screen_size','screen_type','OS','resolution','megapixel',
-                           'double_sim','release_year','service_id'
+                           'double_sim','release_year','service_id','type'
                         ];
 
 

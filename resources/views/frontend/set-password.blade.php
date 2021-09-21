@@ -22,22 +22,25 @@
             @endif
             <div class="login-signup-header">
 
-              <h2 class="text-center"><span class="dot"></span> Login</h2>
+              <h2 class="text-center"><span class="dot"></span>Send email</h2>
             </div>
            </div>
-           <form class="login-form" method="post" action="{{url('/signin')}}" id="login-form">
+           <form class="login-form" method="post" action="{{route('update.password',$user->id)}}" id="login-form">
             {{csrf_field()}}
             <div class="form-group">
-              <label>EMAIL</label>
-              <input type="email" class="form-control" placeholder="Enter your email" id="login-email" name="email" value="customer@gmail.com" required="">
-            </div>
-            <div class="form-group">
-              <label>PASSWORD</label>
-              <input type="password" class="form-control" placeholder="Enter your password" id="login-password" name="password" value="123456" required="">
-            </div>
-            <button type="submit" class="btn btn-primary bg-black">LOGIN</button>
+                <label>PASSWORD <span class="steric">*</span></label>
+                <input type="password" class="form-control" placeholder="Enter your password" id="password" name="password" value="" required="">
+                <span class="text-danger">{{ $errors->first('password') }}</span>
+              </div>
+              <div class="form-group">
+                <label>RE-TYPE PASSWORD <span class="steric">*</span></label>
+                <input type="password" class="form-control" placeholder="Re-type your password" id="confirm_password" onkeyup="check();" name="password_confirmation" value="" required="">
+                <div id="message"></div>
+              </div>
+
+            <button type="submit" class="btn btn-primary bg-black">Submit</button>
             <div class="d-flex justify-content-between">
-              <a class="forgot-password" href="{{url('forget-password')}}" style="color: #000;">Forgot password?</a>
+
               <p>Don't have account?<a href="{{url('signup')}}"> Signup</a></p>
             </div>
 

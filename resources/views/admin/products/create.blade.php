@@ -162,6 +162,17 @@
                             </div>
                         </div>
                         <div class="form-group row">
+                            <label for="example-text-input" class="col-md-2 col-form-label">Type</label>
+                            <div class="col-md-10">
+                                <select class="form-control selectpic"  name="type" id="type">
+                                    <option selected>Select Any One</option>
+                                    <option value="new">New</option>
+                                    <option value="old">Old</option>
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
                             <label for="example-text-input" class="col-md-2 col-form-label">OS</label>
                             <div class="col-md-10">
                                 <select class="form-control selectpic"  name="OS" id="OS">

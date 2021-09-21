@@ -17,7 +17,7 @@ class CreateAccessoriesTable extends Migration
             $table->id();
             $table->string('name');
             $table->integer('model_id');
-            $table->string('category');
+            $table->integer('category_id');
             $table->string('sell_price');
             $table->string('orig_price');
             $table->string('quantity');

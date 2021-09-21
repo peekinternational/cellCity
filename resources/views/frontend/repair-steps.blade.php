@@ -31,7 +31,7 @@
         order: 1;
       }
     }
-   
+
     </style>
 @endsection
 @section('content')
@@ -64,7 +64,7 @@
 
     <div class="row justify-content-center align-items-center" id="phone_model" style="display: none;">
     <div class="chance-box-wrapper">
-       
+
           <div class="d-flex">
           <a href=""><i class="fa fa-arrow-left" style="margin: 8px;"></i></a>
             <p class="medium-font selectPhone">Select your Phone device model</p>
@@ -72,7 +72,7 @@
         </div>
 
       <div class="col-md-12 text-center">
-        
+
         <form id="repair_form">
 
            </form>
@@ -87,15 +87,15 @@
     </form>
     <div class="row justify-content-center" id="repair_type" style="display: none;">
     <div class="chance-box-wrapper">
-      
+
       <div class="d-flex">
       <a onclick="backModel()"><i class="fa fa-arrow-left" style="margin: 8px;"></i></a>
        <p class="medium-font selectPhone">What can we fix for you?</p>
      </div>
-    
+
    </div>
       <div class="col-md-12 text-center">
-       
+
         <div class="question-comp-wrapper" >
          <div id="RepairTypes">
 
@@ -114,7 +114,7 @@
             <a onclick="backRepairType()"><i class="fa fa-arrow-left" style="margin: 8px;"></i></a>
             <p class="medium-font selectPhone" >What can we fix for you?</p>
           </div>
-         
+
         </div>
         <div class="select-time-wrapper" id="no-scorll-bar-time-select">
           <div>
@@ -238,7 +238,7 @@
           <a onclick="backTimeSlot()"><i class="fa fa-arrow-left" style="margin: 8px;"></i></a>
             <p class="medium-font">Where shall we send your technician?</p>
           </div>
-          
+
         </div>
         <div class="select-address-wrapper">
           <div class="select-address-content-wrapper">
@@ -330,7 +330,7 @@
         <div class="my-cart-content-wrapper" id="instructions">
             <div class="my-cart-device-section-wrapper">
                 <div class="form-group">
-                    <textarea name="instructions" class="form-control" form="repairType"  cols="30" placeholder="explain what exactly is the issue" rows="10" required></textarea>
+                    <textarea name="instructions" class="form-control" form="repairType"  cols="30" placeholder="explain what exactly is the issue" rows="10" ></textarea>
                 </div>
             </div>
         </div>

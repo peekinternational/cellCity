@@ -72,20 +72,7 @@
 
                                             {{-- <div class="item-price">${{ $condition->price }}.00</div> --}}
                                         </div>
-                                        <div class="product-brand">
-                      <span>Works with:</span>
-                      <div class="brand-images">
-                        <div class="brand">
-                          <img src="{{asset('frontend-assets/images/tmobile.svg')}}">
-                        </div>
-                        <div class="brand">
-                          <img src="{{asset('frontend-assets/images/att.svg')}}">
-                        </div>
-                        <div class="brand">
-                          <img src="{{asset('frontend-assets/images/verizon.svg')}}">
-                        </div>
-                      </div>
-                    </div>
+
 
                     <div class="features-list">
                       <div class="star-rating-s15-wrapper">
@@ -211,21 +198,7 @@
                                                 <li><i class="fa fa-check-circle text-success"></i> Free standard shipping</li>
                                             </ul>
                                             </div>
-                                            <div class="warrenty-box">
-                                                <table>
-                                                     <thead>
-                                                         <tr>
 
-                                                             <th>Quantity</th>
-                                                             <th>Total Price</th>
-
-                                                         </tr>
-                                                     </thead>
-                                                     <tbody id="addToCart">
-
-                                                     </tbody>
-                                                </table>
-                                            </div>
                                             <div class="other-options clearfix">
                                                 <a href="{{url('view-cart')}}" class="theme-btn btn-style-one add-to-cart btn-block">Buy </a>
                                             </div>

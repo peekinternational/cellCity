@@ -12,7 +12,7 @@ class Accessory extends Model implements ReviewRateable
 {
     use HasFactory,ReviewRateableTrait;
 
-    protected $fillable = ['model_id','name','category','sell_price','orig_price','description','quantity'];
+    protected $fillable = ['model_id','name','category_id','sell_price','orig_price','description','quantity'];
 
     public function models()
     {
@@ -23,8 +23,8 @@ class Accessory extends Model implements ReviewRateable
         return $this->hasMany(AccessoryImage::class,'accessory_id','id');
     }
 
-    public function accessoryOrder()
+    public function accessoryCategory()
     {
-         return $this->hasMany(AccessoryOrder::class,'accessory_id','id');
+         return $this->belongsTo(AccessoryCategory::class,'category_id','id');
     }
 }

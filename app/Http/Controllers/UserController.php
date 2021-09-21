@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\forgetPassword;
 use App\Mail\TechMail;
 use Carbon\Carbon;
 use App\Models\Tech;
 use App\Models\User;
 use App\Mail\VerifyMail;
+use App\Models\Alert;
 use App\Models\Order;
 use App\Models\RepairOrder;
 use App\Models\RepairOrderType;
@@ -75,7 +77,7 @@ class UserController extends Controller
             return redirect(RouteServiceProvider::HOME);
 
 
-                        }
+                }
             }
             else
             {
@@ -420,5 +422,67 @@ public function orderViewDetails($id)
     $accessoryOrder = Order::where('orderSales_id',$id)->where('type','accessory')->get();
    return view('frontend.order.view',compact('productOrder','accessoryOrder'));
 }
+
+public function forgetPassword(Request $request)
+{
+      $request->validate([
+          'email'=>'required|exists:users,email'
+      ]);
+
+      $user = User::where('email',$request->email)->first();
+
+      if($user === null)
+      {
+        return back()->with('message','User Email not found');
+      }
+      else
+      {
+          $token = mt_rand(100000,999999);
+        $details = [
+            'title' => 'Mail from PeekInternational.com',
+            'token' => $token,
+            'message' => 'Order Placed successfully, A technician will reach out to you as soon as possible. Thank you!!'
+        ];
+
+        $user->token_forget = $token;
+        $user->update();
+
+         \Mail::to($request->email)->send(new forgetPassword($details));
+
+         return back()->with('message','Please check your email for verification');
+      }
+
+
+}
+
+    public function setPassword($token)
+    {
+        $user = User::where('token_forget',$token)->first();
+
+        if($user === null)
+        {
+            return back();
+        }
+        else{
+            return view('frontend.set-password',compact('user'));
+        }
+    }
+
+    public function updatePassword(Request $request,$id)
+    {
+        $this->validate($request,[
+            'password' => 'required|min:5|max:50|confirmed'
+
+          ],[
+            'password.required' => 'Enter password',
+          ]);
+            // dd($id);
+            $user = User::find($id);
+            $user->password = Hash::make($request->password);
+            $user->update();
+            return redirect('/signin')->with('message', 'Changed Password Successfully');
+
+    }
+
 
 }

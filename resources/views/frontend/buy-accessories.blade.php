@@ -61,7 +61,7 @@
           <div class="a-cell xs-12 md-3" data-v-2b8789a2="">
             <div class="axop9d4ghf_ZiU7FQc-M8 baseselect-wrapper _2u25sfWmf6NUCbJ_StTs_r" data-v-2b8789a2=""><!---->
               <select id="simlock" onchange="sortList(this)" name="sort" class="_3Iq8JGYZpyTj97wvi5Wyu7 eUlOsp7XbB9G1L8SEMMpU baseselect-field">
-                {{-- <option></option> --}}
+                <option selected>Select Any Option....</option>
                 <option value="az">Alphabetical,A-Z</option>
                 <option value="za">Alphabetical,Z-A</option>
                 <option value="hl">Price,high to low</option>
@@ -71,7 +71,7 @@
 
               </select>
               <label data-test="baseselect-label" class="PSXfa64BhcchUXTYm8jxr _2Y-fYnDKPqxkYV__KtgvWD baseselect-label">
-                <span class="_1rmkAs0zRQWqTLR2midRVa baseselect-label-content">Best Selling</span>
+                {{-- <span class="_1rmkAs0zRQWqTLR2midRVa baseselect-label-content">Best Selling</span> --}}
               </label>
               <div class="_3CTJYWu3hsWyWna_ZcsF5I">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 443.9 476.5" data-test="baseselect-icon" class="-S5BM_soVHE3yxeKelL2Q _1-GUUYIHoGjHHKudYw6-sr"><path d="M220.2 355.7c-3.1 0-6.1-1.2-8.5-3.5L9.1 149.6c-4.7-4.7-4.7-12.3 0-17 4.7-4.7 12.3-4.7 17 0l194.1 194.1 197-197c4.7-4.7 12.3-4.7 17 0 4.7 4.7 4.7 12.3 0 17L228.7 352.2c-2.4 2.3-5.4 3.5-8.5 3.5z"></path></svg>
@@ -106,6 +106,7 @@
                   <div id="slider-container"></div>
                       <p>
                         <label for="amount">Price range:</label>
+                        <br>
                         <input type="text" id="amount" style="border: 0; color: #00bfa5; font-weight: bold;" />
                       </p>
 

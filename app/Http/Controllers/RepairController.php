@@ -79,7 +79,7 @@ class RepairController extends Controller
 public function saverepairType(Request $request){
 // dd(Auth::guard('web')->check());
 
-// dd($request->all());
+
 	if(Auth::guard('web')->user()){
 
 	}
@@ -98,6 +98,7 @@ public function saverepairType(Request $request){
 	        'phoneno.required' => 'Enter Mobile Number',
 	        'password.required' => 'Enter password',
 	      ]);
+
 		$user = new User;
         $user->name = $request->name;
         $user->email =  $request->email;
@@ -106,11 +107,11 @@ public function saverepairType(Request $request){
         $user->role = 'user';
         $user->password = Hash::make($request->password);
         $user->save();
+        // dd($request->all());
 	}
 
      $userId=0;
      if(Auth::guard('web')->check()){
-
      	$userId= Auth::guard('web')->user()->id;
      }else{
         $userId=$user->id;

@@ -19,7 +19,7 @@ class CreateProductsTable extends Migration
             $table->string('memory');
             $table->enum('locked', ['Locked', 'Unlocked'])->default('Unlocked');
             $table->string('warranty');
-            $table->string('category');
+            $table->string('type');
             $table->string('desc');
             $table->string('screen_size');
             $table->string('screen_type');

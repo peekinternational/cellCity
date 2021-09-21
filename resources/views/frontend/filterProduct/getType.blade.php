@@ -37,13 +37,16 @@ $condition = App\Models\ProductCondition::where('storage_id',$storage->id)->firs
         </div>
         @endforeach
         </div>
-      <div>Starting from</div>
+        <div>Condition: <strong>{{$condition->condition}}</strong></div>
+        <div>Type: <strong>{{$product->type}}</strong></div>
       <div class="price">
-      <strong>${{ $condition->price ?? '' }}.00</strong> <del>${{ $product->original_price ?? ''}}</del></div>
+      <strong>${{ $condition->price ?? '' }}.00</strong> <del>${{ $product->original_price ?? ''}}</del>
+    </div>
       <!-- <a href="" class="cart-btn theme-btn btn-style-two">Add to cart</a> -->
   </div>
 </div>
 </div>
+
 @empty
 <div class="text-center"><b>Oops! No Product In Stock</b></div>
 @endforelse

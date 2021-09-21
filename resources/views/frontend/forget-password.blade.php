@@ -22,22 +22,19 @@
             @endif
             <div class="login-signup-header">
 
-              <h2 class="text-center"><span class="dot"></span> Login</h2>
+              <h2 class="text-center"><span class="dot"></span>Send email</h2>
             </div>
            </div>
-           <form class="login-form" method="post" action="{{url('/signin')}}" id="login-form">
+           <form class="login-form" method="post" action="{{url('/check-password')}}" id="login-form">
             {{csrf_field()}}
             <div class="form-group">
               <label>EMAIL</label>
-              <input type="email" class="form-control" placeholder="Enter your email" id="login-email" name="email" value="customer@gmail.com" required="">
+              <input type="email" class="form-control" placeholder="Enter your email" id="login-email" name="email"  required="">
             </div>
-            <div class="form-group">
-              <label>PASSWORD</label>
-              <input type="password" class="form-control" placeholder="Enter your password" id="login-password" name="password" value="123456" required="">
-            </div>
-            <button type="submit" class="btn btn-primary bg-black">LOGIN</button>
+
+            <button type="submit" class="btn btn-primary bg-black">Submit</button>
             <div class="d-flex justify-content-between">
-              <a class="forgot-password" href="{{url('forget-password')}}" style="color: #000;">Forgot password?</a>
+
               <p>Don't have account?<a href="{{url('signup')}}"> Signup</a></p>
             </div>
 

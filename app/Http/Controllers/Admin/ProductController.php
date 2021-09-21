@@ -92,6 +92,7 @@ class ProductController extends Controller
         //  $product->insert($request->only($product->getFillable()));
 
          $product->category = $request->category;
+         $product->type = $request->type;
          $product->memory = $request->memory;
          $product->locked = $request->locked;
          $product->warranty = $request->warranty;
@@ -219,6 +220,7 @@ class ProductController extends Controller
         // dd($request);
         $product = Product::find($id);
          $product->category = $request->category;
+         $product->type = $request->type;
          $product->memory = $request->memory;
          $product->locked = $request->locked;
          $product->warranty = $request->warranty;
@@ -274,6 +276,7 @@ class ProductController extends Controller
             //  $product->insert($request->only($product->getFillable()));
 
             $product->category = $request->category;
+            $product->type = $request->type;
             $product->memory = $request->memory;
             $product->locked = $request->locked;
             $product->warranty = $request->warranty;
@@ -442,10 +445,15 @@ class ProductController extends Controller
        $storage = ProductStorage::where('color_id',$color->id)->first();
        $model = Pmodel::where('id',$product->model_id)->first();
        $images = ProductImage::where('color_id',$color->id)->get();
+       $image = ProductImage::where('color_id',$color->id)->first();
     //    dd($images);
+
+
+    $related = Product::where('memory',$product->memory)->limit(4)->get();
+    // dd($related);
        $condition = ProductCondition::where('storage_id',$storage->id)->first();
        return view('frontend.single',compact('product','color','model','condition','images','storage',
-       'colors'));
+       'colors','related','image'));
    }
 
    public function accessoryDetails($id)
@@ -960,24 +968,26 @@ class ProductController extends Controller
          if(isset($request->brand))
          {
             $models = Pmodel::whereIn('brand_Id',explode(',',$request->brand))->get();
-            // dd($model);
+            $modelName =  $models->pluck("id");
+            $modelID = $modelName->all();
+            // dd(implode(",",$modelID));
+            $productID = implode(",",$modelID);
 
-            $products = DB::table('products')
-                          ->join('pmodels','pmodels.id','=','products.model_id')
-                          ->join('brands','brands.id','=','pmodels.brand_Id')
-                          ->whereIn('brands.id',explode(',',$request->brand))
-                          ->select('products.*')
-                          ->get();
-
-
+            $products = Product::whereIn('model_id',explode(',',$productID))->get();
+            // dd($products);
+            // $products = DB::table('products')
+            //               ->join('pmodels','pmodels.id','=','products.model_id')
+            //               ->join('brands','brands.id','=','pmodels.brand_Id')
+            //               ->whereIn('brands.id',explode(',',$request->brand))
+            //               ->select('products.*')
+            //               ->get();
 
 
             $getbrands = view('frontend.filterProduct.getBrand',compact('products'))->render();
             $models = view('frontend.filterProduct.getModel',compact('models'))->render();
 
             return response()->json(['brands' => $getbrands, 'models' => $models]);
-                 //   return [];
-                // view('frontend.filterProduct.getBrand',compact('products','model'));
+
          }
 
          elseif(isset($request->model))
@@ -1031,6 +1041,33 @@ class ProductController extends Controller
                return view('frontend.filterProduct.getCondition',compact('products'));
 
          }
+         elseif(isset($request->gettype))
+         {
+            //  dd(explode(',',$request->getCondition));
+
+                if(isset($request->selectedModel))
+               {
+                $model=$request->selectedModel;
+                // $model=$request->model;
+                // $products = Product::whereIn('model_id',explode(',',$model))->get();
+                // // dd($products);
+
+                // $modelName =  $products->pluck("id");
+                // $modelID = $modelName->all();
+                // // dd(implode(",",$modelID));
+                // $producdID = implode(",",$modelID);
+
+                $products = Product::whereIn('model_id',explode(',',$model))
+                                    ->whereIn('type',explode(',',$request->gettype))->get();
+
+                  return view('frontend.filterProduct.getBrand',compact('products'));
+               }
+
+               $products = Product::whereIn('type',explode(',',$request->gettype))->get();
+
+               return view('frontend.filterProduct.getBrand',compact('products'));
+
+         }
          elseif(isset($request->getStorage))
          {
             if(isset($request->selectedModel))
@@ -1040,13 +1077,13 @@ class ProductController extends Controller
              $products = Product::whereIn('model_id',explode(',',$model))->get();
              $modelName =  $products->pluck("id");
              $modelID = $modelName->all();
-             $producdID = implode(",",$modelID);
+             $productID = implode(",",$modelID);
 
              $products = DB::table('product_storages')
                             ->join('product_colors','product_colors.id','=','product_storages.color_id')
                             ->join('products','products.id','=','product_colors.product_id')
                             ->join('product_conditions','product_conditions.storage_id','=','product_storages.id')
-                            ->whereIn('products.id',explode(',',$producdID))
+                            ->whereIn('products.id',explode(',',$productID))
                             ->whereIn('product_storages.storage',explode(',',$request->input('getStorage')))
                             ->select('*','products.id')
                             ->get();
