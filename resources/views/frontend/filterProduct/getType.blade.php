@@ -30,13 +30,24 @@ $condition = App\Models\ProductCondition::where('storage_id',$storage->id)->firs
       <span>
       Warranty: {{ $product->warranty }}
       </span>
-      <div class="brand-imgs">
+      {{-- <div class="brand-imgs">
         @foreach ($product->service as $service)
         <div class="brand">
           <img src="{{asset('storage/service/'.$service->image)}}">
         </div>
         @endforeach
-        </div>
+        </div> --}}
+        <div class="brand-imgs">
+            <div class="brand">
+              <img src="{{asset('frontend-assets/images/tmobile.svg')}}">
+            </div>
+            <div class="brand">
+              <img src="{{asset('frontend-assets/images/att.svg')}}">
+            </div>
+            <div class="brand">
+              <img src="{{asset('frontend-assets/images/verizon.svg')}}">
+            </div>
+          </div>
         <div>Condition: <strong>{{$condition->condition}}</strong></div>
         <div>Type: <strong>{{$product->type}}</strong></div>
       <div class="price">
