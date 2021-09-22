@@ -309,7 +309,7 @@ Route::get('/getAddress/{id}', [ShippingAddress::class, 'shipAddress']);
 Route::post('/checkAddress', [ShippingAddress::class, 'checkAddress'])->name('check.Address');
 
 //Payment
-Route::post('/product-payment', [ProductController::class, 'payment'])->name('product.payment');
+Route::get('/product-payment', [ProductController::class, 'payment'])->name('product.payment');
 Route::get('/paypal-success-product', [ProductController::class, "success"])->name('paypal.successProduct');
 Route::get('/paypal-cancel-product', [ProductController::class, 'cancel'])->name('paypal.cancelProduct');
 

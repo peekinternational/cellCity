@@ -861,7 +861,7 @@ class ProductController extends Controller
                 } catch (Exception $ex) {
                     die($ex);
                 }
-  }
+        }
 
 
 

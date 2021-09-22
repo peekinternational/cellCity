@@ -563,21 +563,23 @@ function myFunction() {
         var address_id = $("#address_id").val();
         var email = $("#email").val();
         var phoneno = $("#phoneno").val();
-        var payment = $("#payment").val();
+        // var payment = $("#payment").val();
         var payment = $("input[name='payment']:checked").val();
         var _token = $('input[name="_token"]').val();
 
         $.ajax({
-            type: "POST",
+            type: "get",
             url: "{{route('product.payment')}}",
+            crossDomain: true,
+          dataType: 'jsonp',
             data: {payment:payment,_token:_token,
                     address_id:address_id,
                     phoneno:phoneno,email:email
                     },
             success: function (response)
             {
-                // alert('Thanks ,You have Successfully done the checkout..');
-                // window.location = '{{ route('view.cart') }}';
+                alert('Thanks ,You have Successfully done the checkout..');
+                window.location = '{{ route('view.cart') }}';
             }
     });
 
