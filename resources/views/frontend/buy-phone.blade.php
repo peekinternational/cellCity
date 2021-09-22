@@ -30,12 +30,12 @@
           <div class="a-cell xs-12 md-9 _114juaGTKcgQcFQKoPzirv" data-v-2b8789a2="">
 
             @forelse (CityClass::phoneServices() as $phoneservice)
-            <label data-qa="0  AT&amp;T-checkbox-label" data-test="checkbox-AT&amp;T" class="_2dZyu6FGSL9sjsXTxboSwL _3FFHvPz39UA03ZA4Mv13pX" data-v-2b8789a2="">
+            <label data-qa="checkbox-label" data-test="checkbox" class="_2dZyu6FGSL9sjsXTxboSwL _3FFHvPz39UA03ZA4Mv13pX" data-v-2b8789a2="">
               <input data-test="input" name="service" type="checkbox" class="_2X8Raljpwo5umcD_HYzefT getPhoneService" value="{{$phoneservice->id}}" onclick="phoneService()">
               <span data-test="checkbox-span" class="_2Q2hhB3NvM2sAldZj6fGXU"></span>
               <span class="L5UAN0lD0YKf94yOvozYH">
                 <div class="_2QOueHT- HWdZT4KgOk8JhBI9OzX9g"><!---->
-                    <img src="{{asset('storage/service/'.$phoneservice->image)}}" alt="AT&amp;T" loading="lazy" class="wrAXteFB">
+                    <img src="{{asset('storage/service/'.$phoneservice->image)}}" alt="#" loading="lazy" class="wrAXteFB">
                 </div>
               </span>
             </label>
@@ -47,7 +47,7 @@
           <div class="a-cell xs-12 md-3" data-v-2b8789a2="">
             <div class="axop9d4ghf_ZiU7FQc-M8 baseselect-wrapper _2u25sfWmf6NUCbJ_StTs_r" data-v-2b8789a2=""><!---->
               <select id="simlock" data-formgroup-element="" onchange="getUnlocked(this)" data-test="simlock" name="simlock" class="_3Iq8JGYZpyTj97wvi5Wyu7 eUlOsp7XbB9G1L8SEMMpU baseselect-field">
-                <option value="">All</option>
+                <option value="">Select Locked or Unlocked</option>
                 <option value="Locked">Locked Only</option>
                 <option value="Unlocked">Unlocked only </option>
               </select>
@@ -91,8 +91,6 @@
                     <label for="amount">Price range:</label>
                     <input type="text" id="amount" style="border: 0; color: #00bfa5; font-weight: bold;" />
                     </p>
-
-
                     <div id="slider-range"></div>
 
 
@@ -102,7 +100,7 @@
             <li class="_2LiMhAnX4MDtEL5YEDIdLy">
               <h3 class="_2RGsPtNo">Brand</h3>
               <ul data-test="filters-facet" class="_26WV8o_nAH1VuLftdiS-6t">
-                <li class="_33pDOgQ80LhcEmJTGXNM3U">
+                {{-- <li class="_33pDOgQ80LhcEmJTGXNM3U">
                   <div>
                     <input id="brand-reset" type="checkbox" name="brand_name" data-test="facet-reset" class="_3wvnh-Qn">
                     <label for="brand-reset" class="_33K8eTZu">
@@ -119,7 +117,7 @@
                       </div> <!----> <!---->
                     </label>
                   </div>
-                </li>
+                </li> --}}
                 @foreach (CityClass::brands() as $brand)
 
                 <li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U">
@@ -142,18 +140,18 @@
                 </li>
                 @endforeach
 
-                <span class="_3JZtHpVH kdWBx8BsOXOeHlX8MCQf_">
+                {{-- <span class="_3JZtHpVH kdWBx8BsOXOeHlX8MCQf_">
                   <button data-test="facet-toggler" class="_3wCdvNLg s1Zi9DG5">See more</button>
-                </span>
+                </span> --}}
               </ul>
             </li>
               <li class="_2LiMhAnX4MDtEL5YEDIdLy"><h3 class="_2RGsPtNo">
                   Model
                 </h3>
                 <ul data-test="filters-facet" class="_26WV8o_nAH1VuLftdiS-6t" id="modelsss">
-                    <li class="_33pDOgQ80LhcEmJTGXNM3U"><div><input id="model-reset" type="checkbox" checked="checked" data-test="facet-reset" class="_3wvnh-Qn"> <label for="model-reset" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC">
+                    {{-- <li class="_33pDOgQ80LhcEmJTGXNM3U"><div><input id="model-reset" type="checkbox" checked="checked" data-test="facet-reset" class="_3wvnh-Qn"> <label for="model-reset" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC">
                     All
-                  </span></span></div> <!----> <!----></label></div></li>
+                  </span></span></div> <!----> <!----></label></div></li> --}}
 
                   @foreach (CityClass::allModels() as $models)
 
@@ -180,17 +178,19 @@
                     @endforeach
 
 
-                  <span class="_3JZtHpVH kdWBx8BsOXOeHlX8MCQf_">
+                  {{-- <span class="_3JZtHpVH kdWBx8BsOXOeHlX8MCQf_">
                       <button data-test="facet-toggler" class="_3wCdvNLg s1Zi9DG5">
                 {{-- {{ CityClass::allModels()->links('vendor.pagination.custom') }} --}}
-                see more
-              </button></span></ul></li>
+                {{-- see more
+              {{-- </button></span> --}}
+            </ul></li>
 
               <li class="_2LiMhAnX4MDtEL5YEDIdLy"><h3 class="_2RGsPtNo">
                   New & Old
-                </h3> <ul data-test="filters-facet" class="_26WV8o_nAH1VuLftdiS-6t"><li class="_33pDOgQ80LhcEmJTGXNM3U"><div><input id="backbox_grades_list-reset" type="checkbox" checked="checked" data-test="facet-reset" class="_3wvnh-Qn"> <label for="backbox_grades_list-reset" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentType" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC">
+                </h3> <ul data-test="filters-facet" class="_26WV8o_nAH1VuLftdiS-6t">
+                  {{-- <li class="_33pDOgQ80LhcEmJTGXNM3U"><div><input id="backbox_grades_list-reset" type="checkbox" checked="checked" data-test="facet-reset" class="_3wvnh-Qn"> <label for="backbox_grades_list-reset" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentType" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC">
                     All
-                  </span></span></div> <!----> <!----></label></div></li>
+                  </span></span></div> <!----> <!----></label></div></li> --}}
 
 
                   <li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U"><div>
@@ -209,9 +209,10 @@
 
               <li class="_2LiMhAnX4MDtEL5YEDIdLy"><h3 class="_2RGsPtNo">
                   Condition
-                </h3> <ul data-test="filters-facet" class="_26WV8o_nAH1VuLftdiS-6t"><li class="_33pDOgQ80LhcEmJTGXNM3U"><div><input id="backbox_grades_list-reset" type="checkbox" checked="checked" data-test="facet-reset" class="_3wvnh-Qn"> <label for="backbox_grades_list-reset" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC">
+                </h3> <ul data-test="filters-facet" class="_26WV8o_nAH1VuLftdiS-6t">
+                  {{-- <li class="_33pDOgQ80LhcEmJTGXNM3U"><div><input id="backbox_grades_list-reset" type="checkbox" checked="checked" data-test="facet-reset" class="_3wvnh-Qn"> <label for="backbox_grades_list-reset" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC">
                     All
-                  </span></span></div> <!----> <!----></label></div></li>
+                  </span></span></div> <!----> <!----></label></div></li> --}}
 
 
                   <li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U"><div>
@@ -236,9 +237,10 @@
 
                   <li class="_2LiMhAnX4MDtEL5YEDIdLy"><h3 class="_2RGsPtNo">
                   Phone Services Provider
-                </h3> <ul data-test="filters-facet" class="_26WV8o_nAH1VuLftdiS-6t"><li class="_33pDOgQ80LhcEmJTGXNM3U"><div><input id="compatible_carriers_facet-reset" type="checkbox" checked="checked" data-test="facet-reset" class="_3wvnh-Qn"> <label for="compatible_carriers_facet-reset" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC">
+                </h3> <ul data-test="filters-facet" class="_26WV8o_nAH1VuLftdiS-6t">
+                  {{-- <li class="_33pDOgQ80LhcEmJTGXNM3U"><div><input id="compatible_carriers_facet-reset" type="checkbox" checked="checked" data-test="facet-reset" class="_3wvnh-Qn"> <label for="compatible_carriers_facet-reset" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC">
                     All
-                  </span></span></div> <!----> <!----></label></div></li>
+                  </span></span></div> <!----> <!----></label></div></li> --}}
                   @forelse (CityClass::phoneServices() as $phoneservice)
                   <li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U"><div>
                       <input id="{{$phoneservice->id}}" name="service" type="checkbox" data-test="facet-{{$phoneservice->service_name}}" class="_3wvnh-Qn getPhoneService" value="{{$phoneservice->id}}" onclick="phoneService()">
@@ -250,15 +252,17 @@
                   @endforelse
 
 
-                <span class="_3JZtHpVH kdWBx8BsOXOeHlX8MCQf_"><button data-test="facet-toggler" class="_3wCdvNLg s1Zi9DG5">
+                {{-- <span class="_3JZtHpVH kdWBx8BsOXOeHlX8MCQf_"><button data-test="facet-toggler" class="_3wCdvNLg s1Zi9DG5">
                 See more
-              </button></span></ul></li>
+              </button></span> --}}
+            </ul></li>
 
               <li class="_2LiMhAnX4MDtEL5YEDIdLy"><h3 class="_2RGsPtNo">
                   Locked or Unlocked
-                </h3> <ul data-test="filters-facet" class="_26WV8o_nAH1VuLftdiS-6t"><li class="_33pDOgQ80LhcEmJTGXNM3U"><div><input id="sim_lock_state-reset" type="checkbox" checked="checked" data-test="facet-reset" class="_3wvnh-Qn"> <label for="sim_lock_state-reset" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC">
+                </h3> <ul data-test="filters-facet" class="_26WV8o_nAH1VuLftdiS-6t">
+                  {{-- <li class="_33pDOgQ80LhcEmJTGXNM3U"><div><input id="sim_lock_state-reset" type="checkbox" checked="checked" data-test="facet-reset" class="_3wvnh-Qn"> <label for="sim_lock_state-reset" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC">
                     All
-                  </span></span></div> <!----> <!----></label></div></li>
+                  </span></span></div> <!----> <!----></label></div></li> --}}
                    <li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U"><div>
                        <input id="sim_lock_state-Locked" type="checkbox" data-test="facet-Locked" class="_3wvnh-Qn getLocked" value="Locked" onclick="getLocked()">
                        <label for="sim_lock_state-Locked" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
@@ -269,11 +273,13 @@
                       <label for="sim_lock_state-Unlocked only" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
                     Unlocked only
                   </span> </span></div> <!----> <!----></label></div></li> <!----></ul></li>
+
                 <li class="_2LiMhAnX4MDtEL5YEDIdLy"><h3 class="_2RGsPtNo">
                   Storage (GB)
-                </h3> <ul data-test="filters-facet" class="_26WV8o_nAH1VuLftdiS-6t"><li class="_33pDOgQ80LhcEmJTGXNM3U"><div><input id="storage-reset" type="checkbox" checked="checked" data-test="facet-reset" class="_3wvnh-Qn"> <label for="storage-reset" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC">
+                </h3> <ul data-test="filters-facet" class="_26WV8o_nAH1VuLftdiS-6t">
+                  {{-- <li class="_33pDOgQ80LhcEmJTGXNM3U"><div><input id="storage-reset" type="checkbox" checked="checked" data-test="facet-reset" class="_3wvnh-Qn"> <label for="storage-reset" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC">
                     All
-                  </span></span></div> <!----> <!----></label></div></li>
+                  </span></span></div> <!----> <!----></label></div></li> --}}
                   <li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U"><div>
                       <input id="storage-2000 2 GB" type="checkbox" data-test="facet-1 GB" class="_3wvnh-Qn getStorage" value="2 GB" onclick="getStorage()">
                         <label for="storage-2000 2 GB" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
@@ -319,10 +325,11 @@
                        <label for="storage-256000 256 GB" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
                   256 GB
                 </span> </span></div> <!----> <!----></label></div></li>
-
+{{-- 
                    <span class="_3JZtHpVH kdWBx8BsOXOeHlX8MCQf_"><button data-test="facet-toggler" class="_3wCdvNLg s1Zi9DG5">
                 See more
-              </button></span></ul></li>
+              </button></span> --}}
+            </ul></li>
               </ul>
         </div>
         <div class="col-md-9">
@@ -791,7 +798,7 @@
             range: true,
             min: 0,
             max: 1000,
-            values: [5, 1000],
+            values: [0, 1000],
             slide: function(event, ui) {
                 $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
                 var mi = ui.values[ 0 ];
@@ -800,6 +807,7 @@
 
             }
         });
+        
       $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
       " - $" + $( "#slider-range" ).slider( "values", 1 ) );
 

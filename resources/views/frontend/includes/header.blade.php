@@ -57,6 +57,10 @@
                     </li>
 
                   @else
+                  <li>
+                    {{-- <span class="badge  bagde->success">{{$items->count()}}</span> --}}
+                    <a href="{{url('view-cart')}}"><i class="fa fa-cart-plus"></i> Cart</a>
+                 </li>
                    <li class="dropdown"><a href="#">Sign In</a>
                     <ul>
                       <li><a href="{{url('signin')}}">Login as a customer ?</a></li>
@@ -121,7 +125,7 @@
               <li><a href="{{url('buy-accessories')}}">Buy Accessories</a></li>
               <li><a href="{{url('pay-bills')}}">Pay Bills</a></li>
               <li><a href="{{url('contact-us')}}">Contact Us</a></li>
-              @if(Auth::guard('web')->check())
+                 @if(Auth::guard('web')->check())
                    <li><a href="{{url('profile')}}">My Profile</a> </li>
                    <li>
                     {{-- <span class="badge  bagde->success">{{$items->count()}}</span> --}}

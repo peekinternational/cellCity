@@ -291,8 +291,8 @@ class AccessoryController extends Controller
              $start = $request->minPrice;
              $end   = $request->maxPrice;
 
-             $accessories = Accessory::where('sell_price','>=',$start)
-                                        ->where('sell_price','<=',$end)
+             $accessories = Accessory::whereBetween('sell_price',[$start,$end])
+                                        // ->where('sell_price','<=',$end)
                                         ->get();
             //  dd($accessories);
              
