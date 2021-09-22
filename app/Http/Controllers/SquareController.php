@@ -151,9 +151,16 @@ class SquareController extends Controller
     {
 
         // dd($request->all());
-        $userID =Auth::user()->id;
-        $customers = User::where('id',$userID)->first();
+        if(Auth::check())
+        {
+
         $total = \Cart::session($userID)->getTotal();
+        }
+        else
+        {
+
+            $total = \Cart::getTotal();
+        }
 
         $api_client = new SquareClient([
             'accessToken' => "EAAAEJf3-zpFqQhy1G94pNEY0BjOugP6uJ2Xwf6sIpYDQ4rpvJEHn-4Elwv8ZNFy",
@@ -171,8 +178,8 @@ class SquareController extends Controller
 
             $body = new CreateCustomerRequest;
             $body->setIdempotencyKey(uniqid());
-            $body->setGivenName($customers->name);
-            $body->setEmailAddress($customers->email);
+            $body->setGivenName($request->name);
+            $body->setEmailAddress($request->email);
             $apiResponse = $customersApi->createCustomer($body);
             if ($apiResponse->isSuccess()) {
                 $createCustomerResponse = $apiResponse->getResult();
@@ -194,11 +201,14 @@ class SquareController extends Controller
             $response = $payments_api->createPayment($create_payment_request);
 
             $userID = Auth::user()->id;
-            $totals = \Cart::session($userID)->getTotal();
+            // $totals = \Cart::session($userID)->getTotal();
 
             $orderSale               = new OrderSale;
+            if(Auth::check())
+            {
             $orderSale->user_id      = $userID;
-            $orderSale->grand_total  = $totals;
+            }
+            $orderSale->grand_total  = $total;
             $orderSale->shipping_id  = $request->address_id;
             $orderSale->save();
 
@@ -211,7 +221,7 @@ class SquareController extends Controller
                     $model = Pmodel::where('id',$cart->associatedModel->model_id)->first();
                     $color = ProductColor::where('product_id',$cart->associatedModel->id)->first();
                     $storage = ProductStorage::where('color_id',$color->id)->first();
-                    $total = round($cart->quantity*$cart->price);
+                    $total = $cart->quantity*$cart->price;
                     // dd($cart->attributes->color);
                     $order = new Order;
                     $order->orderSales_id = $orderSale->id;
@@ -223,7 +233,7 @@ class SquareController extends Controller
                     $order->condition   = $cart->attributes->conditition;
                     $order->storage     = $cart->attributes->storage;
                     $order->quantity     = $cart->quantity;
-                    $order->price     = $cart->price;
+                    $order->price        = $cart->price;
                     $order->grand_price  =$total;
                     $order->payment_method = "Credit Card";
                     $order->status = 0;
@@ -244,18 +254,18 @@ class SquareController extends Controller
                 else{
                     // dd('asdsad');
                     $model = Pmodel::where('id',$cart->associatedModel->model_id)->first();
-                    $total = round($cart->quantity*$cart->price);
+                    $total = $cart->quantity*$cart->price;
                     // dd($cart->attributes->color);
                     $order                  = new Order;
                     $order->orderSales_id   = $orderSale->id;
                     $order->accessory_id    = $cart->associatedModel->id;
                     $order->brand_name      = $model->brand->brand_name;
                     $order->model_name      = $model->model_name;
-                    $order->access_category = $cart->associatedModel->category;
+                    $order->access_category = $cart->associatedModel->accessoryCategory->category;
                     $order->access_name     = $cart->associatedModel->name;
                     $order->quantity        = $cart->quantity;
                     $order->price           = $cart->price;
-                    $order->grand_price     = round($cart->quantity*$cart->price);
+                    $order->grand_price     = $cart->quantity*$cart->price;
                     $order->type            = "accessory";
                     $order->payment_method  = "Credit Card";
 
@@ -276,7 +286,7 @@ class SquareController extends Controller
 
 
              }
-        $total = \Cart::session($userID)->getTotal();
+        // $total = \Cart::session($userID)->getTotal();
             $details = [
                 'title' => 'Mail from PeekInternational.com',
                 'subject' => 'Dear Customer ,',
@@ -284,11 +294,11 @@ class SquareController extends Controller
                 'Total'  => $total
             ];
              $messgae = "Succesfully Transferred";
-             \Mail::to(Auth::user()->email)->send(new TechMail($details));
+             \Mail::to($request->email)->send(new TechMail($details));
             //  return response()->json($messgae);
 
 
-            $phone = "+".Auth::user()->phoneno;
+            $phone = "+".$request->phoneno;
             //  dd($phone);
              $message =strip_tags(nl2br("Dear Customer, \n You have Successfully Pay  through PayPal . \n Total Amount : $". $total));
 

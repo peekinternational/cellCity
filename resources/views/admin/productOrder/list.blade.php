@@ -86,7 +86,7 @@
                                                             // dd($order);
                                                         @endphp --}}
                                                         <td>{{$orderSale->id}}</td>
-                                                        <td>{{$orderSale->user->name}}</td>
+                                                        <td>{{$orderSale->user->name ?? ''}}</td>
                                                         <td>{{$orderSale->created_at->format('D-m-Y h:s')}}</td>
 
                                                         <td>{{$orderSale->shipAddress->shipaddress}}</td>

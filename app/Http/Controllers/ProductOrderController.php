@@ -22,6 +22,7 @@ class ProductOrderController extends Controller
 
         OrderSale::where('notification', '=', 0)
                         ->update(['notification' => 1]);
+
         return view('admin.productOrder.list', compact('productOrder'));
 
     }

@@ -146,7 +146,7 @@
                   <div class="col-lg-6">
                     <p class="single-form-row">
                       <label>First name <span class="required">*</span></label>
-                      <input type="text" class="form-control" name="first_name" value="{{ $address->name }}" required="">
+                      <input type="text" class="form-control" id="name" name="first_name" value="{{ $address->name }}" required="">
                     </p>
                   </div>
                   {{-- <div class="col-lg-6">
@@ -462,8 +462,9 @@
             console.log(result.token);
             var squaretoken = (result.token);
             var address_id = $('#address_id').val();
-            // var price = $('#price').val();
-            // alert($('#order_id').val());
+            var name = $('#name').val();
+            var email = $('#email').val();
+            var phoneno = $("#phoneno").val();
             var _token = $('input[name="_token"]').val();
 
              // alert(_token);
@@ -471,7 +472,9 @@
 
                     url: "{{ route('square.paymentProduct') }}",
                     type: 'post',
-                    data:{ address_id:address_id,squaretoken:squaretoken, _token: _token},
+                    data:{ address_id:address_id,squaretoken:squaretoken,
+                        name:name,email:email,phoneno:phoneno,
+                        _token: _token},
 
                     success: function(data) {
                         console.log(data);
@@ -573,8 +576,8 @@ function myFunction() {
                     },
             success: function (response)
             {
-                alert('Thanks ,You have Successfully done the checkout..');
-                window.location = '{{ route('view.cart') }}';
+                // alert('Thanks ,You have Successfully done the checkout..');
+                // window.location = '{{ route('view.cart') }}';
             }
     });
 

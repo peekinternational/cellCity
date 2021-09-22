@@ -221,11 +221,11 @@
                                onchange="recal({{ $item->id }})"id="change{{ $item->id }}" value="{{ $item->quantity }}"
                                MIN="1" />
                                </td>
-                               <td>{{$item->price}}</td>
+                               <td>${{$item->price}}</td>
                                @php
                                    $total = round($item->quantity*$item->price);
                                @endphp
-                               <td>{{$total}}</td>
+                               <td>${{$total}}</td>
 
                                <td>
                                    <div class="card-toolbar text-right">

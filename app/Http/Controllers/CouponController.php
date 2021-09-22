@@ -109,6 +109,8 @@ class CouponController extends Controller
         else
         {
         // dd($coupon);
+        if(Auth::check())
+        {
         $userId = Auth::user()->id;
         $condition = new \Darryldecode\Cart\CartCondition(array(
             'name' => $coupon->name,
@@ -120,9 +122,23 @@ class CouponController extends Controller
 
          $conditions=\Cart::session($userId)->condition($condition);
 
-        //  dd($conditions);
-        $total = \Cart::session($userId)->getTotal();
-        // dd($total);
+          $total = \Cart::session($userId)->getTotal();
+        }
+        else
+        {
+            $condition = new \Darryldecode\Cart\CartCondition(array(
+                'name' => $coupon->name,
+                'type' => $coupon->type,
+                'target' => 'total',
+                'value' => $coupon->value,
+
+            ));
+
+             $conditions=\Cart::condition($condition);
+
+              $total = \Cart::getTotal();
+        }
+            // dd($total);
         return response()->json($total);
         }
 
@@ -133,6 +149,8 @@ class CouponController extends Controller
 
     public function couponRemove()
     {
+        if(Auth::check())
+        {
         $userId = Auth::user()->id;
          $collection =\Cart::session($userId)->getConditions();
          foreach($collection as $item)
@@ -140,7 +158,19 @@ class CouponController extends Controller
             // dd($item->getName());
             $remove= \Cart::session($userId)->removeCartCondition($item->getName());
          }
-        //  dd($collection);
-         return response()->json($collection);
+
+
+        }
+        else
+        {
+            $collection =\Cart::getConditions();
+            foreach($collection as $item)
+            {
+               // dd($item->getName());
+               $remove= \Cart::removeCartCondition($item->getName());
+            }
+
+        }
+        return response()->json($collection);
     }
 }

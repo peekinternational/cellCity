@@ -550,7 +550,7 @@ class ProductController extends Controller
 ///Add To Cart
    public function addToCart(Request $request)
    {
-    //    dd($request->all());
+       dd($request->all());
 
        $product = Product::find($request->product);
        $condit = ProductCondition::find($request->condition);
@@ -577,21 +577,38 @@ class ProductController extends Controller
                         ),
         'associatedModel' => $product
 
-    ));
+        ));
+    }
+    else
+    {
+        $cart= \Cart::add(array(
+            'id' =>  $id,
+            'name' =>  $request->brand_name.' '.$request->model_name,
+            'price' => $request->getprice,
+            'quantity' => $request->quantity,
+            'attributes' => array(
+                            'storage' => $request->getStorages,
+                            'color' => $request->getcolor,
+                            'conditition' => $condit->condition
+
+                            ),
+            'associatedModel' => $product
+
+            ));
+    }
 
 
-     $items=\Cart::session($userID)->getContent();
-    // dd($items);
+
       return response()->json(['status'=>'Successfully item add into your cart!']);
-        }
-        else{
-            return response()->json(['login' => '']);
-        }
+
+
    }
 
    public function cartUpdate(Request $request)
    {
        // dd($request->all());
+       if(Auth::guard('web')->check())
+       {
        $userID = Auth::user()->id;
        if ($request->quantity == 0) {
            \Cart::remove($request->id);
@@ -605,13 +622,36 @@ class ProductController extends Controller
                ),
            )
        );
+    }
+    else
+    {
+
+        if ($request->quantity == 0) {
+            \Cart::remove($request->id);
+        }
+        \Cart::update(
+            $request->id,
+            array(
+                'quantity' => array(
+                    'relative' => false,
+                    'value' => $request->quantity
+                ),
+            )
+        );
+    }
        return response()->json();
    }
    public function remove(Request $request)
    {
     //    dd($request->id);
+    if(Auth::check())
+    {
        $userID = Auth::user()->id;
        \Cart::session($userID)->remove($request->id);
+    }
+    else{
+        \Cart::remove($request->id);
+    }
        return response()->json();
    }
    public function viewToCart()
@@ -699,7 +739,7 @@ class ProductController extends Controller
                     $order->accessory_id    = $cart->associatedModel->id;
                     $order->brand_name      = $model->brand->brand_name;
                     $order->model_name      = $model->model_name;
-                    $order->access_category = $cart->associatedModel->category;
+                    $order->access_category = $cart->associatedModel->accessoryCategory->category;
                     $order->access_name     = $cart->associatedModel->name;
                     $order->quantity        = $cart->quantity;
                     $order->price           = $cart->price;
@@ -736,7 +776,7 @@ class ProductController extends Controller
              $messgae = "Succesfully Transferred";
              \Mail::to($request->email)->send(new TechMail($details));
             //  return response()->json($messgae);
-            \Cart::clear();
+
             $phone = "+".$request->phoneno;
             //  dd($phone);
              $message =strip_tags(nl2br("Dear Customer, \n You have Successfully Pay  through Cash . \n Total Amount : $". $total));
@@ -754,60 +794,71 @@ class ProductController extends Controller
         }
     elseif($request->payment == "paypal")
     {
-
+        // dd($request->all());
+        if(Auth::check())
+        {
            $total = \Cart::session($userID)->getTotal();
-           $desc= $request->address_id;
 
+        }
+        else
+        {
+            $total = \Cart::getTotal();
+        }
+        $address = $request->address_id;
+        $email = $request->email;
+        $phone = $request->phoneno;
+        $desc = $address.','.$email.','.$phone;
+        // dd($desc);
         $apiContext = new ApiContext(
           new OAuthTokenCredential(
             'AY9mTzyew4I5bQDY82ZT23Hw6CVvRNN_gxGdFNFD1dBeP_JtMjM2ubFS8NkFqjnieO_nJ-g54ZZEiwB5',
             'EKdd3HTSiu1Rgptb7VZfEY2zON7xdsBpCRjdEVvl36u54DO7_AWmyChF-zpIo7l6LWwlETL4vUnCxN0n'
                )
-      );
-// dd($apiContext);
-      $payer = new Payer();
-      $payer->setPaymentMethod("paypal");
-      // dd($payer);
-      // Set redirect URLs
-      $redirectUrls = new RedirectUrls();
-      $redirectUrls->setReturnUrl(route('paypal.successProduct'))
-          ->setCancelUrl(route('paypal.cancelProduct'));
-      // dd($redirectUrls);
-      // Set payment amount
-      $amount = new Amount();
-      $amount->setCurrency("USD")
-          ->setTotal($total);
+                );
+            // dd($apiContext);
+                $payer = new Payer();
+                $payer->setPaymentMethod("paypal");
+                // dd($payer);
+                // Set redirect URLs
+                $redirectUrls = new RedirectUrls();
+                $redirectUrls->setReturnUrl(route('paypal.successProduct'))
+                    ->setCancelUrl(route('paypal.cancelProduct'));
+                // dd($redirectUrls);
+                // Set payment amount
+                $amount = new Amount();
+                $amount->setCurrency("USD")
+                    ->setTotal($total);
 
 
-      // Set transaction object
-      $transaction = new Transaction();
-      $transaction->setAmount($amount)
-          ->setDescription($desc);
-      //   dd($transaction);
-      // Create the full payment object
-      $payment = new Payment();
-      $payment->setIntent('sale')
-          ->setPayer($payer)
-          ->setRedirectUrls($redirectUrls)
-          ->setTransactions(array($transaction));
-      // dd($payment);
-      // Create payment with valid API context
-      try {
+                // Set transaction object
+                $transaction = new Transaction();
+                $transaction->setAmount($amount)
+                    ->setDescription($desc);
+                //   dd($transaction);
+                // Create the full payment object
+                $payment = new Payment();
+                $payment->setIntent('sale')
+                    ->setPayer($payer)
+                    ->setRedirectUrls($redirectUrls)
+                    ->setTransactions(array($transaction));
+                // dd($payment);
+                // Create payment with valid API context
+                try {
 
-          $payment->create($apiContext);
-          // dd($payment);
-          // Get PayPal redirect URL and redirect the customer
-          // $approvalUrl =
-          return redirect($payment->getApprovalLink());
-          // dd($approvalUrl);
-          // Redirect the customer to $approvalUrl
-      } catch (PayPalConnectionException $ex) {
-          echo $ex->getCode();
-          echo $ex->getData();
-          die($ex);
-      } catch (Exception $ex) {
-          die($ex);
-      }
+                    $payment->create($apiContext);
+                    // dd($payment);
+                    // Get PayPal redirect URL and redirect the customer
+                    // $approvalUrl =
+                    return redirect($payment->getApprovalLink());
+                    // dd($approvalUrl);
+                    // Redirect the customer to $approvalUrl
+                } catch (PayPalConnectionException $ex) {
+                    echo $ex->getCode();
+                    echo $ex->getData();
+                    die($ex);
+                } catch (Exception $ex) {
+                    die($ex);
+                }
   }
 
 
@@ -839,43 +890,60 @@ class ProductController extends Controller
     try {
         // Execute payment
         $result = $payment->execute($execution, $apiContext);
-        // dd($result->transactions[0]->amount->total);
-        $shipAdress_id = $result->transactions[0]->description;
-        $userID = Auth::user()->id;
-        $totals = \Cart::session($userID)->getTotal();
+        // dd($result->transactions);
+        $str = $result->transactions[0]->description;
+        $split = explode(',',$str);
+        $address_id =  $split[0];
+        $email       =  $split[1];
+        $phoneno =  $split[2];
 
-        $orderSale               = new OrderSale;
-        $orderSale->user_id      = $userID;
+        if(Auth::check())
+        {
+            $userID = Auth::user()->id;
+            $totals = \Cart::session($userID)->getTotal();
+            $cartCollection = \Cart::session($userID)->getContent();
+
+        }
+       else {
+
+            $totals = \Cart::getTotal();
+            $cartCollection = \Cart::getContent();
+
+        }
+
+        $orderSale       = new OrderSale;
+        if(Auth::check())
+        {
+            $orderSale->user_id  = $userID;
+        }
         $orderSale->grand_total  = $totals;
         $orderSale->shipping_id  = $shipAdress_id;
         $orderSale->save();
 
 
-        $cartCollection = \Cart::session($userID)->getContent();
+
         foreach ($cartCollection as $cart) {
 
             if ($cart->attributes->category != "accessory")
             {
-                $model = Pmodel::where('id',$cart->associatedModel->model_id)->first();
-                $color = ProductColor::where('product_id',$cart->associatedModel->id)->first();
+                $model   = Pmodel::where('id',$cart->associatedModel->model_id)->first();
+                $color   = ProductColor::where('product_id',$cart->associatedModel->id)->first();
                 $storage = ProductStorage::where('color_id',$color->id)->first();
-                $total = round($cart->quantity*$cart->price);
+                $total   = $cart->quantity*$cart->price;
                 // dd($cart->attributes->color);
-                $order = new Order;
-                $order->orderSales_id = $orderSale->id;
-                $order->product_id = $cart->associatedModel->id;
-
-                $order->brand_name = $model->brand->brand_name;
-                $order->model_name  = $model->model_name;
-                $order->color       =  $cart->attributes->color;
-                $order->condition   = $cart->attributes->conditition;
-                $order->storage     = $cart->attributes->storage;
-                $order->quantity    = $cart->quantity;
-                $order->price       = $cart->price;
-                $order->grand_price  =$total;
+                $order                 = new Order;
+                $order->orderSales_id  = $orderSale->id;
+                $order->product_id     = $cart->associatedModel->id;
+                $order->brand_name     = $model->brand->brand_name;
+                $order->model_name     = $model->model_name;
+                $order->color          = $cart->attributes->color;
+                $order->condition      = $cart->attributes->conditition;
+                $order->storage        = $cart->attributes->storage;
+                $order->quantity       = $cart->quantity;
+                $order->price          = $cart->price;
+                $order->grand_price    = $total;
                 $order->payment_method = "PayPal";
-                $order->status = 0;
-
+                $order->status         = 0;
                 $order->save();
 
 
@@ -893,7 +961,7 @@ class ProductController extends Controller
                 // dd('asdsad');
 
                 $model = Pmodel::where('id',$cart->associatedModel->model_id)->first();
-                $total = round($cart->quantity*$cart->price);
+                $total = $cart->quantity*$cart->price;
 
                     //dd($cart->attributes->color);
                     $order                  = new Order;
@@ -901,15 +969,13 @@ class ProductController extends Controller
                     $order->accessory_id    = $cart->associatedModel->id;
                     $order->brand_name      = $model->brand->brand_name;
                     $order->model_name      = $model->model_name;
-                    $order->access_category = $cart->associatedModel->category;
+                    $order->access_category = $cart->associatedModel->accessoryCategory->category;
                     $order->access_name     = $cart->associatedModel->name;
                     $order->quantity        = $cart->quantity;
                     $order->price           = $cart->price;
                     $order->grand_price     = round($cart->quantity*$cart->price);
                     $order->type            = "accessory";
                     $order->payment_method  = "PayPal";
-
-
                     $order->save();
 
                     $accessory = Accessory::find($cart->associatedModel->id);
@@ -926,7 +992,14 @@ class ProductController extends Controller
 
 
          }
+       if(Auth::check())
+       {
         $total = \Cart::session($userID)->getTotal();
+       }
+       else
+       {
+        $total = \Cart::getTotal();
+       }
             $details = [
                 'title' => 'Mail from PeekInternational.com',
                 'subject' => 'Dear Customer ,',
@@ -934,11 +1007,11 @@ class ProductController extends Controller
                 'Total'  => $total
             ];
              $messgae = "Succesfully Transferred";
-             \Mail::to(Auth::user()->email)->send(new TechMail($details));
+             \Mail::to($email)->send(new TechMail($details));
             //  return response()->json($messgae);
 
 
-            $phone = "+".Auth::user()->phoneno;
+            $phone = "+".$phoneno;
             //  dd($phone);
              $message =strip_tags(nl2br("Dear Customer, \n You have Successfully Pay  through PayPal . \n Total Amount : $". $total));
 

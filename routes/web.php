@@ -175,7 +175,7 @@ Route::name('admin.')->namespace('Admin')->prefix('admin')->group(function () {
         //////////////////// Shipping Address ////////////////////////////
         Route::get('/shippingAddress/{id}', [ProductOrderController::class, 'productShipping']);
 
-        ///////////////////////////////////////////// Coupon /////////////
+
 
     });
 });

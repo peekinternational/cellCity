@@ -425,7 +425,7 @@ function getPrice(price,quantity,condition)
 
 function addToCart(id)
 {
-alert(id);
+// alert(id);
         // console.log($("#getcondit").val());
         // var storageId = $("#storageId").val();
         var brand_name = $("#brand_name").val();
