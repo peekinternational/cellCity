@@ -330,7 +330,7 @@ h1 { font-size: 1.5em; margin: 10px; }
                                         <tr>
                                             <td colspan="2">{{$index}}</td>
                                             <td colspan="2">{{$wishl->user->name}}</td>
-                                            <td colspan="2">{{$model->model_name}}</td>
+                                            <td colspan="2">{{$model->model_name ?? ''}}</td>
                                             <td>
                                                 @if (isset($wishl->product_id))
                                                 <span class="badge badge-pill badge-success" style="background-color: #f1b44c;">Phone</span>

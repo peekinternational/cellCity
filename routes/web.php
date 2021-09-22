@@ -229,18 +229,23 @@ Route::name('tech.')->namespace('Tech')->prefix('tech')->group(function () {
     Route::get('/message/{id}', [TechController::class, 'message']);
 });
 
-//paypal
-Route::get('customer/completeOrder/{id}', [UserController::class, 'completeOrder'])->name('complete.order');
-Route::post('customer/payment/{id}', [UserController::class, 'payment'])->name('payment.order');
-Route::get('paypal-success', [UserController::class, "success"])->name('paypal.success');
-Route::get('paypal-cancel', [UserController::class, 'cancel'])->name('paypal.cancel');
+
 
 //checkout
 
 Route::post('checkout/{id}', [CheckoutController::class, 'checkoutPayment'])->name('checkout.payment');
 Route::post('square', [SquareController::class, 'checkoutPayment'])->name('square.payment');
 
+//paypal
+Route::get('customer/completeOrder/{id}', [UserController::class, 'completeOrder'])->name('complete.order');
+Route::post('customer/payment/{id}', [UserController::class, 'payment'])->name('payment.order');
+Route::get('paypal-success', [UserController::class, "success"])->name('paypal.success');
+Route::get('paypal-cancel', [UserController::class, 'cancel'])->name('paypal.cancel');
 
+//Product Payment
+Route::match(['get', 'post'],'/product-payment', [ProductController::class, 'payment'])->name('product.payment');
+Route::get('/paypal-success-product', [ProductController::class, "success"])->name('paypal.successProduct');
+Route::get('/paypal-cancel-product', [ProductController::class, 'cancel'])->name('paypal.cancelProduct');
 
 /////////////////////////////////// CUSTOMER ////////////////////////////////
 
@@ -308,10 +313,7 @@ Route::post('/shippadd.create', [ShippingAddress::class, 'createAddress'])->name
 Route::get('/getAddress/{id}', [ShippingAddress::class, 'shipAddress']);
 Route::post('/checkAddress', [ShippingAddress::class, 'checkAddress'])->name('check.Address');
 
-//Payment
-Route::post('/product-payment', [ProductController::class, 'payment'])->name('product.payment');
-Route::get('/paypal-success-product', [ProductController::class, "success"])->name('paypal.successProduct');
-Route::get('/paypal-cancel-product', [ProductController::class, 'cancel'])->name('paypal.cancelProduct');
+
 
 //wishlist Ajax
 Route::get('/add-wishlist/{id}', [WishlistController::class, 'wishlist'])->name('create.wishlist');

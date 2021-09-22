@@ -261,12 +261,13 @@
             @php
                 if (Auth::check()) {
                     $userID = Auth::user()->id;
-                    $total = Cart::session($userID)->getTotal();
+                    $totals = Cart::session($userID)->getTotal();
                     $items=\Cart::session($userID)->getContent();
 
                 }
                 else {
-                    $collection=\Cart::getContent();
+                     $totals = Cart::getTotal();
+                    $items=\Cart::getContent();
 
                 }
 
@@ -296,27 +297,18 @@
                     </tr>
                   </thead>
                   <tbody>
-                      @if (Auth::Check())
+                
                         @foreach ($items as $item)
                         <tr class="cart_item cart-545678">
-                        <td class="t-product-name">{{  $item->name }} -({{$item->associatedModel->category ?? ''}}) -  <strong class="product-quantity">   ×  {{$item->quantity}}</strong></td>
-                        @php
-                        $total = $item->quantity*$item->price;
-                        @endphp
-                        <td class="t-product-price"><span>${{$total}}</span></td>
+                          <td class="t-product-name">{{  $item->name }} - ({{$item->associatedModel->category ?? ''}}) -  <strong class="product-quantity">   ×  {{$item->quantity}}</strong></td>
+                          @php
+                           $total = $item->quantity*$item->price;
+                          @endphp
+                          <td class="t-product-price"><span>${{$total}}</span></td>
                         </tr>
-                        @endforeach
-                        @else
-                            @foreach ($collection as $item)
-                                <tr class="cart_item cart-545678">
-                                <td class="t-product-name">{{  $item->name }} -({{$item->associatedModel->accessoryCategory->category ?? ''}}) -  <strong class="product-quantity">   ×  {{$item->quantity}}</strong></td>
-                                @php
-                                $total =$item->quantity*$item->price;
-                                @endphp
-                                <td class="t-product-price"><span>${{$total}}</span></td>
-                                </tr>
-                            @endforeach
-                      @endif
+                     
+                         @endforeach
+                   
 
                     </tbody>
                     <tfoot>
@@ -325,7 +317,7 @@
                         @endphp
                         <tr class="order-total">
                         <th>Total</th>
-                        <td id="totalss"><strong><span class="total-amount" id="total">$ {{$total}}</span></strong></td>
+                        <td id="totalss"><strong><span class="total-amount" id="total">$ {{ $totals }}</span></strong></td>
 
                         </tr>
                     </tfoot>
@@ -373,7 +365,7 @@
 
                     </div>
                     </div>
-                    @if (Auth::check())
+                   
                     @if ($items->count() > 0)
                     <button type="button"  class="btn btn-primary btn-style-one  btn-submit">Checkout</button>
                     @else
@@ -381,17 +373,7 @@
                         <a href="{{url('buy-phone')}}">Add To Cart</a>
                     </p>
                     @endif
-                    @else
-                    @if ($collection->count() > 0)
-                    <button type="button"  class="btn btn-primary btn-style-one  btn-submit">Checkout</button>
-                    @else
-                    <p>Your Cart is empty Please add one or more product or accessory into cart for checkout..
-                        <a href="{{url('buy-phone')}}">Add To Cart</a>
-                    </p>
-                    @endif
-                    @endif
-
-
+                 
                   </form>
 
                   </div>
@@ -563,21 +545,24 @@ function myFunction() {
         var address_id = $("#address_id").val();
         var email = $("#email").val();
         var phoneno = $("#phoneno").val();
-        var payment = $("#payment").val();
+        // var payment = $("#payment").val();
         var payment = $("input[name='payment']:checked").val();
         var _token = $('input[name="_token"]').val();
 
         $.ajax({
             type: "POST",
             url: "{{route('product.payment')}}",
+            headers: { 'Access-Control-Allow-Origin': '*' },
+            crossDomain: true,
+            dataType: 'jsonp',
             data: {payment:payment,_token:_token,
                     address_id:address_id,
                     phoneno:phoneno,email:email
                     },
             success: function (response)
             {
-                // alert('Thanks ,You have Successfully done the checkout..');
-                // window.location = '{{ route('view.cart') }}';
+                alert('Thanks ,You have Successfully done the checkout..');
+                window.location = '{{ route('view.cart') }}';
             }
     });
 
