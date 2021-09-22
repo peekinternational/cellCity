@@ -174,9 +174,6 @@ Route::name('admin.')->namespace('Admin')->prefix('admin')->group(function () {
         Route::get('/productOrder', [ProductOrderController::class, 'productOrder']);
         //////////////////// Shipping Address ////////////////////////////
         Route::get('/shippingAddress/{id}', [ProductOrderController::class, 'productShipping']);
-
-
-
     });
 });
 
@@ -426,5 +423,8 @@ Route::get('/checkout', function () {
 
 
 
-
+Route::get('tracking-Shipping',function()
+{
+    return view('frontend.tracking-number');
+});
 Route::get('tracked', [AdminController::class, 'Track'])->name('Track');

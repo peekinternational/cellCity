@@ -1,7 +1,7 @@
 <link type='text/css' rel='stylesheet' href='https://shippo-static.s3.amazonaws.com/css/branded-trackpage.css?v=2'>
 <style>
     /* ACCENT COLOR OVERRIDES */
-    .Timeline::before {
+    /* .Timeline::before {
         background-color: #B4B4B4;
     }
 
@@ -15,14 +15,14 @@
 
     .Timeline-item.is-current header {
         color: #B4B4B4;
-    }
+    } */
 
     /* Logo image style temporary override to fix mobile view overflow. */
     /* In case updated static css file is not collected. */
-    .Logo {
+    /* .Logo {
         max-height: 60px;
         max-width: 100%;
-    }
+    } */
 
 </style>
 
@@ -30,7 +30,7 @@
     <main class="TrackPanel">
         <section class="Eta TrackPanel-body TrackPanel-body--flush">
             <header class="Eta-heading">Estimated Arrival</header>
-            <div class='Eta-banner' style="background-color: #B4B4B4;">
+            <div class='Eta-banner' >
                 <h2>
                     <time datetime="2021-09-18T07:26:44.083580+00:00" data-dateformat="l, F jS, Y">
                         &nbsp;
@@ -92,49 +92,12 @@
                         </div>
                         @endforeach
 
-                            {{-- <div class="Timeline-item is-toggle is-hidden">
-                                <div class="Timeline-itemDate">
-                                    <time datetime="2021-09-13T03:16:44.103794+00:00" data-dateformat="l, M j"
-                                        data-title-dateformat="g:i a">
-                                        &nbsp;
-                                    </time>
-                                </div>
-                                <div class="Timeline-itemContent">
-                                    <header>The carrier has received the electronic shipment information.</header>
-                                    <p>San Francisco, CA</p>
-                                </div>
-                            </div>
-                            <div class="Timeline-item is-toggle is-hidden">
-                                <div class="Timeline-itemDate">
-                                    <time datetime="2021-09-14T05:21:44.103819+00:00" data-dateformat="l, M j"
-                                        data-title-dateformat="g:i a">
-                                        &nbsp;
-                                    </time>
-                                </div>
-                                <div class="Timeline-itemContent">
-                                    <header>Your shipment has departed from the origin.</header>
-                                    <p>San Francisco, CA</p>
-                                </div>
-                            </div>
-                            <div class="Timeline-item is-current">
-                                <div class="Timeline-itemDate">
-                                    <time datetime="2021-09-14T05:21:44.103819+00:00" data-dateformat="l, M j"
-                                        data-title-dateformat="g:i a">
-                                        &nbsp;
-                                    </time>
-                                </div>
-                                <div class="Timeline-itemContent">
-                                    <header>Transit</header>
-                                    <p>San Francisco, CA</p>
-                                </div>
-                            </div> --}}
+
                     </div>
                 </div>
                 <div style="padding-top: 20px;">
-                    <button type="button" class="btn btn-default btn-default--muted btn-rounded center-block"
-                        onclick="$('.is-toggle').toggle()">
-                        <span class="is-toggle">See Tracking Details</span>
-                        <span class="is-toggle is-hidden">Hide Tracking Details</span>
+                    <button type="button" class="btn btn-default btn-default--muted btn-rounded center-block">
+                        <a href="#">Complete Shipping</a>
                     </button>
                 </div>
             </section>

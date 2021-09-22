@@ -86,7 +86,12 @@
                                                             // dd($order);
                                                         @endphp --}}
                                                         <td>{{$orderSale->id}}</td>
+                                                        @if (isset($orderSale->user_id))
                                                         <td>{{$orderSale->user->name ?? ''}}</td>
+                                                        @else
+                                                        <td>{{$orderSale->shipAddress->name }}</td>
+                                                        @endif
+
                                                         <td>{{$orderSale->created_at->format('D-m-Y h:s')}}</td>
 
                                                         <td>{{$orderSale->shipAddress->shipaddress}}</td>
@@ -201,6 +206,8 @@
                 <div class="code">
                    <input type="text" id="code" name="code" class="form-control" placeholder="Enter Code Here">
                    <input type="hidden" name="id" id="id" >
+                   {{-- <input type="hidden" name="phoneno" id="id" >
+                   <input type="hidden" name="email" id="id" > --}}
                 </div>
                 <div class="text-center">
                    <button id="submit" class="btn btn-primary">Submit</button>

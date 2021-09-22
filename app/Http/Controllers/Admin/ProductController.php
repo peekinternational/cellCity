@@ -550,7 +550,7 @@ class ProductController extends Controller
 ///Add To Cart
    public function addToCart(Request $request)
    {
-       dd($request->all());
+    //    dd($request->all());
 
        $product = Product::find($request->product);
        $condit = ProductCondition::find($request->condition);

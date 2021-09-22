@@ -18,7 +18,7 @@ class ProductOrderController extends Controller
     public function productOrder()
     {
 
-        $productOrder = OrderSale::orderBy('created_at', 'desc')->get();
+        $productOrder = OrderSale::orderBy('created_at', 'asc')->get();
 
         OrderSale::where('notification', '=', 0)
                         ->update(['notification' => 1]);
@@ -47,13 +47,23 @@ class ProductOrderController extends Controller
         // dd($request->all());
         $productOrder = OrderSale::find($request->id);
         $user = User::where('id', $productOrder->user_id)->first();
+        $shippingAddress = ShippingAddr::where('id', $productOrder->shipping_id)->first();
         // dd($user->phoneno);
         $productOrder->status = 1;
         $productOrder->tracking_code = $request->code;
         $productOrder->update();
-        $phone = '+'.$user->phoneno;
-        $email =      $user->email;
-        $shippingCode = $request->code;
+        if(isset($user))
+        {
+            $phone = '+'.$user->phoneno;
+            $email =      $user->email;
+            $shippingCode = $request->code;
+        }
+        else
+        {
+            $phone          = '+'.$shippingAddress->mobileNo;
+            $email          =      $shippingAddress->email;
+            $shippingCode   =      $request->code;
+        }
 
         $details = [
             'title' => 'Mail from PeekInternational.com',

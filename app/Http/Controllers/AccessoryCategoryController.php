@@ -73,9 +73,11 @@ class AccessoryCategoryController extends Controller
      * @param  \App\Models\AccessoryCategory  $accessoryCategory
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, AccessoryCategory $accessoryCategory)
+    public function update(Request $request,$id)
     {
-        //
+        $category = AccessoryCategory::find($id);
+        $category->update($request->only($category->getFillable()));
+        return back()->with('message', Alert::_message('success', 'Accesssory Category Update Successfully.'));
     }
 
     /**
@@ -84,8 +86,9 @@ class AccessoryCategoryController extends Controller
      * @param  \App\Models\AccessoryCategory  $accessoryCategory
      * @return \Illuminate\Http\Response
      */
-    public function destroy(AccessoryCategory $accessoryCategory)
+    public function destroy($id)
     {
-        //
+         AccessoryCategory::find($id)->delete();
+        return back()->with('message', Alert::_message('danger', 'Accesssory Category Deleted Successfully.'));
     }
 }

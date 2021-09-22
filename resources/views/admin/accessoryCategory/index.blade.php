@@ -32,28 +32,27 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach($category as $index => $categ)
+                                                    @foreach($category as $categ)
                                                     <tr>
-                                                        <td>{{$index + 1}} </td>
+                                                        <td>{{ $categ->id }} </td>
 
 
                                                        <td>{{ $categ->category }}</td>
 
                                                         <td>
                                                             <ul class="list-inline font-size-20 contact-links mb-0">
+
                                                                 <li class="list-inline-item px-2">
-                                                                    <a href="#" onclick="viewAccessory('{{$categ->id}}')" class="mr-3 text-success" title="view order"><i class="fa fa-eye font-size-18"></i></a>
+                                                                    <a href="{{url('admin/category/'.$categ->id.'/edit') }}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="mdi mdi-account-edit-outline"></i></a>
                                                                 </li>
                                                                 <li class="list-inline-item px-2">
-                                                                    <a href="{{url('admin/accessory/'.$categ->id.'/edit') }}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="mdi mdi-account-edit-outline"></i></a>
-                                                                </li>
-                                                                <li class="list-inline-item px-2">
-                                                                   <form action="{{url('admin/product/'.$categ->id)}}" method="post">
+                                                                   <form action="{{url('admin/category/'.$categ->id)}}" method="post">
                                                                     {{csrf_field()}}
                                                                        @method('DELETE')
 
-                                                                       <label for="delZip" data-toggle="tooltip" data-placement="top" title="Delete" style="cursor: pointer;"><i class="mdi mdi-delete-circle-outline"></i></label>
-                                                                       <input id="delZip" type="submit" name="" style="display: none">
+                                                                       {{-- <label for="delZip" data-toggle="tooltip" data-placement="top" title="Delete" style="cursor: pointer;"></label>
+                                                                       <input id="delZip" type="submit" name="" style="display: none"> --}}
+                                                                       <button type="submit" style="border: none"><i class="mdi mdi-delete-circle-outline"></i></button>
                                                                    </form>
 
                                                                 </li>

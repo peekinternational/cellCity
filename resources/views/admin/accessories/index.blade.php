@@ -78,8 +78,7 @@
                                                                     {{csrf_field()}}
                                                                        @method('DELETE')
 
-                                                                       <label for="delZip" data-toggle="tooltip" data-placement="top" title="Delete" style="cursor: pointer;"><i class="mdi mdi-delete-circle-outline"></i></label>
-                                                                       <input id="delZip" type="submit" name="" style="display: none">
+                                                                       <button type="submit" style="border: none"><i class="mdi mdi-delete-circle-outline"></i></button>
                                                                    </form>
 
                                                                 </li>
