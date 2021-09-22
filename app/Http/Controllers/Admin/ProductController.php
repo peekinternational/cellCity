@@ -683,6 +683,7 @@ class ProductController extends Controller
         // dd($totals);
         if($request->payment == "cash")
         {
+
             $orderSale =new OrderSale;
             if(Auth::check())
             {
@@ -691,6 +692,7 @@ class ProductController extends Controller
             $orderSale->grand_total =$totals;
             $orderSale->shipping_id = $request->address_id;
             $orderSale->save();
+
 
             foreach ($data as $cart) {
 
