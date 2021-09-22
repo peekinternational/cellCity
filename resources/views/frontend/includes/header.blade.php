@@ -128,6 +128,9 @@
                     <a href="{{url('view-cart')}}"><i class="fa fa-cart-plus"></i>Cart</a> </li>
 
                   @else
+                  <li>
+                    {{-- <span class="badge  bagde->success">{{$items->count()}}</span> --}}
+                    <a href="{{url('view-cart')}}"><i class="fa fa-cart-plus"></i>Cart</a> </li>
                    <li class="dropdown"><a href="#">Sign In</a>
                     <ul>
                       <li><a href="{{url('signin')}}">Login as a customer ?</a></li>

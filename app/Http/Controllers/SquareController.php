@@ -153,15 +153,17 @@ class SquareController extends Controller
         // dd($request->all());
         if(Auth::check())
         {
-
-        $total = \Cart::session($userID)->getTotal();
+          $userID = Auth::user()->id;
+          $total = \Cart::session($userID)->getTotal();
+          $cartCollection = \Cart::session($userID)->getContent();
         }
         else
         {
 
             $total = \Cart::getTotal();
+            $cartCollection = \Cart::getContent();
         }
-
+        // dd($total);
         $api_client = new SquareClient([
             'accessToken' => "EAAAEJf3-zpFqQhy1G94pNEY0BjOugP6uJ2Xwf6sIpYDQ4rpvJEHn-4Elwv8ZNFy",
             'environment' => Environment::SANDBOX
@@ -200,7 +202,7 @@ class SquareController extends Controller
             try {
             $response = $payments_api->createPayment($create_payment_request);
 
-            $userID = Auth::user()->id;
+            // 
             // $totals = \Cart::session($userID)->getTotal();
 
             $orderSale               = new OrderSale;
@@ -213,7 +215,7 @@ class SquareController extends Controller
             $orderSale->save();
 
 
-            $cartCollection = \Cart::session($userID)->getContent();
+            
             foreach ($cartCollection as $cart) {
 
                 if ($cart->attributes->category != "accessory")

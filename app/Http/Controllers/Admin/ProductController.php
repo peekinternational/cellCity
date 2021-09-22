@@ -683,7 +683,6 @@ class ProductController extends Controller
         // dd($totals);
         if($request->payment == "cash")
         {
-
             $orderSale =new OrderSale;
             if(Auth::check())
             {
@@ -692,7 +691,6 @@ class ProductController extends Controller
             $orderSale->grand_total =$totals;
             $orderSale->shipping_id = $request->address_id;
             $orderSale->save();
-
 
             foreach ($data as $cart) {
 
@@ -809,14 +807,14 @@ class ProductController extends Controller
         $address = $request->address_id;
         $email = $request->email;
         $phone = $request->phoneno;
-        $desc = $address.','.$email.','.$phone;
+        $desc = $address.'-'.$email.'-'.$phone;
         // dd($desc);
         $apiContext = new ApiContext(
-          new OAuthTokenCredential(
-            'AY9mTzyew4I5bQDY82ZT23Hw6CVvRNN_gxGdFNFD1dBeP_JtMjM2ubFS8NkFqjnieO_nJ-g54ZZEiwB5',
-            'EKdd3HTSiu1Rgptb7VZfEY2zON7xdsBpCRjdEVvl36u54DO7_AWmyChF-zpIo7l6LWwlETL4vUnCxN0n'
-               )
-                );
+            new OAuthTokenCredential(
+                'AY9mTzyew4I5bQDY82ZT23Hw6CVvRNN_gxGdFNFD1dBeP_JtMjM2ubFS8NkFqjnieO_nJ-g54ZZEiwB5',
+              'EKdd3HTSiu1Rgptb7VZfEY2zON7xdsBpCRjdEVvl36u54DO7_AWmyChF-zpIo7l6LWwlETL4vUnCxN0n'
+                 )
+        );
             // dd($apiContext);
                 $payer = new Payer();
                 $payer->setPaymentMethod("paypal");
@@ -824,7 +822,7 @@ class ProductController extends Controller
                 // Set redirect URLs
                 $redirectUrls = new RedirectUrls();
                 $redirectUrls->setReturnUrl(route('paypal.successProduct'))
-                    ->setCancelUrl(route('paypal.cancelProduct'));
+                              ->setCancelUrl(route('paypal.cancelProduct'));
                 // dd($redirectUrls);
                 // Set payment amount
                 $amount = new Amount();
@@ -872,29 +870,29 @@ class ProductController extends Controller
     }
 
     public function success(Request $request)
-{
-    $apiContext = new ApiContext(
-        new OAuthTokenCredential(
-            'AY9mTzyew4I5bQDY82ZT23Hw6CVvRNN_gxGdFNFD1dBeP_JtMjM2ubFS8NkFqjnieO_nJ-g54ZZEiwB5',
-            'EKdd3HTSiu1Rgptb7VZfEY2zON7xdsBpCRjdEVvl36u54DO7_AWmyChF-zpIo7l6LWwlETL4vUnCxN0n'
-                    )
-    );
+    {
+            $apiContext = new ApiContext(
+                new OAuthTokenCredential(
+                    'AY9mTzyew4I5bQDY82ZT23Hw6CVvRNN_gxGdFNFD1dBeP_JtMjM2ubFS8NkFqjnieO_nJ-g54ZZEiwB5',
+                    'EKdd3HTSiu1Rgptb7VZfEY2zON7xdsBpCRjdEVvl36u54DO7_AWmyChF-zpIo7l6LWwlETL4vUnCxN0n'
+                            )
+            );
 
-    // Get payment object by passing paymentId
-    $paymentId = $_GET['paymentId'];
-    $payment = Payment::get($paymentId, $apiContext);
-    $payerId = $_GET['PayerID'];
+        // Get payment object by passing paymentId
+        $paymentId = $_GET['paymentId'];
+        $payment = Payment::get($paymentId, $apiContext);
+        $payerId = $_GET['PayerID'];
 
-    // Execute payment with payer ID
-    $execution = new PaymentExecution();
-    $execution->setPayerId($payerId);
+        // Execute payment with payer ID
+        $execution = new PaymentExecution();
+        $execution->setPayerId($payerId);
 
     try {
         // Execute payment
         $result = $payment->execute($execution, $apiContext);
         // dd($result->transactions);
         $str = $result->transactions[0]->description;
-        $split = explode(',',$str);
+        $split = explode('-',$str);
         $address_id =  $split[0];
         $email       =  $split[1];
         $phoneno =  $split[2];
@@ -919,7 +917,7 @@ class ProductController extends Controller
             $orderSale->user_id  = $userID;
         }
         $orderSale->grand_total  = $totals;
-        $orderSale->shipping_id  = $shipAdress_id;
+        $orderSale->shipping_id  = $address_id;
         $orderSale->save();
 
 

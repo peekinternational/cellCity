@@ -261,12 +261,13 @@
             @php
                 if (Auth::check()) {
                     $userID = Auth::user()->id;
-                    $total = Cart::session($userID)->getTotal();
+                    $totals = Cart::session($userID)->getTotal();
                     $items=\Cart::session($userID)->getContent();
 
                 }
                 else {
-                    $collection=\Cart::getContent();
+                     $totals = Cart::getTotal();
+                    $items=\Cart::getContent();
 
                 }
 
@@ -296,27 +297,18 @@
                     </tr>
                   </thead>
                   <tbody>
-                      @if (Auth::Check())
+
                         @foreach ($items as $item)
                         <tr class="cart_item cart-545678">
-                        <td class="t-product-name">{{  $item->name }} -({{$item->associatedModel->category ?? ''}}) -  <strong class="product-quantity">   ×  {{$item->quantity}}</strong></td>
-                        @php
-                        $total = $item->quantity*$item->price;
-                        @endphp
-                        <td class="t-product-price"><span>${{$total}}</span></td>
+                          <td class="t-product-name">{{  $item->name }} - ({{$item->associatedModel->category ?? ''}}) -  <strong class="product-quantity">   ×  {{$item->quantity}}</strong></td>
+                          @php
+                           $total = $item->quantity*$item->price;
+                          @endphp
+                          <td class="t-product-price"><span>${{$total}}</span></td>
                         </tr>
-                        @endforeach
-                        @else
-                            @foreach ($collection as $item)
-                                <tr class="cart_item cart-545678">
-                                <td class="t-product-name">{{  $item->name }} -({{$item->associatedModel->accessoryCategory->category ?? ''}}) -  <strong class="product-quantity">   ×  {{$item->quantity}}</strong></td>
-                                @php
-                                $total =$item->quantity*$item->price;
-                                @endphp
-                                <td class="t-product-price"><span>${{$total}}</span></td>
-                                </tr>
-                            @endforeach
-                      @endif
+
+                         @endforeach
+
 
                     </tbody>
                     <tfoot>
@@ -325,7 +317,7 @@
                         @endphp
                         <tr class="order-total">
                         <th>Total</th>
-                        <td id="totalss"><strong><span class="total-amount" id="total">$ {{$total}}</span></strong></td>
+                        <td id="totalss"><strong><span class="total-amount" id="total">$ {{ $totals }}</span></strong></td>
 
                         </tr>
                     </tfoot>
@@ -340,10 +332,12 @@
                         <p class="text-dark text-uppercase font-weight-bold"><strong>Payment Method</strong></p>
                       </div>
                     </div>
-                    <form action="#" method="post">
+                    <form action="{{ route('product.payment') }}" method="post">
                       {{csrf_field()}}
                     <div class="row">
                        <input type="hidden" name="address_id" id="address_id" value="{{$address->id}}">
+                       <input type="hidden" name="email"        id="email" value="{{$address->email}}">
+                       <input type="hidden" name="phoneno" id="phoneno" value="{{$address->mobileNo}}">
                       <div class="col-lg-12 pl-0 pr-0 pb-3">
                       <div class="form-group">
 
@@ -373,24 +367,14 @@
 
                     </div>
                     </div>
-                    @if (Auth::check())
-                    @if ($items->count() > 0)
-                    <button type="button"  class="btn btn-primary btn-style-one  btn-submit">Checkout</button>
-                    @else
-                    <p>Your Cart is empty Please add one or more product or accessory into cart for checkout..
-                        <a href="{{url('buy-phone')}}">Add To Cart</a>
-                    </p>
-                    @endif
-                    @else
-                    @if ($collection->count() > 0)
-                    <button type="button"  class="btn btn-primary btn-style-one  btn-submit">Checkout</button>
-                    @else
-                    <p>Your Cart is empty Please add one or more product or accessory into cart for checkout..
-                        <a href="{{url('buy-phone')}}">Add To Cart</a>
-                    </p>
-                    @endif
-                    @endif
 
+                    @if ($items->count() > 0)
+                    <button type="submit"  class="btn btn-primary btn-style-one ">Checkout</button>
+                    @else
+                    <p>Your Cart is empty Please add one or more product or accessory into cart for checkout..
+                        <a href="{{url('buy-phone')}}">Add To Cart</a>
+                    </p>
+                    @endif
 
                   </form>
 
