@@ -1,5 +1,11 @@
 @extends('frontend.layouts.master')
 <link rel="stylesheet" type="text/css" href="{{asset('frontend-assets/css/custom.css')}}">
+<style>
+  ._3Iq8JGYZpyTj97wvi5Wyu7
+  {
+    opacity: none;
+  }
+</style>
 @section('content')
 <!--Page Title-->
 <!-- <section class="page-title" style="background-image: url(frontend-assets/images/background/3.jpg);">
