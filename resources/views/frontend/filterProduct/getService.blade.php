@@ -1,4 +1,3 @@
-
 @forelse ($products as $product)
 @php
 $color = App\Models\ProductColor::where('product_id',$product->id)->first();
@@ -30,16 +29,21 @@ $condition = App\Models\ProductCondition::where('storage_id',$storage->id)->firs
       <span>
       Warranty: {{ $product->warranty }}
       </span>
-      <div class="brand-imgs">
-        @foreach ($product->service as $serv)
-        <div class="brand">
-          <img src="{{asset('storage/service/'.$serv->image ?? '')}}">
-        </div>
-        @endforeach
-        </div>
+      
+        <div class="brand-imgs">
+            <div class="brand">
+              <img src="{{asset('frontend-assets/images/tmobile.svg')}}">
+            </div>
+            <div class="brand">
+              <img src="{{asset('frontend-assets/images/att.svg')}}">
+            </div>
+            <div class="brand">
+              <img src="{{asset('frontend-assets/images/verizon.svg')}}">
+            </div>
+          </div>
       <div>Starting from</div>
       <div class="price">
-      <strong>${{ $condition->price ?? '' }}</strong> <del>${{ $product->original_price ?? ''}}</del></div>
+      <strong>${{ $condition->price ?? '' }}.00</strong> <del>${{ $product->original_price ?? ''}}</del></div>
       <!-- <a href="" class="cart-btn theme-btn btn-style-two">Add to cart</a> -->
   </div>
 </div>

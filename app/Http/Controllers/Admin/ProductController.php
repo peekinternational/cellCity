@@ -217,7 +217,7 @@ class ProductController extends Controller
      */
     public function update(Request $request,$id)
     {
-        dd($request);
+        // dd($request);
         $product = Product::find($id);
          $product->category = $request->category;
          $product->type = $request->type;
@@ -804,10 +804,10 @@ class ProductController extends Controller
         {
             $total = \Cart::getTotal();
         }
-        $address = $request->address_id;
-        $email = $request->email;
-        $phone = $request->phoneno;
-        $desc = $address.'-'.$email.'-'.$phone;
+        $desc = $request->address_id;
+        // $email = $request->email;
+        // $phone = $request->phoneno;
+        // $desc = $address.'-'.$email.'-'.$phone;
         // dd($desc);
         $apiContext = new ApiContext(
             new OAuthTokenCredential(
@@ -859,7 +859,7 @@ class ProductController extends Controller
                 } catch (Exception $ex) {
                     die($ex);
                 }
-        }
+  }
 
 
 
@@ -877,7 +877,7 @@ class ProductController extends Controller
                     'EKdd3HTSiu1Rgptb7VZfEY2zON7xdsBpCRjdEVvl36u54DO7_AWmyChF-zpIo7l6LWwlETL4vUnCxN0n'
                             )
             );
-
+            
         // Get payment object by passing paymentId
         $paymentId = $_GET['paymentId'];
         $payment = Payment::get($paymentId, $apiContext);
@@ -892,7 +892,7 @@ class ProductController extends Controller
         $result = $payment->execute($execution, $apiContext);
         // dd($result->transactions);
         $str = $result->transactions[0]->description;
-        $split = explode('-',$str);
+        $split = explode(',',$str);
         $address_id =  $split[0];
         $email       =  $split[1];
         $phoneno =  $split[2];
@@ -1271,12 +1271,11 @@ class ProductController extends Controller
                         ->select('*','products.id')
                         ->get();
             //   dd($products);
-            return view('frontend.filterProduct.getLocked',compact('products'));
+            return view('frontend.filterProduct.getService',compact('products'));
             }
             else
             {
-            //     $users = Product::with('roles') // Eager loading
-            //    ->get();
+            //    $products = Product::where
                 $products = DB::table('phone_serivce_products')
                 ->join('products','products.id','=','phone_serivce_products.product_id')
                 ->join('phone_services','phone_services.id','=','phone_serivce_products.phone_service_id')
@@ -1284,7 +1283,7 @@ class ProductController extends Controller
                 ->select('*','products.id')
                 ->get();
 
-                return view('frontend.filterProduct.getLocked',compact('products'));
+                return view('frontend.filterProduct.getService',compact('products'));
             }
          }
 

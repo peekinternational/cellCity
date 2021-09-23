@@ -297,7 +297,8 @@
             console.log(response);
         $('#filter').html(response);
 
-
+        $('#submit').html('Search');
+        $("#submit"). attr("disabled", false);
         document.getElementById("contactUsForm").reset();
         }
         });
