@@ -423,7 +423,7 @@ class ProductController extends Controller
 
     public function getPhones()
     {
-        $products = Product::where('category','phone')->paginate(4);
+        $products = Product::where('category','phone')->paginate(9);
         // $colors  = ProductColor::all();
         // if(Auth::check())
         // {
@@ -521,12 +521,15 @@ class ProductController extends Controller
 
       foreach($conditions as $condition)
       {
+        $discountPrice = $condition->orig_price - $condition->price;
+        $discount = round(($discountPrice / $condition->orig_price) * 100);
+
           if($condition->quantity > 0)
           {
-        $condit .=' <div class="select-color">
+            $condit .=' <div class="select-color">
 
                     <input type="radio" name="condition" class="hidden condition" id="'.$condition->condition.'">
-                    <label class="color" for="'.$condition->condition.'"  onclick="getPrice('.$condition->price.','.$condition->quantity.','.$condition->id.')">
+                    <label class="color" for="'.$condition->condition.'"  onclick="getPrice('.$condition->price.','.$condition->quantity.','.$condition->id.','.$condition->orig_price.','.$discount.')">
                     '.$condition->condition.' <br> $'.$condition->price.'
                     </label>
                     </div>';
@@ -572,6 +575,7 @@ class ProductController extends Controller
                         'userID' => $userID,
                         'storage' => $request->getStorages,
                         'color' => $request->getcolor,
+                        'category' => "phone",
                         'conditition' => $condit->condition
 
                         ),
@@ -588,6 +592,7 @@ class ProductController extends Controller
             'quantity' => $request->quantity,
             'attributes' => array(
                             'storage' => $request->getStorages,
+                            'category' => "phone",
                             'color' => $request->getcolor,
                             'conditition' => $condit->condition
 
@@ -694,8 +699,9 @@ class ProductController extends Controller
 
             foreach ($data as $cart) {
 
-                if ($cart->attributes->category != "accessory")
+                if ($cart->attributes->category == "phone")
                 {
+                    // dd($cart);
                     $model = Pmodel::where('id',$cart->associatedModel->model_id)->first();
                     $color = ProductColor::where('product_id',$cart->associatedModel->id)->first();
                     $storage = ProductStorage::where('color_id',$color->id)->first();
@@ -706,7 +712,7 @@ class ProductController extends Controller
                     $order->product_id     = $cart->associatedModel->id;
                     $order->brand_name     = $model->brand->brand_name;
                     $order->model_name     = $model->model_name;
-                    $order->color          =  $cart->attributes->color;
+                    $order->color          = $cart->attributes->color;
                     $order->condition      = $cart->attributes->conditition;
                     $order->storage        = $cart->attributes->storage;
                     $order->quantity       = $cart->quantity;
@@ -804,10 +810,10 @@ class ProductController extends Controller
         {
             $total = \Cart::getTotal();
         }
-        $desc = $request->address_id;
-        // $email = $request->email;
-        // $phone = $request->phoneno;
-        // $desc = $address.'-'.$email.'-'.$phone;
+        $address = $request->address_id;
+        $email = $request->email;
+        $phone = $request->phoneno;
+        $desc = $address.'-'.$email.'-'.$phone;
         // dd($desc);
         $apiContext = new ApiContext(
             new OAuthTokenCredential(
@@ -877,7 +883,7 @@ class ProductController extends Controller
                     'EKdd3HTSiu1Rgptb7VZfEY2zON7xdsBpCRjdEVvl36u54DO7_AWmyChF-zpIo7l6LWwlETL4vUnCxN0n'
                             )
             );
-            
+
         // Get payment object by passing paymentId
         $paymentId = $_GET['paymentId'];
         $payment = Payment::get($paymentId, $apiContext);
@@ -890,9 +896,9 @@ class ProductController extends Controller
     try {
         // Execute payment
         $result = $payment->execute($execution, $apiContext);
-        // dd($result->transactions);
+        // dd($result->transactions[0]->description);
         $str = $result->transactions[0]->description;
-        $split = explode(',',$str);
+        $split = explode('-',$str);
         $address_id =  $split[0];
         $email       =  $split[1];
         $phoneno =  $split[2];
@@ -920,11 +926,11 @@ class ProductController extends Controller
         $orderSale->shipping_id  = $address_id;
         $orderSale->save();
 
-
+    //    dd($cartCollection);
 
         foreach ($cartCollection as $cart) {
 
-            if ($cart->attributes->category != "accessory")
+            if ($cart->attributes->category == "phone")
             {
                 $model   = Pmodel::where('id',$cart->associatedModel->model_id)->first();
                 $color   = ProductColor::where('product_id',$cart->associatedModel->id)->first();
@@ -942,10 +948,10 @@ class ProductController extends Controller
                 $order->quantity       = $cart->quantity;
                 $order->price          = $cart->price;
                 $order->grand_price    = $total;
+                $order->type           = "phone";
                 $order->payment_method = "PayPal";
                 $order->status         = 0;
                 $order->save();
-
 
                 $condition = ProductCondition::where('storage_id',$storage->id)->first();
                 if($cart->quantity <= $condition->quantity)
@@ -976,6 +982,7 @@ class ProductController extends Controller
                     $order->grand_price     = round($cart->quantity*$cart->price);
                     $order->type            = "accessory";
                     $order->payment_method  = "PayPal";
+                    $order->status         = 0;
                     $order->save();
 
                     $accessory = Accessory::find($cart->associatedModel->id);
@@ -1097,8 +1104,6 @@ class ProductController extends Controller
                 $modelID = $modelName->all();
                 // dd(implode(",",$modelID));
                 $producdID = implode(",",$modelID);
-
-
                  $products = DB::table('product_conditions')
                             ->join('product_storages','product_storages.id','=','product_conditions.storage_id')
                             ->join('product_colors','product_colors.id','=','product_storages.color_id')

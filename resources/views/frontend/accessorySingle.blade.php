@@ -87,17 +87,23 @@
                             @elseif ($accessory->averageRating(1)[0] == 3)
                             <i class="fa fa-star    avg-star-1" aria-hidden="true"></i>
                             <i class="fa fa-star    avg-star-2" aria-hidden="true"></i>
-                            <i class="fa fa-star avg-star-3" aria-hidden="true"></i>
+                            <i class="fa fa-star    avg-star-3" aria-hidden="true"></i>
                             <i class="fa fa-star-o avg-star-4" aria-hidden="true"></i>
                             <i class="fa fa-star-o avg-star-5" aria-hidden="true"></i>
                             @elseif ($accessory->averageRating(1)[0] == 4)
                             <i class="fa fa-star avg-star-1" aria-hidden="true"></i>
                             <i class="fa fa-star avg-star-2" aria-hidden="true"></i>
                             <i class="fa fa-star avg-star-3" aria-hidden="true"></i>
-                            <i class="fa fa-star-o avg-star-4" aria-hidden="true"></i>
+                            <i class="fa fa-star avg-star-4" aria-hidden="true"></i>
                             <i class="fa fa-star-o avg-star-5" aria-hidden="true"></i>
+                            @elseif ($accessory->averageRating(1)[0] == 5)
+                            <i class="fa fa-star avg-star-1" aria-hidden="true"></i>
+                            <i class="fa fa-star avg-star-2" aria-hidden="true"></i>
+                            <i class="fa fa-star avg-star-3" aria-hidden="true"></i>
+                            <i class="fa fa-star avg-star-4" aria-hidden="true"></i>
+                            <i class="fa fa-star avg-star-5" aria-hidden="true"></i>
                             @else
-                            <i class="fa fa-star-o avg-star-1" aria-hidden="true"></i>
+                            <i class="fa fa-star-o  avg-star-1" aria-hidden="true"></i>
                             <i class="fa fa-star-o avg-star-2" aria-hidden="true"></i>
                             <i class="fa fa-star-o avg-star-3" aria-hidden="true"></i>
                             <i class="fa fa-star-o avg-star-4" aria-hidden="true"></i>
@@ -310,13 +316,13 @@
                     @endphp
                 <div class="shop-item col-md-3 col-sm-6 col-xs-12">
                     <div class="inner-box">
-                        <figure class="image-box">
-                            <a href="{{route('accessory.single',$relate->id)}}"><img src="{{asset('/storage/accessories/images/'.$imag->images)}}" alt="" /></a>
+                         <figure class="image-box">
+                            <a href="{{route('accessory.single',$relate->id)}}"><img src="{{asset('/storage/accessories/images/'.$imag->images)}}" alt="" height="200px"     /></a>
                           </figure>
                           <!--Lower Content-->
                           <div class="lower-content">
                             <h3><a href="{{route('accessory.single',$relate->id)}}">{{ $relate->name }}</a></h3>
-                              <div class="price">$ {{ $relate->sell_price }}</div>
+                              <div class="price">$ {{ $relate->sell_price }} <span><del> $ {{ $accessory->orig_price ?? '' }}</del></span> </div>
                               <button type="button" class="theme-btn btn-style-one add-to-cart" onclick="addToCart({{ $relate->id }})">Add To Cart </button>
 
                           </div>

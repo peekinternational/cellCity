@@ -75,7 +75,7 @@
                                             <div class="form-group row">
                                                 <label for="example-search-input" class="col-md-2 col-form-label">Sell Price</label>
                                                 <div class="col-md-10">
-                                                    <input class="form-control" type="number" placeholder="Enter Sell Price" id="sale_price" value="{{ $accessory->sell_price }}" name="sell_price" id="example-search-input">
+                                                    <input class="form-control sale_price" type="string" placeholder="Enter Sell Price" id="sale_price" value="{{ $accessory->sell_price }}" name="sell_price">
                                                     <span class="text-danger">{{ $errors->first('sell_price') }}</span>
                                                 </div>
                                             </div>
@@ -201,7 +201,7 @@ $('.selectpic').select2();
 
             var percent = (secondValue / 100) * firstValue;
             var dicount = secondValue - percent;
-           $("#sale_price").val(dicount);
+           $(".sale_price").val(dicount);
 
 	}
 });

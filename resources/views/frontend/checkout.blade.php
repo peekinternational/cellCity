@@ -300,7 +300,7 @@
 
                         @foreach ($items as $item)
                         <tr class="cart_item cart-545678">
-                          <td class="t-product-name">{{  $item->name }} - ({{$item->associatedModel->category ?? ''}}) -  <strong class="product-quantity">   ×  {{$item->quantity}}</strong></td>
+                          <td class="t-product-name">{{  $item->name }} - ({{$item->attributes->category ?? ''}}) -  <strong class="product-quantity">   ×  {{$item->quantity}}</strong></td>
                           @php
                            $total = $item->quantity*$item->price;
                           @endphp

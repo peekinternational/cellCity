@@ -168,6 +168,7 @@ Route::name('admin.')->namespace('Admin')->prefix('admin')->group(function () {
 
         //modify repair order
         Route::get('/modify-order/{id}', [AdminRepairController::class, 'modifyOrder'])->name('modify.order');
+        Route::get('/delete-order/{id}', [AdminRepairController::class, 'deleteOrder'])->name('modify.order');
         //Repair Order Update Route
         Route::post('/repairModel-update/{id}', [AdminRepairController::class, 'modifyOrderUpdate']);
         ////Product Order list

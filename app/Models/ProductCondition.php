@@ -9,7 +9,7 @@ class ProductCondition extends Model
 {
     use HasFactory;
     protected $fillable =[
-        'storage_id','condition','price','quantity'
+        'storage_id','condition','price','quantity','orig_price'
     ];
 
     public function storage()

@@ -295,7 +295,7 @@ class AccessoryController extends Controller
                                         // ->where('sell_price','<=',$end)
                                         ->get();
             //  dd($accessories);
-             
+
             return view('frontend.accessoryFilter.getCategory',compact('accessories'));
    }
 

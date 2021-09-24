@@ -43,7 +43,7 @@ $image = App\Models\ProductImage::where('color_id',$product->color_id)->first();
         </div>
       <div>Condition: <strong>{{$product->condition}}</strong></div>
       <div class="price">
-      <strong>${{ $product->price ?? '' }}.00</strong> <del>${{ $product->original_price ?? ''}}</del></div>
+      <strong>${{ $product->price ?? '' }}.00</strong> <del>${{ $product->orig_price ?? ''}}</del></div>
       <!-- <a href="" class="cart-btn theme-btn btn-style-two">Add to cart</a> -->
   </div>
 </div>

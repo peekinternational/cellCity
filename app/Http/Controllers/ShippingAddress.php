@@ -209,7 +209,7 @@ class ShippingAddress extends Controller
             }
             else
             {
-                dd('asdas');
+                // dd('asdas');
                 $orderID = $orderSale->id;
                 return view('frontend.track-message',compact('orderID','track','date'));
             }
@@ -223,12 +223,14 @@ class ShippingAddress extends Controller
 
     public function confirmTracking(Request $request)
     {
-        $track = $request->orderID;
+        // dd($request->all());
+        $track = $request->orderIDs;
         $order = OrderSale::find($track);
+        // dd($order);
         $order->status = 2;
         $order->update();
 
-        return response()->json();
+        return response()->json(['status'=> 'Complete Your Shipping Order . <br> Thanks For Choosing Us...']);
 
 
     }

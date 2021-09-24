@@ -196,7 +196,7 @@
                 <div class="services-block col-md-3 col-sm-4 col-xs-4">
                 	<div class="inner-box wow fadeIn" data-wow-delay="0ms" data-wow-duration="1500ms">
                     	<!--Icon Box-->
-                    	<a href="{{url('buy-phone')}}">
+                    	<a href="{{url('repair')}}">
                     		<div class="icon-box">
 	                      	<span class="icon flaticon-mobile"  style="color:#00bfa5"></span>
 	                      </div>
@@ -224,7 +224,7 @@
                 	<div class="inner-box wow fadeIn" data-wow-delay="600ms" data-wow-duration="1500ms">
                     	<!-- <div class="big-letter">C</div> -->
                     	<!--Icon Box-->
-                    	<a href="">
+                    	<a href="{{ url('pay-bills') }}">
                     			<div class="icon-box">
                     		    <span class="icon flaticon-technology-1" style="color:#00bfa5"></span>
                     		  </div>

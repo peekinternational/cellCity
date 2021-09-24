@@ -257,6 +257,8 @@ class AdminRepairController extends Controller
     }
 
 
+
+
     public function modifyOrderUpdate(Request $request, $id)
     {
         // dd($request->repair_type);
@@ -310,6 +312,12 @@ class AdminRepairController extends Controller
       return back()->with('message', Alert::_message('success', 'Repair Order Update Successfully.'));
     }
 
+    public function deleteOrder($id)
+    {
+            RepairOrder::find($id)->delete();
+            return back()->with('message', Alert::_message('danger', 'Repair Order Deleted Successfully.'));
+
+    }
     public function checkUpdateOrders()
     {
 

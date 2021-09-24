@@ -17,6 +17,7 @@ class CreateProductConditionsTable extends Migration
             $table->id();
             $table->enum('condition',['fair','good','excellent']);
             $table->string('price');
+            $table->string('orig_price');
             $table->integer('quantity');
             $table->integer('storage_id');
             $table->timestamps();

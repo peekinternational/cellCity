@@ -230,10 +230,10 @@ h1 { font-size: 1.5em; margin: 10px; }
                                                 // dd($order);
                                             @endphp --}}
                                             <td>{{$orderSale->id}}</td>
-                                            <td>{{$orderSale->user->name}}</td>
+                                            <td>{{$orderSale->user->name ?? ''}}</td>
 											<td>{{$orderSale->created_at->format('D-M-y h:s')}}</td>
 
-											<td>{{$orderSale->shipAddress->shipaddress}}</td>
+											<td>{{$orderSale->shipAddress->shipaddress ?? ''}}</td>
 											<td>
                                                 ${{$orderSale->grand_total}}
                                                </td>
@@ -702,17 +702,18 @@ h1 { font-size: 1.5em; margin: 10px; }
 
     function confirmOrder()
     {
-        var orderID =$("#orderID").val();
+        var orderIDs =$("#orderIDs").val();
         // alert(trackingNo);
         var _token = $('input[name="_token"]').val();
         $.ajax({
             type: "POST",
             url: "{{url('confirm-tracking')}}",
-            data: {orderID:orderID,_token:_token},
+            data: {orderIDs:orderIDs,_token:_token},
 
             success:function(response){
-                console.log(response);
-                alert('Complete Your Shipping Order . <br> Thanks For Choosing Us...')
+     console.log(response);
+                  alert(response);
+                //   $("#model").modal('show');
                 },
             });
     }

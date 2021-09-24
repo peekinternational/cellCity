@@ -31,15 +31,17 @@ $condition = App\Models\ProductCondition::where('storage_id',$storage->id)->firs
       Warranty: {{ $product->warranty }}
       </span>
       <div class="brand-imgs">
-        @foreach ($product->service as $service)
+        @forelse ($product->service as $service)
         <div class="brand">
           <img src="{{asset('storage/service/'.$service->image)}}">
         </div>
-        @endforeach
+        @empty
+        <div class="center">waiting...</div>
+        @endforelse
         </div>
       <div>Starting from</div>
       <div class="price">
-      <strong>${{ $condition->price ?? '' }}.00</strong> <del>${{ $product->original_price ?? ''}}</del>
+      <strong>${{ $condition->price ?? '' }}.00</strong> <del>${{ $condition->orig_price ?? ''}}</del>
     </div>
       <!-- <a href="" class="cart-btn theme-btn btn-style-two">Add to cart</a> -->
   </div>

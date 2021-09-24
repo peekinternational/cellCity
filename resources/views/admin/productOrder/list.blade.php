@@ -65,7 +65,7 @@
                                         </div>
 
                                         <div class="table-responsive">
-                                            <table id="example" class="table table-bordered table-hover">
+                                            <table id="example3" class="table table-bordered table-hover">
                                                 <thead>
                                                     <tr>
                                                         <th>ID</th>
@@ -231,7 +231,7 @@ $(document).ready(function() {
         "order": [[ 0, "desc" ]]
     });
 
-} );
+    });
     function viewDetail(id){
    $.ajax({
         url: "{{url('admin/shippingAddress')}}/"+id,

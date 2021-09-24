@@ -1,28 +1,6 @@
 <link type='text/css' rel='stylesheet' href='https://shippo-static.s3.amazonaws.com/css/branded-trackpage.css?v=2'>
 <style>
-    /* ACCENT COLOR OVERRIDES */
-    /* .Timeline::before {
-        background-color: #B4B4B4;
-    }
 
-    .Timeline-item::before {
-        border-color: #B4B4B4;
-    }
-
-    .Timeline-item.is-current::before {
-        background-color: #B4B4B4;
-    }
-
-    .Timeline-item.is-current header {
-        color: #B4B4B4;
-    } */
-
-    /* Logo image style temporary override to fix mobile view overflow. */
-    /* In case updated static css file is not collected. */
-    /* .Logo {
-        max-height: 60px;
-        max-width: 100%;
-    } */
 
 </style>
 
@@ -31,7 +9,7 @@
         <section class="Eta TrackPanel-body TrackPanel-body--flush">
             <header class="Eta-heading">Estimated Arrival</header>
             <div class='Eta-banner' >
-                <h2>
+                <h2 style="color: royalblue">
                     <time datetime="2021-09-18T07:26:44.083580+00:00" data-dateformat="l, F jS, Y">
                         &nbsp;
                         @php
@@ -41,7 +19,7 @@
                     </time>
                 </h2>
                 {{-- <p>{{$tracking->tracking_status->status_details}}</p> --}}
-                <p>Your order is in {{$tracking->tracking_status->status}}</p>
+                <p style="color: red">Your order is in {{$tracking->tracking_status->status}}</p>
             </div>
         </section>
         <div class="TrackPanel-body">
@@ -50,7 +28,7 @@
                 <ul class="list-unstyled">
                     @foreach ($order as $ord)
 
-                    @endforeach
+
                     <li class="LineItem">
                         {{ $ord->brand_name }}  {{ $ord->model_name }}
                         <span class="pull-right">x  {{ $ord->quantity }}</span>
@@ -59,6 +37,7 @@
                         Goose
                         <span class="pull-right">x 1</span>
                     </li> --}}
+                    @endforeach
                 </ul>
             </section>
             <section>
@@ -96,9 +75,11 @@
                     </div>
                 </div>
                 <div style="padding-top: 20px;">
-                    <button type="button" class="btn btn-default btn-default--muted btn-rounded center-block">
-                        <a href="#">Complete Shipping</a>
+                    <input type="hidden" id="orderIDs" name="orderIDs" value="{{ $orderID }}">
+                    <button type="button" class="btn btn-default btn-default--muted btn-rounded center-block" onclick="confirmOrder()">
+                        Complete Shipping
                     </button>
+
                 </div>
             </section>
         </div>

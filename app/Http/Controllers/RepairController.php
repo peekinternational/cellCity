@@ -19,6 +19,8 @@ use App\Models\RepairOrderType;
 use Illuminate\Support\Facades\Hash;
 use PayPal\Api\Order;
 use App\Mail\orderPlace;
+use App\Mail\VerifyMail;
+use App\Models\VerifyUser;
 use Twilio\Rest\Client;
 
 // use Hash;
@@ -107,7 +109,14 @@ public function saverepairType(Request $request){
         $user->role = 'user';
         $user->password = Hash::make($request->password);
         $user->save();
-        // dd($request->all());
+        // dd($user->id);
+
+            $verifyUser = new VerifyUser;
+            $verifyUser->userId = $user->id;
+            $verifyUser->token = sha1(time());
+            $verifyUser->save();
+
+          \Mail::to($user->email)->send(new VerifyMail($user));
 	}
 
      $userId=0;
@@ -147,6 +156,8 @@ public function saverepairType(Request $request){
 
    \Mail::to($request->email)->send(new orderPlace($details));
 
+
+
    $phone = '+'.$request->phone;
 
      $message =strip_tags(nl2br("Dear customer,\n Order Placed successfully, \n A technician will reach out to you as soon as possible.\n Thank you!!"));
@@ -158,7 +169,7 @@ public function saverepairType(Request $request){
        $client->messages->create($phone,
            ['from' => $twilio_number, 'body' => $message] );
 
-     return redirect('repairorder-completed');
+     return redirect('repairorder-completed')->with('message','Please check your email for verification');
 
   }
 
