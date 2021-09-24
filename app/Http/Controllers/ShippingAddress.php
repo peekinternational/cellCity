@@ -169,10 +169,10 @@ class ShippingAddress extends Controller
             // dd($request->all());
         $track = $request->trackingNo;
         //    dd($track);
-        $date = Carbon::now();
+        $date      = Carbon::now();
         $orderSale = OrderSale::where('tracking_code',$track)->first();
-        $order = Order::where('orderSales_id',$orderSale->id)->get();
-        //    dd($orderSale);
+        $order     = Order::where('orderSales_id',$orderSale->id)->get();
+
         if(isset($orderSale))
          {
             if($orderSale->status == 1)
@@ -181,7 +181,7 @@ class ShippingAddress extends Controller
 
                     $headers = array(
                         "Content-Type: application/json",
-                        "Authorization: ShippoToken shippo_test_90211b98e18d43ad569d43c9dec229b55af73642"   ,
+                        "Authorization: ShippoToken shippo_test_90211b98e18d43ad569d43c9dec229b55af73642",
 
                     );
 

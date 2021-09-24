@@ -111,7 +111,16 @@ class ProductController extends Controller
         $product->save();
 
 
+        $service = $request->phone_service;
+        // dd($service);
+        foreach($service as $serve)
+        {
+                $phoneService = new PhoneSerivceProduct;
+                $phoneService->phone_service_id = $serve;
+                $phoneService->product_id =  $product->id;
+                $phoneService->save();
 
+        }
 
         foreach($request->color_name as $key=> $colors)
         {
@@ -163,15 +172,7 @@ class ProductController extends Controller
         }
 
         }
-        $service = $request->phone_service;
-        foreach($service as $serve)
-        {
-                $phoneService = new PhoneSerivceProduct;
-                $phoneService->phone_service_id = $serve;
-                $phoneService->product_id =  $product->id;
-                $phoneService->save();
 
-        }
         //     DB::commit();
 
         // } catch (\Exception $e) {

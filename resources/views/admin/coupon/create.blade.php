@@ -47,7 +47,7 @@
                                             <div class="form-group row">
                                                 <label for="example-search-input" class="col-md-2 col-form-label"> value</label>
                                                 <div class="col-md-10">
-                                                    <input class="form-control" type="text" placeholder="Enter value" @if(old('value')) value="{{ old('value') }}" @endif name="value" id="example-search-input">
+                                                    <input class="form-control" type="text" placeholder="Enter Discount value like (-50%)" @if(old('value')) value="{{ old('value') }}" @endif name="value" id="example-search-input">
                                                     <span class="text-danger">{{ $errors->first('quantity') }}</span>
                                                 </div>
                                             </div>

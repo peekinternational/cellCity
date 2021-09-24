@@ -9,7 +9,7 @@
             <p>Shipping Address :  <i class="fa fa-map-marker"></i> {{ $shippingAddress->shipaddress }}</p>
             <p>City :  {{ $shippingAddress->city }} </p>
             <p> State :  {{ $shippingAddress->state }} </p>
-            <p>  Country : {{$shippingAddress->country}} </p>
+            <p> Country : {{$shippingAddress->country}} </p>
             <p> Zip Code : {{$shippingAddress->zipcode}}</p>
 
             {{-- <div class="action-btn text-center">
