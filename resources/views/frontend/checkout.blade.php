@@ -139,7 +139,7 @@
         <div class="col-lg-12 mb-30">
           <div class="row">
             <div class="col-lg-6 col-xl-6 col-sm-12">
-              <form action="" id="payment-form" method="post">
+              <form action="" id="" method="post">
 
                 <div class="row ml-1 shipping_address_slot">
                   <h3 class="shoping-checkboxt-title">Billing Information</h3>
@@ -404,7 +404,7 @@
                 {{-- <input type="hidden" name="total" id="price" value="{{$repairOrderType->sum('price')}}"> --}}
                 <div id="card-container"></div>
             </div>
-               <button type="button" class="btn btn-primary btn-style-one" data-dismiss="modal" style="margin-bottom: 5px;    margin-left: 5px">Close</button>
+               <button type="button" class="btn btn-primary btn-style-one" data-dismiss="modal" style="margin-bottom: 5px;margin-left: 5px">Close</button>
                 <button id="card-button" class="btn btn-primary btn-style-one" type="button" style="margin-bottom: 5px">Pay</button>
               </form>
         </div>
@@ -462,7 +462,7 @@
 
                     success: function(data) {
                         console.log(data);
-                        // window.location = '{{ route('view.cart') }}';
+                        window.location = '{{ route('view.cart') }}';
                         // $('#bustype').html(data);
                         //  $("#count").html(data.count);
 
