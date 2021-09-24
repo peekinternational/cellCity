@@ -22,7 +22,7 @@
                 <td>{{$order->condition}}  </td>
                 <td>{{$order->storage}}</td>
                 <td>{{$order->quantity}}</td>
-                <td>{{$order->payment_method}}</td>
+                <td><span class="badge badge-pill badge-success">{{$order->payment_method}}</span></td>
                 <td>{{$order->price}}</td>
                 <td>{{$order->grand_price}}</td>
 
@@ -56,9 +56,8 @@
                 <td>{{$order->brand_name}}  {{$order->model_name}} </td>
                 <td>{{$order->access_category}}</td>
                 <td>{{$order->access_name}}  </td>
-
                 <td>{{$order->quantity}}</td>
-                <td>{{$order->payment_method}}</td>
+                <td><span class="badge badge-pill badge-success">{{$order->payment_method}}</span></td>
                 <td>{{$order->price}}</td>
                 <td>{{$order->grand_price}}</td>
 
