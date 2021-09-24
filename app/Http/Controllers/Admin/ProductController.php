@@ -112,7 +112,6 @@ class ProductController extends Controller
 
 
         $service = $request->phone_service;
-        // dd($service);
         foreach($service as $serve)
         {
                 $phoneService = new PhoneSerivceProduct;
@@ -145,6 +144,7 @@ class ProductController extends Controller
                 $condition = new ProductCondition;
                 $condition->condition =$conditions;
                 $condition->price = $request->price[$key2][$key3];
+                $condition->orig_price = $request->orig_price[$key2][$key3];
                 $condition->quantity = $request->quantity[$key2][$key3];
                 $condition->storage_id = $storage->id;
                 $condition->save();

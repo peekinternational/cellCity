@@ -169,10 +169,10 @@ class ShippingAddress extends Controller
             // dd($request->all());
         $track = $request->trackingNo;
         //    dd($track);
-        $date      = Carbon::now();
+        $date = Carbon::now();
         $orderSale = OrderSale::where('tracking_code',$track)->first();
-        $order     = Order::where('orderSales_id',$orderSale->id)->get();
-
+        $order = Order::where('orderSales_id',$orderSale->id)->get();
+        //    dd($orderSale);
         if(isset($orderSale))
          {
             if($orderSale->status == 1)
