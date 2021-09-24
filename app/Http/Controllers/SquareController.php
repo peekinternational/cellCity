@@ -202,7 +202,7 @@ class SquareController extends Controller
             try {
             $response = $payments_api->createPayment($create_payment_request);
 
-            // 
+            //
             // $totals = \Cart::session($userID)->getTotal();
 
             $orderSale               = new OrderSale;
@@ -215,7 +215,7 @@ class SquareController extends Controller
             $orderSale->save();
 
 
-            
+
             foreach ($cartCollection as $cart) {
 
                 if ($cart->attributes->category != "accessory")
@@ -237,6 +237,7 @@ class SquareController extends Controller
                     $order->quantity     = $cart->quantity;
                     $order->price        = $cart->price;
                     $order->grand_price  =$total;
+                    $order->type            = "phone";
                     $order->payment_method = "Credit Card";
                     $order->status = 0;
 
@@ -292,7 +293,7 @@ class SquareController extends Controller
             $details = [
                 'title' => 'Mail from PeekInternational.com',
                 'subject' => 'Dear Customer ,',
-                'message' => 'Payment completed Successfully through PayPal',
+                'message' => 'Payment completed Successfully through Credit Card',
                 'Total'  => $total
             ];
              $messgae = "Succesfully Transferred";
@@ -302,7 +303,7 @@ class SquareController extends Controller
 
             $phone = "+".$request->phoneno;
             //  dd($phone);
-             $message =strip_tags(nl2br("Dear Customer, \n You have Successfully Pay  through PayPal . \n Total Amount : $". $total));
+             $message =strip_tags(nl2br("Dear Customer, \n You have Successfully Pay  through Credit Card . \n Total Amount : $". $total));
 
              $account_sid = "ACeb30af8343f53c1b366517b35ea44dc2";
              $auth_token = "ecc8e9d376d7ef8a19ed22778bb466f8";

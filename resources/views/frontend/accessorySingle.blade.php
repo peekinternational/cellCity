@@ -322,7 +322,7 @@
                           <!--Lower Content-->
                           <div class="lower-content">
                             <h3><a href="{{route('accessory.single',$relate->id)}}">{{ $relate->name }}</a></h3>
-                              <div class="price">$ {{ $relate->sell_price }} <span><del> $ {{ $accessory->orig_price ?? '' }}</del></span> </div>
+                              <div class="price">$ {{ $relate->sell_price }} <span><del> $ {{ $relate->orig_price ?? '' }}</del></span> </div>
                               <button type="button" class="theme-btn btn-style-one add-to-cart" onclick="addToCart({{ $relate->id }})">Add To Cart </button>
 
                           </div>

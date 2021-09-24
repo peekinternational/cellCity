@@ -300,9 +300,10 @@ h1 { font-size: 1.5em; margin: 10px; }
                                             <th colspan="2">Sr#</th>
                                             <th colspan="2">User</th>
                                             <th colspan="2">Product</th>
-                                            <th colspan="2">Time & Date</th>
+
 
                                             <th colspan="2">Status</th>
+                                            <th colspan="2">Time & Date</th>
                                             <th colspan="2">Action</th>
                                         </tr>
                                     </thead>
