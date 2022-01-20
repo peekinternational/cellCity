@@ -66,7 +66,8 @@
 
                                                         <th>Order ID</th>
                                                         <th>Order Created</th>
-                                                        <th>Billing Name</th>
+                                                        <th>Billing First Name</th>
+                                                        <th>Billing Last Name</th>
                                                         <th>Date & Time</th>
                                                         <th>Total</th>
                                                         {{-- <th>Pay Status</th>
@@ -82,9 +83,9 @@
                                                     <tr>
                                                         <td><a href="javascript: void(0);" class="text-body font-weight-bold">{{$order->id}}</a> </td>
                                                         <td>{{$order->created_at->format('Y-m-d')}}</td>
-                                                        <td>{{$order->name}}</td>
+                                                        <td>{{$order->first_name}}</td> <td> {{$order->last_name}}</td>
                                                         <td>
-                                                            {{$order->date}}, {{$order->time}}
+                                                            {{$order->date}}, {{ CityClass::orderTimeDetail($order->time_id)->fromTime}} - {{ CityClass::orderTimeDetail($order->time_id)->toTime}}
                                                         </td>
 
                                                         <td>
@@ -126,7 +127,7 @@
                                                             <option selected="">Select Technician</option>
 
                                                             @foreach(CityClass::allTech() as $tech)
-                                                                <option value="{{$tech->id}}">{{$tech->name}}</option>
+                                                                <option value="{{$tech->id}}">{{$tech->first_name}} {{$tech->last_name}}</option>
                                                             @endforeach
 
                                                         </select>
@@ -226,6 +227,10 @@ $(document).ready(function() {
         //   alert(response);
         //   $('#or'+id).empty();
         },
+        error:function(error){
+               $("#loader").hide();
+               alert(error.responseJSON.message);
+            }
 
        });
 

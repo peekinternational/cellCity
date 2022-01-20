@@ -31,6 +31,7 @@
 
 
                     <input type="hidden" name="product_id" id="product_id" value="{{ $product->id }}">
+                    <input type="hidden" name="type" id="types" value="{{ $product->type }}">
                     @php
                         $count = $colors->count();
                         //   dd($count);
@@ -172,8 +173,7 @@
                                                             <div class="row"
                                                                 id="add_condition{{ $key2 }}">
                                                                 <div class="input-group">
-                                                                    <div class="col-md-3">
-                                                                        <input type="hidden" name="condition_count"
+                                                                <input type="hidden" name="condition_count"
                                                                             value="{{ $condition->count() }}">
                                                                         <input type="hidden" name="colr_id"
                                                                             value="{{ $key0 }}">
@@ -183,6 +183,9 @@
                                                                         <input type="hidden"
                                                                             name="conditionID[{{ $key0 }}][{{ $key }}][{{ $key2 }}]"
                                                                             value="{{ $condit->id }}">
+                                                                      @if($product->type == 'old')      
+                                                                    <div class="col-md-3">
+                                                                       
                                                                         <label for="example-text-input"
                                                                             class="col-form-label">Condition</label>
                                                                         <select class="form-control"
@@ -202,6 +205,8 @@
                                                                         </select>
 
                                                                     </div>
+                                                                 
+                                                                    @endif
                                                                     <div class="col-md-2">
                                                                         <label for="example-text-input"
                                                                             class="col-form-label">Original Price</label>
@@ -241,8 +246,10 @@
                                                                         <span
                                                                             class="text-danger">{{ $errors->first('quantity') }}</span>
                                                                     </div>
+                                                                    
                                                                     <div class="col-md-3"
                                                                         style="text-align: center;">
+                                                                        @if($product->type == 'old')
                                                                         @if ($loop->index + 1 == 1)
                                                                             <a href="javascript:void(0)"
                                                                                 class="btn btn-success addMoreCondition"
@@ -267,7 +274,18 @@
                                                                                     aria-hidden="true"></span>
                                                                                 Remove Condition</a>
                                                                         @endif
-                                                                    </div>
+                                                                        @else
+                                                                        <a href="{{ route('admin.condition.remove', $condit->id) }}"
+                                                                                class="btn btn-secondary "
+                                                                                style="margin-top: 36px;"><span
+                                                                                    class="glyphicon glyphicon glyphicon-plus"
+                                                                                    aria-hidden="true"></span>
+                                                                         
+                                                                                    Remove Condition</a>
+                                                                                    @endif
+                                                                                    </div>
+                                                                        
+                                                                    
                                                                 </div>
                                                             </div>
 
@@ -288,7 +306,6 @@
                         </div>
                     @endforeach
                 </div>
-
                 <button type="submit" class="btn btn-primary">submit</button>
             </form>
         </div>
@@ -313,6 +330,8 @@
 var x = 0;
 var y = 1;
 var z = 1;
+
+
 $(document).ready(function() {
     //color
 
@@ -326,8 +345,26 @@ $(document).ready(function() {
         // alert('asdasd');
         y = 1;
         z = 1;
+        var conditionType = '';
 
         // console.log(x);
+        var conditionType = $("#types").val();
+        var contentData= 'null';
+                    if(conditionType == 'old'){
+                       contentData=' <label for="example-text-input" class="col-form-label">Condition</label>'+
+                      ' <select class="form-control"  name="condition[][][]" id="condition">'+
+                             '  <option selected>Select Any One</option>'+
+                             '  <option value="fair">fair</option>'+
+                             '  <option value="good">good</option>'+
+                             '  <option value="excellent">excellent</option>'+
+                          ' </select> ';
+                      }
+
+                      var buttonData= '';
+                    if(conditionType == 'old'){
+                        buttonData='<a href="javascript:void(0)" class="btn btn-warning MoreCondition" style="margin-top: 36px;"><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Add Condition # '+y+'</a>';
+                      }
+
         var maxField = 3;
 
         if (x < maxField) {
@@ -381,16 +418,9 @@ $(document).ready(function() {
                 '<div class="add_condition' + x + '">' +
                 '<div class="row">' +
                 '<div class="input-group">' +
-                '<div class="col-md-3">' +
-                '<label for="example-text-input" class="col-form-label">Condition</label>' +
-
-                '<select class="form-control"  name="condition[][][]" id="condition">' +
-                '<option selected>Select Any One</option>' +
-                '<option value="fair" >fair</option>' +
-                '<option value="good" >good</option>' +
-                '<option value="excellent" >excellent</option>' +
-                '</select>' +
-                '</div>' +
+                ' <div class="col-md-3">'+
+                 contentData+
+                  ' </div>'+
                 '<div class="col-md-2">' +
                 '<label for="example-text-input" class="col-form-label">Original Price</label>' +
                 '<input class="form-control"  name="orig_price[][][]" type="number" placeholder="Enter mobile orig_price" id="example-text-input">' +
@@ -409,7 +439,7 @@ $(document).ready(function() {
                 '<input type="hidden" name="conditionID[][][]" value="null">' +
                 '</div>' +
                 '<div class="col-md-3" style="text-align: center;">' +
-                ' <a href="javascript:void(0)" class="btn btn-warning MoreCondition" id="addMoreCondition" style="margin-top: 36px;"><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Add Condition</a>' +
+                buttonData+
                 '</div>' +
                 '</div>' +
                 ' </div>' +
@@ -468,6 +498,28 @@ $(document).ready(function() {
         var maxField = 3;
         // var childern = $(e.target).find('#' + storageindex).children().length;
         //  alert(childern);
+
+        var conditionType = $("#types").val();
+        var contentData= '';
+                    if(conditionType == 'old'){
+                       contentData=' <div class="col-md-3">'+
+                      ' <label for="example-text-input" class="col-form-label">Condition</label>'+
+                      ' <select class="form-control"  name="condition['+y+'][]" id="condition">'+
+                             '  <option selected>Select Any One</option>'+
+                             '  <option value="fair">fair</option>'+
+                             '  <option value="good">good</option>'+
+                             '  <option value="excellent">excellent</option>'+
+                          ' </select> '+
+                  ' </div>';
+                      }
+
+                      var buttonData= '';
+                    if(conditionType == 'old'){
+                        buttonData='<div class="col-md-3" style="text-align:center"> ' +
+                ' <a href="javascript:void(0)" class="btn btn-warning MoreAddCondition" style="margin-top: 36px;"><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Add Condition # </a>' +
+                ' </div>';
+                      }
+
         if (appendkey < maxField) {
             // alert(childern);
             var fieldHTML = '<div class="add_storage"> <div class="row " id="add_storage' +
@@ -498,16 +550,7 @@ $(document).ready(function() {
                 '<input type="hidden" name="apendStorg" value="' + storageindex + '">' +
                 '<input type="hidden" name="conditionID[' + colorindex + '][' + storageindex +
                 '][]" value="null">' +
-                ' <div class="col-md-3">' +
-                ' <label for="example-text-input" class="col-form-label">Condition</label>' +
-                ' <select class="form-control"  name="condition[' + colorindex + '][' +
-                    storageindex + '][]" id="condition">' +
-                '  <option selected>Select Any One</option>' +
-                '  <option value="fair">fair</option>' +
-                '  <option value="good">good</option>' +
-                '  <option value="excellent">excellent</option>' +
-                ' </select> ' +
-                ' </div>' +
+                contentData+
                 ' <div class="col-md-2">' +
                 ' <label for="example-text-input" class="col-form-label">Original Price</label>' +
                 ' <input class="form-control"  name="orig_price[' + colorindex + '][' + storageindex +
@@ -526,9 +569,7 @@ $(document).ready(function() {
                 '][]" type="number" placeholder="Enter mobile Quantity"   id="example-text-input">' +
                 '  <span class="text-danger">{{ $errors->first('quantity') }}</span>' +
                 ' </div>' +
-                '<div class="col-md-3" style="text-align:center"> ' +
-                ' <a href="javascript:void(0)" class="btn btn-warning MoreAddCondition" style="margin-top: 36px;"><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Add Condition # </a>' +
-                ' </div>' +
+                buttonData+
                 ' </div>' +
                 ' </div>' +
                 ' </div>' +
@@ -556,12 +597,27 @@ $(document).ready(function() {
         //  alert('asdsad');
 
         condindex = $(e.target).closest('.add_condition').children().find('input')[0].value;
+       
         colorindex = $(e.target).closest('.add_condition').children().find('input')[1].value;
         storindex = $(e.target).closest('.add_condition').children().find('input')[2].value;
 
         var appendkey = condindex - 1;
 
-        // console.log(appendkey);
+        var conditionType = $("#types").val();
+        var contentData= '';
+                    if(conditionType == 'old'){
+                       contentData=' <div class="col-md-3">'+
+                      ' <label for="example-text-input" class="col-form-label">Condition</label>'+
+                      ' <select class="form-control"  name="condition[' + colorindex +
+                         '][' + storindex +'][]" id="condition">'+
+                             '  <option selected>Select Any One</option>'+
+                             '  <option value="fair">fair</option>'+
+                             '  <option value="good">good</option>'+
+                             '  <option value="excellent">excellent</option>'+
+                          ' </select> '+
+                  ' </div>';
+                      }
+    
 
         var maxField = 3;
         // var childern = $(e.target).closest('.add_condition').find('#' + storeindex).children()
@@ -571,16 +627,7 @@ $(document).ready(function() {
             // alert(childern);
             var fieldHTML = ' <div class="remove_condition"><div class="row" id="add_condition' +
                 storindex + '"><div class="input-group">' +
-                ' <div class="col-md-3">' +
-                ' <label for="example-text-input" class="col-form-label">Condition</label>' +
-                ' <select class="form-control"  name="condition[' + colorindex +
-                '][' + storindex + '][]" id="condition">' +
-                '  <option selected>Select Any One</option>' +
-                '  <option value="fair">fair</option>' +
-                '  <option value="good">good</option>' +
-                '  <option value="excellent">excellent</option>' +
-                ' </select> ' +
-                ' </div>' +
+                contentData+
                 '<input type="hidden" name="conditionID[' + colorindex + '][' + storindex +
                 '][]" value="null">' +
                 ' <div class="col-md-2">' +
@@ -634,8 +681,24 @@ $(document).ready(function() {
 
         var maxField = 3;
 
-        //  alert(childern);
+        var conditionType = $("#types").val();
+        var contentData= '';
+                    if(conditionType == 'old'){
+                       contentData=' <div class="col-md-3">'+
+                      ' <label for="example-text-input" class="col-form-label">Condition</label>'+
+                      ' <select class="form-control"  name="condition['+y+'][]" id="condition">'+
+                             '  <option selected>Select Any One</option>'+
+                             '  <option value="fair">fair</option>'+
+                             '  <option value="good">good</option>'+
+                             '  <option value="excellent">excellent</option>'+
+                          ' </select> '+
+                  ' </div>';
+                      }
 
+                      var buttonData= '';
+                    if(conditionType == 'old'){
+                        buttonData='<a href="javascript:void(0)" class="btn btn-warning MoreConditionAdd" style="margin-top: 36px;"><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Add Condition</a>';
+                      }
             // alert(childern);
             var fieldHTML = '<div class="row remove_storage"><div class="input-group">' +
                 '<div class="col-md-8">' +
@@ -658,16 +721,7 @@ $(document).ready(function() {
                 '<div class="add_conditionmoressss">' +
                 '<div class="row add_conditionmore'+x+'" id="add_condition' + y + '">' +
                 '<div class="input-group">' +
-                ' <div class="col-md-3">' +
-                ' <label for="example-text-input" class="col-form-label">Condition</label>' +
-                ' <select class="form-control"  name="condition[' + x + '][' + y +
-                '][]" id="condition">' +
-                '  <option selected>Select Any One</option>' +
-                '  <option value="fair">fair</option>' +
-                '  <option value="good">good</option>' +
-                '  <option value="excellent">excellent</option>' +
-                ' </select> ' +
-                ' </div>' +
+                contentData+
                 ' <div class="col-md-2">' +
                 ' <label for="example-text-input" class="col-form-label">Original Price</label>' +
                 ' <input class="form-control"  name="orig_price[' + x + '][' + y +
@@ -687,7 +741,8 @@ $(document).ready(function() {
                 '  <span class="text-danger">{{ $errors->first('quantity') }}</span>' +
                 ' </div>' +
                 '<div class="col-md-3" style="text-align:center"> ' +
-                ' <a href="javascript:void(0)" class="btn btn-warning MoreConditionAdd" style="margin-top: 36px;"><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Add Condition</a>' +
+                buttonData+
+                
                 ' </div>' +
                 ' </div>' +
                 ' </div>' +
@@ -709,7 +764,21 @@ $(document).ready(function() {
         y--;
         // console.log(y--);
     });
+    var conditionType = $("#types").val();
+        var contentData= '';
+                    if(conditionType == 'old'){
+                       contentData=' <div class="col-md-3">'+
+                      ' <label for="example-text-input" class="col-form-label">Condition</label>'+
+                      ' <select class="form-control"  name="condition['+y+'][]" id="condition">'+
+                             '  <option selected>Select Any One</option>'+
+                             '  <option value="fair">fair</option>'+
+                             '  <option value="good">good</option>'+
+                             '  <option value="excellent">excellent</option>'+
+                          ' </select> '+
+                  ' </div>';
+                      }
 
+                    
 
     $(document).on('click', '.MoreCondition', function(e) {
 
@@ -721,16 +790,7 @@ $(document).ready(function() {
             // alert(childern);
             var fieldHTML = ' <div class="remove_condition"><div class="row" id="add_condition' +
                 z + '"><div class="input-group">' +
-                ' <div class="col-md-3">' +
-                ' <label for="example-text-input" class="col-form-label">Condition</label>' +
-                ' <select class="form-control"  name="condition[' + x + '][' + y + '][' + z +
-                ']" id="condition">' +
-                '  <option selected>Select Any One</option>' +
-                '  <option value="fair">fair</option>' +
-                '  <option value="good">good</option>' +
-                '  <option value="excellent">excellent</option>' +
-                ' </select> ' +
-                ' </div>' +
+                contentData+
                 '<input type="hidden" name="conditionID[' + x + '][' + y + '][' + z +
                 ']" value="null">' +
                 ' <div class="col-md-2">' +
@@ -783,21 +843,29 @@ $(document).ready(function() {
         // alert('ddd');
         var maxField = 3;
         // var childern =	$(e.target).closest('.add_condition').find('#'+storeindex).children().length;
+        var conditionType = $("#types").val();
+        var contentData= '';
+                    if(conditionType == 'old'){
+                       contentData=' <div class="col-md-3">'+
+                      ' <label for="example-text-input" class="col-form-label">Condition</label>'+
+                      ' <select class="form-control"  name="condition['+y+'][]" id="condition">'+
+                             '  <option selected>Select Any One</option>'+
+                             '  <option value="fair">fair</option>'+
+                             '  <option value="good">good</option>'+
+                             '  <option value="excellent">excellent</option>'+
+                          ' </select> '+
+                  ' </div>';
+                      }
+                      var buttonData= '';
+                    if(conditionType == 'old'){
+                       contentData='<a href="javascript:void(0)" class="btn btn-warning addMoreCondition" style="margin-top: 36px;"><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Add Condition # '+y+'</a>';
+                      }
 
 
             // alert(childern);
             var fieldHTML = ' <div class="remove_condition"><div class="row" id="add_condition' +
                 z + '"><div class="input-group">' +
-                ' <div class="col-md-3">' +
-                ' <label for="example-text-input" class="col-form-label">Condition</label>' +
-                ' <select class="form-control"  name="condition[' + x + '][' + y + '][' + z +
-                ']" id="condition">' +
-                '  <option selected>Select Any One</option>' +
-                '  <option value="fair">fair</option>' +
-                '  <option value="good">good</option>' +
-                '  <option value="excellent">excellent</option>' +
-                ' </select> ' +
-                ' </div>' +
+                contentData+
                 '<input type="hidden" name="conditionID[' + x + '][' + y + '][' + z +
                 ']" value="null">' +
                 ' <div class="col-md-2">' +
@@ -847,20 +915,28 @@ $(document).ready(function() {
         var maxField = 3;
         // var childern =	$(e.target).closest('.add_condition').find('#'+storeindex).children().length;
 
+        var conditionType = $("#types").val();
+        var contentData= '';
+                    if(conditionType == 'old'){
+                       contentData=' <div class="col-md-3">'+
+                      ' <label for="example-text-input" class="col-form-label">Condition</label>'+
+                      ' <select class="form-control"  name="condition['+y+'][]" id="condition">'+
+                             '  <option selected>Select Any One</option>'+
+                             '  <option value="fair">fair</option>'+
+                             '  <option value="good">good</option>'+
+                             '  <option value="excellent">excellent</option>'+
+                          ' </select> '+
+                  ' </div>';
+                      }
+  var buttonData= '';
+                    if(conditionType == 'old'){
+                       contentData='<a href="javascript:void(0)" class="btn btn-warning addMoreCondition" style="margin-top: 36px;"><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Add Condition # '+y+'</a>';
+                      }
 
             // alert(childern);
             var fieldHTML = ' <div class="remove_conditionsss"><div class="row" id="add_condition' +
                 z + '"><div class="input-group">' +
-                ' <div class="col-md-3">' +
-                ' <label for="example-text-input" class="col-form-label">Condition</label>' +
-                ' <select class="form-control"  name="condition[' + x + '][' + y + '][' + z +
-                ']" id="condition">' +
-                ' <option selected>Select Any One</option>' +
-                ' <option value="fair">fair</option>' +
-                ' <option value="good">good</option>' +
-                ' <option value="excellent">excellent</option>' +
-                ' </select> ' +
-                ' </div>' +
+                contentData+
                 '<input type="hidden" name="conditionID[' + x + '][' + y + '][' + z +
                 ']" value="null">' +
                 ' <div class="col-md-2">' +

@@ -9,7 +9,56 @@
     color: #fff;
     line-height: 20px;
 }
-
+.colored{
+  font-family: 'Catamaran', sans-serif;
+    font-size: 15px;
+    color: #333;
+    line-height: 1.8em;
+    font-weight: inherit;
+    /* background: #ffffff;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center top; */
+    /* -webkit-font-smoothing: antialia
+    sed; */
+}
+.imagess
+  {
+    width: 150px;  height: 150px;margin: auto;
+  }
+  @media(min-width:768px){
+  .shop-item .inner-box {
+    height: 350px;
+  }
+  .shop-item .inner-box a{
+    position: relative;
+  }
+  .shop-item .inner-box a i{
+    position: absolute;
+    z-index: 9999;
+    top: -10px;
+    left: -18px;
+  }
+  .imagess
+  {
+    width: 150px;  height: 150px;margin: auto;
+  }
+}
+@media(max-width:767px){
+  .inner-box a{
+    display: flex;
+    position: relative;
+  }
+  .inner-box a i{
+    position: absolute;
+    z-index: 9999;
+    top: -4px;
+    left: 10px;
+  }
+  .shop-item .inner-box .image-box img{
+    height: auto;
+  }
+})
 </style>
 @endsection
 @section('content')
@@ -17,7 +66,7 @@
     <section class="page-title" style="background-image: url(frontend-assets/images/background/3.jpg);">
       <div class="auto-container">
           <ul class="bread-crumb">
-                <li><a href="index-2.html">Home</a></li>
+                <li><a href="/">Home</a></li>
                 <li class="active">Shop</li>
             </ul>
           <h1>Shop Detail</h1>
@@ -69,51 +118,24 @@
                                         </div>
 
 
-                    <div class="features-list">
-                      <div class="star-rating-s15-wrapper">
-                        <span class="star-rating-s15 rate-10">
-                            @if ($accessory->averageRating(1)[0] == 1)
-                            <i class="fa fa-star   avg-star-1" aria-hidden="true"></i>
-                            <i class="fa fa-star-o avg-star-2" aria-hidden="true"></i>
-                            <i class="fa fa-star-o avg-star-3" aria-hidden="true"></i>
-                            <i class="fa fa-star-o avg-star-4" aria-hidden="true"></i>
-                            <i class="fa fa-star-o avg-star-5" aria-hidden="true"></i>
-                            @elseif ($accessory->averageRating(1)[0] == 2)
-                            <i class="fa fa-star   avg-star-1" aria-hidden="true"></i>
-                            <i class="fa fa-star   avg-star-2" aria-hidden="true"></i>
-                            <i class="fa fa-star-o avg-star-3" aria-hidden="true"></i>
-                            <i class="fa fa-star-o avg-star-4" aria-hidden="true"></i>
-                            <i class="fa fa-star-o avg-star-5" aria-hidden="true"></i>
-                            @elseif ($accessory->averageRating(1)[0] == 3)
-                            <i class="fa fa-star    avg-star-1" aria-hidden="true"></i>
-                            <i class="fa fa-star    avg-star-2" aria-hidden="true"></i>
-                            <i class="fa fa-star    avg-star-3" aria-hidden="true"></i>
-                            <i class="fa fa-star-o avg-star-4" aria-hidden="true"></i>
-                            <i class="fa fa-star-o avg-star-5" aria-hidden="true"></i>
-                            @elseif ($accessory->averageRating(1)[0] == 4)
-                            <i class="fa fa-star avg-star-1" aria-hidden="true"></i>
-                            <i class="fa fa-star avg-star-2" aria-hidden="true"></i>
-                            <i class="fa fa-star avg-star-3" aria-hidden="true"></i>
-                            <i class="fa fa-star avg-star-4" aria-hidden="true"></i>
-                            <i class="fa fa-star-o avg-star-5" aria-hidden="true"></i>
-                            @elseif ($accessory->averageRating(1)[0] == 5)
-                            <i class="fa fa-star avg-star-1" aria-hidden="true"></i>
-                            <i class="fa fa-star avg-star-2" aria-hidden="true"></i>
-                            <i class="fa fa-star avg-star-3" aria-hidden="true"></i>
-                            <i class="fa fa-star avg-star-4" aria-hidden="true"></i>
-                            <i class="fa fa-star avg-star-5" aria-hidden="true"></i>
-                            @else
-                            <i class="fa fa-star-o  avg-star-1" aria-hidden="true"></i>
-                            <i class="fa fa-star-o avg-star-2" aria-hidden="true"></i>
-                            <i class="fa fa-star-o avg-star-3" aria-hidden="true"></i>
-                            <i class="fa fa-star-o avg-star-4" aria-hidden="true"></i>
-                            <i class="fa fa-star-o avg-star-5" aria-hidden="true"></i>
-                            @endif
+                                    <div class="features-list">
+                                    <div class="star-rating-s15-wrapper">
+                                        <span class="star-rating-s15 rate-10">
+                                        @for($i=0;$i<5;$i++)
+                                            @if(isset($accessory->averageRating(1)[0]) > $i)
+                                            <!-- <span class="icon-ratings"><i class="icon-rating icon-rating-o"></i></span> -->
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            @else
+                                            <i class="fa fa-star-o " aria-hidden="true"></i>
+                                            <!-- <span class="icon-ratings"><i class="icon-rating icon-rating-x"></i></span> -->
+                                            @endif
+                                        @endfor
+                                        
 
-                        </span>
-                        <span>&nbsp {{ $accessory->averageRating(1)[0] }} /5 by (  {{$accessory->countRating()[0] }}  ) customers</span>
-                      </div>
-                    </div>
+                                        </span>
+                                        <span>&nbsp {{ isset($accessory->averageRating(1)[0]) }} /5 by (  {{isset($accessory->countRating()[0]) }}  ) customers</span>
+                                    </div>
+                                    </div>
 
                     <ul class="features-list">
                       <li class="price">
@@ -227,6 +249,7 @@
                                                 @endphp
                                                 <article class="review-box clearfix">
                                                     <div class="rev-content">
+                                                        
                                                         @if ($rating->rating == 1)
                                                         <div class="rating">
                                                             <span class="fa fa-star"></span>
@@ -317,7 +340,7 @@
                 <div class="shop-item col-md-3 col-sm-6 col-xs-12">
                     <div class="inner-box">
                          <figure class="image-box">
-                            <a href="{{route('accessory.single',$relate->id)}}"><img src="{{asset('/storage/accessories/images/'.$imag->images)}}" alt="" height="200px"     /></a>
+                            <a href="{{route('accessory.single',$relate->id)}}"><img src="{{asset('/storage/accessories/images/'.$imag->images)}}" alt="" class="imagess" /></a>
                           </figure>
                           <!--Lower Content-->
                           <div class="lower-content">
@@ -448,8 +471,14 @@ function addToCart(id)
     success: function(add)
     {
         console.log(add);
-        $("#exampleModalLong").modal("show");
-         $("#message").text(add.status);
+        if(add.status == 'null')
+          {
+             alert('sorry the quantity mismatch');
+          }
+          else{
+            $("#exampleModalLong").modal("show");
+            $("#message").text(add.status);
+        }
 
 
     },error:function(error){

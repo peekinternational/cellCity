@@ -38,6 +38,7 @@ class BlogContoller extends Controller
     public function store(Request $request)
     {
         // dd($request->all());
+        $blog = new Blog;
 
         if($request->hasFile('image'))
         {
@@ -45,12 +46,12 @@ class BlogContoller extends Controller
             $image_new = time().$image->getClientOriginalName();
             $image->move('storage/image/blog/',$image_new);
 
+           $blog->image = 'storage/image/blog/'.$image_new;
+
         }
 
-        $blog = new Blog;
         $blog->title = $request->title;
         $blog->desc = $request->desc;
-        $blog->image = 'storage/image/blog/'.$image_new;
         $blog->save();
 
         return back()->with('message', Alert::_message('success','Blog Successfully Created'));
@@ -89,18 +90,19 @@ class BlogContoller extends Controller
      */
     public function update(Request $request, $id)
     {
+        $blog = Blog::find($id);
         if($request->hasFile('image'))
         {
             $image=$request->file('image');
             $image_new = time().$image->getClientOriginalName();
             $image->move('storage/image/blog/',$image_new);
-
+            $blog->image = 'storage/image/blog/'.$image_new;
         }
 
-        $blog = Blog::find($id);
+        
         $blog->title = $request->title;
         $blog->desc = $request->desc;
-        $blog->image = 'storage/image/blog/'.$image_new;
+       
         $blog->save();
 
         return back()->with('message', Alert::_message('success','Blog Successfully Updated'));

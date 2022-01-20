@@ -111,7 +111,7 @@ class TechController extends Controller
           // dd($id);
            $model= Pmodel::find($id);
 
-           $RepairTypes = RepairType::where('model_Id',$id)->get();
+           $RepairTypes = RepairType::where('model_Id',$id)->orderBy('id','desc')->get();
           //  dd($RepairTypes);
            return view('frontend.technician.model-repair-checkbox',compact('RepairTypes','model'));
       }
@@ -184,13 +184,14 @@ class TechController extends Controller
        }
 
        $details = [
-        'title' => 'Mail from PeekInternational.com',
+        'title' => 'Mail from CellCity',
         'subject' => 'Update the repair order,',
         'message' => 'Techician  ('.$tech->name.')  updated the customer  (id:'.$ordertype->id.'  Name :'.$customer->name.')  repair order,'
     ];
 
 
-     \Mail::to("cellcityus1@gmail.com")->send(new orderModify($details));
+     // \Mail::to("cellcityus1@gmail.com")->send(new orderModify($details));
+     \Mail::to("peek.ali500@gmail.com")->send(new orderModify($details));
     //   $mail = mail ("admin@gmail.com",$subject,$message);
 
 
@@ -205,7 +206,7 @@ class TechController extends Controller
            $message =strip_tags(nl2br(" Dear Customer, \n i have recieved your repair order \n Are you want to repair the order"));
            $account_sid = "ACeb30af8343f53c1b366517b35ea44dc2";
            $auth_token = "ecc8e9d376d7ef8a19ed22778bb466f8";
-           $twilio_number = +14842553085;
+           $twilio_number = +4842553085;
         $client = new Client($account_sid, $auth_token);
         $client->messages->create($phone,
             ['from' => $twilio_number, 'body' => $message] );

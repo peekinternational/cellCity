@@ -13,19 +13,19 @@ $condition = App\Models\ProductCondition::where('storage_id',$storage->id)->firs
     @if (Auth::user())
 
     @if (CityClass::checkWishlist($product->id) == "1")
-    <a href="#" onclick="undoWishlist({{$product->id}})"><i class="fa fa-heart" style="font-size: 30px;color:#ff0707"></i></a>
+    <a href="#" onclick="undoWishlist({{$product->id}})"><i class="fa fa-heart" style="font-size: 17px;color:#ff0707"></i></a>
     @else
-    <a href="#" onclick="wishlist({{$product->id}})"><i class="fa fa-heart" style="font-size: 30px;"></i></a>
+    <a href="#" onclick="wishlist({{$product->id}})"><i class="fa fa-heart" style="font-size: 17px;color:#adadad"></i></a>
     @endif
   @else
-  <a href="#" onclick="wishlist({{$product->id}})"><i class="fa fa-heart" style="font-size: 30px;"></i></a>
+  <a href="#" onclick="wishlist({{$product->id}})"><i class="fa fa-heart" style="font-size: 17px;color:#adadad"></i></a>
  @endif
   <figure class="image-box">
-    <a href="{{ route('product.details',$product->id) }}"><img src="{{asset('storage/images/products/'.$image->image ?? '' )}}" alt="" /></a>
+    <a href="{{ route('product.details',$product->id) }}"><img src="{{asset('storage/images/products/'.$image->image ?? '' )}}" alt="" id="imagess" /></a>
   </figure>
   <!--Lower Content-->
   <div class="lower-content">
-    <h3><a href="">{{ $model->brand->brand_name }}  {{ $model->model_name }} </a></h3>
+    <h4><a href="{{ route('product.details',$product->id) }}">{{ $model->brand->brand_name }}  {{ $model->model_name }} </a></h4>
     <div> <span>{{ $storage->storage }} -{{$color->color_name}} - {{ $product->locked }}</span> </div>
       <span>
       Warranty: {{ $product->warranty }}

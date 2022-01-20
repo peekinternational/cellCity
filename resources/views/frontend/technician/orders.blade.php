@@ -90,7 +90,7 @@
                             <!-- Button trigger modal -->
                            <span class="badge badge-pill badge-success font-size-12"> {{$order->pay_method}}</span>
                         </td>
-                        <td colspan="3">{{$order->date}} {{$order->time}}</td>
+                        <td colspan="3">{{$order->date}}, {{ CityClass::orderTimeDetail($order->time_id)->fromTime}} - {{ CityClass::orderTimeDetail($order->time_id)->toTime}}</td>
                         <td>
                             @if ($order->order_status == 3)
 

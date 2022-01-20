@@ -13,7 +13,7 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <form action="{{route('admin.repairTypes.update',$repair->id)}}" method="post">
+                                        <form action="{{route('admin.repairTypes.update',$repair->id)}}" method="post" enctype="multipart/form-data">
                                             {{csrf_field()}}
                                             @method('PUT')
                                             
@@ -41,8 +41,15 @@
                                      <div class="form-group row">
                                             <label for="example-text-input" class="col-md-2 col-form-label">Price</label>
                                             <div class="col-md-10">
-                                                <input class="form-control" name="price" type="text" placeholder="Enter Price"  Type" value="{{ $repair->price }}"  id="example-text-input">
+                                                <input class="form-control" name="price" type="text" placeholder="Enter Price"   value="{{ $repair->price }}"  id="example-text-input">
                                                 <span class="text-danger">{{ $errors->first('price') }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="example-text-input" class="col-md-2 col-form-label">Repair Image</label>
+                                            <div class="col-md-10">
+                                                <input class="form-control" name="repair_image" type="file"  @if(old('repair_image')) value="{{ $repair->repair_image }}" @endif  id="example-text-input">
+                                                <span class="text-danger">{{ $errors->first('repair_image') }}</span>
                                             </div>
                                         </div>
                                        

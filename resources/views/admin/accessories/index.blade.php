@@ -78,7 +78,7 @@
                                                                     {{csrf_field()}}
                                                                        @method('DELETE')
 
-                                                                       <button type="submit" style="border: none"><i class="mdi mdi-delete-circle-outline"></i></button>
+                                                                       <button type="submit" style="border: none;background: white;"><i class="mdi mdi-delete-circle-outline"></i></button>
                                                                    </form>
 
                                                                 </li>

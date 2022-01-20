@@ -39,9 +39,13 @@
          @slot('li_2') Orders @endslot
      @endcomponent
 
-
                         <div class="row">
                             <div class="col-12">
+                                @if(Session::has('message'))
+                                <div class="col-12">
+                                    {!!Session::get('message')!!}
+                                </div>
+                                @endif
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="row mb-2">
@@ -65,14 +69,18 @@
                                         </div>
 
                                         <div class="table-responsive">
-                                            <table id="example3" class="table table-bordered table-hover">
+                                            <table id="example4" class="table table-bordered table-hover">
                                                 <thead>
                                                     <tr>
                                                         <th>ID</th>
-                                                        <th>Name</th>
-                                                        <th>Created At</th>
+                                                        <th>First Name</th>
+                                                        <th>Last Name</th>
+                                                        <th>Mobile No</th>
+                                                        <th>Email</th>
                                                         <th>Shipping Address</th>
+                                                        <th>Zip Code</th>
                                                         <th>Grand Price</th>
+                                                        <th>Order Date</th>
                                                         <th>Status</th>
 
                                                         <th>Action</th>
@@ -87,17 +95,24 @@
                                                         @endphp --}}
                                                         <td>{{$orderSale->id}}</td>
                                                         @if (isset($orderSale->user_id))
-                                                        <td>{{$orderSale->user->name ?? ''}}</td>
+                                                        <td>{{$orderSale->user->first_name ?? ''}} </td>
+                                                        <td>{{$orderSale->user->last_name ?? ''}}</td>
                                                         @else
-                                                        <td>{{$orderSale->shipAddress->name }}</td>
+                                                        <td>{{$orderSale->shipAddress->first_name }} </td>
+                                                        <td>{{$orderSale->shipAddress->last_name }}</td>
                                                         @endif
 
-                                                        <td>{{$orderSale->created_at->format('D-m-Y h:s')}}</td>
 
-                                                        <td>{{$orderSale->shipAddress->shipaddress}}</td>
+                                                        <td>{{$orderSale->shipAddress->mobileNo}}</td>
+                                                        <td>{{$orderSale->shipAddress->email}}</td>
+                                                       
+                                                        <td>{{$orderSale->shipAddress->shipaddress}}, {{$orderSale->shipAddress->city}}, {{$orderSale->shipAddress->state}}</td>
+                                                        <td>{{$orderSale->shipAddress->zipcode}}</td>
                                                         <td>
                                                             ${{$orderSale->grand_total}}
                                                         </td>
+
+                                                        <td>{{$orderSale->created_at->format('D-m-Y h:s')}}</td>
 
                                                         <td>
                                                             @if ($orderSale->status == 2)
@@ -111,15 +126,18 @@
                                                         <td style="display: flex">
                                                             <a href="#" onclick="orderViewDetails('{{$orderSale->id}}')" class="mr-3 text-success" title="view order"><i class="fa fa-eye font-size-18"></i></a>
                                                             @if ($orderSale->status == 0)
-                                                            <a href="#" onclick="sendCode('{{$orderSale->id}}')" class="mr-3 text-warning" title="send Tracking Code" > <i class="fa fa-edit font-size-18"></i></a>
+                                                            <a href="#" onclick="sendCode('{{$orderSale->id}}')" class="mr-3 text-warning" title="send Tracking Code" > <i class="fa fa-ship font-size-18"></i></a>
                                                             @endif
                                                             <a href="{{route('admin.delete.productorder',$orderSale->id)}}" class="mr-3 text-danger" title="delete order"><i class="fa fa-trash font-size-18"></i></a>
+                                                            @if ($orderSale->refund_status == 0)
+                                                            <a href="{{url('refundAccept/'.$orderSale->id)}}" class="mr-3 badge badge-success" style="line-height: unset !important;" title="refund order">Refund</a>
+                                                            @endif
                                                         </td>
                                                     </tr>
                                                     @empty
                                                         <tr>
                                                             <td colspan="5">
-                                                              Soory No Order Yet...
+                                                              Sorry No Order Yet...
                                                             </td>
                                                         </tr>
                                                     @endforelse
@@ -191,11 +209,11 @@
 
   {{-- Send Code  --}}
 <div class="modal fade bd-example-modal-lg" id="codeModel" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog" role="document" style="max-width: 570px;">
 
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Send Shipping tracking code </h5>
+                <h5 class="modal-title" id="exampleModalLabel">Order Shipping</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -203,21 +221,122 @@
           <div class="modal-body" >
             <form id="sendcode" method="POST">
                 @csrf
-                <div class="code">
-                   <input type="text" id="code" name="code" class="form-control" placeholder="Enter Code Here">
-                   <input type="hidden" name="id" id="id" >
-                   {{-- <input type="hidden" name="phoneno" id="id" >
-                   <input type="hidden" name="email" id="id" > --}}
+                 <input type="hidden" name="id" id="id" >
+                  <!-- <h6>From Address:</h6>
+                <div class="code row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                   <input type="text" id="code" name="name" class="form-control" placeholder="Enter name" required>
+                  </div>
+                  
+                  </div>
+                  <div class="col-md-6">
+                     <div class="form-group">
+                   <input type="text" class="form-control" placeholder="Enter company name" name="company"  required>
+                 </div>
+                  </div>
+                      <div class="col-md-6">
+                    <div class="form-group">
+                   <input type="text" id="code" name="phone" placeholder="Enter mobile no" class="form-control"  required>
+                  </div>
+                  </div>
+                  <div class="col-md-6">
+                     <div class="form-group">
+                   <input type="text" class="form-control" placeholder="Enter email" name="email"  required>
+                 </div>
+                  </div>
+
+                  <div class="col-md-12">
+                   <div class="form-group">
+                     <input type="text" class="form-control" placeholder="Enter address" name="street1" required  >
+                   </div>
+                 </div>
+                 <div class="col-md-3">
+                   <div class="form-group">
+                     <input type="text" class="form-control" placeholder="Enter city " name="city"required  >
+                   </div>
+                 </div>
+                   <div class="col-md-3">
+                    <div class="form-group">
+                   <input type="text" id="code" name="state" placeholder="Enter state" class="form-control" required>
+                  </div>
+                  </div>
+                  <div class="col-md-3">
+                     <div class="form-group">
+                   <input type="text" class="form-control" placeholder="Enter country" value="US" name="country"  readonly>
+                 </div>
+                  </div>
+                  <div class="col-md-3">
+                     <div class="form-group">
+                   <input type="text" class="form-control" placeholder="Enter zipcode" name="zip" required >
+                 </div>
+                  </div>
+               
                 </div>
-                <div class="text-center">
-                   <button id="submit" class="btn btn-primary">Submit</button>
+                <h6>Parcel Size:</h6>
+                <div class="row">
+                 <div class="col-md-6">
+                     <div class="form-group">
+                      <select class="form-control" name="distance_unit" required>
+                        <option selected>Select distance unit</option>
+                        <option value="cm">cm</option>
+                        <option value="in">in</option>
+                        <option value="ft">ft</option>
+                        <option value="mm">mm</option>
+                        <option value="m">m</option>
+                        <option value="yd">yd</option>
+                      </select>
+                  
+                 </div>
+                  </div>
+                  <div class="col-md-6">
+                     <div class="form-group">
+                     <select class="form-control" name="mass_unit" required>
+                        <option selected>Select distance unit</option>
+                        <option value="g">g</option>
+                        <option value="oz">oz</option>
+                        <option value="lb">lb</option>
+                        <option value="kg">kg</option>
+                      </select>
+                 </div>
+                  </div>
+                  <div class="col-md-3">
+                   <div class="form-group">
+                     <input type="text" class="form-control" placeholder="Enter length" name="length"required  >
+                   </div>
+                 </div>
+                   <div class="col-md-3">
+                    <div class="form-group">
+                   <input type="text" id="code" name="width" placeholder="Enter width" class="form-control" required>
+                  </div>
+                  </div>
+                  <div class="col-md-3">
+                     <div class="form-group">
+                   <input type="text" class="form-control" placeholder="Enter height" name="height"  required>
+                 </div>
+                  </div>
+                  <div class="col-md-3">
+                     <div class="form-group">
+                   <input type="text" class="form-control" placeholder="Enter weight" name="weight"  required>
+                 </div>
+                  </div>
+                 
+                </div> -->
+                <div class="row" style="margin-top: 10px;margin-bottom: 30px;">
+                  <div class="col-md-12">
+                     <div class="text-center">
+                      <p>Do you want to shipp this order ?</p>
+                   <button id="submit" style="width: 30%;" class="btn btn-primary">Yes</button>
+                   <button class="buttonload btn btn-primary btn-style-one" style="display: none" id="buttonload">
+                  <i class="fa fa-circle-o-notch fa-spin"></i> Loading
+                </button>
                 </div>
+                  </div>
+                </div>
+               
             </form>
           </div>
 
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          </div>
         </div>
     </div>
   </div>
@@ -227,7 +346,7 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-   $('#example3').DataTable({
+   $('#example4').DataTable({
         "order": [[ 0, "desc" ]]
     });
 
@@ -292,22 +411,30 @@ $(document).ready(function() {
    }
     $('#sendcode').on('submit',function(e){
         e.preventDefault();
-        let name = $('#code').val();
-        let id= $('#id').val();
+       $('#submit').hide();
+       $('#buttonload').show();
         let _token = "{{ csrf_token() }}";
         // alert(name);
         $.ajax({
           url: "{{url('admin/send-code')}}",
           type:"POST",
-          data:{
-            _token:_token,
-            code:name,
-            id:id,
-          },
+          data:$("#sendcode").serialize(),
           success:function(response){
             console.log(response);
-            alert('Successfully Send The Shipping Code from Desired User');
+            alert('Successfully Send The Shipping Tracking from Desired User');
             window.location.reload();
+          },
+          error: function (xhr) {
+            $('#buttonload').hide();
+            $('#submit').show();
+            if(JSON.parse(xhr.responseJSON.message).rate){
+              alert(JSON.parse(xhr.responseJSON.message).rate[0]);
+            }
+            if(JSON.parse(xhr.responseJSON.message).address_from){
+             alert(JSON.parse(xhr.responseJSON.message).address_from[0].__all__[0]);
+            }else{
+              console.log(JSON.parse(xhr.responseJSON.message));
+            }
           },
          });
         });

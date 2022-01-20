@@ -19,7 +19,7 @@ class CreateRepairOrdersTable extends Migration
             $table->integer('techId')->nullable();
             $table->integer('model_Id');
             $table->string('date');
-            $table->string('time');
+            $table->integer('time_id');
             $table->string('name');
             $table->enum('pay_status', ['unpaid','paid']);
             $table->string('pay_method')->nullable();

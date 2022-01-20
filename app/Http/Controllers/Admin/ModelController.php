@@ -104,9 +104,10 @@ class ModelController extends Controller
      */
     public function destroy($id)
     {
+        // dd($id);
         $model = Pmodel::find($id);
-        Product::where('model_id',$model->id)->delete();
         $model->delete();
+        Product::where('model_id',$model->id)->delete();
          return redirect('/admin/models')->with('message', Alert::_message('success', 'Model Delete Successfully.'));
     }
 }

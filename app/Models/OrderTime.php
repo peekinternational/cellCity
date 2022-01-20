@@ -9,10 +9,10 @@ class OrderTime extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['time'];
+    protected $fillable = ['fromTime','toTime'];
 
     public  function repairOrder()
     {
-        return $this->belongsTo(RepairOrder::class,'orderTime_id','id');
+        return $this->belongsTo(RepairOrder::class,'time_id');
     }
 }

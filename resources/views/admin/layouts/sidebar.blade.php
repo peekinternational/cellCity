@@ -66,10 +66,7 @@
                            @endif
                          </a></li>
                         <li><a href="{{url('admin/completed-orders')}}">Completed Repair Orders</a></li>
-                        <li><a href="{{url('admin/brands/create')}}">Add Brand</a></li>
-                        <li><a href="{{url('admin/brands')}}">Brands List</a></li>
-                        <li><a href="{{url('admin/models/create')}}">Add Model</a></li>
-                        <li><a href="{{url('admin/models')}}">Model List</a></li>
+                        
                         <li><a href="{{url('admin/repairTypes/create')}}">Add Repair Types</a></li>
                         <li><a href="{{url('admin/repairTypes')}}">Repair Types List</a></li>
 
@@ -99,6 +96,13 @@
 
                            @endif
                         </a></li>
+                       <!--  <li><a href="{{url('admin/refunds')}}">Refund</a></li> -->
+                        <li><a href="{{url('admin/brands/create')}}">Add Brand</a></li>
+                        <li><a href="{{url('admin/brands')}}">Brands List</a></li>
+                        <li><a href="{{url('admin/models/create')}}">Add Model</a></li>
+                        <li><a href="{{url('admin/models')}}">Model List</a></li>
+                        <li><a href="{{url('admin/storages/create')}}">Add Storage</a></li>
+                        <li><a href="{{url('admin/storages')}}">Storage List</a></li>
                         {{-- <li><a href="ecommerce-customers">Customers</a></li>
                         <li><a href="ecommerce-cart">Cart</a></li>
                         <li><a href="ecommerce-checkout">Checkout</a></li>
@@ -154,6 +158,21 @@
 
                     </ul>
                 </li>
+                <li>
+                    <a href="{{route('admin.subcribe.list')}}" class="waves-effect">
+                        <i class="bx bx-home-circle"></i>
+                        <span>Subcribe List</span>
+                    </a>
+
+                </li>
+
+                <li>
+                    <a href="{{url('admin/reviews')}}" class="waves-effect">
+                        <i class="bx bx-home-circle"></i>
+                        <span>Reviews</span>
+                    </a>
+
+                </li>
                 @endrole
                 @role('SuperAdmin|zipcode')
                 <li>
@@ -180,6 +199,34 @@
                 </li>
                 @endrole
                 @role('SuperAdmin')
+                <li>
+                    <a href="javascript:void(0);" class="has-arrow waves-effect">
+                        <i class="bx bxs-user-detail"></i>
+                        <span>Carriers Management</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                   <li>
+                          <a href="javascript:void(0);" class="has-arrow waves-effect">
+                            <span>Wireless Refill</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="{{url('admin/carriers/create')}}">Add Carriers</a></li>
+                            <li><a href="{{url('admin/carriers')}}">Carriers List</a></li>
+                            <li><a href="{{url('admin/wireOrder')}}">Order List</a></li>
+                        </ul>
+                       </li>
+                        <li>
+                            <a href="javascript:void(0);" class="has-arrow waves-effect">
+                            <span>International Refills</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="{{url('admin/icarriers/create')}}">Add Carriers</a></li>
+                            <li><a href="{{url('admin/icarriers')}}">Carriers List</a></li>
+                            <li><a href="{{url('admin/intOrder')}}">Order List</a></li>
+                        </ul>
+                        </li>
+                    </ul>
+                </li>
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="bx bxs-user-detail"></i>

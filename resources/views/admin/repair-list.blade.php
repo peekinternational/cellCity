@@ -26,13 +26,14 @@
                                                     <tr>
                                                         <th scope="col" style="width: 70px;">#</th>
                                                         <th scope="col">Model</th>
+                                                        <th></th>
                                                         <th scope="col">Repair Type</th>
                                                         <th scope="col">Price</th>
                                                         <th scope="col">Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach($users as $index => $user)
+                                                    @foreach($RepairTypes as $index => $RepairType)
                                                     <tr>
                                                         <td>
                                                             <div class="avatar-xs">
@@ -42,15 +43,20 @@
                                                             </div>
                                                         </td>
                                                         <td>
-                                                            <h5 class="font-size-14 mb-1"><a href="#" class="text-dark">{{$user->name}}</a></h5>
-
+                                                            {{CityClass::modelName($RepairType->model_Id)}}
                                                         </td>
-                                                        <td>
-                                                            <h5 class="font-size-14 mb-1"><a href="#" class="text-dark">{{$user->email}}</a></h5>
+                                                            <td>
+                                                                <h5 class="font-size-14 mb-1"><img src="{{asset('storage/images/repair/'.$RepairType->repair_image)}}" ></a></h5>
+    
+                                                            </td>
+
+                                                            <td>
+                                                            <h5 class="font-size-14 mb-1"><a href="#" class="text-dark">{{$RepairType->repair_type}}</a></h5>
+</td>
 
                                                         </td>
                                                           <td>
-                                                            <h5 class="font-size-14 mb-1"><a href="#" class="text-dark">{{$user->status}}</a></h5>
+                                                            <h5 class="font-size-14 mb-1"><a href="#" class="text-dark">{{$RepairType->price}}</a></h5>
 
                                                         </td>
 

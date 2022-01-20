@@ -125,7 +125,7 @@ class ProductConditionController extends Controller
     }
     public function storeColor(Request $request)// Color Update and Delete
     {
-        // dd($request->all());
+        // dd($request->all()); 
         // $colors = Product::find($id)->color;
 
 
@@ -175,38 +175,46 @@ class ProductConditionController extends Controller
                             $storg->save();
                         }
 
-// dd($request->conditionID[$key2]);
-                        foreach($request->conditionID[$key] as $key3=>$valCond)
+                        //  dd($request->conditionID[$key][$key2]);
+                        foreach($request->conditionID[$key][$key2] as $key3=>$valCond)
                         {
-
-                            foreach($valCond as $key4=> $val){
+                                    // dd($valCond);
+                            // foreach($valCond as $key4=> $val){
                                 // dd($val);
 
-                            if($val != 'null')
+                            if($valCond != 'null')
                             {
                                 // dd($request->conditionID[$key][$key2][$key3]);
 
-                                $condit = ProductCondition::find($val);
-                                // dd($condit);
-                                $condit->condition = $request->condition[$key][$key3][$key4];
-                                $condit->price = $request->price[$key][$key3][$key4];
-                                $condit->orig_price = $request->orig_price[$key][$key3][$key4];
-                                $condit->quantity = $request->quantity[$key][$key3][$key4];
+                                $condit = ProductCondition::find($valCond);
+                                // dd($request->condition);       
+                                if($request->condition != null){
+                                    $condit->condition = $request->condition[$key][$key2][$key3];
+                                  }
+                                  
+                                
+                                $condit->price = $request->price[$key][$key2][$key3];
+                                $condit->orig_price = $request->orig_price[$key][$key2][$key3];
+                                $condit->quantity = $request->quantity[$key][$key2][$key3];
                                 $condit->storage_id = $storg->id;
                                 $condit->update();
+                                // dd('asds');
                             }
                             else
                             {
                                 // dd($storg->id);
+                                // dd($request->condition[$key][$key2][$key3]);
                                 $condit = new ProductCondition;
-                                $condit->condition  =  $request->condition[$key][$key3][$key4];
-                                $condit->price      = $request->price[$key][$key3][$key4];
-                                $condit->orig_price = $request->orig_price[$key][$key3][$key4];
-                                $condit->quantity   = $request->quantity[$key][$key3][$key4];
+                                if($request->condition != null){
+                                    $condit->condition = $request->condition[$key][$key2][$key3];
+                                  }
+                                $condit->price      = $request->price[$key][$key2][$key3];
+                                $condit->orig_price = $request->orig_price[$key][$key2][$key3];
+                                $condit->quantity   = $request->quantity[$key][$key2][$key3];
                                 $condit->storage_id = $storg->id;
                                 $condit->save();
                             }
-                          }
+                          
                         }
 
 

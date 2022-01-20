@@ -46,7 +46,7 @@ Login
                                     @csrf
                                     <div class="form-group">
                                         <label for="username">Email</label>
-                                        <input name="email" type="email" class="form-control @error('email') is-invalid @enderror" @if(old('email')) value="{{ old('email') }}" @else value="admin@gmail.com" @endif id="username" placeholder="Enter username" autocomplete="email" autofocus>
+                                        <input name="email" type="email" class="form-control @error('email') is-invalid @enderror" @if(old('email')) value="{{ old('email') }}" @else  @endif id="username" placeholder="Enter username" autocomplete="email" autofocus>
                                         @error('email')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -56,7 +56,7 @@ Login
 
                                     <div class="form-group">
                                         <label for="userpassword">Password</label>
-                                        <input type="password" name="password" class="form-control  @error('password') is-invalid @enderror" id="userpassword" value="123456" placeholder="Enter password">
+                                        <input type="password" name="password" class="form-control  @error('password') is-invalid @enderror" id="userpassword" placeholder="Enter password">
                                         @error('password')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>

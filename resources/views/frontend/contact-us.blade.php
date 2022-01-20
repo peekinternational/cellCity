@@ -38,7 +38,7 @@
             @endif
 			<div class="sec-title-one">
 				<h2>SEND US MESSAGE</h2>
-				<div class="text">Overcome faithful endless salvation enlightenment salvation overcome pious merciful<br>ascetic madness holiest joy passion zarathustra suicide overcome snare.</div>
+				
 			</div>
 
 			<div class="row clearfix">
@@ -50,7 +50,7 @@
 							<span class="icon flaticon-pin-1"></span>
 						</div>
 						<h3>Address</h3>
-						<div class="text">123 Western Street, Sydney, Australia</div>
+						<div class="text">16 E. Sunrise Hwy, Freeport, NY 11520</div>
 					</div>
 				</div>
 
@@ -61,7 +61,7 @@
 							<span class="icon flaticon-technology"></span>
 						</div>
 						<h3>Phone Number</h3>
-						<div class="text">+ 456 789 0321</div>
+						<div class="text">(516) 379-1600</div>
 					</div>
 				</div>
 
@@ -72,7 +72,7 @@
 							<span class="icon flaticon-clock"></span>
 						</div>
 						<h3>Opening Hours</h3>
-						<div class="text">All Days: 9am to 6pm</div>
+						<div class="text">Mon – Fri: 9am to 6pm</div>
 					</div>
 				</div>
 
@@ -101,14 +101,14 @@
 					<div class="form-group icon-group col-md-6 col-sm-12 col-xs-12">
 						<div class="group-inner">
 							<label class="icon-label" for="field-two"><span class="flaticon-mobile"></span></label>
-							<input id="field-two" type="number" name="phone_number" value="" placeholder="Phone Number" required>
+							<input id="field-two" type="number" name="phone_number" value="" placeholder="Phone Number">
 						</div>
 					</div>
 
 					<div class="form-group icon-group col-md-6 col-sm-12 col-xs-12">
 						<div class="group-inner">
 							<label class="icon-label" for="field-two"><span class="flaticon-file"></span></label>
-							<input id="field-two" type="number" name="order_number" value="" placeholder="Order Number" required>
+							<input id="field-two" type="number" name="order_number" value="" placeholder="Order Number">
 						</div>
 					</div>
 

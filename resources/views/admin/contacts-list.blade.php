@@ -25,7 +25,8 @@
                                                 <thead class="thead-light">
                                                     <tr>
                                                         <th scope="col" style="width: 70px;">#</th>
-                                                        <th scope="col">Name</th>
+                                                        <th scope="col">First Name</th>
+                                                        <th scope="col">Last Name</th>
                                                         <th scope="col">Email</th>
                                                         <th scope="col">Role</th>
                                                         <th scope="col">Address</th>
@@ -43,7 +44,11 @@
                                                             </div>
                                                         </td>
                                                         <td>
-                                                            <h5 class="font-size-14 mb-1"><a href="#" class="text-dark">{{$customer->name}}</a></h5>
+                                                            <h5 class="font-size-14 mb-1"><a href="#" class="text-dark">{{$customer->first_name}}</a></h5>
+
+                                                        </td>
+                                                        <td>
+                                                            <h5 class="font-size-14 mb-1"><a href="#" class="text-dark">{{$customer->last_name}}</a></h5>
 
                                                         </td>
                                                         <td>{{$customer->email}}</td>

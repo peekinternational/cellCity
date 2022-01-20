@@ -29,7 +29,7 @@ class orderModify extends Mailable
      */
     public function build()
     {
-        return $this->subject('Mail from Peekinternational.com')
+        return $this->subject('Order Modify Details')
         ->view('emails.orderModify');
         // return $this->view('email.techmail');
     }

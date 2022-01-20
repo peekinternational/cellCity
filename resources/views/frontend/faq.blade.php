@@ -5,8 +5,7 @@
 <section class="page-title" style="background-image: url({{asset('frontend-assets/images/background/3.jpg')}});">
     <div class="auto-container">
         <ul class="bread-crumb">
-            <li><a href="index.html">Home</a></li>
-            <li class="active">Features</li>
+            <li><a href="{{url('/')}}">Home</a></li>
             <li class="active">Faq</li>
         </ul>
         <h1>Faq</h1>
@@ -22,7 +21,7 @@
                @foreach (CityClass::faqs() as $faq)
                     <div class="question-block">
                         <h3>Q. {{$faq->question}}</h3>
-                        <div class="text">{{ $faq->answer}}</div>
+                        <div class="">{!! $faq->answer !!}</div>
 
                     </div>
                @endforeach

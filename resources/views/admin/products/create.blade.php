@@ -89,7 +89,11 @@
 
     <div class="row">
     <div class="col-12">
-        @if(Session::has('message'))
+        @if(Session::has('message2'))
+        <div class="col-12">
+            {!!Session::get('message2')!!}
+        </div>
+        @endif @if(Session::has('message'))
         <div class="col-12">
             {!!Session::get('message')!!}
         </div>
@@ -129,13 +133,9 @@
                             <div class="col-md-10">
                                 <select class="form-control selectpic"  name="memory" id="memory">
                                     <option selected>Select Memory</option>
-                                    <option value="64 GB">64 GB</option>
-                                    <option value="32 GB">32 GB</option>
-                                    <option value="16 GB">16 GB</option>
-                                    <option value="8 GB">8 GB</option>
-                                    <option value="6 GB">6 GB</option>
-                                    <option value="4 GB">4 GB</option>
-                                    <option value="2 GB">2 GB</option>
+                                    @foreach(CityClass::Storages() as $store)
+                                    <option value="{{$store->storage}}">{{$store->storage}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -150,7 +150,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <!-- <div class="form-group row">
                             <label for="example-text-input" class="col-md-2 col-form-label">Category</label>
                             <div class="col-md-10">
                                 <select class="form-control selectpic"  name="category" id="category">
@@ -160,19 +160,19 @@
 
                                 </select>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="form-group row">
                             <label for="example-text-input" class="col-md-2 col-form-label">Type</label>
                             <div class="col-md-10">
-                                <select class="form-control selectpic"  name="type" id="type">
+                                <select class="form-control selectpic" onchange="productType(this)"  name="type" id="type">
                                     <option selected>Select Any One</option>
                                     <option value="new">New</option>
-                                    <option value="old">Old</option>
+                                    <option value="old">Used</option>
 
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group row">
+                     <!--    <div class="form-group row">
                             <label for="example-text-input" class="col-md-2 col-form-label">OS</label>
                             <div class="col-md-10">
                                 <select class="form-control selectpic"  name="OS" id="OS">
@@ -185,8 +185,8 @@
                                 </select>
                             </div>
                         </div>
-
-                        <div class="form-group row">
+ -->
+                       <!--  <div class="form-group row">
                             <label for="example-text-input" class="col-md-2 col-form-label">Warranty</label>
                             <div class="col-md-10">
                                 <input class="form-control"  name="warranty" type="text" placeholder="Enter mobile warranty"  @if(old('warranty')) value="{{ old('warranty') }}" @endif  id="example-text-input">
@@ -260,7 +260,7 @@
 
                                 </select>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="form-group row">
                             <label for="example-text-input" class="col-md-2 col-form-label">Release Year</label>
                             <div class="col-md-10">
@@ -328,7 +328,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <label for="example-text-input" class="col-form-label">Image</label>
-                                        <input class="form-control" name="image[0][]"  multiple type="file"   @if(old('image'))  @endif  id="image-input">
+                                        <input class="form-control" name="image[]"  multiple type="file"   @if(old('image'))  @endif  id="image-input">
                                         <span class="text-danger">{{ $errors->first('image') }}</span>
 
                                     </div>
@@ -350,12 +350,9 @@
                                         <label for="example-text-input" class="col-form-label">Storage</label>
                                         <select class="form-control" name="storage[0][]" >
                                             <option selected>Select Memory</option>
-                                            <option value="256 GB">256 GB</option>
-                                            <option value="128 GB">128 GB</option>
-                                            <option value="64 GB">64 GB</option>
-                                            <option value="32 GB">32 GB</option>
-                                            <option value="16 GB">16 GB</option>
-                                            <option value="8 GB">8 GB</option>
+                                            @foreach(CityClass::Storages() as $store)
+                                            <option value="{{$store->storage}}">{{$store->storage}}</option>
+                                            @endforeach
 
                                         </select>
 
@@ -369,15 +366,15 @@
 
 
                             <hr>
-                                <div class="add_condition">
+                                <div class="add_condition ">
                                  <input type="hidden" value="0">
                                     <div class="row" id="add_condition0">
                                     <div class="input-group">
 
-                                    <div class="col-md-3">
+                                    <div class="col-md-3" id="conditionPart">
                                         <label for="example-text-input" class="col-form-label">Condition</label>
                                         <select class="form-control"  name="condition[0][]" id="condition0">
-                                                <option selected>Select Any One</option>
+                                                <option value="0" selected>Select Any One</option>
                                                 <option value="fair">fair</option>
                                                 <option value="good">good</option>
                                                 <option value="excellent">excellent</option>
@@ -401,8 +398,8 @@
                                         <input class="form-control"  name="quantity[0][]" type="number" placeholder="Enter mobile Quantity"  @if(old('quantity')) value="{{ old('quantity') }}" @endif  id="example-text-input">
                                         <span class="text-danger">{{ $errors->first('quantity') }}</span>
                                     </div>
-                                    <div class="col-md-3" style="text-align: center;">
-                                        <a href="javascript:void(0)" class="btn btn-success addMoreCondition" style="margin-top: 36px;"><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Add Condition # 1</a>
+                                    <div class="col-md-3" style="text-align: center;" id="conditionButton">
+                                        <a href="javascript:void(0)" class="btn btn-success addMoreCondition" style="margin-top: 36px;" ><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Add Condition # 1</a>
                                     </div>
                                     </div>
                                 </div>
@@ -447,19 +444,31 @@
 @endsection
  @section('script')
 
- <script type="text/javascript">
-
-
-</script>
-
 
 
 {{-- nested add field storage --}}
 <script type="text/javascript">
+	var conditionType = '';
+			function productType(type){
+				console.log(type.value);
+				if(type.value == 'new'){
+					 conditionType = type.value;
+					$('#conditionPart').hide();
+					$('#conditionButton').hide();
+					$('.addStorage').html('');
+					$('.addCondition').html('');
+				}else{
+					conditionType = type.value;
+					$('#conditionPart').show();
+					$('#conditionButton').show();
+					$('.addStorage').html('');
+					$('.addCondition').html('');
+				}
+			}
 
     $(document).ready(function(){
         //group add limit
-        var maxField2 = 4; //Input fields increment limitation
+        // var maxField2 = 4; //Input fields increment limitation
         var addButton2 = $('#add_button2'); //Add button selector
         var wrapper2 = $('#field_wrapper2');
         //Input field wrapper
@@ -467,30 +476,51 @@
          var y=0;
          var z=0;
          var conID = 0;
+         var conditionUp = 0;
+
 
     $(document).on('click','.addMoreStorage',function(e){
 		// alert(product);
 
         var storageid= $(e.target).closest('.add_storage').children()[0].value;
         console.log(storageid);
-        var  maxField=3;
+        var  maxField=6;
         conID = 0;
                 // alert(childern);
 			if(storageid < maxField){
                 storageid++;
                 y = storageid;
+                conditionUp ++;
+
+              var contentData= '';
+                    if(conditionType == 'old'){
+                       contentData=' <div class="col-md-3">'+
+                      ' <label for="example-text-input" class="col-form-label">Condition</label>'+
+                      ' <select class="form-control"  name="condition['+y+'][]" id="condition">'+
+                             '  <option selected>Select Any One</option>'+
+                             '  <option value="fair">fair</option>'+
+                             '  <option value="good">good</option>'+
+                             '  <option value="excellent">excellent</option>'+
+                          ' </select> '+
+                  ' </div>';
+                      }
+            //   var buttonData= '';
+            //         if(conditionType == 'old'){
+            //            contentData='<div class="col-md-3" style="text-align:center"> '+
+            //                               ' <a href="javascript:void(0)" class="btn btn-warning addMoreCondition" style="margin-top: 36px;"><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Add Condition # '+y+'</a>'+
+            //                           ' </div>';
+            //           }
+                      
+
                 // alert(childern);
-				var fieldHTML = '<div class="add_storage"><div class="row " id="add_storage'+y+'"><div class="input-group">'+
+				var fieldHTML = '<div class="add_storage addStorage"><div class="row " id="add_storage'+y+'"><div class="input-group">'+
                                         '<div class="col-md-8">'+
                                         '<label for="example-text-input" class="col-form-label">Storage</label>'+
                                         '<select class="form-control" name="storage[0][]" >'+
                                             '<option selected>Select Memory</option>'+
-                                            '<option value="256 GB">256 GB</option>'+
-                                            '<option value="128 GB">128 GB</option>'+
-                                            '<option value="64 GB">64 GB</option>'+
-                                            '<option value="32 GB">32 GB</option>'+
-                                            '<option value="16 GB">16 GB</option>'+
-                                            '<option value="8 GB">8 GB</option>'+
+                                             ' @foreach(CityClass::Storages() as $store)'+
+                                      '<option value="{{$store->storage}}">{{$store->storage}}</option>'+
+                                            '@endforeach'+
                                         '</select>'+
 
                                         '</div>'+
@@ -498,18 +528,10 @@
                                         '  <a href="javascript:void(0)" class="btn btn-danger remove_storage" style="margin-top: 36px;" id="add_button2"><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Remove Storage # '+y+'</a>'+
                                         ' </div>'+
 
-                                        '<div class="add_condition"><input type="hidden" value="0">'+
+                                        '<div class="add_condition addCondition"><input type="hidden" value="'+conditionUp+'">'+
                                           '<div class="row" id="add_condition'+y+'">'+
                                            '<div class="input-group">'+
-                                          ' <div class="col-md-3">'+
-                                          ' <label for="example-text-input" class="col-form-label">Condition</label>'+
-                                          ' <select class="form-control"  name="condition['+y+'][]" id="condition">'+
-                                                 '  <option selected>Select Any One</option>'+
-                                                 '  <option value="fair">fair</option>'+
-                                                 '  <option value="good">good</option>'+
-                                                 '  <option value="excellent">excellent</option>'+
-                                              ' </select> '+
-                                      ' </div>'+
+                                          contentData+
                                       ' <div class="col-md-2">'+
                                           ' <label for="example-text-input" class="col-form-label">Orignal Price</label>'+
                                           ' <input class="form-control"  name="orig_price['+y+'][]" type="number" placeholder="Enter mobile orig_price"  @if(old('orig_price')) value="{{ old('orig_price') }}" @endif  id="example-text-input">'+
@@ -562,37 +584,44 @@
 
         var conditionid= $(e.target).closest('.add_condition').children()[0].value;
          console.log(conditionid);
-        var  maxField=3;
+        var  maxField=6;
 		// var childern =	$(e.target).closest('.add_condition').find('#'+storeindex).children().length;
         //   alert(storeindex);
 			if(conditionid < maxField ){
 
-                conditionid++;
+                
                 conID = conditionid;
+                conID++;
                 // alert(childern);
-				var fieldHTML = '<div class="row remove_condition" id="add_condition'+conID+'"><div class="input-group">'+
-                                           ' <div class="col-md-3">'+
-                                           ' <label for="example-text-input" class="col-form-label">Condition</label>'+
-                                           ' <select class="form-control"  name="condition['+conID+'][]" id="condition">'+
-                                                  '  <option selected>Select Any One</option>'+
-                                                  '  <option value="fair">fair</option>'+
-                                                  '  <option value="good">good</option>'+
-                                                  '  <option value="excellent">excellent</option>'+
-                                               ' </select> '+
-                                       ' </div>'+
+
+              var contentData= '';
+                    if(conditionType == 'old'){
+                       contentData= ' <div class="col-md-3">'+
+                                       ' <label for="example-text-input" class="col-form-label">Condition</label>'+
+                                       ' <select class="form-control"  name="condition['+conditionid+'][]" id="condition">'+
+                                              '  <option selected>Select Any One</option>'+
+                                              '  <option value="fair">fair</option>'+
+                                              '  <option value="good">good</option>'+
+                                              '  <option value="excellent">excellent</option>'+
+                                           ' </select> '+
+                                   ' </div>';
+                      }
+
+				var fieldHTML = '<div class="row remove_condition addCondition" id="add_condition'+conditionid+'"><div class="input-group">'+
+                                      contentData+
                                        ' <div class="col-md-2">'+
                                            ' <label for="example-text-input" class="col-form-label">Orignal Price</label>'+
-                                           ' <input class="form-control"  name="orig_price['+conID+'][]" type="number" placeholder="Enter mobile orig_price"  @if(old('orig_price')) value="{{ old('orig_price') }}" @endif  id="example-text-input">'+
+                                           ' <input class="form-control"  name="orig_price['+conditionid+'][]" type="number" placeholder="Enter mobile orig_price"  @if(old('orig_price')) value="{{ old('orig_price') }}" @endif  id="example-text-input">'+
                                            ' <span class="text-danger">{{ $errors->first('orig_price') }}</span>'+
                                        ' </div>'+
                                        ' <div class="col-md-2">'+
                                            ' <label for="example-text-input" class="col-form-label">Price</label>'+
-                                           ' <input class="form-control"  name="price['+conID+'][]" type="number" placeholder="Enter mobile Price"  @if(old('price')) value="{{ old('price') }}" @endif  id="example-text-input">'+
+                                           ' <input class="form-control"  name="price['+conditionid+'][]" type="number" placeholder="Enter mobile Price"  @if(old('price')) value="{{ old('price') }}" @endif  id="example-text-input">'+
                                            ' <span class="text-danger">{{ $errors->first('price') }}</span>'+
                                        ' </div>'+
                                        '<div class="col-md-2">'+
                                            ' <label for="example-text-input" class="col-form-label">Quantity</label>'+
-                                           ' <input class="form-control"  name="quantity['+conID+'][]" type="number" placeholder="Enter mobile Quantity"  @if(old('quantity')) value="{{ old('quantity') }}" @endif  id="example-text-input">'+
+                                           ' <input class="form-control"  name="quantity['+conditionid+'][]" type="number" placeholder="Enter mobile Quantity"  @if(old('quantity')) value="{{ old('quantity') }}" @endif  id="example-text-input">'+
                                           '  <span class="text-danger">{{ $errors->first('quantity') }}</span>'+
                                        ' </div>'+
                                         '<div  class="col-md-3" style="text-align:center"> '+
@@ -789,7 +818,7 @@ function getModel(event)
     // This function will figure out which tab to display
     var x = document.getElementsByClassName("tab");
     // Exit the function if any field in the current tab is invalid:
-    if (n == 1 && !validateForm()) return false;
+    // if (n == 1 && !validateForm()) return false;
     // Hide the current tab:
     x[currentTab].style.display = "none";
     // Increase or decrease the current tab by 1:
@@ -812,6 +841,7 @@ function getModel(event)
     // A loop that checks every input field in the current tab:
     for (i = 0; i < y.length; i++) {
       // If a field is empty...
+      console.log(y[i].name);
       if (y[i].value == "") {
         // add an "invalid" class to the field:
         y[i].className += " invalid";

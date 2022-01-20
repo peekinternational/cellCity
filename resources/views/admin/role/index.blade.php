@@ -26,7 +26,8 @@
                                                 <thead class="thead-light">
                                                     <tr>
                                                         <th scope="col" style="width: 70px;">#</th>
-                                                        <th scope="col">Name</th>
+                                                        <th scope="col">First Name</th>
+                                                        <th scope="col">Last Name</th>
                                                         <th scope="col">Email</th>
                                                         <th scope="col">Status</th>
                                                         <th scope="col">Action</th>
@@ -48,7 +49,11 @@
                                                             </div>
                                                         </td>
                                                         <td>
-                                                            <h5 class="font-size-14 mb-1"><a href="#" class="text-dark">{{$user->name}}</a></h5>
+                                                            <h5 class="font-size-14 mb-1"><a href="#" class="text-dark">{{$user->first_name}}</a></h5>
+
+                                                        </td>
+                                                        <td>
+                                                            <h5 class="font-size-14 mb-1"><a href="#" class="text-dark">{{$user->last_name}}</a></h5>
 
                                                         </td>
                                                         <td>
@@ -74,8 +79,7 @@
                                                                 {{csrf_field()}}
                                                                    @method('DELETE')
 
-                                                                   <label for="delZip" data-toggle="tooltip" data-placement="top" title="Delete" style="cursor: pointer;"><i class="mdi mdi-delete-circle-outline"></i></label>
-                                                                   <input id="delZip" type="submit" name="" style="display: none">
+                                                                   <button type="submit" style="border: none;background: white;"><i class="mdi mdi-delete-circle-outline"></i></button>
                                                                </form>
 
                                                             </li>

@@ -99,16 +99,18 @@ class UserController extends Controller
     {
 
         if($request->isMethod('post')){
-            // dd($request->all());
+          // dd($request->all());
                 $this->validate($request,[
-                'name' => 'required|min:5|max:50',
+                'first_name' => 'required|min:5|max:50',
+                'last_name' => 'required|min:5|max:50',
                 'phoneno' => 'min:2|max:17',
                 'email' => 'required|email|unique:users,email',
                 'password' => 'required|min:5|max:50'
 
               ],[
 
-                'name.required' =>'Enter Name',
+                'first_name.required' =>'Enter First Name',
+                'last_name.required' =>'Enter Last Name',
                 'email.unique' => 'Email must be unique',
                 'email.required' => 'Enter Email',
                 'phoneno.required' => 'Enter Mobile Number',
@@ -116,10 +118,15 @@ class UserController extends Controller
               ]);
 
                 $user = new User;
-                $user->name = $request->name;
+                $user->first_name = $request->first_name;
+                $user->last_name = $request->last_name;
                 $user->email =  $request->email;
                 $user->address =  $request->address;
                 $user->phoneno =  $request->phoneno;
+                $user->country =  $request->country;
+                $user->state =  $request->state;
+                $user->city =  $request->city;
+                $user->zipcode =  $request->zipcode;
                 $user->role = 'user';
                 $user->password = Hash::make($request->password);
                 $user->save();
@@ -170,6 +177,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+      // dd($request->all());
         $updated_at = Carbon::now();
         $request->merge(['updated_at'=>$updated_at]);
 
@@ -250,7 +258,7 @@ class UserController extends Controller
        $repairOrder->order_status= "4";
        $repairOrder->update();
        $details = [
-        'title' => 'Mail from PeekInternational.com',
+        'title' => 'Mail from CellCity',
         'subject' => 'Dear Customer ,',
         'message' => 'Payment completed Successfully through Cash',
         'Total'  =>$request->total
@@ -258,13 +266,13 @@ class UserController extends Controller
      $messgae = "Succesfully Transferred";
      \Mail::to($cust->email)->send(new TechMail($details));
     //  return response()->json($messgae);
-    $phone = "+".$cust->phoneno;
+    $phone = "+1".$cust->phoneno;
     //  dd($phone);
      $message =strip_tags(nl2br("Dear Customer, \n You have Successfully Pay  through Cash . \n Total Amount : $". $request->total));
 
      $account_sid = "ACeb30af8343f53c1b366517b35ea44dc2";
      $auth_token = "ecc8e9d376d7ef8a19ed22778bb466f8";
-     $twilio_number = +14842553085;
+     $twilio_number = +4842553085;
      $client = new Client($account_sid, $auth_token);
      $client->messages->create($phone,
          ['from' => $twilio_number, 'body' => $message] );
@@ -281,9 +289,9 @@ class UserController extends Controller
         $desc = $repairOrder->id;
         $apiContext = new ApiContext(
           new OAuthTokenCredential(
-              'AY9mTzyew4I5bQDY82ZT23Hw6CVvRNN_gxGdFNFD1dBeP_JtMjM2ubFS8NkFqjnieO_nJ-g54ZZEiwB5',
-            'EKdd3HTSiu1Rgptb7VZfEY2zON7xdsBpCRjdEVvl36u54DO7_AWmyChF-zpIo7l6LWwlETL4vUnCxN0n'
-               )
+                'ARwPWc_n53Fg0RY2MhCyaUakWzj_0jSPbJT6qgZRKCU0JNM6f_vuRgIohe3dd6YiUjne9TihH1imkPuI',
+              'EEEJond1ocNxmcIxE8ACqsFy4qI5umQmSjSv2mg5zbHFXP6_jH0IC1Kzw4CPLQhtrfxpB3Bg21MnEG-V'
+                 )
       );
 // dd($apiContext);
       $payer = new Payer();
@@ -337,10 +345,10 @@ class UserController extends Controller
 public function success(Request $request)
 {
     $apiContext = new ApiContext(
-        new OAuthTokenCredential(
-            'AY9mTzyew4I5bQDY82ZT23Hw6CVvRNN_gxGdFNFD1dBeP_JtMjM2ubFS8NkFqjnieO_nJ-g54ZZEiwB5',
-            'EKdd3HTSiu1Rgptb7VZfEY2zON7xdsBpCRjdEVvl36u54DO7_AWmyChF-zpIo7l6LWwlETL4vUnCxN0n'
-                    )
+         new OAuthTokenCredential(
+                'ARwPWc_n53Fg0RY2MhCyaUakWzj_0jSPbJT6qgZRKCU0JNM6f_vuRgIohe3dd6YiUjne9TihH1imkPuI',
+              'EEEJond1ocNxmcIxE8ACqsFy4qI5umQmSjSv2mg5zbHFXP6_jH0IC1Kzw4CPLQhtrfxpB3Bg21MnEG-V'
+                 )
     );
 
     // Get payment object by passing paymentId
@@ -378,7 +386,7 @@ public function success(Request $request)
 
   //   $retval = mail ($user->email,$subject,$message);
   $details = [
-      'title' => 'Mail from PeekInternational.com',
+      'title' => 'Mail from CellCity',
       'subject' => 'Dear Customer ,',
       'message' => 'Payment completed through PayPal',
       'Total'  =>  $total
@@ -387,7 +395,7 @@ public function success(Request $request)
    \Mail::to($cust->email)->send(new TechMail($details));
   //  return response()->json($messgae);
 
-  $phone = "+".$cust->phoneno;
+  $phone = "+1".$cust->phoneno;
 //    dd($phone);
    $message =strip_tags(nl2br("Dear customer,\n You have Successfully Pay  through PayPal \n Total Amount : $". $total));
    $account_sid = "ACeb30af8343f53c1b366517b35ea44dc2";
@@ -399,7 +407,7 @@ public function success(Request $request)
 
       return view('frontend.paymentSuccess');
 
-    } catch (PayPalConnectionException $ex) {
+    } catch (PayPalConnectionException $ex) {   
         echo $ex->getCode();
         echo $ex->getData();
         die($ex);
@@ -425,21 +433,28 @@ public function orderViewDetails($id)
 
 public function forgetPassword(Request $request)
 {
-      $request->validate([
-          'email'=>'required|exists:users,email'
-      ]);
+
+      // $request->validate([
+      //     'email'=>'required|exists:users,email'
+      // ],[
+
+      //       'name.required' =>'Enter Name',
+      //       'email.unique' => 'Email must be unique',
+      //     ]);
 
       $user = User::where('email',$request->email)->first();
-
+ 
       if($user === null)
       {
         return back()->with('message','User Email not found');
       }
       else
       {
+
+
           $token = mt_rand(100000,999999);
         $details = [
-            'title' => 'Mail from PeekInternational.com',
+            'title' => 'Mail from CellCity',
             'token' => $token,
             'message' => 'Order Placed successfully, A technician will reach out to you as soon as possible. Thank you!!'
         ];

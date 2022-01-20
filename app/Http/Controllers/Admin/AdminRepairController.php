@@ -153,11 +153,7 @@ class AdminRepairController extends Controller
     public function assignTech(Request $request){
         // dd($request->techid);
         $user = User::find($request->techid);
-        $user->jobStatus = 'busy';
-        $user->update();
-        // dd($request->orderId);
-        RepairOrder::whereId($request->orderId)->update(['techId' => $user->id,'order_status'=>'3']);
-
+      
         $details = [
             'title' => 'Mail from PeekInternational.com',
             'subject' => 'Dear Technician ,',
@@ -166,15 +162,21 @@ class AdminRepairController extends Controller
 
          \Mail::to($user->email)->send(new orderAssign($details));
 
-         $phone = '+'.$user->phoneno;
+         $phone = '+1'.$user->phoneno;
            $message = strip_tags(nl2br("Dear Technician, \n You have Recieved  a new Repair Order"));
 
            $account_sid = "ACeb30af8343f53c1b366517b35ea44dc2";
-           $auth_token = "ecc8e9d376d7ef8a19ed22778bb466f8";
-           $twilio_number = +14842553085;
+           $auth_token = "e614ea5865f02273d998025db07530fb";
+           $twilio_number = +4842553085;
              $client = new Client($account_sid, $auth_token);
              $client->messages->create($phone,
                  ['from' => $twilio_number, 'body' => $message] );
+             
+        $user->jobStatus = 'busy';
+        $user->update();
+        // dd($request->orderId);
+        RepairOrder::whereId($request->orderId)->update(['techId' => $user->id,'order_status'=>'3']);
+
 
          return response()->json($message);
     }
@@ -215,8 +217,9 @@ class AdminRepairController extends Controller
         $RepairOrders->userId = $request->userId;
         $RepairOrders->model_Id = $model_Id;
         $RepairOrders->date = $request->date;
-        $RepairOrders->time = $request->time;
-        $RepairOrders->name = $customer->name;
+        $RepairOrders->time_id = $request->time;
+        $RepairOrders->first_name = $customer->first_name;
+        $RepairOrders->last_name = $customer->last_name;
         $RepairOrders->address = $customer->address;
         $RepairOrders->phone = $customer->phoneno;
         $RepairOrders->email = $customer->email;
@@ -272,12 +275,13 @@ class AdminRepairController extends Controller
         $RepairOrders->userId = $request->userId;
         $RepairOrders->model_Id = $model_Id;
         $RepairOrders->date = $request->date;
-        $RepairOrders->time = $request->time;
+        $RepairOrders->time_id = $request->time;
 
-            $RepairOrders->name = $customer->name;
-            $RepairOrders->address = $customer->address;
-            $RepairOrders->phone = $customer->phoneno;
-            $RepairOrders->email = $customer->email;
+        $RepairOrders->first_name = $customer->first_name;
+        $RepairOrders->last_name = $customer->last_name;
+        $RepairOrders->address = $customer->address;
+        $RepairOrders->phone = $customer->phoneno;
+        $RepairOrders->email = $customer->email;
 
 
 
@@ -350,9 +354,10 @@ class AdminRepairController extends Controller
         $repairOrders->techId = $RepairOrders->techId;
         $repairOrders->model_Id = $RepairOrders->model_Id;
         $repairOrders->date = $RepairOrders->date;
-        $repairOrders->time = $RepairOrders->time;
+        $repairOrders->time_id = $RepairOrders->time;
 
-            $repairOrders->name = $customer->name;
+        $repairOrders->first_name = $customer->first_name;
+        $repairOrders->last_name = $customer->last_name;
             $repairOrders->address = $customer->address;
             $repairOrders->phone = $customer->phoneno;
             $repairOrders->email = $customer->email;
@@ -394,5 +399,17 @@ class AdminRepairController extends Controller
         $RepairOrders->delete();
 
         return back()->with('message', Alert::_message('success','Reject this Update Order Request '));
+    }
+    public function reviewUpdate(Request $request)
+    {
+
+    if($request->status == 'add'){
+       $RepairOrders = DB::table('reviewHome')->insert(['reviewid'=> $request->id]);
+    }else{
+       $RepairOrders =DB::table('reviewHome')->where('reviewid',$request->id)->delete();
+    }
+       
+
+        return $RepairOrders;
     }
 }

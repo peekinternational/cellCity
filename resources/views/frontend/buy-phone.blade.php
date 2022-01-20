@@ -5,6 +5,94 @@
     width:260px;
     margin:10px;
 }
+
+.colored{
+  font-family: 'Catamaran', sans-serif;
+    font-size: 15px;
+    color: #333;
+    line-height: 1.8em;
+    font-weight: inherit;
+    /* background: #ffffff;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center top; */
+    /* -webkit-font-smoothing: antialiased; */
+}
+.content {
+  width: 50%;
+  margin: 0 auto;
+  margin-top: 5%;
+  background-color: #e9e9e9;
+  border-left: 8px solid black;
+  padding: 20px;
+}
+.content h3 {
+  font-weight:bold;
+  margin-bottom: 24px;
+}
+.content p {
+  margin-bottom: 12px;
+}
+#show-more, #show-less { 
+  color: grey;
+}
+ .hideSm{
+    display: none;
+  }
+#show-more a, #show-less a{
+  cursor: pointer;
+  text-decoration:underline;
+  color: auto;
+}
+@media(min-width:768px){
+  .shop-item .inner-box {
+    height: 380px;
+  }
+ 
+  .shop-item .inner-box a{
+    position: relative;
+  }
+  .shop-item .inner-box a i{
+    position: absolute;
+    z-index: 9999;
+    top: -10px;
+    left: -18px;
+  }
+  #imagess{
+    width: 150px;
+    height: 150px;
+    margin: auto;
+}
+}
+@media(max-width:767px){
+  .inner-box a{
+    display: flex;
+    position: relative;
+  }
+   .hideSm{
+    display: block;
+    border: 1px solid #e7ebf3;
+    padding: 9px;
+    margin-bottom: 22px;
+}
+ .shop-item .inner-box .image-box img {
+    position: relative;
+    width: 71% !important;
+    display: block;
+    margin: 0 auto;
+}
+  .inner-box a i{
+    position: absolute;
+    z-index: 9999;
+    top: -4px;
+    left: 10px;
+  }
+  .shop-item .inner-box .image-box img{
+    height: auto;
+    
+  }
+})
+
 </style>
 @section('content')
 <!--Page Title-->
@@ -80,8 +168,13 @@
         </div> -->
 
     	<div class="row clearfix">
-        <div class="col-md-3 sidebar-filter">
-          <ul class="_1PyjTAdMUxZV6zOWToeiGU">
+        
+        <div class="col-md-3">
+          <div class="hideSm"><span style="font-size: 16px;">Filter</span> <span style="float: right;"><i style="font-size: 28px;margin-right: 5px;" class="fa fa-angle-down" aria-hidden="true"></i>
+</span></div>
+
+          <ul  id="toggleClass" class=" sidebar-filter _1PyjTAdMUxZV6zOWToeiGU">
+     
             <li class="_2LiMhAnX4MDtEL5YEDIdLy">
               <span class="_2RGsPtNo">Price</span>
 
@@ -148,7 +241,8 @@
               <li class="_2LiMhAnX4MDtEL5YEDIdLy"><h3 class="_2RGsPtNo">
                   Model
                 </h3>
-                <ul data-test="filters-facet" class="_26WV8o_nAH1VuLftdiS-6t" id="modelsss">
+               <ul data-test="filters-facet" class="_26WV8o_nAH1VuLftdiS-6t" id="modelsss"  style="height: 213px;
+                  overflow: hidden; ">
                     {{-- <li class="_33pDOgQ80LhcEmJTGXNM3U"><div><input id="model-reset" type="checkbox" checked="checked" data-test="facet-reset" class="_3wvnh-Qn"> <label for="model-reset" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC">
                     All
                   </span></span></div> <!----> <!----></label></div></li> --}}
@@ -178,15 +272,22 @@
                     @endforeach
 
 
-                  {{-- <span class="_3JZtHpVH kdWBx8BsOXOeHlX8MCQf_">
+                  
+            </ul>
+                 <span class="_3JZtHpVH kdWBx8BsOXOeHlX8MCQf_">
+                      <button data-test="facet-toggler" class="_3wCdvNLg s1Zi9DG5" id="seeMore" onclick="seeMore()">
+                       see more
+                  </button>
+                </span>
+                 <span class="_3JZtHpVH kdWBx8BsOXOeHlX8MCQf_" id="seeLess" style="display:none" onclick="seeLess()">
                       <button data-test="facet-toggler" class="_3wCdvNLg s1Zi9DG5">
-                {{-- {{ CityClass::allModels()->links('vendor.pagination.custom') }} --}}
-                {{-- see more
-              {{-- </button></span> --}}
-            </ul></li>
+                       see less
+                  </button>
+                </span>
+            </li>
 
               <li class="_2LiMhAnX4MDtEL5YEDIdLy"><h3 class="_2RGsPtNo">
-                  New & Old
+                  New & Used
                 </h3> <ul data-test="filters-facet" class="_26WV8o_nAH1VuLftdiS-6t">
                   {{-- <li class="_33pDOgQ80LhcEmJTGXNM3U"><div><input id="backbox_grades_list-reset" type="checkbox" checked="checked" data-test="facet-reset" class="_3wvnh-Qn"> <label for="backbox_grades_list-reset" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentType" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC">
                     All
@@ -201,13 +302,13 @@
                   <li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U"><div>
                       <input id="backbox_grades_list-11 old"  name="type" type="checkbox"  value="old" data-test="facet-old" class="_3wvnh-Qn gettype" onclick="getNewOld()">
                       <label for="backbox_grades_list-11 old" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentType" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
-                    Old
+                    Used
                   </span> <!----></span></div> <!----> <!----></label></div></li>
 
                 </ul></li>
 
 
-              <li class="_2LiMhAnX4MDtEL5YEDIdLy"><h3 class="_2RGsPtNo">
+              <li class="_2LiMhAnX4MDtEL5YEDIdLy" id="showConditions"><h3 class="_2RGsPtNo">
                   Condition
                 </h3> <ul data-test="filters-facet" class="_26WV8o_nAH1VuLftdiS-6t">
                   {{-- <li class="_33pDOgQ80LhcEmJTGXNM3U"><div><input id="backbox_grades_list-reset" type="checkbox" checked="checked" data-test="facet-reset" class="_3wvnh-Qn"> <label for="backbox_grades_list-reset" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC">
@@ -274,57 +375,44 @@
                     Unlocked only
                   </span> </span></div> <!----> <!----></label></div></li> <!----></ul></li>
 
-                <li class="_2LiMhAnX4MDtEL5YEDIdLy"><h3 class="_2RGsPtNo">
+                <li class="_2LiMhAnX4MDtEL5YEDIdLy items">
+                  <h3 class="_2RGsPtNo">
                   Storage (GB)
                 </h3> <ul data-test="filters-facet" class="_26WV8o_nAH1VuLftdiS-6t">
                   {{-- <li class="_33pDOgQ80LhcEmJTGXNM3U"><div><input id="storage-reset" type="checkbox" checked="checked" data-test="facet-reset" class="_3wvnh-Qn"> <label for="storage-reset" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC">
                     All
                   </span></span></div> <!----> <!----></label></div></li> --}}
+                  @foreach(CityClass::Storages() as $key=>$store)
+                  @if($key < 3)
                   <li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U"><div>
-                      <input id="storage-2000 2 GB" type="checkbox" data-test="facet-1 GB" class="_3wvnh-Qn getStorage" value="2 GB" onclick="getStorage()">
-                        <label for="storage-2000 2 GB" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
-                     2 GB
+                      <input id="storage-2000 {{$store->storage}}" type="checkbox" data-test="facet-{{$store->storage}}" class="_3wvnh-Qn getStorage" value="{{$store->storage}}" onclick="getStorage()">
+                        <label for="storage-2000 {{$store->storage}}" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
+                    {{$store->storage}}
                   </span> </span></div> <!----> <!----></label></div></li>
+                  @endif
+              @endforeach
+              @if(CityClass::Storages()->count() > 3)
+                  <div id="show-more" class="_3JZtHpVH kdWBx8BsOXOeHlX8MCQf_">
+                    <a href="javascript:void(0)" data-test="facet-toggler" class="_3wCdvNLg s1Zi9DG5" >see more</a>
+                  </div>
+                  @endif
+                  <div id="show-more-content">
 
+                @foreach(CityClass::Storages() as $key=>$store)
+                @if($key > 2)
                   <li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U"><div>
-                      <input id="storage-4000 4 GB" type="checkbox" data-test="facet-4 GB" class="_3wvnh-Qn getStorage" value="4 GB" onclick="getStorage()">
-                         <label for="storage-4000 4 GB" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
-                    4 GB
-                  </span> </span></div> <!----> <!----></label></div></li>
-
-                  <li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U"><div>
-                      <input id="storage-8000 8 GB" type="checkbox" data-test="facet-8 GB" class="_3wvnh-Qn getStorage" value="8 GB" onclick="getStorage()">
-                        <label for="storage-8000 8 GB" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
-                    8 GB
-                  </span> </span></div> <!----> <!----></label></div></li>
-
-                  <li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U"><div>
-                      <input id="storage-16000 16 GB" type="checkbox" data-test="facet-16 GB" class="_3wvnh-Qn  getStorage" value="16 GB" onclick="getStorage()">
-                        <label for="storage-16000 16 GB" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
-                    16 GB
-                  </span> </span></div> <!----> <!----></label></div></li>
-
-                  <li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U"><div>
-                      <input id="storage-32000 32 GB" type="checkbox" data-test="facet-32 GB" class="_3wvnh-Qn  getStorage" value="32 GB" onclick="getStorage()">
-                         <label for="storage-32000 32 GB" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
-                    32 GB
+                      <input id="storage-32000 {{$store->storage}}" type="checkbox" data-test="facet-{{$store->storage}}" class="_3wvnh-Qn  getStorage" value="{{$store->storage}}" onclick="getStorage()">
+                         <label for="storage-32000 {{$store->storage}}" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
+                    {{$store->storage}}
                   </span></span></div> <!----> <!----></label></div></li>
+                  @endif
+                  @endforeach
+            
+                <div>
 
-                  <li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U"><div>
-                      <input id="storage-64000 64 GB" type="checkbox" data-test="facet-62 GB" class="_3wvnh-Qn  getStorage" value="64 GB" onclick="getStorage()" >
-                         <label for="storage-64000 64 GB" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
-                    64 GB
-                  </span> </span></div> <!----> <!----></label></div></li>
-                  <li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U"><div>
-                    <input id="storage-128000 128 GB" type="checkbox" data-test="facet-128 GB" class="_3wvnh-Qn  getStorage" value="128 GB" onclick="getStorage()" >
-                       <label for="storage-128000 128 GB" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
-                  128 GB
-                </span> </span></div> <!----> <!----></label></div></li>
-                <li data-test="facet-item" class="_33pDOgQ80LhcEmJTGXNM3U"><div>
-                    <input id="storage-256000 256 GB" type="checkbox" data-test="facet-256 GB" class="_3wvnh-Qn  getStorage" value="256 GB" onclick="getStorage()" >
-                       <label for="storage-256000 256 GB" class="_33K8eTZu"><div class="_3S4CObWg"><div class="_2OVE0h6V"></div> <div class="_3xAYCg9N"><svg aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 40 40" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18.43 25a1 1 0 01-.71-.29l-5.84-5.84a1 1 0 010-1.41 1 1 0 0 1 1.42 0l5.13 5.13 8.23-8.24a1 1 0 011.42 0 1 1 0 0 1 0 1.41l-8.95 9a1 1 0 01-.7.24z"></path> <!----></svg></div></div> <div class="TRSMTVTh"><span class="_28IelIKC"><span class="_28IelIKC _1LYyf7lOuywpdBWUdNvl1k">
-                  256 GB
-                </span> </span></div> <!----> <!----></label></div></li>
+                <div id="show-less" class="_3JZtHpVH kdWBx8BsOXOeHlX8MCQf_">
+                  <a href="javascript:void(0)" data-test="facet-toggler" class="_3wCdvNLg s1Zi9DG5" >
+                    see less</a></div>
 {{--
                    <span class="_3JZtHpVH kdWBx8BsOXOeHlX8MCQf_"><button data-test="facet-toggler" class="_3wCdvNLg s1Zi9DG5">
                 See more
@@ -334,10 +422,7 @@
         </div>
         <div class="col-md-9">
           <div class="row" id="filter">
-            <!--Shop Item-->
-
-
-            <!--Shop Item-->
+            <!--Shop Item--><!--Shop Item-->
              @foreach ($products as $product)
                 @php
                 $color = App\Models\ProductColor::where('product_id',$product->id)->first();
@@ -348,31 +433,32 @@
                 $condition = App\Models\ProductCondition::where('storage_id',$storage->id)->first();
                 @endphp
 
-
+                
             <div class="shop-item col-md-4 col-sm-6 col-xs-12">
+            
               <div class="inner-box">
                   @if (Auth::user())
 
                      @if (CityClass::checkWishlist($product->id) == "1")
-                     <a href="#" onclick="undoWishlist({{$product->id}})"><i class="fa fa-heart" style="font-size: 30px;color:#ff0707"></i></a>
+                     <a href="#" onclick="undoWishlist({{$product->id}})"><i class="fa fa-heart" style="font-size: 17px;color:#ff0707"></i></a>
                      @else
-                     <a href="#" onclick="wishlist({{$product->id}})"><i class="fa fa-heart" style="font-size: 30px;color:#adadad"></i></a>
+                     <a href="#" onclick="wishlist({{$product->id}})"><i class="fa fa-heart" style="font-size: 17px;color:#adadad"></i></a>
                      @endif
                    @else
-                   <a href="#" onclick="wishlist({{$product->id}})"><i class="fa fa-heart" style="font-size: 30px;color:#adadad"></i></a>
+                   <a href="#" onclick="wishlist({{$product->id}})"><i class="fa fa-heart" style="font-size: 17px;color:#adadad"></i></a>
                   @endif
 
-
+                  <a href="{{ route('product.details',$product->id) }}" class="colored">
 
                   <figure class="image-box">
 
-                   <a href="{{ route('product.details',$product->id) }}"><img src="{{asset('storage/images/products/'.$images->image ?? '' )}}" alt="" /></a>
+                 <img src="{{asset('storage/images/products/'.$images->image ?? '' )}}" alt="" id="imagess"  />
 
                 </figure>
                   <!--Lower Content-->
                   <div class="lower-content">
-                    <h3><a href="">{{ $model->brand->brand_name ?? ''}}  {{ $model->model_name ?? ''}} </a></h3>
-                    <div> <span>{{ $storage->storage  ?? ''}} -{{$color->color_name ?? ''}} - {{ $product->locked ?? '' }}</span> </div>
+                    <h4><strong>{{ $model->brand->brand_name ?? ''}}  {{ $model->model_name ?? ''}}</strong></h4>
+                    <div> <span>{{ $storage->storage  ?? ''}} - {{$color->color_name ?? ''}} - {{ $product->locked ?? '' }}</span> </div>
                       <span>
                       Warranty: {{ $product->warranty ?? '' }}
                       </span>
@@ -382,16 +468,31 @@
                             <img src="{{asset('storage/service/'.$service->image)}}">
                           </div>
                           @empty
-                          <div>wating...</div>
+                          <div></div>
                           @endforelse
                         </div>
                       <div>Starting from</div>
+                      @if($product->type == 'new')
+                      
                       <div class="price">
-                      <strong>${{ $condition->price ?? '' }}</strong> <del>${{ $condition->orig_price ?? ''}}</del></div>
+                      <strong>${{ $condition->price ?? '' }}</strong></div>
+                     @else
+                     <div class="price">
+                       @if($condition->price == $condition->orig_price)
+                      <strong>${{ $condition->price ?? '' }}</strong> </del>
+
+                       @else 
+                       <strong>${{ $condition->price ?? '' }}</strong> <del>${{ $condition->orig_price ?? ''}}</del>
+                      @endif
+                       </div>
+                      @endif
                       <!-- <a href="" class="cart-btn theme-btn btn-style-two">Add to cart</a> -->
                   </div>
+                  </a>  
                 </div>
+               
             </div>
+            
             @endforeach
 
 
@@ -414,7 +515,15 @@
 
 <script>
 
-
+window.addEventListener( "pageshow", function ( event ) {
+  var historyTraversal = event.persisted || 
+                         ( typeof window.performance != "undefined" && 
+                              window.performance.navigation.type === 2 );
+  if ( historyTraversal ) {
+    // Handle page restore.
+    window.location.reload();
+  }
+});
     function getBrand(id){
         //   alert('asdasd');
         var id = id;
@@ -478,12 +587,7 @@
             $('.getCondition').prop('checked', false);
         }
        });
-        $(".getBrandId").each(function(){
-        if($(this).is(":checked")){
-
-              $('.getBrandId').prop('checked', false);
-        }
-       });
+  
          $(".getStorage").each(function(){
                 if($(this).is(":checked")){
                     $('.getStorage').prop('checked', false);
@@ -516,9 +620,15 @@
         data:{model:getmodels,selectedModel:selectedModel},
 
         success:function(response){
-          console.log(response);
-          $('#filter').html(response);
-        //   $('#exampleModal'+id).modal('show');
+
+          if(response) {
+            try {
+                $('#filter').html(JSON.parse(response).brands);
+            } catch(e) {
+              $('#filter').html(response);
+            }
+        }
+          
         },
 
 
@@ -556,9 +666,13 @@
         data:{getCondition:getCondition,selectedModel:selectedModel},
 
         success:function(response){
-          console.log(response);
-          $('#filter').html(response);
-        //   $('#exampleModal'+id).modal('show');
+           if(response) {
+            try {
+                $('#filter').html(JSON.parse(response).brands);
+            } catch(e) {
+              $('#filter').html(response);
+            }
+        }
         },
 
        });
@@ -566,6 +680,8 @@
       }
       function getNewOld(){
 
+
+        
         var selectedModel =[];
         $('input:checkbox[name=models_name]').each(function()
             {
@@ -585,6 +701,15 @@
         }
        });
 
+       if(gettype == 'new')
+       {
+        $("#showConditions").hide();
+       }
+       else
+       {
+        $("#showConditions").show();
+       }
+
        var gettype = gettype.toString();
             console.log(getCondition);
 
@@ -595,9 +720,13 @@
         data:{gettype:gettype,selectedModel:selectedModel},
 
         success:function(response){
-          console.log(response);
-          $('#filter').html(response);
-        //   $('#exampleModal'+id).modal('show');
+            if(response) {
+            try {
+                $('#filter').html(JSON.parse(response).brands);
+            } catch(e) {
+              $('#filter').html(response);
+            }
+        }
         },
 
        });
@@ -614,6 +743,7 @@
                 });
 
             var selectedModel = selectedModel.toString();
+            
 
           console.log(selectedModel);
             var getStorage= [];
@@ -633,8 +763,13 @@
 
                 success:function(response){
                 console.log(response);
-                $('#filter').html(response);
-                //   $('#exampleModal'+id).modal('show');
+                  if(response) {
+                  try {
+                      $('#filter').html(JSON.parse(response).brands);
+                  } catch(e) {
+                    $('#filter').html(response);
+                  }
+              }
                 },
 
             });
@@ -669,9 +804,13 @@
                 dataType:"html",
                 data:{getLocked:getLocked,selectedModel:selectedModel},
                 success:function(response){
-                console.log(response);
-                $('#filter').html(response);
-                //   $('#exampleModal'+id).modal('show');
+                  if(response) {
+                    try {
+                        $('#filter').html(JSON.parse(response).brands);
+                    } catch(e) {
+                      $('#filter').html(response);
+                    }
+                }
                 },
 
             });
@@ -697,9 +836,13 @@
                 dataType:"html",
                 data:{getLocked:getLocked,selectedModel:selectedModel},
                 success:function(response){
-                console.log(response);
-                $('#filter').html(response);
-                //   $('#exampleModal'+id).modal('show');
+                  if(response) {
+                  try {
+                      $('#filter').html(JSON.parse(response).brands);
+                  } catch(e) {
+                    $('#filter').html(response);
+                  }
+              }
                 },
 
             });
@@ -736,9 +879,13 @@
                     data:{phoneService:phoneService,selectedModel:selectedModel},
 
                     success:function(response){
-                    console.log(response);
-                    $('#filter').html(response);
-                    //   $('#exampleModal'+id).modal('show');
+                      if(response) {
+                      try {
+                          $('#filter').html(JSON.parse(response).brands);
+                      } catch(e) {
+                        $('#filter').html(response);
+                      }
+                  }
                     },
 
                 });
@@ -798,9 +945,9 @@
     $(function() {
         $('#slider-container').slider({
             range: true,
-            min: 0,
-            max: 1000,
-            values: [0, 1000],
+            min: 5,
+            max: 2000,
+            values: [5, 2000],
             slide: function(event, ui) {
                 $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
                 var mi = ui.values[ 0 ];
@@ -839,5 +986,39 @@ function filterSystem(minPrice, maxPrice) {
 
 	}).show();
 }
+
+
+</script>
+
+<script>
+$('#show-more-content').hide();
+
+$('#show-more').click(function(){
+	$('#show-more-content').show(300);
+	$('#show-less').show();
+	$('#show-more').hide();
+});
+
+$('#show-less').click(function(){
+	$('#show-more-content').hide(150);
+	$('#show-more').show();
+	$(this).hide();
+});
+
+function seeMore()
+{
+   $("#seeLess").show();
+   $("#seeMore").hide();
+   $("#modelsss").css('height','auto');
+}
+function seeLess()
+{
+   $("#seeLess").hide();
+   $("#seeMore").show();
+   $("#modelsss").css('height','213px');
+}
+ $(".hideSm").click(function(){
+    $("#toggleClass").toggleClass("sidebar-filter");
+  });
 </script>
 @endsection

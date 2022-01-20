@@ -1,7 +1,7 @@
 
 
  <select id="model_id" onchange="getModel(this)" name="model_id" class="_3Iq8JGYZpyTj97wvi5Wyu7 eUlOsp7XbB9G1L8SEMMpU baseselect-field">
-    <option selected>Select Model ....</option>
+    <option selected value="">Select Model ....</option>
     @foreach($models as $model)
     <option value="{{$model->id}}">{{$model->model_name}}</option>
    @endforeach

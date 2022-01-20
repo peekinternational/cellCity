@@ -28,7 +28,7 @@ class forgetPassword extends Mailable
      */
     public function build()
     {
-        return $this->subject('Mail from Peekinternational.com')
+        return $this->subject('Mail from CellCity')
         ->view('emails.forgetPassword');
 
     }

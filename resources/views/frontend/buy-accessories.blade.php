@@ -5,6 +5,58 @@
   {
     opacity: none;
   }
+  #slider-container{
+    width:260px;
+    margin:10px;
+}
+
+.colored{
+  font-family: 'Catamaran', sans-serif;
+    font-size: 15px;
+    color: #333;
+    line-height: 1.8em;
+    font-weight: inherit;
+    /* background: #ffffff;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center top; */
+    /* -webkit-font-smoothing: antialiased; */
+}
+.imagess{
+    width: 150px;  height: 150px;margin: auto;
+  }
+  @media(min-width:768px){
+  .shop-item .inner-box {
+    height: 350px;
+  }
+  .shop-item .inner-box a{
+    position: relative;
+  }
+  .shop-item .inner-box a i{
+    position: absolute;
+    z-index: 9999;
+    top: -10px;
+    left: -18px;
+  }
+  .imagess{
+    width: 150px;  height: 150px;margin: auto;
+  }
+}
+@media(max-width:767px){
+  .inner-box a{
+    display: flex;
+    position: relative;
+  }
+  .inner-box a i{
+    position: absolute;
+    z-index: 9999;
+    top: -4px;
+    left: 10px;
+  }
+  .shop-item .inner-box .image-box img{
+    height: auto;
+  }
+})
 </style>
 @section('content')
 <!--Page Title-->
@@ -32,15 +84,15 @@
 
           <div class="a-cell xs-12 md-3" data-v-2b8789a2="">
             <div class="axop9d4ghf_ZiU7FQc-M8 baseselect-wrapper _2u25sfWmf6NUCbJ_StTs_r" data-v-2b8789a2=""><!---->
-                <select id="simlock" onchange="getBrand(this)" name="brand_id" class="_3Iq8JGYZpyTj97wvi5Wyu7 eUlOsp7XbB9G1L8SEMMpU baseselect-field">
-                    <option selected>Select Brand....</option>
+                <select id="brand_id" onchange="getBrand(this)" name="brand_id" class="_3Iq8JGYZpyTj97wvi5Wyu7 eUlOsp7XbB9G1L8SEMMpU baseselect-field">
+                    <option selected value="">Select Brand....</option>
                     @foreach (CityClass::brands() as $brand)
                     <option value="{{ $brand->id }}">{{ $brand->brand_name }}</option>
                     @endforeach
                   </select>
 
               <label data-test="baseselect-label" class="PSXfa64BhcchUXTYm8jxr _2Y-fYnDKPqxkYV__KtgvWD baseselect-label">
-                {{-- <span class="_1rmkAs0zRQWqTLR2midRVa baseselect-label-content">Best Selling</span> --}}
+               
               </label>
               <div class="_3CTJYWu3hsWyWna_ZcsF5I">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 443.9 476.5" data-test="baseselect-icon" class="-S5BM_soVHE3yxeKelL2Q _1-GUUYIHoGjHHKudYw6-sr"><path d="M220.2 355.7c-3.1 0-6.1-1.2-8.5-3.5L9.1 149.6c-4.7-4.7-4.7-12.3 0-17 4.7-4.7 12.3-4.7 17 0l194.1 194.1 197-197c4.7-4.7 12.3-4.7 17 0 4.7 4.7 4.7 12.3 0 17L228.7 352.2c-2.4 2.3-5.4 3.5-8.5 3.5z"></path></svg>
@@ -50,7 +102,7 @@
           <div class="a-cell xs-12 md-3" data-v-2b8789a2="">
             <div id="showModel" class="axop9d4ghf_ZiU7FQc-M8 baseselect-wrapper _2u25sfWmf6NUCbJ_StTs_r" data-v-2b8789a2="" ><!---->
                 <select id="simlock" onchange="getModel(this)" name="model_id" class="_3Iq8JGYZpyTj97wvi5Wyu7 eUlOsp7XbB9G1L8SEMMpU baseselect-field">
-                    <option selected>Select Model ....</option>
+                    <option selected value="">Select Model ....</option>
 
                   </select>
 
@@ -62,8 +114,8 @@
               </div>
             </div>
           </div>
-          <div class="a-cell xs-12 md-3" data-v-2b8789a2="">
-            <div id="showCategory" class="axop9d4ghf_ZiU7FQc-M8 baseselect-wrapper _2u25sfWmf6NUCbJ_StTs_r" data-v-2b8789a2=""><!---->
+      <!--     <div class="a-cell xs-12 md-3" data-v-2b8789a2="">
+            <div id="showCategory" class="axop9d4ghf_ZiU7FQc-M8 baseselect-wrapper _2u25sfWmf6NUCbJ_StTs_r" data-v-2b8789a2="">
                 <select id="simlock" name="category_id" class="_3Iq8JGYZpyTj97wvi5Wyu7 eUlOsp7XbB9G1L8SEMMpU baseselect-field">
                     <option selected>Select Category ....</option>
 
@@ -76,10 +128,11 @@
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 443.9 476.5" data-test="baseselect-icon" class="-S5BM_soVHE3yxeKelL2Q _1-GUUYIHoGjHHKudYw6-sr"><path d="M220.2 355.7c-3.1 0-6.1-1.2-8.5-3.5L9.1 149.6c-4.7-4.7-4.7-12.3 0-17 4.7-4.7 12.3-4.7 17 0l194.1 194.1 197-197c4.7-4.7 12.3-4.7 17 0 4.7 4.7 4.7 12.3 0 17L228.7 352.2c-2.4 2.3-5.4 3.5-8.5 3.5z"></path></svg>
               </div>
             </div>
-          </div>
+          </div> -->
           <div class="a-cell xs-12 md-3" data-v-2b8789a2="">
             <div class="axop9d4ghf_ZiU7FQc-M8 baseselect-wrapper _2u25sfWmf6NUCbJ_StTs_r" data-v-2b8789a2=""><!---->
                 <button  type="submit" class="btn btn-primary btn-sm" id="submit">Search</button>
+                 <button  type="button" class="btn btn-default btn-sm" style="display: none;margin-left: 3px" id="submitclear">Clear</button>
             </div>
           </div>
         </div>
@@ -153,19 +206,20 @@
                     @if (Auth::user())
 
                     @if (CityClass::accessWishlist($accessory->id) == "1")
-                    <a href="#" onclick="undoWishlist({{$accessory->id}})"><i class="fa fa-heart" style="font-size: 30px;color:#ff0707"></i></a>
+                    <a href="#" onclick="undoWishlist({{$accessory->id}})"><i class="fa fa-heart" style="font-size: 17px;color:#ff0707"></i></a>
                     @else
-                    <a href="#" onclick="wishlist({{$accessory->id}})"><i class="fa fa-heart" style="font-size: 30px;color:#adadad"></i></a>
+                    <a href="#" onclick="wishlist({{$accessory->id}})"><i class="fa fa-heart" style="font-size: 17px;color:#adadad"></i></a>
                     @endif
                   @else
-                  <a href="#" onclick="wishlist({{$accessory->id}})"><i class="fa fa-heart" style="font-size: 30px;color:#adadad"></i></a>
+                  <a href="#" onclick="wishlist({{$accessory->id}})"><i class="fa fa-heart" style="font-size: 17px;color:#adadad"></i></a>
                  @endif
+                 <a href="{{route('accessory.single',$accessory->id)}}" class="colored">
                     <figure class="image-box">
-                        <a href="{{route('accessory.single',$accessory->id)}}"><img src="{{asset('/storage/accessories/images/'.$imag->images)}}" alt="" /></a>
+                       <img src="{{asset('/storage/accessories/images/'.$imag->images)}}" alt="" class="imagess"/>
                       </figure>
                       <!--Lower Content-->
                       <div class="lower-content">
-                        <h3><a href="">{{ $model->brand->brand_name }} {{ $model->model_name }}</a></h3>
+                        <h5> <strong>{{ $model->brand->brand_name }} {{ $model->model_name }}</strong></h5>
                         <div> <span>{{ $accessory->category_id }} - {{ $accessory->name }}</span> </div>
                           <span>
                           {{-- Warranty: 12 months --}}
@@ -175,6 +229,7 @@
                           <strong>${{ $accessory->sell_price }}.00</strong> <del>${{ $accessory->orig_price }}.00</del></div>
                           <!-- <a href="{{url('single')}}" class="cart-btn theme-btn btn-style-two">Add to cart</a> -->
                       </div>
+                      </a>
                   </div>
               </div>
             @endforeach
@@ -201,12 +256,19 @@
 @section('script')
 
 <script>
+  window.addEventListener( "pageshow", function ( event ) {
+  var historyTraversal = event.persisted || 
+                         ( typeof window.performance != "undefined" && 
+                              window.performance.navigation.type === 2 );
+  if ( historyTraversal ) {
+    // Handle page restore.
+    window.location.reload();
+  }
+});
     function getCategories()
        {
 
-
-
-                    var  getCategory = [];
+             var  getCategory = [];
                 $(".getCategory").each(function(){
                     if($(this).is(":checked")){
                         getCategory.push($(this).val());
@@ -275,9 +337,31 @@
 
       }
 
+      $('#submitclear').click(function(){
+        var _token = $('input[name="_token"]').val();
+       $('#submitclear').hide();
+        var category_id = '';
+        var model_id = '';
+        var brand_id ='';
+         $.ajax({
+        url: "{{ route('search.accessory') }}",
+        type: "POST",
+        data: {_token:_token,brand_id:brand_id,
+            model_id:model_id,
+            category_id:category_id
+        },
+        success: function( response ) {
+            console.log(response);
+        $('#filter').html(response);
+
+        document.getElementById("contactUsForm").reset();
+        }
+        });
+      })
+
       $('#contactUsForm').on('submit',function(e){
         e.preventDefault();
-
+        $('#submitclear').show();
         var _token = $('input[name="_token"]').val();
 
         var category_id = $("#category_id").val();

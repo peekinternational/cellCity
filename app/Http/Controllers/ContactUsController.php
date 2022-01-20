@@ -41,8 +41,6 @@ class ContactUsController extends Controller
         $this->validate($request, [
             'username'     =>  'required',
             'email'  =>  'required|email',
-            'phone_number'  =>  'required',
-            'order_number'  =>  'required',
             'subject'  =>  'required',
             'message' =>  'required'
            ]);

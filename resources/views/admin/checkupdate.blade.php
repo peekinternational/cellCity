@@ -60,9 +60,9 @@
                                                     @foreach($RepairOrders as $order)
                                                     <tr>
                                                         <td><a href="javascript: void(0);" class="text-body font-weight-bold">#{{$order->id}}</a> </td>
-                                                        <td>{{$order->name}}</td>
+                                                        <td>{{$order->first_name}} {{$order->last_name}}</td>
                                                         <td>
-                                                            {{$order->date}}, {{$order->time}}
+                                                            {{$order->date}}, {{ CityClass::orderTimeDetail($order->time)->fromTime}} - {{ CityClass::orderTimeDetail($order->time)->toTime}}
                                                         </td>
                                                         @php
                                                           $repairOrderType = App\Models\TemporaryOrderType::where('order_Id',$order->orderId)->get();
@@ -105,7 +105,7 @@
                                                             <option selected="">Select Technician</option>
 
                                                             @foreach(CityClass::allTech() as $tech)
-                                                                <option value="{{$tech->id}}">{{$tech->name}}</option>
+                                                                <option value="{{$tech->id}}">{{$tech->first_name}} {{$tech->last_name}}</option>
                                                             @endforeach
 
                                                         </select>

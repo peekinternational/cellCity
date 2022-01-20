@@ -28,7 +28,7 @@ class TechMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Mail from Peekinternational.com')
+        return $this->subject('Order Details')
         ->view('emails.techmail');
         // return $this->view('email.techmail');
     }

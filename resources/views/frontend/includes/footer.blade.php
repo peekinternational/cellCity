@@ -4,12 +4,11 @@
       <div class="col footer-items">
         <input type="checkbox" id="company-footer-toggle" style="display:none">
         <div class="footer-links" id="company-footer-links">
-          <a class="soft-body" href="">About Us</a>
-          <a class="soft-body" href="" target="">How It Works</a>
+          <a class="soft-body" href="{{route('about-us')}}">About Us</a>
+            
           <a class="soft-body" href="{{route('faq')}}" target="">FAQs</a>
 
-          <a class="soft-body" href="/invite-a-friend" target="">Invite a Friend</a>
-          <a class="soft-body" href="/pricing" target="">Pricing</a>
+         
         </div>
         <label class="col-label h3-headline" for="company-footer-toggle">Company<img class="arrow-toggle" src="https://d7gh5vrfihrl.cloudfront.net/website/arrow.svg"></label></div>
         {{-- <div class="col footer-items"><input type="checkbox" id="resources-footer-toggle" style="display:none"><div class="footer-links" id="resources-footer-links">
@@ -22,15 +21,27 @@
         </div> --}}
           {{-- <div class="col footer-items"><input type="checkbox" id="partnerships-footer-toggle" style="display:none"><div class="footer-links" id="partnerships-footer-links"><a class="soft-body" href="/tcl">TCL</a><a class="soft-body" href="/simplisafe">SimpliSafe</a><a class="soft-body" href="/hisense">Hisense</a><a class="soft-body" href="/business">Puls for business</a></div><label class="col-label h3-headline" for="partnerships-footer-toggle">Partnerships<img class="arrow-toggle" src="https://d7gh5vrfihrl.cloudfront.net/website/arrow.svg"></label>
         </div> --}}
-        <div class="col footer-items"><input type="checkbox" id="legals-footer-toggle" style="display:none"><div class="footer-links" id="legals-footer-links"><a class="soft-body" href="/privacy-policy" target="">Privacy</a><a class="soft-body" href="/terms" target="">Terms</a><a class="soft-body" href="/guarantee" target="">Guarantee</a></div><label class="col-label h3-headline" for="legals-footer-toggle">Legals<img class="arrow-toggle" src="https://d7gh5vrfihrl.cloudfront.net/website/arrow.svg"></label></div></div><div class="stay-in-touch"><p class="subscribe-label">Stay Connected</p>
+        <div class="col footer-items">
+          <input type="checkbox" id="legals-footer-toggle" style="display:none">
+          <div class="footer-links" id="legals-footer-links"><a class="soft-body" href="https://www.websitepolicies.com/policies/view/mpZMNoV1
+" target="_blank">
+          Privacy Policy</a><a class="soft-body" href="https://www.websitepolicies.com/policies/view/IoVdBgxz
+
+" target="_blank">Cookie Policy</a><a class="soft-body" href="https://www.websitepolicies.com/policies/view/UHBAFZ9Q
+" target="_blank">Terms and Conditions</a><a class="soft-body" href="https://www.websitepolicies.com/policies/view/5phKPhf1" target="_blank">Return Policy and Repair Guarantee</a></div>
+          <label class="col-label h3-headline" for="legals-footer-toggle">Legals<img class="arrow-toggle" src="https://d7gh5vrfihrl.cloudfront.net/website/arrow.svg"></label></div></div><div class="stay-in-touch"><p class="subscribe-label">Stay Connected</p>
           <div class="hs-signup-container">
-  <form class="subscribe_form">
+  <form class="subscribe_form" action="{{ route('subcribe.store') }}" method="POST">
+    @csrf
+  
             <div class="input-group">
-               <input type="text" class="form-control" name="email" placeholder="Enter your email">
+               <input type="text" class="form-control" name="email" required placeholder="Enter your email">
+               
                <span class="input-group-btn">
-                    <button class="btn btn-default" type="button">subscribe</button>
+                    <button class="btn btn-default" type="submit">subscribe</button>
                </span>
             </div>
+           
           </form>
 </div>
 <div class="icon-container">

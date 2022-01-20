@@ -128,6 +128,38 @@
       padding-left: 10px;
     }
   }
+  ._3Xbpno-AHLyTSPNZucFR4m {
+    display: flex;
+}
+._363hzj2dwT8A7UDP7lg3wr {
+    margin: 2.4rem 0;
+}
+*, :after, :before {
+  
+    border-style: solid;
+    border-width: 0;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+._1GoAPGA5p96qJUz751twst {
+    flex-grow: 1;
+}
+._3JZtHpVH, ._3OcKBk8D, ._3HyGVGax {
+    font-family: BodyFont, sans-serif;
+    font-weight: 300;
+    font-size: 1.4rem;
+    line-height: 1.8rem;
+}
+._25bZMjFHROaAaJ73KM1TLG {
+    margin-left: 1.2rem;
+    text-align: right;
+}
+.newAddres
+{
+  padding: 2rem;
+    margin-top: 20px;
+}
 </style>
 @section('content')
 <section class="shop-section shop-page" >
@@ -145,17 +177,17 @@
                   <h3 class="shoping-checkboxt-title">Billing Information</h3>
                   <div class="col-lg-6">
                     <p class="single-form-row">
-                      <label>First name <span class="required">*</span></label>
-                      <input type="text" class="form-control" id="name" name="first_name" value="{{ $address->name }}" required="">
+                      <label>Full Name <span class="required">*</span></label>
+                      <input type="text" class="form-control" id="name" name="first_name" value="{{ $address->first_name }}" required="">
                     </p>
                   </div>
-                  {{-- <div class="col-lg-6">
+                   <div class="col-lg-6">
                     <p class="single-form-row">
                       <label>Last Name <span class="required"></span></label>
-                      <input type="text" class="form-control" name="last_name" value="Dadnudas">
+                      <input type="text" class="form-control" name="last_name" value="{{ $address->last_name }}" required="">
                     </p>
-                  </div> --}}
-                  <div class="col-lg-6">
+                  </div>
+                  <div class="col-lg-12">
                     <p class="single-form-row">
                       <label>Email <span class="required">*</span></label>
                       <input type="email" id="email" class="form-control" id="email" name="email" value="{{ $address->email ?? ''}}" required="">
@@ -169,7 +201,12 @@
                   </div>
                   <div class="col-lg-12">
                     <p class="single-form-row">
-                      <input type="string" class="form-control" id="phoneno" name="phoneno" value="{{ $address->mobileNo }}" placeholder="Enter Phone" required>
+                      <!-- <input type="string" class="form-control" id="phoneno" name="phoneno" value="{{ $address->mobileNo }}" placeholder="Enter Phone" required> -->
+                      <div class="input-group">
+                      <span class="input-group-addon">us +1</span>
+                        <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" value="{{ $address->mobileNo ?? '' }}">
+                        <!-- <span class="input-group-addon">.00</span> -->
+                      </div>
                     </p>
                   </div>
                   <div class="col-lg-12">
@@ -185,7 +222,7 @@
                   </div>
                   <div class="col-lg-12">
                     <p class="single-form-row">
-                      <label>State / County</label>
+                      <label>State / Country</label>
                       <input type="text" class="form-control" name="shipping_state" placeholder="State" value="{{$address->state}}" required="">
                     </p>
                   </div>
@@ -197,24 +234,28 @@
                   </div>
                 </div>
 
-                <div class="col-lg-12">
-                  <div class="single-form-row buy-checkbox-btn">
-                    <input type="checkbox" name="same_billing" class="inp-cbx d-none same_billing" id="cbx2" value="1" checked="">
-                    <label class="cbx" for="cbx2">
-                      <span>
-                        <svg width="12px" height="10px" viewBox="0 0 12 10">
-                          <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-                        </svg>
-                      </span>
-                      <span>Use same for Billing address </span>
-                    </label>
+                <div class="col-md-6 col-lg-12">
+                  <div class="row text-center newAddres">
+                  <div class="col-md-3 col-lg-6">
+                <label for="oldest" class="payment-methd">
+                <input type="radio" id="oldest" name="billingss" value="oldest"  onchange="newBilling()"> Use same for Billing address
+                  <!-- <input type="radio" name="billings" id="paypal" value="oldBilling" >  -->
+                        </label>
+                  </div>
+                <div class="col-md-3 col-lg-6">
+                <label for="newest" class="payment-methd">
+                <input type="radio" id="newest" name="billingss" value="newest" onchange="newBilling()"> Use Another for Billing address
+                <!-- <input type="radio" name="billings" id="paypal"  value="newBilling" > -->
+                  </label>
+                  </div>
                   </div>
                 </div>
-                <div class="row ml-1 mt-20 billing_address_slot" style="display:none;">
-                  <div class="checkbox-form">
+
+
+                <div class="row ml-1 mt-20 billing_address_slot" id="showBilling" style="display:none;">
+                  <div class="checkbox-form col-lg-12">
                     <h3 class="shoping-checkboxt-title">Billing Address</h3>
                     <div class="row">
-
 
                       <div class="col-lg-12">
                         <p class="single-form-row">
@@ -261,8 +302,8 @@
             @php
                 if (Auth::check()) {
                     $userID = Auth::user()->id;
-                    $totals = Cart::session($userID)->getTotal();
-                    $items=\Cart::session($userID)->getContent();
+                    $totals = Cart::getTotal();
+                    $items=\Cart::getContent();
 
                 }
                 else {
@@ -300,24 +341,44 @@
 
                         @foreach ($items as $item)
                         <tr class="cart_item cart-545678">
-                          <td class="t-product-name">{{  $item->name }} - ({{$item->attributes->category ?? ''}}) -  <strong class="product-quantity">   ×  {{$item->quantity}}</strong></td>
+                          <td class="t-product-name"><b>{{  $item->name }} - ({{$item->attributes->category ?? ''}}) </b>-  <strong class="product-quantity">   ×  {{$item->quantity}}</strong></td>
                           @php
                            $total = $item->quantity*$item->price;
                           @endphp
-                          <td class="t-product-price"><span>${{$total}}</span></td>
-                        </tr>
+                          <td class="t-product-price _3JZtHpVH _25bZMjFHROaAaJ73KM1TLG"><span>${{$total}}</span></td>
+                        
+                        </tr> 
+                       
 
                          @endforeach
 
 
                     </tbody>
                     <tfoot>
-                        @php
-
-                        @endphp
+                    <tr>
+                         
+                        <div class="_3Xbpno-AHLyTSPNZucFR4m _363hzj2dwT8A7UDP7lg3wr" data-test="item-line"><!----> 
+                        <td>
+                        <span data-test="title-container" class="_1GoAPGA5p96qJUz751twst"><!----> 
+                        <span class="_3OcKBk8D _27VCYUqRnBb1beaMjfVqMv _2zNoeYos3cssz1dmxSgqop" data-test="title">
+                             <b> Shipping to US (mainland)</b>
+                              <br>
+                            </span> <span class="_3JZtHpVH _2Vyh4RnST5gOFH9hR_Z_TO" data-test="subtitle">
+                              3 business days - USPS - First Class
+                            </span>
+                          </span> 
+                          </td>
+                          <td>
+                          <span class="_3JZtHpVH _25bZMjFHROaAaJ73KM1TLG" data-test="price">
+                              $0.00
+                          </span>
+                          </td>
+                        </div>
+              
+                        </tr>
                         <tr class="order-total">
-                        <th>Total</th>
-                        <td id="totalss"><strong><span class="total-amount" id="total">$ {{ $totals }}</span></strong></td>
+                        <td>Total</td>
+                        <td id="totalss"><strong><span class="total-amount _3JZtHpVH _25bZMjFHROaAaJ73KM1TLG" id="total">$ {{ $totals }}</span></strong></td>
 
                         </tr>
                     </tfoot>
@@ -341,27 +402,27 @@
                       <div class="col-lg-12 pl-0 pr-0 pb-3">
                       <div class="form-group">
 
-                        @if (isset($tech))
+                        <!-- @if (isset($tech))
                         <label for="credit-card" class="payment-methd">
                           <button type="button"  data-toggle="modal" data-target="#exampleModalCenter"> Credit Card </button>
                         </label>
                         <label for="cash" class="payment-methd">
                           <input type="radio"  id="cash" name="payment" value="cash"> Cash
                         </label>
-                        @else
-                        <label for="cash" class="payment-methd">
+                        @else -->
+                        <!-- <label for="cash" class="payment-methd">
                           <input type="radio" id="cash" name="payment" value="cash"> Cash
-                        </label>
+                        </label> -->
                         <label for="paypal" class="payment-methd">
                           <input type="radio" id="paypal" name="payment" value="paypal" onchange="valueChanged()"> Paypal
                         </label>
-                        <label for="apple-pay" class="payment-methd">
+                       <!--  <label for="apple-pay" class="payment-methd">
                           <input type="radio" id="apple-pay" name="payment" value="apple-pay" onchange="valueChanged()"> Apple Pay
-                        </label>
+                        </label> -->
                         <label for="credit-card" class="payment-methd">
                           <button type="button"  data-toggle="modal" data-target="#exampleModalCenter"> Credit Card </button>
                         </label>
-                        @endif
+                        <!-- @endif -->
 
                       </div>
 
@@ -369,7 +430,13 @@
                     </div>
 
                     @if ($items->count() > 0)
+                      
                     <button type="submit"  class="btn btn-primary btn-style-one ">Checkout</button>
+                    @if(Auth::check())
+                   
+                    @else
+                    <a href="{{url('sigin')}}" class="btn btn-primary btn-style-two">Sigin</a>
+                    @endif
                     @else
                     <p>Your Cart is empty Please add one or more product or accessory into cart for checkout..
                         <a href="{{url('buy-phone')}}">Add To Cart</a>
@@ -392,7 +459,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+          <h5 class="modal-title" id="exampleModalLongTitle">Credit Card</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -406,6 +473,9 @@
             </div>
                <button type="button" class="btn btn-primary btn-style-one" data-dismiss="modal" style="margin-bottom: 5px;margin-left: 5px">Close</button>
                 <button id="card-button" class="btn btn-primary btn-style-one" type="button" style="margin-bottom: 5px">Pay</button>
+                <button class="buttonload btn btn-primary btn-style-one" style="display: none" id="buttonload">
+                  <i class="fa fa-circle-o-notch fa-spin"></i> Loading
+                </button>
               </form>
         </div>
 
@@ -433,13 +503,14 @@
 <script src="https://sandbox.web.squarecdn.com/v1/square.js"></script>
   <script type="text/javascript">
     async function main() {
-      const payments = Square.payments('sandbox-sq0idb-c4YYFJ73zA8I9JKQLP9Rsg', 'GD29XJWM54NX2');
+      const payments = Square.payments('sandbox-sq0idb-XTzUm4GcIO3nEEVwThTwRA', 'LEDBH9HCJM9K6');
       const card = await payments.card();
       await card.attach('#card-container');
 
       async function eventHandler(event) {
               event.preventDefault();
-
+             $('#card-button').hide();
+             $('#buttonload').show();
         try {
           const result = await card.tokenize();
           if (result.status === 'OK') {
@@ -462,18 +533,24 @@
 
                     success: function(data) {
                         console.log(data);
-                        window.location = '{{ route('view.cart') }}';
+                        window.location = '{{ route('payment.completed') }}';
                         // $('#bustype').html(data);
                         //  $("#count").html(data.count);
 
                         // alert(rowCount);
 
+                    },
+                  error: function (xhr) {
+                   alert(JSON.parse(xhr.responseText).message);
+                    $('#buttonload').hide();
+                    $('#card-button').show();
                     }
-
                 });
           }
         } catch (e) {
           console.error(e);
+          $('#buttonload').hide();
+          $('#card-button').show();
         }
       };
 
@@ -563,10 +640,25 @@ function myFunction() {
             success: function (response)
             {
                 alert('Thanks ,You have Successfully done the checkout..');
-                window.location = '{{ route('view.cart') }}';
+                window.location = '{{ route('payment.completed') }}';
             }
     });
 
 });
+
+
+function newBilling()
+{
+  // $("#showBilling").show();
+    if($('#newest').is(":checked")) {
+        $("#showBilling").show();
+      }else if($('#oldest').is(":checked")){
+        $("#showBilling").hide();
+    
+      }else{
+        $("#showBilling").hide();
+      }
+}
+
 </script>
 @endsection

@@ -18,11 +18,16 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
         'email',
         'password',
         'address',
         'phoneno',
+        'city',
+        'country',
+        'zipcode',
+        'state',
         'created_at',
         'updated_at',
         'token_forget'
@@ -63,10 +68,15 @@ class User extends Authenticatable
         }
       public function order()
         {
-            return $this->hasMany(Order::class,'user_id');
+            return $this->hasMany(Order::class);
         }
       public function wishlist()
         {
-            return $this->hasMany(Wishlist::class,'user_id');
+            return $this->hasMany(Wishlist::class);
         }
+
+        public function refundorders()
+      {
+        return $this->hasMany(Refund::class);
+      }
 }

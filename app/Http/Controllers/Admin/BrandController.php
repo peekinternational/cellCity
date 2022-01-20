@@ -48,8 +48,14 @@ class BrandController extends Controller
      */
     public function store(Request $request)
     {
+        $image = $request->file('brand_image');
+        $imageName= time().$image->getClientOriginalName();
+        $destination ='storage/images/brand';
+        $image->move(public_path($destination), $imageName);
+
         $brand= New Brand;
         $brand->brand_name= $request->brand_name;
+        $brand->brand_image= $imageName;
         // $brand->adminId= Auth::guard('admin')->user()->id;
         $brand->save();
         return redirect('/admin/brands')->with('message', Alert::_message('success', 'Mobile Brand Added Successfully.'));
@@ -90,6 +96,16 @@ class BrandController extends Controller
     {
         $brand= Brand::find($id);
         $brand->brand_name= $request->brand_name;
+
+        if($request->file('brand_image')){
+            $image = $request->file('brand_image');
+            $imageName= time().$image->getClientOriginalName();
+            $destination ='storage/images/brand';
+            $image->move(public_path($destination), $imageName);
+            $brand->brand_image= $imageName;
+
+        }
+       
         $brand->save();
          return redirect('/admin/brands')->with('message', Alert::_message('success', 'Mobile Brand Update Successfully.'));
     }

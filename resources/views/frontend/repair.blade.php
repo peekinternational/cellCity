@@ -30,6 +30,28 @@
   .testimonial-block-two {
     margin: 0 10px 0 0 !important;
   }
+  .base-sm {
+    width:300px;
+  }
+  .mt{
+margin-left:50px;  }
+
+.linee{
+  margin-bottom: 20px;
+    margin-top: 20px;
+    padding-left: 30px;
+}
+/* 
+.pad-b16 {
+    padding-bottom: 16px;
+}
+.font-medium {
+    font-weight: 500;
+}
+.font16-12 {
+    font-size: calc(0.75rem + (16 - 12) * ((100vw - 320px) / (1920 - 320)));
+    line-height: calc(0.875rem + (24 - 14) * ((100vw - 320px) / (1920 - 320)));
+} */
 </style>
 @section('content')
 <!--Page Title-->
@@ -78,6 +100,8 @@
             <ul id="pd_list_search_ul" class="jsx-4182953111 jsx-3431082034 layout vertical"></ul>
           </div>
         </div>
+
+       
       </div>
       <div class="flex-3 flex-none-mob flwidth-mob jss75 jss81"></div>
     </div>
@@ -138,7 +162,7 @@
       </div>
     </section>
   </div>
-  <div class="frame-size jss174">
+  <!-- <div class="frame-size jss174">
     <div class="layout vertical">
       <section class="jsx-146361224 jsx-2802770802 slider-list">
         <div class="jsx-146361224 jsx-2802770802 layout horizontal justified center">
@@ -148,7 +172,7 @@
           <div class="jsx-146361224 jsx-2802770802 slider-view-more"></div>
         </div>
         <div class="jsx-146361224 jsx-2802770802 layout horizontal center-center  slider-list-slider">
-          <!-- <i class="jsx-146361224 jsx-2802770802 cursor slide-next web-view "></i> -->
+        
           <i class="jsx-146361224 jsx-2802770802 cursor slide-next web-view fa fa-chevron-left" id="arrowL" style="display: none;"></i>
           <div id="AvailableContainer" class="jsx-146361224 jsx-2802770802 layout horizontal center scroll-horizon slider-wrap post-slider-wrap">
             <ul id="Services Availablelist" class="jsx-146361224 jsx-2802770802 layout horizontal center-justified list-none pad0 box-pad">
@@ -164,19 +188,12 @@
               <li class="mar-r20  pad-tb16 layout horizontal jss175">
                 <a class="layout vertical card-shadow radius-10 pad16 flwidth flheight around-justified jss176" href="/screen-repair">
                   <span class="layout horizontal start center-justified  flex-1 jss177">
-                    <img class="flheight" alt="SCREEN" src="{{asset('frontend-assets/images/repair/screen.png')}}">
+                    <img class="flheight" alt="SCREEN" src="{{asset('frontend-assets/images/repair/frontend.png')}}">
                   </span>
                   <span class="layout horizontal center-center font12-10 text-center tc-primary line-clamp-3 jss178">Front or Rear Camera</span>
                 </a>
               </li>
-              <li class="mar-r20  pad-tb16 layout horizontal jss175">
-                <a class="layout vertical card-shadow radius-10 pad16 flwidth flheight around-justified jss176" href="/screen-repair">
-                  <span class="layout horizontal start center-justified  flex-1 jss177">
-                    <img class="flheight" alt="SCREEN" src="{{asset('frontend-assets/images/repair/screen.png')}}">
-                  </span>
-                  <span class="layout horizontal center-center font12-10 text-center tc-primary line-clamp-3 jss178">Signal Issue</span>
-                </a>
-              </li>
+            
               <li class="mar-r20  pad-tb16 layout horizontal jss175">
                 <a class="layout vertical card-shadow radius-10 pad16 flwidth flheight around-justified jss176" href="/screen-repair">
                   <span class="layout horizontal start center-justified  flex-1 jss177">
@@ -244,12 +261,12 @@
             </ul>
           </div>
           <i class="jsx-146361224 jsx-2802770802 cursor slide-next web-view fa fa-chevron-right" id="arrowR">
-            <!-- <i class="fa fa-chevron-right"></i> -->
+            
           </i>
         </div>
       </section>
     </div>
-  </div>
+  </div> -->
   <div class="mar-b40 mar-t20">
     <section class="jss181">
       <div class="frame-size">
@@ -275,7 +292,7 @@
               </div>
               <div class="layout vertical flwidth jss185">
                 <span class="font-medium font22-14">Instant Mobile Repair</span>
-                <span class="font-medium font14-12 mar-t4 tc-secondary">Mobile Repair on the Spot in Cashify Store or at Home/Office</span>
+                <span class="font-medium font14-12 mar-t4 tc-secondary">Mobile Repair on the Spot in Cell City Store or at Home/Office</span>
               </div>
             </li>
 
@@ -331,7 +348,7 @@
             <div id="collapse{{$faq->id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{$faq->id}}">
               <div class="panel-body">
 
-                {{ $faq->answer }}
+                {!! $faq->answer !!}
 
               </div>
             </div>

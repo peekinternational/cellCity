@@ -14,6 +14,8 @@ use App\Models\ProductImage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Mail\TechMail;
+use App\Mail\productMail;
+use App\Mail\refundAccept;
 use App\Models\Accessory;
 use App\Models\AccessoryImage;
 
@@ -37,7 +39,12 @@ use PayPal\Api\Transaction;
 use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Exception\PayPalConnectionException;
 use PayPal\Rest\ApiContext;
+use PayPal\Api\Capture;
+use PayPal\Api\Refund;
+use PayPal\Api\RefundRequest;
+use PayPal\Api\Sale;
 use Twilio\Rest\Client;
+use Validator;
 
 class ProductController extends Controller
 {
@@ -49,7 +56,7 @@ class ProductController extends Controller
     public function index()
     {
 
-        $products =Product::all();
+        $products =Product::orderBy('id','desc')->get();
         return view('admin.products.index',compact('products'));
     }
 
@@ -81,17 +88,23 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-
-        // dd($service);
-        // dd($request->file('image'));
-        //DB::beginTransaction();
-
+         // dd($request->file('image')[0]->getSize()/1024);
+        if($request->file('image')){
+            foreach ($request->file('image') as $key => $img) {
+            $data = $img->getSize()/1024;
+            // dd(intval($data));
+            if(intval($data) > 5000){
+                return back()->with('message2', Alert::_message('danger', 'Sorry! Maximum allowed size for an image is 5MB'));
+            }
+         }
+        }
+         
+     
         //try {
         $product = new Product;
         //  $product->insert($request->only($product->getFillable()));
 
-         $product->category = $request->category;
+        //  $product->category = $request->category;
          $product->type = $request->type;
          $product->memory = $request->memory;
          $product->locked = $request->locked;
@@ -112,14 +125,19 @@ class ProductController extends Controller
 
 
         $service = $request->phone_service;
-        foreach($service as $serve)
-        {
+        if($service){
+            foreach($service as $serve)
+            {
                 $phoneService = new PhoneSerivceProduct;
                 $phoneService->phone_service_id = $serve;
                 $phoneService->product_id =  $product->id;
                 $phoneService->save();
 
+            }
         }
+        
+if ($request->color_name[0] != null) {
+    
 
         foreach($request->color_name as $key=> $colors)
         {
@@ -138,20 +156,23 @@ class ProductController extends Controller
                 $storage->save();
 
 
-            foreach($request->condition[$key2] as $key3=>$conditions)
+            foreach($request->price[$key2] as $key3=>$price)
             {
-                //  dd($condition);
+                //  dd($request->condition[$key2][$key3]);
                 $condition = new ProductCondition;
-                $condition->condition =$conditions;
-                $condition->price = $request->price[$key2][$key3];
+                if($request->condition[0][0] != '0'){
+                  $condition->condition = $request->condition[$key2][$key3];
+                }
+                
+                $condition->price = $price;
                 $condition->orig_price = $request->orig_price[$key2][$key3];
                 $condition->quantity = $request->quantity[$key2][$key3];
                 $condition->storage_id = $storage->id;
                 $condition->save();
             }
         }
-
-         foreach($request->file('image')[$key] as $image)
+if($request->file('image')){
+           foreach($request->file('image') as $image)
             {
 
                 $imageName= time().$image->getClientOriginalName();
@@ -164,14 +185,14 @@ class ProductController extends Controller
                 $imagefile->product_id = $product->id;
                 $imagefile->color_id = $color->id;
                 $imagefile->save();
-                // dd($request->condition);
-
-                // dd($storage);
-
-
+            
+        }
+}
         }
 
         }
+
+
 
         //     DB::commit();
 
@@ -218,9 +239,9 @@ class ProductController extends Controller
      */
     public function update(Request $request,$id)
     {
-        // dd($request);
+        
         $product = Product::find($id);
-         $product->category = $request->category;
+        //  $product->category = $request->category;
          $product->type = $request->type;
          $product->memory = $request->memory;
          $product->locked = $request->locked;
@@ -239,15 +260,9 @@ class ProductController extends Controller
          $product->update();
 
 
-         $service = $request->phone_service;
-         foreach($service as $serve)
-         {
-                 $phoneService = new PhoneSerivceProduct;
-                 $phoneService->phone_service_id = $serve;
-                 $phoneService->product_id =  $product->id;
-                 $phoneService->save();
-
-         }
+         $servi = $request->phone_service;
+         $product->service()->sync($servi);
+      
         return back()->with('message', Alert::_message('success', 'Product Updated Successfully.'));
     }
 
@@ -276,7 +291,7 @@ class ProductController extends Controller
             $product = new Product;
             //  $product->insert($request->only($product->getFillable()));
 
-            $product->category = $request->category;
+            // $product->category = $request->category;
             $product->type = $request->type;
             $product->memory = $request->memory;
             $product->locked = $request->locked;
@@ -320,6 +335,7 @@ class ProductController extends Controller
                     $condition = new ProductCondition;
                     $condition->condition =$condit;
                     $condition->price = $request->price[$key2][$key3];
+                    $condition->orig_price = $request->orig_price[$key2][$key3];
                     $condition->quantity = $request->quantity[$key2][$key3];
                     $condition->storage_id = $storage->id;
                     $condition->save();
@@ -367,56 +383,63 @@ class ProductController extends Controller
 
 
            $product_id = $request->product_id;
+        //    dd($product_id);
 
-           foreach($request->color_name as $key=> $colors)
-           {
+        foreach($request->color_name as $key=> $colors)
+        {
 
-               $color = new ProductColor;
-               $color->color_name = $colors;
-               $color->product_id = $product_id;
-               $color->save();
+            $color = new ProductColor;
+            $color->color_name = $colors;
+            $color->product_id = $product_id;
+            $color->save();
 
-               foreach($request->storage[$key] as $key2=>$storages)
-               {
+            foreach($request->storage[$key] as $key2=>$storages)
+            {
 
-                   $storage = new ProductStorage;
-                   $storage->storage = $storages;
-                   $storage->color_id = $color->id;
-                   $storage->save();
-
-
-               foreach($request->condition[$key2] as $key3=>$condit)
-               {
-                   //  dd($condition);
-                   $condition = new ProductCondition;
-                   $condition->condition =$condit;
-                   $condition->price = $request->price[$key2][$key3];
-                   $condition->quantity = $request->quantity[$key2][$key3];
-                   $condition->storage_id = $storage->id;
-                   $condition->save();
-               }
-           }
+                $storage = new ProductStorage;
+                $storage->storage = $storages;
+                $storage->color_id = $color->id;
+                $storage->save();
 
 
+            foreach($request->price[$key2] as $key3=>$price)
+            {
+                 // dd($request->condition[0][0]);
+                $condition = new ProductCondition;
+                if($request->condition[0][0] != '0'){
+                  $condition->condition = $request->condition[$key2][$key3];
+                }
+                
+                $condition->price = $price;
+                $condition->orig_price = $request->orig_price[$key2][$key3];
+                $condition->quantity = $request->quantity[$key2][$key3];
+                $condition->storage_id = $storage->id;
+                $condition->save();
+            }
+        }
 
-           foreach($request->file('image')[$key] as $image)
-               {
+         foreach($request->file('image')[$key] as $image)
+            {
 
-                   $imageName= time().$image->getClientOriginalName();
-                   $destination ='storage/images/products';
-                   $image->move(public_path($destination), $imageName);
+                $imageName= time().$image->getClientOriginalName();
+                $destination ='storage/images/products';
+                $image->move(public_path($destination), $imageName);
 
-                   // dd($imageName);
-                   $imagefile = new ProductImage;
-                   $imagefile->image = $imageName;
-                   $imagefile->product_id = $product_id;
-                   $imagefile->color_id = $color->id;
-                   $imagefile->save();
-                   // dd($request->condition);
+                // dd($imageName);
+                $imagefile = new ProductImage;
+                $imagefile->image = $imageName;
+                $imagefile->product_id = $product_id;
+                $imagefile->color_id = $color->id;
+                $imagefile->save();
+                // dd($request->condition);
 
-                    }
+                // dd($storage);
+
 
         }
+
+        }
+
 
     return response()->json($product_id);
    }
@@ -425,6 +448,7 @@ class ProductController extends Controller
     public function getPhones()
     {
         $products = Product::where('category','phone')->paginate(9);
+        $models   = Pmodel::orderBy('id','asc')->get();
         // $colors  = ProductColor::all();
         // if(Auth::check())
         // {
@@ -433,7 +457,7 @@ class ProductController extends Controller
         //     return view('frontend.buy-phone',compact('products'));
         // }
 
-        return view('frontend.buy-phone',compact('products'));
+        return view('frontend.buy-phone',compact('products','models'));
     }
 
    public function productDetail($id)
@@ -522,15 +546,21 @@ class ProductController extends Controller
 
       foreach($conditions as $condition)
       {
-        $discountPrice = $condition->orig_price - $condition->price;
-        $discount = round(($discountPrice / $condition->orig_price) * 100);
-
+          if($condition->orig_price >= $condition->price)
+          {
+            $discountPrice = $condition->orig_price - $condition->price;
+            $discount = round(($discountPrice / $condition->orig_price) * 100);
+            }
+         else
+         {
+             $discount = 0;
+         }
           if($condition->quantity > 0)
           {
             $condit .=' <div class="select-color">
 
-                    <input type="radio" name="condition" class="hidden condition" id="'.$condition->condition.'">
-                    <label class="color" for="'.$condition->condition.'"  onclick="getPrice('.$condition->price.','.$condition->quantity.','.$condition->id.','.$condition->orig_price.','.$discount.')">
+                    <input type="radio" name="condition" class="hidden condition" id="'.$condition->price.'">
+                    <label class="color" for="'.$condition->price.'"  onclick="getPrice('.$condition->price.','.$condition->quantity.','.$condition->id.','.$condition->orig_price.','.$discount.')">
                     '.$condition->condition.' <br> $'.$condition->price.'
                     </label>
                     </div>';
@@ -561,13 +591,17 @@ class ProductController extends Controller
     //    $color = ProductColor::find($request->colorId);
     //    $storage = ProductStorage::find($request->storageId);
 
+    // dd($condit);
+    if($request->quantity <= $condit->quantity)
+    {
+
        $id = mt_rand(100, 9000);
 
        if(Auth::guard('web')->check())
        {
          $userID = Auth::user()->id;
 
-         $cart= \Cart::session($userID)->add(array(
+         $cart= \Cart::add(array(
         'id' =>  $id,
         'name' =>  $request->brand_name.' '.$request->model_name,
         'price' => $request->getprice,
@@ -602,6 +636,12 @@ class ProductController extends Controller
 
             ));
     }
+    
+}
+else
+{
+    return response()->json(['status'=>'null']);
+}
 
 
 
@@ -619,7 +659,7 @@ class ProductController extends Controller
        if ($request->quantity == 0) {
            \Cart::remove($request->id);
        }
-       \Cart::session($userID)->update(
+       \Cart::update(
            $request->id,
            array(
                'quantity' => array(
@@ -653,7 +693,7 @@ class ProductController extends Controller
     if(Auth::check())
     {
        $userID = Auth::user()->id;
-       \Cart::session($userID)->remove($request->id);
+       \Cart::remove($request->id);
     }
     else{
         \Cart::remove($request->id);
@@ -673,10 +713,10 @@ class ProductController extends Controller
         if(Auth::check())
         {
              $userID = Auth::user()->id;
-             $cartCollection = \Cart::session($userID)->getContent();
+             $cartCollection = \Cart::getContent();
              $data = $cartCollection->all();
-             $totals = \Cart::session($userID)->getTotal();
-             $total = \Cart::session($userID)->getTotal();
+             $totals = \Cart::getTotal();
+             $total = \Cart::getTotal();
         }
         else
         {
@@ -775,7 +815,7 @@ class ProductController extends Controller
 
 
             $details = [
-                'title' => 'Mail from PeekInternational.com',
+                'title' => 'Mail from CellCity',
                 'subject' => 'Dear Customer ,',
                 'message' => 'Payment completed Successfully through Cash',
                 'Total'  => $total
@@ -784,16 +824,16 @@ class ProductController extends Controller
              \Mail::to($request->email)->send(new TechMail($details));
             //  return response()->json($messgae);
 
-            $phone = "+".$request->phoneno;
-            //  dd($phone);
-             $message =strip_tags(nl2br("Dear Customer, \n You have Successfully Pay  through Cash . \n Total Amount : $". $total));
+           //  $phone = "+1".$request->phoneno;
+           //  //  dd($phone);
+           //   $message =strip_tags(nl2br("Dear Customer, \n You have Successfully Pay  through Cash . \n Total Amount : $". $total));
 
-             $account_sid = "ACeb30af8343f53c1b366517b35ea44dc2";
-           $auth_token = "ecc8e9d376d7ef8a19ed22778bb466f8";
-           $twilio_number = +14842553085;
-            $client = new Client($account_sid, $auth_token);
-            $client->messages->create($phone,
-                ['from' => $twilio_number, 'body' => $message] );
+           //   $account_sid = "ACeb30af8343f53c1b366517b35ea44dc2";
+           // $auth_token = "ecc8e9d376d7ef8a19ed22778bb466f8";
+           // $twilio_number = +4842553085;
+           //  $client = new Client($account_sid, $auth_token);
+           //  $client->messages->create($phone,
+           //      ['from' => $twilio_number, 'body' => $message] );
 
 
                  \Cart::clear();
@@ -804,7 +844,7 @@ class ProductController extends Controller
         // dd($request->all());
         if(Auth::check())
         {
-           $total = \Cart::session($userID)->getTotal();
+           $total = \Cart::getTotal();
 
         }
         else
@@ -816,12 +856,26 @@ class ProductController extends Controller
         $phone = $request->phoneno;
         $desc = $address.'-'.$email.'-'.$phone;
         // dd($desc);
-        $apiContext = new ApiContext(
-            new OAuthTokenCredential(
-                'AY9mTzyew4I5bQDY82ZT23Hw6CVvRNN_gxGdFNFD1dBeP_JtMjM2ubFS8NkFqjnieO_nJ-g54ZZEiwB5',
-              'EKdd3HTSiu1Rgptb7VZfEY2zON7xdsBpCRjdEVvl36u54DO7_AWmyChF-zpIo7l6LWwlETL4vUnCxN0n'
-                 )
-        );
+        // $apiContext = new ApiContext(
+        //     new OAuthTokenCredential(
+        //          'AWPaMcTanmqRr13AgRaZ2r-oxSSsyp2cvcmyRlq5X8KuHVHyag2h5n9QYZDh2YmtbV_bfe-jxvWI2YED',
+        //       'EOYBpa4FICkwj69hZKASszKVAouHUSGtrTaYz7BjTKg-5J38TvYidmDYI5IsdArWV6OBgnIEIgwsHVCp'
+        //          )
+        // );
+        // $apiContext->setConfig(
+		      // array(
+		        
+		      //   'mode' => 'live',
+		        
+		      // )
+        //    );
+
+             $apiContext = new ApiContext(
+                  new OAuthTokenCredential(
+                        'ARwPWc_n53Fg0RY2MhCyaUakWzj_0jSPbJT6qgZRKCU0JNM6f_vuRgIohe3dd6YiUjne9TihH1imkPuI',
+                      'EEEJond1ocNxmcIxE8ACqsFy4qI5umQmSjSv2mg5zbHFXP6_jH0IC1Kzw4CPLQhtrfxpB3Bg21MnEG-V'
+                         )
+              );
             // dd($apiContext);
                 $payer = new Payer();
                 $payer->setPaymentMethod("paypal");
@@ -878,13 +932,26 @@ class ProductController extends Controller
 
     public function success(Request $request)
     {
-            $apiContext = new ApiContext(
-                new OAuthTokenCredential(
-                    'AY9mTzyew4I5bQDY82ZT23Hw6CVvRNN_gxGdFNFD1dBeP_JtMjM2ubFS8NkFqjnieO_nJ-g54ZZEiwB5',
-                    'EKdd3HTSiu1Rgptb7VZfEY2zON7xdsBpCRjdEVvl36u54DO7_AWmyChF-zpIo7l6LWwlETL4vUnCxN0n'
-                            )
-            );
+ //           $apiContext = new ApiContext(
+ //            new OAuthTokenCredential(
+ //                 'AWPaMcTanmqRr13AgRaZ2r-oxSSsyp2cvcmyRlq5X8KuHVHyag2h5n9QYZDh2YmtbV_bfe-jxvWI2YED',
+ //              'EOYBpa4FICkwj69hZKASszKVAouHUSGtrTaYz7BjTKg-5J38TvYidmDYI5IsdArWV6OBgnIEIgwsHVCp'
+ //                 )
+ //        );
+ // $apiContext->setConfig(
+	// 	      array(
+		        
+	// 	        'mode' => 'live',
+		        
+	// 	      )
+ //           );
 
+             $apiContext = new ApiContext(
+          new OAuthTokenCredential(
+                'ARwPWc_n53Fg0RY2MhCyaUakWzj_0jSPbJT6qgZRKCU0JNM6f_vuRgIohe3dd6YiUjne9TihH1imkPuI',
+              'EEEJond1ocNxmcIxE8ACqsFy4qI5umQmSjSv2mg5zbHFXP6_jH0IC1Kzw4CPLQhtrfxpB3Bg21MnEG-V'
+                 )
+      );
         // Get payment object by passing paymentId
         $paymentId = $_GET['paymentId'];
         $payment = Payment::get($paymentId, $apiContext);
@@ -897,7 +964,7 @@ class ProductController extends Controller
     try {
         // Execute payment
         $result = $payment->execute($execution, $apiContext);
-        // dd($result->transactions[0]->description);
+       
         $str = $result->transactions[0]->description;
         $split = explode('-',$str);
         $address_id =  $split[0];
@@ -907,8 +974,8 @@ class ProductController extends Controller
         if(Auth::check())
         {
             $userID = Auth::user()->id;
-            $totals = \Cart::session($userID)->getTotal();
-            $cartCollection = \Cart::session($userID)->getContent();
+            $totals = \Cart::getTotal();
+            $cartCollection = \Cart::getContent();
 
         }
        else {
@@ -925,6 +992,8 @@ class ProductController extends Controller
         }
         $orderSale->grand_total  = $totals;
         $orderSale->shipping_id  = $address_id;
+        $orderSale->payment_method = "PayPal";
+        $orderSale->payment_id  = $result->transactions[0]->related_resources[0]->sale->id;
         $orderSale->save();
 
     //    dd($cartCollection);
@@ -1002,36 +1071,37 @@ class ProductController extends Controller
          }
        if(Auth::check())
        {
-        $total = \Cart::session($userID)->getTotal();
+        $total = \Cart::getTotal();
        }
        else
        {
         $total = \Cart::getTotal();
        }
             $details = [
-                'title' => 'Mail from PeekInternational.com',
+                'title' => 'Mail from CellCity',
                 'subject' => 'Dear Customer ,',
                 'message' => 'Payment completed Successfully through PayPal',
+                'shippment' => '“Shipment detail will be sent once order is shipped within 24 hours”',
                 'Total'  => $total
             ];
              $messgae = "Succesfully Transferred";
-             \Mail::to($email)->send(new TechMail($details));
+             \Mail::to($email)->send(new productMail($details));
             //  return response()->json($messgae);
 
 
-            $phone = "+".$phoneno;
-            //  dd($phone);
-             $message =strip_tags(nl2br("Dear Customer, \n You have Successfully Pay  through PayPal . \n Total Amount : $". $total));
+           //  $phone = "+1".$phoneno;
+            
+           //   $message = strip_tags(nl2br("Dear Customer, \n You have Successfully Pay  through PayPal . \n Total Amount : $". $total." \n Shipment detail will be sent once order is shipped within 24 hours."));
 
-             $account_sid = "ACeb30af8343f53c1b366517b35ea44dc2";
-           $auth_token = "ecc8e9d376d7ef8a19ed22778bb466f8";
-           $twilio_number = +14842553085;
-             $client = new Client($account_sid, $auth_token);
-             $client->messages->create($phone,
-                 ['from' => $twilio_number, 'body' => $message] );
+           //   $account_sid = "ACeb30af8343f53c1b366517b35ea44dc2";
+           // $auth_token = "ecc8e9d376d7ef8a19ed22778bb466f8";
+           // $twilio_number = +4842553085;
+           //   $client = new Client($account_sid, $auth_token);
+           //   $client->messages->create($phone,
+           //       ['from' => $twilio_number, 'body' => $message] );
 
                  \Cart::clear();
-                 return redirect()->route('view.cart');
+                 return redirect()->route('payment.completed');
 
     } catch (PayPalConnectionException $ex) {
         echo $ex->getCode();
@@ -1047,14 +1117,65 @@ class ProductController extends Controller
         dd('payment cancel');
 }
 
+public function refundRequest($id){
+
+
+        $refunds =OrderSale::find($id);
+         
+         $saleId = $refunds->payment_id;
+         $amount =$refunds->grand_total;
+
+      $apiContext = new ApiContext(
+          new OAuthTokenCredential(
+                'ARwPWc_n53Fg0RY2MhCyaUakWzj_0jSPbJT6qgZRKCU0JNM6f_vuRgIohe3dd6YiUjne9TihH1imkPuI',
+              'EEEJond1ocNxmcIxE8ACqsFy4qI5umQmSjSv2mg5zbHFXP6_jH0IC1Kzw4CPLQhtrfxpB3Bg21MnEG-V'
+                 )
+      );
+
+   
+       $amt = new Amount();
+       $amt->setCurrency('USD')
+        ->setTotal($amount);
+
+    // ### Refund object
+    $refund = new Refund();
+    $refund->setAmount($amt);
+
+    // ###Sale
+    // A sale transaction.
+    // Create a Sale object with the
+    // given sale transaction id.
+    $sale = new Sale();
+    $sale->setId($saleId);
+    try {   
+      
+        $result= $sale->refund($refund, $apiContext);
+
+         $refunds->refund_status = '1';
+         $refunds->save();
+          $details = [
+                     'title' => 'Mail from CellCity.com',
+                     'subject' => 'Dear Customer ,',
+                     'message' => 'Your refund request has been Approved. It will be take 2 - 3 business days to process your refund.'
+                 ];
+ 
+               \Mail::to($refunds->user->email)->send(new refundAccept($details));
+        return redirect('admin/refunds')->with('message', Alert::_message('success','Successfully.'));
+    } catch (PayPal\Exception\PPConnectionException $ex) {
+        error_log($ex->getMessage());
+        error_log(print_r($ex->getData(), true));
+        return;
+    }
+
+}
+
 
 
    /// ------------------Filter-----------------////
    public Function getBrandFilter(Request $request)
     {
-        //  dd($request->all());
-            //  $data = collect([$request->selectedModel]);
-            //  dd($data);
+         
+    
 
          if(isset($request->brand))
          {
@@ -1064,15 +1185,8 @@ class ProductController extends Controller
             // dd(implode(",",$modelID));
             $productID = implode(",",$modelID);
 
-            $products = Product::whereIn('model_id',explode(',',$productID))->get();
-            // dd($products);
-            // $products = DB::table('products')
-            //               ->join('pmodels','pmodels.id','=','products.model_id')
-            //               ->join('brands','brands.id','=','pmodels.brand_Id')
-            //               ->whereIn('brands.id',explode(',',$request->brand))
-            //               ->select('products.*')
-            //               ->get();
-
+            $products = Product::whereIn('model_id',$modelID)->get();
+          
 
             $getbrands = view('frontend.filterProduct.getBrand',compact('products'))->render();
             $models = view('frontend.filterProduct.getModel',compact('models'))->render();
@@ -1111,7 +1225,7 @@ class ProductController extends Controller
                             ->join('products','products.id','=','product_colors.product_id')
                             ->whereIn('products.id',explode(',',$producdID))
                             ->whereIn('product_conditions.condition',explode(',',$request->input('getCondition')))
-                            ->select('*','products.id')
+                            ->select('*','products.id')->groupBy('product_id')
                             ->get();
 
 
@@ -1124,7 +1238,7 @@ class ProductController extends Controller
                ->join('product_colors','product_colors.id','=','product_storages.color_id')
                ->join('products','products.id','=','product_colors.product_id')
                ->whereIn('product_conditions.condition',explode(',',$request->input('getCondition')))
-               ->select('*','products.id')
+               ->select('*','products.id')->groupBy('product_id')
                ->get();
 
                return view('frontend.filterProduct.getCondition',compact('products'));
@@ -1137,14 +1251,7 @@ class ProductController extends Controller
                 if(isset($request->selectedModel))
                {
                 $model=$request->selectedModel;
-                // $model=$request->model;
-                // $products = Product::whereIn('model_id',explode(',',$model))->get();
-                // // dd($products);
-
-                // $modelName =  $products->pluck("id");
-                // $modelID = $modelName->all();
-                // // dd(implode(",",$modelID));
-                // $producdID = implode(",",$modelID);
+        
 
                 $products = Product::whereIn('model_id',explode(',',$model))
                                     ->whereIn('type',explode(',',$request->gettype))->get();
@@ -1174,7 +1281,7 @@ class ProductController extends Controller
                             ->join('product_conditions','product_conditions.storage_id','=','product_storages.id')
                             ->whereIn('products.id',explode(',',$productID))
                             ->whereIn('product_storages.storage',explode(',',$request->input('getStorage')))
-                            ->select('*','products.id')
+                            ->select('*','products.id')->groupBy('product_id')
                             ->get();
 
 
@@ -1217,14 +1324,14 @@ class ProductController extends Controller
 
          elseif(isset($request->maxPrice) || isset($request->minPrice))
          {
-             $start = $request->minPrice;
-             $end   =$request->maxPrice;
+             $start = (int)$request->minPrice;
+             $end   =(int)$request->maxPrice;
 
              if(isset($request->selectedModel))
             {
-             $model=$request->selectedModel;
+             $models=$request->selectedModel;
 
-             $products = Product::whereIn('model_id',explode(',',$model))->get();
+             $products = Product::whereIn('model_id',$models)->get();
              $modelName =  $products->pluck("id");
              $modelID = $modelName->all();
              $model = implode(",",$modelID);
@@ -1233,30 +1340,27 @@ class ProductController extends Controller
              ->join('product_storages','product_storages.id','=','product_conditions.storage_id')
              ->join('product_colors','product_colors.id','=','product_storages.color_id')
              ->join('products','products.id','=','product_colors.product_id')
-             ->whereIn('products.model_id',explode(',',$model))
-             ->where('product_conditions.price','>=',$start)
-             ->where('product_conditions.price','<=',$end)
-             ->select('*','products.id')
+             ->whereIn('products.model_id',$modelID)->whereBetween('price', [$start, $end])
+             ->select('*','products.id')->groupBy('product_id')
              ->get();
-
+             // dd($products);
              return view('frontend.filterProduct.getCondition',compact('products'));
             }
 
             $products = DB::table('product_conditions')
             ->join('product_storages','product_storages.id','=','product_conditions.storage_id')
             ->join('product_colors','product_colors.id','=','product_storages.color_id')
-            ->join('products','products.id','=','product_colors.product_id')
-            ->where('product_conditions.price','>=',$start)
-            ->where('product_conditions.price','<=',$end)
-            ->select('*','products.id')
+            ->join('products','products.id','=','product_colors.product_id')->whereBetween('price', [$start, $end])
+            ->select('*','products.id')->groupBy('product_id')
             ->get();
+             // dd($products);
         //    dd($products);
            return view('frontend.filterProduct.getCondition',compact('products'));
          }
 
          elseif(isset($request->phoneService))
          {
-
+// dd($request->phoneService);
             if(isset($request->selectedModel))
             {
             $model=$request->selectedModel;
@@ -1272,11 +1376,11 @@ class ProductController extends Controller
              $products = DB::table('phone_serivce_products')
                         ->join('products','products.id','=','phone_serivce_products.product_id')
                         ->join('phone_services','phone_services.id','=','phone_serivce_products.phone_service_id')
-                        ->whereIn('products.id',explode(',',$producdID))
+                        ->whereIn('products.id',$modelID)
                         ->whereIn('phone_services.id',explode(',',$request->phoneService))
-                        ->select('*','products.id')
+                        ->select('*','products.id')->groupBy('product_id')
                         ->get();
-            //   dd($products);
+             
             return view('frontend.filterProduct.getService',compact('products'));
             }
             else
@@ -1288,9 +1392,53 @@ class ProductController extends Controller
                 ->whereIn('phone_services.id',explode(',',$request->phoneService))
                 ->select('*','products.id')
                 ->get();
-
+ // dd($products);
                 return view('frontend.filterProduct.getService',compact('products'));
             }
+            
+         }
+         else
+         {
+            if(!isset($request->brand)){
+
+                $models = Pmodel::orderBy('id','asc')->get();
+                $modelName =  $models->pluck("id");
+                $modelID = $modelName->all();
+                // dd(implode(",",$modelID));
+                $productID = implode(",",$modelID);
+
+                $products = Product::orderBy('id','desc')->get();
+              
+
+                $getbrands = view('frontend.filterProduct.getBrand',compact('products'))->render();
+                $models = view('frontend.filterProduct.getModel',compact('models'))->render();
+
+                return response()->json(['brands' => $getbrands, 'models' => $models]);
+         }
+            elseif(!isset($request->model))
+            {
+                 $model=$request->model;
+                 $products = Product::orderBy('id','desc')->get();
+               //  dd($model);
+               //    response()->json(['product'=>$products,'model'=>$model]);
+                return view('frontend.filterProduct.getBrand',compact('products'));
+            }
+            else{
+
+                $models = Pmodel::orderBy('id','asc')->get();
+                $modelName =  $models->pluck("id");
+                $modelID = $modelName->all();
+                // dd(implode(",",$modelID));
+                $productID = implode(",",$modelID);
+
+                $products = Product::orderBy('id','desc')->get();
+              
+
+                $getbrands = view('frontend.filterProduct.getBrand',compact('products'))->render();
+                $models = view('frontend.filterProduct.getModel',compact('models'))->render();
+
+                return response()->json(['brands' => $getbrands, 'models' => $models]);
+         }
          }
 
 

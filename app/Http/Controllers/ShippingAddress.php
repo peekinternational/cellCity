@@ -12,6 +12,8 @@ use App\Models\Admin;
 use App\Models\ZipCode;
 use App\Models\Alert;
 use App\Models\Order;
+use App\Models\City;
+use App\Models\State;
 use App\Models\OrderSale;
 use App\Models\ShippingAddr;
 use Carbon\Carbon;
@@ -47,9 +49,16 @@ class ShippingAddress extends Controller
     public function store(Request $request)
     {
         // dd($request);
+        $request->validate([
+            'name' => 'required|max:255',
+            // 'email' => 'required|email|unique:shipping_addrs',
+            // 'mobileNo' => 'required|numeric|between:11,12',
+            ]);
         $ship= New ShippingAddr;
         $ship->userId=  Auth::guard('web')->user()->id;
-        $ship->name= $request->name;
+        $ship->first_name= $request->first_name;
+        $ship->last_name= $request->last_name;
+        $ship->email= $request->email;
         $ship->mobileNo= $request->mobileNo;
         $ship->shipaddress= $request->shipaddress;
         $ship->street_address= $request->street_address;
@@ -92,8 +101,11 @@ class ShippingAddress extends Controller
      */
     public function update(Request $request, $id)
     {
-         $ship= ShippingAddr::find($id);
-        $ship->name= $request->name;
+        
+        $ship= ShippingAddr::find($id);
+        $ship->first_name= $request->first_name;
+        $ship->last_name= $request->last_name;
+        $ship->email= $request->email;
         $ship->mobileNo= $request->mobileNo;
         $ship->shipaddress= $request->shipaddress;
         $ship->street_address= $request->street_address;
@@ -126,6 +138,13 @@ class ShippingAddress extends Controller
 
        return view('frontend.shippingAddress.getAddress',compact('address'));
     }
+    public function billAddress($id)
+    {
+    //    dd($id);
+       $address = ShippingAddr::find($id);
+
+       return view('frontend.shippingAddress.billAddress',compact('address'));
+    }
 
     public function checkAddress(Request $request)
     {
@@ -143,20 +162,36 @@ class ShippingAddress extends Controller
 
     public function createAddress(Request $request)
     {
-        // dd($request);
+      // dd($request->all());
+            $this->validate($request,[
+                'first_name' => 'required|max:255',
+                'last_name' => 'required|max:255',
+             // 'email' => 'required|email|unique:shipping_addrs',
+                'mobileNo' => 'required|string|min:10|max:11|regex:/[0-9]{9}/',
+
+              ],[
+
+                'first_name.required' =>'Enter First Name',
+                'last_name.required' =>'Enter Last Name',
+                'mobileNo.required' => 'Enter Mobile Number',
+                'mobileNo.min' => 'Phone number should not be less than 10 digits',
+                'mobileNo.max' => 'Phone number should not be more than 11 digits',
+              ]);
+
         $address= New ShippingAddr;
         if(Auth::check())
         {
             $address->userId=  Auth::guard('web')->user()->id;
         }
-        $address->name= $request->name;
+        $address->first_name= $request->first_name;
+        $address->last_name= $request->last_name;
         $address->email= $request->email;
         $address->mobileNo= $request->mobileNo;
         $address->shipaddress= $request->shipaddress;
         $address->street_address= $request->street_address;
         $address->country= $request->country;
-        $address->state= $request->state;
         $address->city= $request->city;
+        $address->state= $request->state;
         $address->zipcode= $request->zipcode;
         $address->save();
         return view('frontend.checkout',compact('address'));
@@ -233,6 +268,30 @@ class ShippingAddress extends Controller
         return response()->json(['status'=> 'Complete Your Shipping Order . <br> Thanks For Choosing Us...']);
 
 
+    }
+
+    public function getCity($id)
+    {
+        // $state = State::find($id);
+        $cities  = City::where('state_id',$id)->get();
+        $item = null;
+        //  dd($cities);
+        if($cities->count() > 0)
+        {
+            // dd('asd');
+            foreach($cities as $city)
+            {
+                 $item .='<option value="'.$city->name.'">'.$city->name.'</option>';
+            }
+        }
+        else
+        {
+            $item .='<option>No City </option>';
+        }
+       
+
+        
+        return response()->json($item);
     }
 
 }

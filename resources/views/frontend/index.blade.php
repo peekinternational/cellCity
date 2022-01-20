@@ -9,6 +9,18 @@
     color: #fff;
     line-height: 20px;
 }
+.colored{
+  font-family: 'Catamaran', sans-serif;
+    font-size: 15px;
+    color: #333;
+    line-height: 1.8em;
+    font-weight: inherit;
+    /* background: #ffffff;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center top; */
+    /* -webkit-font-smoothing: antialiased; */
+}
 
 </style>
 @endsection
@@ -198,9 +210,9 @@
                     	<!--Icon Box-->
                     	<a href="{{url('repair')}}">
                     		<div class="icon-box">
-	                      	<span class="icon flaticon-mobile"  style="color:#00bfa5"></span>
+	                      	<img src="{{asset('frontend-assets/images/phone_repair.svg')}}"  alt="" >
 	                      </div>
-	                      <h3>Phone Repairs</h3>
+	                      <h3>Smartphones Repairs</h3>
                     	</a>
                     </div>
                 </div>
@@ -212,9 +224,9 @@
                     	<!--Icon Box-->
                     	<a href="{{url('buy-phone')}}">
                   			<div class="icon-box">
-                  		    <span class="icon flaticon-technology-2"   style="color:#00bfa5"></span>
+                  		        <img src="{{asset('frontend-assets/images/Buy_Phones.svg')}}"  alt="" >
                   		  </div>
-                  		  <h3>Buy Phones</h3>
+                  		  <h3>Buy Smartphones</h3>
                     	</a>
                     </div>
                 </div>
@@ -226,9 +238,9 @@
                     	<!--Icon Box-->
                     	<a href="{{ url('pay-bills') }}">
                     			<div class="icon-box">
-                    		    <span class="icon flaticon-technology-1" style="color:#00bfa5"></span>
+                    		      <img src="{{asset('frontend-assets/images/billpay.png')}}" style=" width: 78px;"  alt="" >
                     		  </div>
-                    		  <h3>Pay Bills</h3>
+                    		  <h3>Pay Bill Payment</h3>
                     	</a>
 
                     </div>
@@ -261,15 +273,17 @@
                 $image = App\Models\ProductImage::where('product_id',$product->id)->first();
                 $condition = App\Models\ProductCondition::where('storage_id',$storage->id)->first();
                 @endphp
+                 <a href="{{ route('product.details',$product->id) }}" class="colored">
                 <div class="shop-item col-md-3 col-sm-6 col-xs-12">
                 	<div class="inner-box wow fadeIn" data-wow-delay="0ms" data-wow-duration="1500ms">
+
                     	<figure class="image-box">
-                        	<a href="{{ route('product.details',$product->id) }}"><img src="{{asset('storage/images/products/'.$image->image ?? '')}}" alt="" /></a>
+                        <img src="{{asset('storage/images/products/'.$image->image ?? '')}}" alt="" />
                         </figure>
                         <!--Lower Content-->
 
                         <div class="lower-content">
-                        	<h3><a href="{{url('single')}}">{{ $model->brand->brand_name  ?? '' }}  {{ $model->model_name ?? '' }}</a></h3>
+                        	<h4>{{ $model->brand->brand_name  ?? '' }}  {{ $model->model_name ?? '' }}</h4>
                         	<div> <span>{{ $product->memory ?? ''}} - {{$color->color_name ?? ''}} - {{ $product->locked ?? ''}}</span> </div>
 		                        <span>
 		                        Warranty: {{ $product->warranty ?? ''}}
@@ -278,9 +292,10 @@
                             <div class="price">
                             <strong>${{ $condition->price ?? '' }}.00</strong> <del>$950.00</del></div>
                         </div>
+                   
                     </div>
                 </div>
-
+ </a>
                 @endforeach
 
             </div>
@@ -300,119 +315,73 @@
             	<div class="testimonial-carousel-two">
 
                 	<!--Testimonial Block-->
+                    @foreach(CityClass::allHomereviews() as $review)
                     <div class="testimonial-block-two">
                     	<div class="inner-box">
                         	<!--Image Box-->
+                                 @php
+                                     $user = App\Models\User::where('id',CityClass::homeReviews($review->reviewid)->author_id)->first();
+                                @endphp
                             <div class="head-section">
-                          	  <figure class="image-box">
-                          	      <img src="{{asset('frontend-assets/images/resource/testimonial-1.jpg')}}" alt="" />
-                          	  </figure>
+                          	  
                           	  <div class="name-and-skill">
-                          			<div class="name">John</div>
-                          			<div class="skill">Technician</div>
+                          			<div class="name">{{$user->name}}</div>
+                          			<div class="skill">Customer</div>
                           		</div>
                             </div>
-                            <div class="text">Hope ultimate truth insofar god salvation god. The Truth revaluation insofar suicide inexpedient gains ultimate. Joy faith convictions victorious passion ocean.</div>
+                            <div class="text">{{CityClass::homeReviews($review->reviewid)->title}}</div>
                             <!--Designation-->
-                            <div class="reviwer-section soft-body-text"><div class="reviwer">Adrienne | Los Angeles, CA</div><img class="b-lazy b-loaded" src="https://d7gh5vrfihrl.cloudfront.net/website/badges/stars.svg"></div>
+                            <div class="reviwer-section soft-body-text"><div class="reviwer">{{$user->city}} | {{$user->state}}, {{$user->country}}</div>   <article class="review-box clearfix">
+                                                    <div class="rev-content" style="float: right;">
+                                                        @if (CityClass::homeReviews($review->reviewid)->rating == 1)
+                                                        <div class="rating">
+                                                            <span class="fa fa-star"></span>
+                                                            <span class="fa fa-star-o"></span>
+                                                            <span class="fa fa-star-o"></span>
+                                                            <span class="fa fa-star-o"></span>
+                                                            <span class="fa fa-star-o"></span>
+                                                        </div>
+                                                        @elseif (CityClass::homeReviews($review->reviewid)->rating == 2)
+                                                        <div class="rating">
+                                                            <span class="fa fa-star"></span>
+                                                            <span class="fa fa-star"></span>
+                                                            <span class="fa fa-star-o"></span>
+                                                            <span class="fa fa-star-o"></span>
+                                                            <span class="fa fa-star-o"></span>
+                                                        </div>
+                                                        @elseif (CityClass::homeReviews($review->reviewid)->rating == 3)
+                                                        <div class="rating">
+                                                            <span class="fa fa-star"></span>
+                                                            <span class="fa fa-star"></span>
+                                                            <span class="fa fa-star"></span>
+                                                            <span class="fa fa-star-o"></span>
+                                                            <span class="fa fa-star-o"></span>
+                                                        </div>
+                                                        @elseif (CityClass::homeReviews($review->reviewid)->rating == 4)
+                                                        <div class="rating">
+                                                            <span class="fa fa-star"></span>
+                                                            <span class="fa fa-star"></span>
+                                                            <span class="fa fa-star"></span>
+                                                            <span class="fa fa-star"></span>
+                                                            <span class="fa fa-star-o"></span>
+                                                        </div>
+                                                        @elseif (CityClass::homeReviews($review->reviewid)->rating == 5)
+                                                        <div class="rating">
+                                                            <span class="fa fa-star"></span>
+                                                            <span class="fa fa-star"></span>
+                                                            <span class="fa fa-star"></span>
+                                                            <span class="fa fa-star"></span>
+                                                            <span class="fa fa-star"></span>
+                                                        </div>
+
+                                                        @endif
+
+                                                    </div>
+                                                </article></div>
                         </div>
                     </div>
-
-                    <!--Testimonial Block-->
-                    <div class="testimonial-block-two">
-                    	<div class="inner-box">
-                        	<!--Image Box-->
-                            <div class="head-section">
-                          	  <figure class="image-box">
-                          	      <img src="{{asset('frontend-assets/images/resource/testimonial-2.jpg')}}" alt="" />
-                          	  </figure>
-                          	  <div class="name-and-skill">
-                          			<div class="name">John</div>
-                          			<div class="skill">Technician</div>
-                          		</div>
-                            </div>
-                            <div class="text">Hope ultimate truth insofar god salvation god. The Truth revaluation insofar suicide inexpedient gains ultimate. Joy faith convictions victorious passion ocean.</div>
-                            <!--Designation-->
-                            <div class="reviwer-section soft-body-text"><div class="reviwer">Adrienne | Los Angeles, CA</div><img class="b-lazy b-loaded" src="https://d7gh5vrfihrl.cloudfront.net/website/badges/stars.svg"></div>
-                        </div>
-                    </div>
-
-                    <!--Testimonial Block-->
-                    <div class="testimonial-block-two">
-                    	<div class="inner-box">
-                        	<!--Image Box-->
-                            <div class="head-section">
-                          	  <figure class="image-box">
-                          	      <img src="{{asset('frontend-assets/images/resource/testimonial-1.jpg')}}" alt="" />
-                          	  </figure>
-                          	  <div class="name-and-skill">
-                          			<div class="name">John</div>
-                          			<div class="skill">Technician</div>
-                          		</div>
-                            </div>
-                            <div class="text">Hope ultimate truth insofar god salvation god. The Truth revaluation insofar suicide inexpedient gains ultimate. Joy faith convictions victorious passion ocean.</div>
-                            <!--Designation-->
-                            <div class="reviwer-section soft-body-text"><div class="reviwer">Adrienne | Los Angeles, CA</div><img class="b-lazy b-loaded" src="https://d7gh5vrfihrl.cloudfront.net/website/badges/stars.svg"></div>
-                        </div>
-                    </div>
-
-                    <!--Testimonial Block-->
-                    <div class="testimonial-block-two">
-                    	<div class="inner-box">
-                        	<!--Image Box-->
-                            <div class="head-section">
-                          	  <figure class="image-box">
-                          	      <img src="{{asset('frontend-assets/images/resource/testimonial-2.jpg')}}" alt="" />
-                          	  </figure>
-                          	  <div class="name-and-skill">
-                          			<div class="name">John</div>
-                          			<div class="skill">Technician</div>
-                          		</div>
-                            </div>
-                            <div class="text">Hope ultimate truth insofar god salvation god. The Truth revaluation insofar suicide inexpedient gains ultimate. Joy faith convictions victorious passion ocean.</div>
-                            <!--Designation-->
-                            <div class="reviwer-section soft-body-text"><div class="reviwer">Adrienne | Los Angeles, CA</div><img class="b-lazy b-loaded" src="https://d7gh5vrfihrl.cloudfront.net/website/badges/stars.svg"></div>
-                        </div>
-                    </div>
-
-                    <!--Testimonial Block-->
-                    <div class="testimonial-block-two">
-                    	<div class="inner-box">
-                        	<!--Image Box-->
-                            <div class="head-section">
-                            	<figure class="image-box">
-                                <img src="{{asset('frontend-assets/images/resource/testimonial-1.jpg')}}" alt="" />
-	                            </figure>
-	                            <div class="name-and-skill">
-	                          		<div class="name">John</div>
-	                          		<div class="skill">Technician</div>
-	                          	</div>
-                            </div>
-                            <div class="text">Hope ultimate truth insofar god salvation god. The Truth revaluation insofar suicide inexpedient gains ultimate. Joy faith convictions victorious passion ocean.</div>
-                            <!--Designation-->
-                            <div class="reviwer-section soft-body-text"><div class="reviwer">Adrienne | Los Angeles, CA</div><img class="b-lazy b-loaded" src="https://d7gh5vrfihrl.cloudfront.net/website/badges/stars.svg"></div>
-                        </div>
-                    </div>
-
-                    <!--Testimonial Block-->
-                    <div class="testimonial-block-two">
-                    	<div class="inner-box">
-                        	<!--Image Box-->
-                            <div class="head-section">
-                            	<figure class="image-box">
-                                <img src="{{asset('frontend-assets/images/resource/testimonial-2.jpg')}}" alt="" />
-                            	</figure>
-                            	<div class="name-and-skill">
-                            		<div class="name">John</div>
-                            		<div class="skill">Technician</div>
-                            	</div>
-                            </div>
-
-                            <div class="text">Hope ultimate truth insofar god salvation god. The Truth revaluation insofar suicide inexpedient gains ultimate. Joy faith convictions victorious passion ocean.</div>
-                            <!--Designation-->
-                            <div class="reviwer-section soft-body-text"><div class="reviwer">Adrienne | Los Angeles, CA</div><img class="b-lazy b-loaded" src="https://d7gh5vrfihrl.cloudfront.net/website/badges/stars.svg"></div>
-                        </div>
-                    </div>
+              @endforeach
+                
 
                 </div>
             </div>
@@ -424,7 +393,7 @@
 
         	<div class="sec-title-one">
                 <h2>OUR BLOG</h2>
-                <div class="text"><br></div>
+                <div class="text"></div>
             </div>
 
         	<div class="row clearfix blogs-carousel">
@@ -436,12 +405,13 @@
                 	<div class="inner-box">
                     	<!--Image Box-->
                     	<div class="image-box wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1500ms">
-                    		<a href="{{route('blog.single',$blog->id)}}"><img src="{{asset($blog->image)}}" /></a>
+                    		<a href="{{route('blog.single',$blog->id)}}">
+                                <img src="{{asset($blog->image)}}" style="max-height: 165px;" /></a>
                    		</div>
                         <!--Lower Content-->
                         <div class="lower-content">
                         	<h3><a href="{{route('blog.single',$blog->id)}}">{{$blog->title}}</a></h3>
-                          <div class="text">{{$blog->desc}}</div>
+                          <div class="text">{!! \Illuminate\Support\Str::limit($blog->desc, 200, $end='...') !!}</div>
                           <ul class="list">
                               <li><span class="icon flaticon-business"></span> {{$blog->created_at->format('d F Y')}}</li>
                           </ul>

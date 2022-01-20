@@ -23,6 +23,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        \Shippo::setApiKey('shippo_test_d407c81890d432b50de9c93bbbededbc7f28a5ba');
+
     }
 }

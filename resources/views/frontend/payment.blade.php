@@ -222,9 +222,9 @@
                       <label for="paypal" class="payment-methd">
                         <input type="radio" id="paypal" name="payment" value="paypal" onchange="valueChanged()"> Paypal
                       </label>
-                      <label for="apple-pay" class="payment-methd">
+                     <!--  <label for="apple-pay" class="payment-methd">
                         <input type="radio" id="apple-pay" name="payment" value="" onchange="valueChanged()"> Apple Pay
-                      </label>
+                      </label> -->
                       <label for="credit-card" class="payment-methd">
                         <button type="button"  data-toggle="modal" data-target="#exampleModalCenter"> Credit Card </button>
                       </label>
@@ -268,6 +268,9 @@
             </div>
                <button type="button" class="btn btn-primary btn-style-one" data-dismiss="modal" style="margin-bottom: 5px;    margin-left: 5px">Close</button>
                 <button id="card-button" class="btn btn-primary btn-style-one" type="button" style="margin-bottom: 5px">Pay</button>
+                 <button class="buttonload btn btn-primary btn-style-one" style="display: none" id="buttonload">
+                  <i class="fa fa-circle-o-notch fa-spin"></i> Loading
+                </button>
               </form>
     </div>
 
@@ -327,13 +330,14 @@
   <script src="https://sandbox.web.squarecdn.com/v1/square.js"></script>
   <script type="text/javascript">
     async function main() {
-      const payments = Square.payments('sandbox-sq0idb-c4YYFJ73zA8I9JKQLP9Rsg', 'GD29XJWM54NX2');
+      const payments = Square.payments('sandbox-sq0idb-XTzUm4GcIO3nEEVwThTwRA', 'LEDBH9HCJM9K6');
       const card = await payments.card();
       await card.attach('#card-container');
 
       async function eventHandler(event) {8
         event.preventDefault();
-
+            $('#card-button').hide();
+             $('#buttonload').show();
         try {
           const result = await card.tokenize();
           if (result.status === 'OK') {
@@ -366,6 +370,8 @@
           }
         } catch (e) {
           console.error(e);
+           $('#buttonload').hide();
+          $('#card-button').show();
         }
       };
 

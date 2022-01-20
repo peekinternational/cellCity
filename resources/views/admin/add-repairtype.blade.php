@@ -13,7 +13,7 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <form action="{{url('admin/repairTypes')}}" method="post">
+                                        <form action="{{url('admin/repairTypes')}}" method="post" enctype="multipart/form-data">
                                             {{csrf_field()}}
 
                                         <div class="form-group row">
@@ -41,6 +41,13 @@
                                             <div class="col-md-10">
                                                 <input class="form-control" name="price" type="text" placeholder="Enter Price"  @if(old('price')) value="{{ old('price') }}" @endif  id="example-text-input">
                                                 <span class="text-danger">{{ $errors->first('price') }}</span>
+                                            </div>
+                                        </div>
+                                     <div class="form-group row">
+                                            <label for="example-text-input" class="col-md-2 col-form-label">Repair Image</label>
+                                            <div class="col-md-10">
+                                                <input class="form-control" name="repair_image" type="file"  @if(old('repair_image')) value="{{ old('repair_image') }}" @endif  id="example-text-input">
+                                                <span class="text-danger">{{ $errors->first('repair_image') }}</span>
                                             </div>
                                         </div>
                                         <div class="text-center mt-4">

@@ -70,7 +70,11 @@ h1 { font-size: 1.5em; margin: 10px; }
 	<div class="auto-container">
 		 @if(Session::has('message'))
                   <div class="col-12">
-                      {!!Session::get('message')!!}
+                      @if(Session::has('message'))
+                    <div class="alert alert-success alert-dismissible">
+                       <h5> {!!Session::get('message')!!} </h5>
+                    </div>
+                    @endif
                   </div>
                   @endif
 		<div role="tabpanel">
@@ -121,8 +125,16 @@ h1 { font-size: 1.5em; margin: 10px; }
                                 @csrf
                                 @method('PUT')
 								<div class="form-group">
-									<label>Name</label>
-									<input type="text" name="name" class="form-control" value="{{Auth::guard('web')->user()->name}}">
+									<div class="row">
+                                     <div class="col-md-6">
+										<label>First Name</label>
+										<input type="text" name="first_name" class="form-control" value="{{Auth::guard('web')->user()->first_name}}">
+									</div>
+									 <div class="col-md-6">
+										<label>Last Name</label>
+										<input type="text" name="last_name" class="form-control" value="{{Auth::guard('web')->user()->last_name}}">
+									</div>
+								</div>
 								</div>
 								<div class="form-group">
 									<label>Phone</label>
@@ -136,8 +148,49 @@ h1 { font-size: 1.5em; margin: 10px; }
 									<label>Address</label>
 									<textarea cols="4" rows="4" name="address" class="form-control">{{Auth::guard('web')->user()->address}}</textarea>
 								</div>
+                                  <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Country</label>
+                                                <input type="text" name="country" placeholder="Country" class="form-control" value="{{Auth::guard('web')->user()->country}}" required>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label>State</label>
+                                                <select name="state" class="form-control" onchange="getCities(this)"
+                                                    required>
+                                                    <option value="0">Select State</option>
+                                                    @foreach (CityClass::states() as $state)
+                                                        <option {{($state->name == Auth::guard('web')->user()->state) ? 'selected' : ''}} value="{{ $state->name }}">{{ $state->name }}</option>
+                                                    @endforeach
+
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+
+                                            <div class="col-md-6">
+                                                <label>City</label>
+                                                <input type="text" name="city" class="form-control" placeholder="City Name" value="{{Auth::guard('web')->user()->city}}"
+                                                   required >
+                                                @if ($errors->has('city'))
+                                                <span class="text-danger">{{ $errors->first('city') }}</span>
+                                            @endif
+                                                <!-- <select name="city" class="form-control" required id="city">
+                                                    <option>Select city</option>
+                                                </select> -->
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="control-label">Zip Code</label>
+                                                <input type="text" value="{{Auth::guard('web')->user()->zipcode}}" name="zipcode" placeholder="Zip Code"
+                                                    class="form-control" required>
+                                            </div>
+                                        </div>
+                                    </div>
 								<div class="form-group text-right">
-									<input type="submit" name="submit" class="btn btn-style-one" value="Edit Profile">
+									<input type="submit" name="submit" class="btn btn-style-one" value="save">
 								</div>
 							</form>
 						</div>
@@ -217,6 +270,7 @@ h1 { font-size: 1.5em; margin: 10px; }
 											<th>Created At</th>
 											<th>Shipping Address</th>
                                             <th>Status</th>
+                                            <th>Tracking</th>
 											<th>Grand Price</th>
 
 											<th>Action</th>
@@ -225,18 +279,13 @@ h1 { font-size: 1.5em; margin: 10px; }
 									<tbody>
                                         @forelse (CityClass::orderlist(Auth::user()->id) as $orderSale)
                                         <tr>
-                                            {{-- @php
-                                                $order= App\Models\Order::where('orderSales_id',$orderSale->id)->first();
-                                                // dd($order);
-                                            @endphp --}}
+                                          
                                             <td>{{$orderSale->id}}</td>
-                                            <td>{{$orderSale->user->name ?? ''}}</td>
+                                            <td>{{$orderSale->user->first_name ?? ''}} {{$orderSale->user->last_name ?? ''}}</td>
 											<td>{{$orderSale->created_at->format('D-M-y h:s')}}</td>
 
 											<td>{{$orderSale->shipAddress->shipaddress ?? ''}}</td>
-											<td>
-                                                ${{$orderSale->grand_total}}
-                                               </td>
+											
                                                <td>
                                                 @if ($orderSale->status == 2)
                                                 <span class="badge badge-success" style="background: rgb(1, 100, 1)">complete</span>
@@ -246,9 +295,33 @@ h1 { font-size: 1.5em; margin: 10px; }
                                                 <span class="badge badge-secondary">Pending</span>
                                                 @endif
                                                </td>
+                                               <td>@if ($orderSale->status == 1) <a href="https://tools.usps.com/go/TrackConfirmAction_input?origTrackNum={{$orderSale->tracking_code }}" target="_blank">Track Order</a>
+                                                @endif
+                                               </td>
 
-											<td>
-                                                <a href="#" onclick="orderViewDetails('{{$orderSale->id}}')" class="mr-3 text-success"><i class="fa fa-eye font-size-18"></i></a>
+                                               <td>
+                                                ${{$orderSale->grand_total}}
+                                               </td>
+
+											                       <td>
+                                              
+                                                @if ($orderSale->status == 1  )
+                                                 <a href="#" onclick="confirmOrder('{{$orderSale->id}}')" class="mr-3 btn btn-success btn-xs">Complete Order</a>
+                                                 <br>
+                                                 <!--   @if($orderSale->refund && $orderSale->refund->status == 0)
+                                                 <a href="#" onclick="refundPayment('{{$orderSale->id}}')" class="mr-3  btn-danger btn-xs">Refund</a>
+                                                  @elseif(!$orderSale->refund)
+                                                  <a href="#" onclick="refundPayment('{{$orderSale->id}}')" class="mr-3  btn-danger btn-xs">Refund</a>
+                                                  @endif<br> -->
+                                                 @elseif($orderSale->status == 2)
+
+                                                  <!-- @if($orderSale->refund && $orderSale->refund->status == 0)
+                                                 <a href="#" onclick="refundPayment('{{$orderSale->id}}')" class="mr-3  btn-danger btn-xs">Refund</a>
+                                                  @elseif(!$orderSale->refund)
+                                                  <a href="#" onclick="refundPayment('{{$orderSale->id}}')" class="mr-3  btn-danger btn-xs">Refund</a>
+                                                  @endif<br> -->
+                                                @endif
+                                                <a  onclick="orderViewDetails('{{$orderSale->id}}')" class="mr-3 btn btn-default btn-xs">View</a>
                                             </td>
                                         </tr>
                                         @empty
@@ -270,23 +343,33 @@ h1 { font-size: 1.5em; margin: 10px; }
                                 <table id="example" class="table table-bordered table-hover" >
 									<thead>
 										<tr>
-											<th>Sr#</th>
+											<th>Order ID</th>
+											<th>Carrier Name</th>
+											<th>Carrier Type</th>
 											<th>Paid Through</th>
 											<th>Payment</th>
 											<th>Paid on</th>
 											<th>Status</th>
-											<th>Action</th>
+											<!-- <th>Action</th> -->
 										</tr>
 									</thead>
 									<tbody>
+										 @forelse (CityClass::carorderlist(Auth::user()->id) as $order)
 										<tr>
-											<td>1</td>
-											<td>VISA/Master</td>
-											<td>$100</td>
-											<td>12-07-21</td>
+											<td>{{$order->id}}</td>
+											@if($order->type == 'wire')
+											<td>{{CityClass::orderWireCar($order->carrier_id)->name}}</td>
+											 @else
+                                             <td>{{CityClass::orderIntCar($order->carrier_id)->name}}</td>
+                                            @endif
+											<td>@if($order->type == 'wire') Wireless @else International @endif</td>
+											<td>{{$order->method}}</td>
+											<td>${{$order->price + $order->tax}}</td>
+											<td>{{$order->created_at}}</td>
 											<td>Paid</td>
-											<td><a href=""><i class="fa fa-trash text-danger"></i></a></td>
+											<!-- <td><a href=""><i class="fa fa-trash text-danger"></i></a></td> -->
 										</tr>
+										@endforeach
 									</tbody>
 								</table>
 							</div>
@@ -330,7 +413,7 @@ h1 { font-size: 1.5em; margin: 10px; }
                                         @endphp
                                         <tr>
                                             <td colspan="2">{{$index}}</td>
-                                            <td colspan="2">{{$wishl->user->name}}</td>
+                                            <td colspan="2">{{$wishl->user->first_name}} {{$wishl->user->last_name}}</td>
                                             <td colspan="2">{{$model->model_name ?? ''}}</td>
                                             <td>
                                                 @if (isset($wishl->product_id))
@@ -403,7 +486,7 @@ h1 { font-size: 1.5em; margin: 10px; }
 								@foreach(Auth::guard('web')->user()->shippingaddress as $shipingAdd)
 								<div class="col-md-6">
 									<div class="address-box">
-										<h6><strong>{{$shipingAdd->name}}</strong></h6>
+										<h6><strong>{{$shipingAdd->first_name}} {{$shipingAdd->last_name}}</strong></h6>
 										<p><i class="fa fa-phone"></i> {{$shipingAdd->mobileNo}}</p>
 										<p><i class="fa fa-map-marker"></i> {{$shipingAdd->shipaddress}}</p>
 										<p>{{$shipingAdd->city}}, {{$shipingAdd->state}}, {{$shipingAdd->country}},{{$shipingAdd->zipcode}}</p>
@@ -435,26 +518,47 @@ h1 { font-size: 1.5em; margin: 10px; }
 
 												 {{csrf_field()}}
 												<div class="form-group">
-													<label>Full name</label>
-													<input type="text" name="name" class="form-control" placeholder="Full Name" required="">
+													<div class="row">
+														<div class="col-md-6">
+														<label>First name</label>
+														<input type="text" name="first_name" class="form-control"  placeholder="First Name">
+														</div>
+														<div class="col-md-6">
+														<label>Last name</label>
+														<input type="text" name="last_name" class="form-control" placeholder="Last Name">
+														</div>
+														
+													</div>
+												</div>
+												<div class="form-group">
+													<label>Email</label>
+													<input type="text" name="email" class="form-control" placeholder="Email" required>
 												</div>
 												<div class="form-group">
 													<label>Phone Number</label>
-													<input type="text" name="mobileNo" class="form-control" placeholder="Phone Number" required>
-												</div>
+													<!-- <input type="text" name="mobileNo" class="form-control" placeholder="Phone Number" required> -->
+                                                    <div class="input-group">
+                                                    <span class="input-group-addon">us +1</span>
+                                                    <input type="number" class="form-control" name="mobileNo" aria-label="Amount (to the nearest dollar)" placeholder="Phone Number"  required>
+                                           
+                                            </div>
+                                            @if ($errors->has('mobileNo'))
+                                                <span class="text-danger">{{ $errors->first('mobileNo') }}</span>
+                                            @endif
+                                                </div>
 												<div class="form-group">
 													<label>Address</label>
 													<input type="text" name="shipaddress" class="form-control" placeholder="address" required>
 												</div>
-                                                <div class="form-group">
+                                                <!-- <div class="form-group">
 													<label>Street Address</label>
 													<input type="text" name="street_address" class="form-control" placeholder="Street address" required>
-												</div>
+												</div> -->
 												<div class="form-group">
 													<div class="row">
 														<div class="col-md-6">
 															<label>Country</label>
-															<input type="text" name="country" placeholder="Country" class="form-control" required>
+															<input type="text" name="country" placeholder="Country" class="form-control" value="America" readonly>
 														</div>
 														<div class="col-md-6">
 															<label>State</label>
@@ -500,8 +604,21 @@ h1 { font-size: 1.5em; margin: 10px; }
 										<div class="modal-body">
 
 												<div class="form-group">
-													<label>Full name</label>
-													<input type="text" name="name" class="form-control" value="{{$shipingAdd->name}}" placeholder="Full Name">
+													<div class="row">
+														<div class="col-md-6">
+														<label>First name</label>
+														<input type="text" name="first_name" class="form-control" value="{{$shipingAdd->first_name}}" placeholder="First Name">
+														</div>
+														<div class="col-md-6">
+														<label>Last name</label>
+														<input type="text" name="last_name" class="form-control" value="{{$shipingAdd->last_name}}" placeholder="Last Name">
+														</div>
+														
+													</div>
+												</div>
+												<div class="form-group">
+													<label>Email</label>
+													<input type="text" name="email" class="form-control" value="{{$shipingAdd->email}}" placeholder="Email">
 												</div>
 												<div class="form-group">
 													<label>Phone Number</label>
@@ -513,7 +630,7 @@ h1 { font-size: 1.5em; margin: 10px; }
 												</div>
                                                 <div class="form-group">
 													<label>Street Address</label>
-													<input type="text" name="street_address" class="form-control" value="{{$shipingAdd->street_address}}" placeholder="Street address" required>
+													<input type="text" name="street_address" class="form-control" value="{{$shipingAdd->street_address}}" placeholder="Street address" >
 												</div>
 												<div class="form-group">
 													<div class="row">
@@ -561,6 +678,50 @@ h1 { font-size: 1.5em; margin: 10px; }
 	</div>
     <div id="showModels"></div>
 </section>
+
+<!-- Refund Modal -->
+<div class="modal"  id="refundModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Refund Payment Request</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="{{ URL('refundRequest') }}" method="POST" id="refundForm" enctype="multipart/form-data">
+        <input type="hidden" name="order_id" id="order_id">
+           {{ csrf_field() }}
+          <div class="form-group">
+            <label for="exampleFormControlSelect1">Select a reason</label>
+            <select class="form-control" name="reason">
+              <option value="" selected>Select a reason</option>
+              <option>Returned goods</option>
+              <option>Accidental charge</option>
+              <option>Canceled order</option>
+              <option>Fraudulent Charge</option>
+              <option>Other</option>
+            </select>
+          </div>
+            <div class="form-group">
+            <label for="exampleFormControlInput1">Attach File</label>
+            <input type="file" class="form-control" name="file">
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlTextarea1">Detail</label>
+            <textarea class="form-control" name="detail" id="exampleFormControlTextarea1" rows="3"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" form="refundForm" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <div class="modal fade" id="empModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
@@ -649,13 +810,18 @@ h1 { font-size: 1.5em; margin: 10px; }
 } );
 </script>
 <script>
+    var refundId = 0;
   $('.nav-tabs-dropdown')
     .on("click", "li:not('.active') a", function(event) {  $(this).closest('ul').removeClass("open");
     })
     .on("click", "li.active a", function(event) { $(this).closest('ul').toggleClass("open");
     });
 
-
+    function refundPayment(id){
+       refundId = id;
+       $('#order_id').val(id);
+       $('#refundModal').modal('show');
+    }
     function viewDetail(id){
    $.ajax({
         url: "{{url('customer/orderRepairView')}}/"+id,
@@ -701,9 +867,9 @@ h1 { font-size: 1.5em; margin: 10px; }
             });
     }
 
-    function confirmOrder()
+    function confirmOrder(id)
     {
-        var orderIDs =$("#orderIDs").val();
+        var orderIDs =id;
         // alert(trackingNo);
         var _token = $('input[name="_token"]').val();
         $.ajax({
@@ -712,8 +878,7 @@ h1 { font-size: 1.5em; margin: 10px; }
             data: {orderIDs:orderIDs,_token:_token},
 
             success:function(response){
-     console.log(response);
-                  alert(response);
+              location.reload();
                 //   $("#model").modal('show');
                 },
             });

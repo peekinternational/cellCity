@@ -8,7 +8,7 @@
     <meta name="description" content="Cell City">
     <meta name="author" content="Cell City">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <meta name="keywords" content="s">
+    <meta name="keywords" content="cellCity">
     <title>Cell City</title>
 
     <link rel='stylesheet' href="{{ asset('frontend-assets/css/bootstrap.css') }}" media='' />
@@ -19,6 +19,7 @@
     <link href="{{ asset('admin-assets/datatable/dataTables.bootstrap4.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('admin-assets/datatable/jquery.dataTables.min.css') }}" rel="stylesheet" />
     <link rel='stylesheet' href="{{ asset('frontend-assets/css/jquery-ui.css') }}" />
+    <link href="{{ URL::asset('/css/flag.css')}}" rel="stylesheet">
     {{-- <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> --}}
 
     @yield('styling')

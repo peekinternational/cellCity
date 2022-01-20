@@ -24,4 +24,9 @@ class OrderSale extends Model
     {
          return $this->hasMany(AccessoryOrder::class,'orderSale_id','id');
     }
+
+    public function refund()
+        {
+        return $this->hasOne(Refund::class,'order_id','id');
+        }
 }

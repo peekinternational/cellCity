@@ -11,6 +11,8 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BlogContoller;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\AdminRepairController;
+use App\Http\Controllers\Admin\CarriersController;
+use App\Http\Controllers\Admin\IcarriersController;
 use App\Http\Controllers\ProductConditionController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ContactUsController;
@@ -19,7 +21,9 @@ use App\Http\Controllers\FaqController;
 use App\Http\Controllers\ProductOrderController;
 use App\Http\Controllers\ShippingAddress;
 use App\Http\Controllers\SquareController;
+use App\Http\Controllers\SubcribeController;
 use App\Http\Controllers\WishlistController;
+use App\Http\Controllers\RefundController;
 use App\Models\Accessory;
 use App\Models\ProductCondition;
 use App\Models\RepairOrder;
@@ -46,8 +50,13 @@ Route::name('admin.')->namespace('Admin')->prefix('admin')->group(function () {
 
         Route::get('/', function () {
             return view('admin.index');
-        });
+        }); 
 
+
+         Route::get('/reviews', function () {
+            return view('admin.review-list');
+        });
+          Route::post('/reviewUpdate', [AdminRepairController::class, 'reviewUpdate']);
 
         /////////////////////////////// CUSTOMER ////////////////////////////
 
@@ -65,6 +74,8 @@ Route::name('admin.')->namespace('Admin')->prefix('admin')->group(function () {
         Route::get('/deleteTechnician/{id}', [AdminController::class, 'deleteTechnician']);
 
 
+        Route::get('refunds', [RefundController::class, 'index']);
+        Route::get('refundReject/{id}', [RefundController::class, 'refundReject']);
         Route::get('rejectOrder/{id}', [AdminController::class, 'rejectOrder']);
 
         ///////////////////////////////   Admin Role    //////////////////////////////
@@ -85,6 +96,7 @@ Route::name('admin.')->namespace('Admin')->prefix('admin')->group(function () {
         Route::resource('/zipCode', '\App\Http\Controllers\Admin\ZipController');
         Route::resource('/brands', '\App\Http\Controllers\Admin\BrandController');
         Route::resource('/models', '\App\Http\Controllers\Admin\ModelController');
+        Route::resource('/storages', '\App\Http\Controllers\Admin\StoreController');
         Route::resource('/repairTypes', '\App\Http\Controllers\Admin\AdminRepairController');
 
         Route::resource('/coupon', '\App\Http\Controllers\CouponController');
@@ -98,6 +110,17 @@ Route::name('admin.')->namespace('Admin')->prefix('admin')->group(function () {
 
         //blog management
         Route::resource('/blog', '\App\Http\Controllers\Admin\BlogContoller');
+         //carriers management
+        Route::resource('/carriers', '\App\Http\Controllers\Admin\CarriersController');
+        Route::resource('/icarriers', '\App\Http\Controllers\Admin\IcarriersController');
+
+         Route::get('intOrder', function () {
+            return view('admin.carriers.orders1');
+        });
+
+         Route::get('wireOrder', function () {
+            return view('admin.carriers.orders');
+        });
         //Product Management
         Route::resource('/product', '\App\Http\Controllers\Admin\ProductController');
         //ajax
@@ -175,6 +198,8 @@ Route::name('admin.')->namespace('Admin')->prefix('admin')->group(function () {
         Route::get('/productOrder', [ProductOrderController::class, 'productOrder']);
         //////////////////// Shipping Address ////////////////////////////
         Route::get('/shippingAddress/{id}', [ProductOrderController::class, 'productShipping']);
+
+        Route::get('/subcribeList', [SubcribeController::class, 'list'])->name('subcribe.list');
     });
 });
 
@@ -233,7 +258,8 @@ Route::name('tech.')->namespace('Tech')->prefix('tech')->group(function () {
 
 Route::post('checkout/{id}', [CheckoutController::class, 'checkoutPayment'])->name('checkout.payment');
 Route::post('square', [SquareController::class, 'checkoutPayment'])->name('square.payment');
-
+Route::get('refundAccept/{id}', [SquareController::class, 'refundPayment']);
+Route::get('refundRequest/{id}', [ProductController::class, 'refundRequest']);
 //paypal
 Route::get('customer/completeOrder/{id}', [UserController::class, 'completeOrder'])->name('complete.order');
 Route::post('customer/payment/{id}', [UserController::class, 'payment'])->name('payment.order');
@@ -267,6 +293,7 @@ Route::namespace('Auth')->middleware('auth:web')->group(function () {
     Route::resource('/shipAddress', '\App\Http\Controllers\ShippingAddress');
     //user profile update route
     Route::put('update/{id}', [UserController::class, 'update'])->name('update.profile');
+    Route::post('refundRequest', [RefundController::class, 'store']);
 
     //Complete order By Customer side
 
@@ -299,6 +326,7 @@ Route::get('/getStorage/{id}', [ProductController::class, 'getStorage']);
 Route::get('/getCondition/{id}', [ProductController::class, 'getCondition'])->name('get.condition');
 
 
+Route::post('/searchCountry', [IcarriersController::class, 'search']);
 
 // Add To Cart
 Route::post('add-cart', [ProductController::class, 'addToCart'])->name('add.cart');
@@ -309,6 +337,7 @@ Route::post('/remove', [ProductController::class, 'remove'])->name('cart.remove'
 //// Select Address
 Route::post('/shippadd.create', [ShippingAddress::class, 'createAddress'])->name('create.shipAddress');
 Route::get('/getAddress/{id}', [ShippingAddress::class, 'shipAddress']);
+Route::get('/billAddress/{id}', [ShippingAddress::class, 'billAddress']);
 Route::post('/checkAddress', [ShippingAddress::class, 'checkAddress'])->name('check.Address');
 
 
@@ -326,6 +355,7 @@ Route::get('undo-access-wishlist/{id}', [WishlistController::class, 'undoAccesso
 
 ///Square
 Route::post('squareProduct', [SquareController::class, 'paymentProduct'])->name('square.paymentProduct');
+Route::post('paymentCarrier', [SquareController::class, 'paymentCarriers'])->name('square.paymentCarrier');
 
 
 //verify email
@@ -378,19 +408,30 @@ Route::get('/repair', function () {
 Route::get('/faq', function () {
     return view('frontend.faq');
 })->name('faq');
+Route::get('/about-us', function () {
+    return view('frontend.about-us');
+})->name('about-us');
 
 Route::post('send-message', [ContactUsController::class, 'store']);
 Route::get('blog/{id}', [BlogContoller::class, 'single'])->name('blog.single');
 Route::get('/repair-step/{id}', [RepairController::class, 'getBrands']);
 Route::get('/getModels/{id}', [RepairController::class, 'getModels']);
 Route::get('/getrepairTypes/{id}', [RepairController::class, 'getrepairTypes']);
-Route::post('/saverepairType', [RepairController::class, 'saverepairType']);
+Route::match(['get', 'post'],'/saverepairType', [RepairController::class, 'saverepairType']);
+
+//////////////////// get City //////////////////
+Route::get('/getcity/{id}', [ShippingAddress::class, 'getCity']);
 
 Route::post('/checkDate', [RepairController::class, 'checkDate'])->name('check.date');
 
+
+/////////////// subcribe  /////////////////
+Route::post('/subcribe', [SubcribeController::class, 'store'])->name('subcribe.store');
+
+
 Route::get('/repairorder-completed', function () {
     return view('frontend.order-completed');
-});
+})->name('repairorder.completed');
 
 Route::get('/payment-completed', function () {
     return view('frontend.paymentSuccess');
@@ -406,6 +447,15 @@ Route::get('/accessory-single/{id}', [ProductController::class, 'accessoryDetail
 Route::get('/pay-bills', function () {
     return view('frontend.pay-bills');
 });
+Route::get('wireless-refill/plans/{id}',[CarriersController::class, 'planDetail']);
+Route::get('wireless-refill/{id}',[CarriersController::class, 'rechargePlan']);
+Route::get('international-refill/plans/{id}',[IcarriersController::class, 'planDetailInternational']);
+Route::get('international-refill/{id}',[IcarriersController::class, 'rechargePlan']);
+Route::match(['get', 'post'],'/billPay', [CarriersController::class,'billPay']);
+Route::match(['get', 'post'],'/carrier-payment', [CarriersController::class, 'payment'])->name('carrier.payment');
+Route::get('/paypal-success-carrier', [CarriersController::class, "success"])->name('paypal.successCarrier');
+Route::get('/paypal-cancel-carrier', [CarriersController::class, 'cancel'])->name('paypal.cancelCarrier');
+
 
 // Route::get('/signup', function () {
 //     return view('frontend.signup');

@@ -29,7 +29,7 @@ class orderPlace extends Mailable
      */
     public function build()
     {
-        return $this->subject('Mail from Peekinternational.com')
+        return $this->subject('Order Details')
         ->view('emails.orderPlace');
         // return $this->view('email.techmail');
     }

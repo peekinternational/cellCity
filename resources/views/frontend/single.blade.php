@@ -18,6 +18,46 @@
     width: 80px;
     margin-right: 20px;
 }
+.imagess{
+    width: 150px;
+    height: 150px;
+    margin: auto;
+}
+@media(min-width:768px){
+  .shop-item .inner-box {
+    height: 380px;
+  }
+  .shop-item .inner-box a{
+    position: relative;
+  }
+  .shop-item .inner-box a i{
+    position: absolute;
+    z-index: 9999;
+    top: -10px;
+    left: -18px;
+  }
+  .imagess{
+    width: 150px;
+    height: 150px;
+    margin: auto;
+}
+}
+@media(max-width:767px){
+  .inner-box a{
+    display: flex;
+    position: relative;
+  }
+  .inner-box a i{
+    position: absolute;
+    z-index: 9999;
+    top: -4px;
+    left: 10px;
+  }
+  .shop-item .inner-box .image-box img{
+    height: auto;
+    
+  }
+})
 </style>
 @endsection
 @section('content')
@@ -25,7 +65,7 @@
     <section class="page-title" style="background-image: url(frontend-assets/images/background/3.jpg);">
       <div class="auto-container">
           <ul class="bread-crumb">
-                <li><a href="index-2.html">Home</a></li>
+                <li><a href="/">Home</a></li>
                 <li class="active">Shop</li>
             </ul>
           <h1>Shop Detail</h1>
@@ -55,7 +95,7 @@
                                             <ul class="image-carousel" id="images">
 
                                                 @foreach ($images as $image )
-                                                <li><a href="{{asset('storage/images/products/'.$image->image)}}" class="lightbox-image" title="Image Caption Here"><img src="{{asset('storage/images/products/'.$image->image)}}" alt=""></a></li>
+                                                <li><a href="{{asset('storage/images/products/'.$image->image)}}" class="lightbox-image" title="Image Caption Here"><img src="{{asset('storage/images/products/'.$image->image)}}" alt="" width="200px" height="400px"></a></li>
                                                 @endforeach
 
                                             </ul>
@@ -101,46 +141,19 @@
                     <div class="features-list">
                       <div class="star-rating-s15-wrapper">
                         <span class="star-rating-s15 rate-10">
-                            @if ($product->averageRating(1)[0] == 1)
-                            <i class="fa fa-star   avg-star-1" aria-hidden="true"></i>
-                            <i class="fa fa-star-o avg-star-2" aria-hidden="true"></i>
-                            <i class="fa fa-star-o avg-star-3" aria-hidden="true"></i>
-                            <i class="fa fa-star-o avg-star-4" aria-hidden="true"></i>
-                            <i class="fa fa-star-o avg-star-5" aria-hidden="true"></i>
-                            @elseif ($product->averageRating(1)[0] == 2)
-                            <i class="fa fa-star   avg-star-1" aria-hidden="true"></i>
-                            <i class="fa fa-star   avg-star-2" aria-hidden="true"></i>
-                            <i class="fa fa-star-o avg-star-3" aria-hidden="true"></i>
-                            <i class="fa fa-star-o avg-star-4" aria-hidden="true"></i>
-                            <i class="fa fa-star-o avg-star-5" aria-hidden="true"></i>
-                            @elseif ($product->averageRating(1)[0] == 3)
-                            <i class="fa fa-star    avg-star-1" aria-hidden="true"></i>
-                            <i class="fa fa-star    avg-star-2" aria-hidden="true"></i>
-                            <i class="fa fa-star avg-star-3" aria-hidden="true"></i>
-                            <i class="fa fa-star-o avg-star-4" aria-hidden="true"></i>
-                            <i class="fa fa-star-o avg-star-5" aria-hidden="true"></i>
-                            @elseif ($product->averageRating(1)[0] == 4)
-                            <i class="fa fa-star avg-star-1" aria-hidden="true"></i>
-                            <i class="fa fa-star avg-star-2" aria-hidden="true"></i>
-                            <i class="fa fa-star avg-star-3" aria-hidden="true"></i>
-                            <i class="fa fa-star avg-star-4" aria-hidden="true"></i>
-                            <i class="fa fa-star-o avg-star-5" aria-hidden="true"></i>
-                            @elseif ($product->averageRating(1)[0] == 5)
-                            <i class="fa fa-star avg-star-1" aria-hidden="true"></i>
-                            <i class="fa fa-star avg-star-2" aria-hidden="true"></i>
-                            <i class="fa fa-star avg-star-3" aria-hidden="true"></i>
-                            <i class="fa fa-star avg-star-4" aria-hidden="true"></i>
-                            <i class="fa fa-star avg-star-5" aria-hidden="true"></i>
+                          @for($i=0;$i<5;$i++)
+                            @if(isset($product->averageRating(1)[0]) > $i)
+                            <!-- <span class="icon-ratings"><i class="icon-rating icon-rating-o"></i></span> -->
+                            <i class="fa fa-star" aria-hidden="true"></i>
                             @else
-                            <i class="fa fa-star-o avg-star-1" aria-hidden="true"></i>
-                            <i class="fa fa-star-o avg-star-2" aria-hidden="true"></i>
-                            <i class="fa fa-star-o avg-star-3" aria-hidden="true"></i>
-                            <i class="fa fa-star-o avg-star-4" aria-hidden="true"></i>
-                            <i class="fa fa-star-o avg-star-5" aria-hidden="true"></i>
+                            <i class="fa fa-star-o " aria-hidden="true"></i>
+                            <!-- <span class="icon-ratings"><i class="icon-rating icon-rating-x"></i></span> -->
                             @endif
+                          @endfor
+                           
 
                         </span>
-                        <span>&nbsp {{ $product->averageRating(1)[0] }} /5 by (  {{  $product->countRating()[0] }}  ) customers</span>
+                        <span>&nbsp {{ isset($product->averageRating(1)[0]) }} /5 by (  {{  isset($product->countRating()[0]) }}  ) customers</span>
                       </div>
                     </div>
 
@@ -153,7 +166,7 @@
                     <div class="features-list">
                       <!-- Color -->
                       <div class="form-group color-select">
-                        <label>Color</label>
+                        <label> Select Color</label>
                         <div class="d-grid">
                         @foreach($colors as $color)
                           <div class="select-color">
@@ -174,20 +187,40 @@
                           </div> --}}
                         </div>
                       </div>
+
+                      @if($product->type == 'new')
                       <!-- Storage -->
+                      
                       <div class="form-group color-select" >
-                        <label>Storage</label>
+                        <label>Select Storage</label>
                         <div class="d-grid" id="getstorage">
-                          <p>Select First  Color</p>
+                          <p>Select  Color  First  </p>
                         </div>
                       </div>
                       <!-- Condition -->
+                   
                       <div class="form-group color-select">
-                        <label>Condition</label>
+                        <label> Select Price</label>
                         <div class="d-grid" id="getCondition">
-                          <div>Select First Storage</div>
+                          <div>Select Price</div>
                         </div>
                       </div>
+                      @else
+                        
+                      <div class="form-group color-select" >
+                        <label>Select Storage</label>
+                        <div class="d-grid" id="getstorage">
+                          <p>Select  Color  First  </p>
+                        </div>
+                      </div>
+                      
+                      <div class="form-group color-select">
+                        <label> Select Condition</label>
+                        <div class="d-grid" id="getCondition">
+                          <div>Select Storage  First  </div>
+                        </div>
+                      </div>
+                      @endif
                     </div>
                     @php
                            $discountPrice = $condition->orig_price - $condition->price;
@@ -422,7 +455,8 @@
                   @endif
                   <figure class="image-box">
 
-                   <a href="{{ route('product.details',$relate->id) }}"><img src="{{asset('storage/images/products/'.$images->image ?? '' )}}" alt="" /></a>
+                   <a href="{{ route('product.details',$relate->id) }}"><img src="{{asset('storage/images/products/'.$images->image ?? '' )}}" 
+                     class="imagess" alt="" /></a>
 
                 </figure>
                   <!--Lower Content-->
@@ -578,8 +612,15 @@ function addToCart(productId)
     success: function(add)
     {
         console.log(add);
+          if(add.status == 'null')
+          {
+             alert('sorry the quantity mismatch');
+          }
+          else
+          {
              $("#exampleModalLong").modal("show");
             $("#message").text(add.status);
+          }
 
     },error:function(error){
     console.log(error);

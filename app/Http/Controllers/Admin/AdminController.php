@@ -52,8 +52,9 @@ class AdminController extends Controller
 
                 $id=$request->input('c_id');
                 $user = User::find($id);
-                $user->name = $request->name;
-                $user->email =  $request->email;
+                $user->first_name = $request->first_name;
+                $user->last_name = $request->last_name;
+                $user->email =    $request->email;
                 $user->address =  $request->address;
                 $user->phoneno =  $request->phoneno;
                 $user->role = 'user';
@@ -64,22 +65,25 @@ class AdminController extends Controller
 
               }else{
                $this->validate($request,[
-		        'name' => 'required|min:5|max:50',
+		        'first_name' => 'required|min:5|max:50',
+                'last_name' => 'required|min:5|max:50',
 		        'phoneno' => 'min:2|max:17',
 		        'email' => 'required|email|unique:users,email',
 		        'password' => 'required|min:5|max:50'
 
 		      ],[
 
-		        'name.required' =>'Enter Name',
+		        'first_name.required' =>'Enter First Name',
+                'last_name.required' =>'Enter Last Name',
 		        'email.unique' => 'Email must be unique',
 		        'email.required' => 'Enter Email',
 		        'phoneno.required' => 'Enter Mobile Number',
 		        'password.required' => 'Enter password',
 		      ]);
            	    $user = new User;
-                $user->name = $request->name;
-                $user->email =  $request->email;
+                $user->first_name = $request->first_name;
+                $user->last_name = $request->last_name;
+                $user->email =    $request->email;
                 $user->address =  $request->address;
                 $user->phoneno =  $request->phoneno;
                 $user->role = 'user';
@@ -128,8 +132,9 @@ class AdminController extends Controller
 
                 $id=$request->input('c_id');
                 $user = User::find($id);
-                $user->name = $request->name;
-                $user->email =  $request->email;
+                $user->first_name = $request->first_name;
+                $user->last_name = $request->last_name;
+                $user->email =    $request->email;
                 $user->address =  $request->address;
                 $user->phoneno =  $request->phoneno;
                 $user->role = 'tech';
@@ -141,14 +146,16 @@ class AdminController extends Controller
 
 	              }else{
 	               $this->validate($request,[
-			        'name' => 'required|min:5|max:50',
+			        'first_name' => 'required|min:5|max:50',
+                    'last_name' => 'required|min:5|max:50',
 			        'phoneno' => 'min:2|max:17',
 			        'email' => 'required|email|unique:users,email',
 			        'password' => 'required|min:5|max:50'
 
 			      ],[
 
-			        'name.required' =>'Enter Name',
+			        'first_name.required' =>'Enter First Name',
+                    'last_name.required' =>'Enter Last Name',
 			        'email.unique' => 'Email must be unique',
 			        'email.required' => 'Enter Email',
 			        'phoneno.required' => 'Enter Mobile Number',
@@ -156,8 +163,9 @@ class AdminController extends Controller
 			      ]);
 
            	    $user = new Tech;
-                $user->name = $request->name;
-                $user->email =  $request->email;
+                $user->first_name = $request->first_name;
+                $user->last_name = $request->last_name;
+                $user->email =    $request->email;
                 $user->address =  $request->address;
                 $user->phoneno =  $request->phoneno;
                 $user->role = 'tech';
@@ -220,22 +228,25 @@ class AdminController extends Controller
         // dd($request);
 
         $this->validate($request,[
-            'name' => 'required|min:5|max:50',
+            'first_name' => 'required|min:5|max:50',
+            'last_name' => 'required|min:5|max:50',
             'phoneno' => 'min:2|max:17',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:5|max:50'
 
           ],[
 
-            'name.required' =>'Enter Name',
+            'first_name.required' =>'Enter First Name',
+            'last_name.required' =>'Enter Last Name',
             'email.unique' => 'Email must be unique',
             'email.required' => 'Enter Email',
             'phoneno.required' => 'Enter Mobile Number',
             'password.required' => 'Enter password',
           ]);
             $user = new User;
-            $user->name = $request->name;
-            $user->email =  $request->email;
+            $user->first_name = $request->first_name;
+            $user->last_name = $request->last_name;
+            $user->email =    $request->email;
             $user->address =  $request->address;
             $user->phoneno =  $request->phoneno;
             $user->role = 'admin';
@@ -284,21 +295,24 @@ class AdminController extends Controller
      public function updateRole(Request $request,$id)
     {
       $this->validate($request,[
-        'name' => 'required|min:5|max:50',
+        'first_name' => 'required|min:5|max:50',
+        'last_name' => 'required|min:5|max:50',
         'phoneno' => 'min:2|max:17',
         'email' => 'required|email|exists:users',
         // 'password' => 'required|min:5|max:50'
 
       ],[
 
-        'name.required' =>'Enter Name',
+        'first_name.required' =>'Enter First Name',
+        'last_name.required' =>'Enter Last Name',
         'email.unique' => 'Email must be unique',
         'email.required' => 'Enter Email',
         'phoneno.required' => 'Enter Mobile Number',
         // 'password.required' => 'Enter password',
       ]);
         $user = User::find($id);
-        $user->name = $request->name;
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
         $user->email =  $request->email;
         $user->address =  $request->address;
         $user->phoneno =  $request->phoneno;

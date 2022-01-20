@@ -7,11 +7,11 @@
 
    @component('admin.common-components.breadcrumb')
          @slot('title') Dashboard  @endslot
-         @slot('li_1') Welcome to Skote Dashboard @endslot
+         @slot('li_1') Welcome to CellCity Dashboard @endslot
      @endcomponent
 
 
-                        <div class="row">
+                        <!-- <div class="row">
                             <div class="col-xl-4">
                                 <div class="card overflow-hidden">
                                     <div class="bg-soft-primary">
@@ -98,12 +98,12 @@
          @slot('title') Average Price  @endslot
          @slot('price') $16.2  @endslot
          @slot('icon') bx bx-purchase-tag-alt font-size-24  @endslot
-     @endcomponent
+     @endcomponent -->
 
-                                </div>
+                                <!-- </div> -->
                                 <!-- end row -->
 
-                                <div class="card">
+                                <!-- <div class="card">
                                     <div class="card-body">
                                         <div class="float-right">
                                             <ul class="nav nav-pills">
@@ -124,9 +124,9 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <!-- end row -->
-
+<!-- 
                         <div class="row">
                             <div class="col-xl-4">
                                 <div class="card">
@@ -316,7 +316,7 @@
                         </div>
                         <!-- end row -->
 
-                        <div class="row">
+                        <!-- <div class="row">
                             <div class="col-lg-12">
                                 <div class="card">
                                     <div class="card-body">
@@ -361,10 +361,10 @@
                                                         </td>
                                                         <td>
                                                             <i class="fab fa-cc-mastercard mr-1"></i> Mastercard
-                                                        </td>
-                                                        <td>
+                                                        </td> -->
+                                                        <!-- <td>  -->
                                                             <!-- Button trigger modal -->
-                                                            <button type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light" data-toggle="modal" data-target=".exampleModal">
+                                                            <!-- <button type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light" data-toggle="modal" data-target=".exampleModal">
                                                                 View Details
                                                             </button>
                                                         </td>
@@ -391,9 +391,9 @@
                                                         <td>
                                                             <i class="fab fa-cc-visa mr-1"></i> Visa
                                                         </td>
-                                                        <td>
+                                                        <td> -->
                                                             <!-- Button trigger modal -->
-                                                            <button type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light" data-toggle="modal" data-target=".exampleModal">
+                                                            <!-- <button type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light" data-toggle="modal" data-target=".exampleModal">
                                                                 View Details
                                                             </button>
                                                         </td>
@@ -420,9 +420,9 @@
                                                         <td>
                                                             <i class="fab fa-cc-paypal mr-1"></i> Paypal
                                                         </td>
-                                                        <td>
+                                                        <td> -->
                                                             <!-- Button trigger modal -->
-                                                            <button type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light" data-toggle="modal" data-target=".exampleModal">
+                                                            <!-- <button type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light" data-toggle="modal" data-target=".exampleModal">
                                                                 View Details
                                                             </button>
                                                         </td>
@@ -448,9 +448,9 @@
                                                         <td>
                                                             <i class="fab fa-cc-mastercard mr-1"></i> Mastercard
                                                         </td>
-                                                        <td>
+                                                        <td> -->
                                                             <!-- Button trigger modal -->
-                                                            <button type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light" data-toggle="modal" data-target=".exampleModal">
+                                                            <!-- <button type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light" data-toggle="modal" data-target=".exampleModal">
                                                                 View Details
                                                             </button>
                                                         </td>
@@ -476,9 +476,9 @@
                                                         <td>
                                                             <i class="fab fa-cc-visa mr-1"></i> Visa
                                                         </td>
-                                                        <td>
+                                                        <td> -->
                                                             <!-- Button trigger modal -->
-                                                            <button type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light" data-toggle="modal" data-target=".exampleModal">
+                                                            <!-- <button type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light" data-toggle="modal" data-target=".exampleModal">
                                                                 View Details
                                                             </button>
                                                         </td>
@@ -504,25 +504,25 @@
                                                         <td>
                                                             <i class="fab fa-cc-paypal mr-1"></i> Paypal
                                                         </td>
-                                                        <td>
+                                                        <td> -->
                                                             <!-- Button trigger modal -->
-                                                            <button type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light" data-toggle="modal" data-target=".exampleModal">
+                                                            <!-- <button type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light" data-toggle="modal" data-target=".exampleModal">
                                                                 View Details
                                                             </button>
                                                         </td>
                                                     </tr>
                                                 </tbody>
                                             </table>
-                                        </div>
+                                        </div> -->
                                         <!-- end table-responsive -->
-                                    </div>
+                                    <!-- </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <!-- end row -->
 
                         <!-- Modal -->
-                <div class="modal fade exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <!-- <div class="modal fade exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -606,7 +606,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <!-- end modal -->
 @endsection
 

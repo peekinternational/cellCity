@@ -30,6 +30,7 @@
             <div class="form-group">
               <label>EMAIL</label>
               <input type="email" class="form-control" placeholder="Enter your email" id="login-email" name="email"  required="">
+              <span class="text-danger">{{ $errors->first('email') }}</span>
             </div>
 
             <button type="submit" class="btn btn-primary bg-black">Submit</button>

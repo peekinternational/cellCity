@@ -82,7 +82,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="form-group row">
+                                        <!-- <div class="form-group row">
                                             <label for="example-text-input" class="col-md-2 col-form-label">Category</label>
                                             <div class="col-md-10">
                                                 <select class="form-control selectpic" name="category" id="category">
@@ -92,14 +92,14 @@
 
                                                 </select>
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <div class="form-group row">
                                             <label for="example-text-input" class="col-md-2 col-form-label">Type</label>
                                             <div class="col-md-10">
                                                 <select class="form-control selectpic" name="type" id="type">
                                                     <option selected="">Select Any One</option>
                                                     <option value="new" {{ $product->type == 'new' ? 'selected':'' }}>New</option>
-                                                    <option value="old" {{ $product->type == 'old' ? 'selected':'' }}>Old</option>
+                                                    <option value="old" {{ $product->type == 'old' ? 'selected':'' }}>Used</option>
 
                                                 </select>
                                             </div>
@@ -211,7 +211,8 @@
                                                       <div class="a-cell xs-12 md-9 _114juaGTKcgQcFQKoPzirv" data-v-2b8789a2="">
                                                             @forelse (CityClass::phoneServices() as $phoneservice)
                                                                 <label data-qa="0  AT&amp;T-checkbox-label" data-test="checkbox-AT&amp;T" class="_2dZyu6FGSL9sjsXTxboSwL _3FFHvPz39UA03ZA4Mv13pX" data-v-2b8789a2="">
-                                                                    <input  name="phone_service[]" type="checkbox" class="_2X8Raljpwo5umcD_HYzefT" value="{{$phoneservice->id}}">
+                                                                    <input  name="phone_service[]" type="checkbox" class="_2X8Raljpwo5umcD_HYzefT" value="{{$phoneservice->id}}" @if($product->service) @if(in_array($phoneservice->id,$product->service->pluck('id')->toArray())) checked @endif @endif>
+
                                                                     <span data-test="checkbox-span" class="_2Q2hhB3NvM2sAldZj6fGXU"></span>
                                                                     <span class="L5UAN0lD0YKf94yOvozYH">
                                                                     <div class="_2QOueHT- HWdZT4KgOk8JhBI9OzX9g">
@@ -242,6 +243,7 @@
 
                                         <div class="text-center mt-4">
                                         <button type="submit" class="btn btn-primary waves-effect waves-light">Save</button>
+                                        <a href="{{url('admin/product-color',$product->id) }}" class="btn btn-success" title="View More">Edit Condition</a>
                                     </div>
 
                                    </form>

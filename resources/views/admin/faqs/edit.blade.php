@@ -32,7 +32,7 @@
                                             <div class="form-group row">
                                                 <label for="example-text-input" class="col-md-2 col-form-label">Answer</label>
                                                 <div class="col-md-10">
-                                                    <textarea class="form-control" name="answer" type="text" placeholder="Enter Answer" > {{ $faq->answer }} </textarea>
+                                                    <textarea class="form-control" id="editor" name="answer" type="text" placeholder="Enter Answer" > {{ $faq->answer }} </textarea>
                                                     <span class="text-danger">{{ $errors->first('Question') }}</span>
                                                 </div>
                                             </div>
@@ -55,12 +55,17 @@
 @endsection
 
 @section('script')
-
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 <script>
     $(function() {
 $('.selectpic').select2();
 });
 
 </script>
-
+<script>
+  tinymce.init({
+    selector: 'textarea#editor',
+    menubar: false
+  });
+</script>
 @endsection

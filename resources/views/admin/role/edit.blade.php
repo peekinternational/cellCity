@@ -30,14 +30,21 @@
                                                     @endforeach
                                                 </select>
                                                 </div>
+                                            </div> 
+                                               <div class="form-group row">
+                                            <label for="example-text-input" class="col-md-2 col-form-label">First Name</label>
+                                            <div class="col-md-10">
+                                                <input class="form-control" name="first_name" type="text" placeholder="Enter first name" value="{{$customer->first_name}}" id="example-text-input">
+                                                <span class="text-danger">{{ $errors->first('first_name') }}</span>
                                             </div>
-                                            <div class="form-group row">
-                                                <label for="example-text-input" class="col-md-2 col-form-label">Name</label>
-                                                <div class="col-md-10">
-                                                    <input class="form-control" name="name" type="text" placeholder="Enter name" value="{{$user->name}}" name="name" id="example-text-input">
-                                                    <span class="text-danger">{{ $errors->first('name') }}</span>
-                                                </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="example-text-input" class="col-md-2 col-form-label">Last Name</label>
+                                            <div class="col-md-10">
+                                                <input class="form-control" name="last_name" type="text" placeholder="Enter last name" value="{{$customer->last_name}}" id="exampleinput">
+                                                <span class="text-danger">{{ $errors->first('last_name') }}</span>
                                             </div>
+                                        </div>
                                              <div class="form-group row">
                                                 <label for="example-email-input" class="col-md-2 col-form-label">Email</label>
                                                 <div class="col-md-10">

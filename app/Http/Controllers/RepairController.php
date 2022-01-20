@@ -19,6 +19,7 @@ use App\Models\RepairOrderType;
 use Illuminate\Support\Facades\Hash;
 use PayPal\Api\Order;
 use App\Mail\orderPlace;
+use App\Mail\NotifVerify;
 use App\Mail\VerifyMail;
 use App\Models\VerifyUser;
 use Twilio\Rest\Client;
@@ -47,7 +48,7 @@ class RepairController extends Controller
 
   public function getModels($id){
 
-  	$models = Pmodel::whereBrandId($id)->get();
+  	$models = Pmodel::whereBrandId($id)->orderBy('created_at','desc')->get();
   	// dd($models);
   	return view('frontend.models',compact('models'));
   }
@@ -64,15 +65,18 @@ class RepairController extends Controller
       // dd($request->date);
     //   $user = User::find($request->id);
     // dd(Auth::user());
-    $repairOrder = RepairOrder::where('order_status','<>', '4')
+    $repairOrder = RepairOrder::with('OrderTime')->where('order_status','<>', '4')
                                 ->whereDate('date','=',$request->date)
-                                ->select('time')
-                                ->get()->toArray();
-    //   dd($repairOrder);
-
-        $times =OrderTime::whereNotIn('time', $repairOrder)->get();
-        // $nottimes =OrderTime::where('time', $repairOrder)->get();
-        // dd($times);
+                                ->select('time_id')
+                                ->get();
+      // dd($repairOrder);
+  $repairOrder2 = RepairOrder::where('order_status','<>', '4')
+                                ->whereDate('date','=',$request->date)
+                                ->select('time_id')
+                                ->get();
+        $times =OrderTime::whereNotIn('id', $repairOrder2)->get();
+        // $nottimes =OrderTime::where('id', $repairOrder)->get();
+       
 
         return response()->json(['times'=>$times,'notime'=>$repairOrder]);
 
@@ -81,28 +85,181 @@ class RepairController extends Controller
 public function saverepairType(Request $request){
 // dd(Auth::guard('web')->check());
 
+      if($request->isMethod('post')){
+     
+           // dd($request->all());
+     if(Auth::guard('web')->check())
+            {
+            
+              $user= Auth::guard('web')->user();
+             
+ 
+               $phone = '+1'.$user->phoneno;
+ 
+               $message =strip_tags(nl2br("Dear customer,\n Order Placed successfully, \n A technician will reach out to you as soon as possible.\n Thank you!!"));
+ 
+               $account_sid = "ACeb30af8343f53c1b366517b35ea44dc2";
+                       $auth_token = "e614ea5865f02273d998025db07530fb";
+                       $twilio_number = +4842553085;
+                 $client = new Client($account_sid, $auth_token);
+                 $client->messages->create($phone,
+                     ['from' => $twilio_number, 'body' => $message] );
 
-	if(Auth::guard('web')->user()){
 
-	}
-    else{
-	    $this->validate($request,[
-	        'name' => 'required|min:5|max:50',
-	        'phoneno' => 'min:2|max:17',
-	        'email' => 'required|email|unique:users,email',
-	        'password' => 'required|min:5|max:50'
+                   $details = [
+                     'title' => 'Mail from CellCity.com',
+                     'subject' => 'Dear Customer ,',
+                     'message' => 'Order Placed successfully, A technician will reach out to you as soon as possible. Thank you!!'
+                 ];
+ 
+               \Mail::to($user->email)->send(new orderPlace($details));
+ 
+ 
 
-	      ],[
+                $order = New RepairOrder;
+                 $order->userId = $user->id;
+                 $order->model_Id = $request->model_Id;
+                 $order->date = $request->date;
+                 $order->time_id = $request->time;
+                 $order->first_name = $request->first_name;
+                 $order->last_name = $request->last_name;
+                 $order->address = $request->address;
+                 $order->phone = $user->phoneno;
+                 $order->email = $user->email;
+                 $order->instructions = $request->instructions;
+                 $order->save();
+ 
+                 foreach ($request->repair_type as $key => $value) {
+                   $ordertype = New RepairOrderType;
+                   $ordertype->order_Id= $order->id;
+                   $ordertype->repair_type= RepairType::whereId($value)->first()->repair_type;
+                   $ordertype->price= RepairType::whereId($value)->first()->price;
+                   $ordertype->save();
+                 }
+ 
+            
+                return response()->json(['repairOrder'=>'success']);
+               }
 
-	        'name.required' =>'Enter Name',
-	        'email.unique' => 'Email must be unique',
-	        'email.required' => 'Enter Email',
-	        'phoneno.required' => 'Enter Mobile Number',
-	        'password.required' => 'Enter password',
-	      ]);
+         if($request->input('userType') == 'member'){
 
-		$user = new User;
-        $user->name = $request->name;
+           if(Auth::guard('web')->attempt(['email' => $request->email, 'password' => $request->password, 'role' => 'user','verified'=>1])){
+
+               if(Auth::guard('web')->check()){
+          
+                // dd('checked');
+                  $user= Auth::guard('web')->user();
+                  
+
+                   
+
+                    $phone = '+1'.$user->phoneno;
+
+                    $message =strip_tags(nl2br("Dear customer,\n Order Placed successfully, \n A technician will reach out to you as soon as possible.\n Thank you!!"));
+
+                    $account_sid = "ACeb30af8343f53c1b366517b35ea44dc2";
+                            $auth_token = "e614ea5865f02273d998025db07530fb";
+                            $twilio_number = +4842553085;
+                      $client = new Client($account_sid, $auth_token);
+                      $client->messages->create($phone,
+                          ['from' => $twilio_number, 'body' => $message] );
+
+                           $details = [
+                          'title' => 'Mail from CellCity.com',
+                          'subject' => 'Dear Customer ,',
+                          'message' => 'Order Placed successfully, A technician will reach out to you as soon as possible. Thank you!!'
+                      ];
+
+                    \Mail::to($user->email)->send(new orderPlace($details));
+
+
+
+                  $order = New RepairOrder;
+                      $order->userId = $user->id;
+                      $order->model_Id = $request->model_Id;
+                      $order->date = $request->date;
+                      $order->time_id = $request->time;
+                      $order->first_name = $request->first_name;
+                      $order->last_name = $request->last_name;
+                      $order->address = $request->address;
+                      $order->phone =  $user->phoneno;
+                      $order->email =  $user->email;
+                      $order->instructions = $request->instructions;
+                      $order->save();
+
+                      foreach ($request->repair_type as $key => $value) {
+                        $ordertype = New RepairOrderType;
+                        $ordertype->order_Id= $order->id;
+                        $ordertype->repair_type= RepairType::whereId($value)->first()->repair_type;
+                        $ordertype->price= RepairType::whereId($value)->first()->price;
+                        $ordertype->save();
+                      }
+                     return response()->json(['repairOrder'=>'success']);
+                    }
+
+           }else{
+             return response()->json(['repairOrder'=>'fail']);
+           }
+
+
+              
+          
+        } else
+          {
+            // dd($request->all());
+            
+             $this->validate($request,[
+              'first_name' => 'required|min:5|max:50',
+              'last_name' => 'required|min:5|max:50',
+              'phone' => 'required|string|min:10|max:11|regex:/[0-9]{9}/',
+              'email' => 'required|email|unique:users,email',
+              'password' => 'required|min:5|max:50'
+    
+            ],[
+    
+              'first_name.required' =>'Enter First Name',
+              'last_name.required' =>'Enter Last Name',
+              'email.unique' => 'Email must be unique',
+              'email.required' => 'Enter Email',
+              'phone.required' => 'Enter Mobile Number',
+              'phone.min' => 'Phone number should not be less than 10 digits',
+              'phone.max' => 'Phone number should not be more than 11 digits',
+              'password.required' => 'Enter password',
+            ]);
+    
+        
+        
+    
+              // \Mail::to($user->email)->send(new VerifyMail($user));
+            
+    
+    
+    
+       try {
+
+       $phone = '+1'.$request->phone;
+    
+         $message =strip_tags(nl2br("Dear customer,\n Order Placed successfully, \n A technician will reach out to you as soon as possible.\n Thank you!!"));
+    
+         $account_sid = "ACeb30af8343f53c1b366517b35ea44dc2";
+                 $auth_token = "ecc8e9d376d7ef8a19ed22778bb466f8";
+                 $twilio_number = +4842553085;
+           $client = new Client($account_sid, $auth_token);
+           $client->messages->create($phone,
+               ['from' => $twilio_number, 'body' => $message] );
+
+              $details = [
+                'title' => 'Mail from CellCity.com',
+                'subject' => 'Dear Customer ,',
+                'message' => 'Order Placed successfully, A technician will reach out to you as soon as possible. Thank you!!'
+            ];
+          
+            
+         
+        $user = new User;
+        
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
         $user->email =  $request->email;
         $user->address =  $request->address;
         $user->phoneno =  $request->phone;
@@ -111,69 +268,55 @@ public function saverepairType(Request $request){
         $user->save();
         // dd($user->id);
 
-            $verifyUser = new VerifyUser;
-            $verifyUser->userId = $user->id;
-            $verifyUser->token = sha1(time());
-            $verifyUser->save();
+        $verifyUser = new VerifyUser;
+        $verifyUser->userId = $user->id;
+        $verifyUser->token = sha1(time());
+        $verifyUser->save();
 
-          \Mail::to($user->email)->send(new VerifyMail($user));
-	}
+         \Mail::to($request->email)->send(new NotifVerify($details,$user));
+         
+         $userId=0;
+         if(Auth::guard('web')->check()){
+           $userId= Auth::guard('web')->user()->id;
+         }else{
+            $userId=$user->id;
+         }
+    
+         $order = New RepairOrder;
+    
+    
+         $order->userId = $userId;
+         $order->model_Id = $request->model_Id;
+         $order->date = $request->date;
+         $order->time_id = $request->time;
+         $order->first_name = $request->first_name;
+         $order->last_name = $request->last_name;
+         $order->address = $request->address;
+         $order->phone = $request->phone;
+         $order->email = $request->email;
+         $order->instructions = $request->instructions;
+         $order->save();
+    
+         foreach ($request->repair_type as $key => $value) {
+            $ordertype = New RepairOrderType;
+            $ordertype->order_Id= $order->id;
+            $ordertype->repair_type= RepairType::whereId($value)->first()->repair_type;
+            $ordertype->price= RepairType::whereId($value)->first()->price;
+            $ordertype->save();
+         }
 
-     $userId=0;
-     if(Auth::guard('web')->check()){
-     	$userId= Auth::guard('web')->user()->id;
-     }else{
-        $userId=$user->id;
-     }
+      }
+      catch (exception $e) {
+          dd('twilio error');
+      }
+       }
+    
+      return response()->json(['repairOrder'=>'success']);
+        //  return redirect('repairorder-completed')->with('message','Please check your email for verification');
+          }
+        }
 
-     $order = New RepairOrder;
-
-
-     $order->userId = $userId;
-     $order->model_Id = $request->model_Id;
-     $order->date = $request->date;
-     $order->time = $request->time;
-     $order->name = $request->name;
-     $order->address = $request->address;
-     $order->phone = $request->phone;
-     $order->email = $request->email;
-     $order->instructions = $request->instructions;
-     $order->save();
-
-     foreach ($request->repair_type as $key => $value) {
-     	 $ordertype = New RepairOrderType;
-     	 $ordertype->order_Id= $order->id;
-     	 $ordertype->repair_type= RepairType::whereId($value)->first()->repair_type;
-     	 $ordertype->price= RepairType::whereId($value)->first()->price;
-     	 $ordertype->save();
-     }
-
-     $details = [
-      'title' => 'Mail from PeekInternational.com',
-      'subject' => 'Dear Customer ,',
-      'message' => 'Order Placed successfully, A technician will reach out to you as soon as possible. Thank you!!'
-  ];
-
-   \Mail::to($request->email)->send(new orderPlace($details));
-
-
-
-   $phone = '+'.$request->phone;
-
-     $message =strip_tags(nl2br("Dear customer,\n Order Placed successfully, \n A technician will reach out to you as soon as possible.\n Thank you!!"));
-
-     $account_sid = "ACeb30af8343f53c1b366517b35ea44dc2";
-             $auth_token = "ecc8e9d376d7ef8a19ed22778bb466f8";
-             $twilio_number = +14842553085;
-       $client = new Client($account_sid, $auth_token);
-       $client->messages->create($phone,
-           ['from' => $twilio_number, 'body' => $message] );
-
-     return redirect('repairorder-completed')->with('message','Please check your email for verification');
-
-  }
-
-
+        
 
     }
 

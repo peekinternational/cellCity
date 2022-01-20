@@ -27,7 +27,7 @@
                                                 <select class="form-control selectpic" name="userId" required="">
                                                     <option selected="">Select Customer</option>
                                                     @foreach(CityClass::allUser() as $user)
-                                                     <option value="{{$user->id}}">{{$user->name}}</option>
+                                                     <option value="{{$user->id}}">{{$user->first_name}} {{$user->last_name}}</option>
                                                     @endforeach
                                                 </select>
 
@@ -89,10 +89,8 @@
                                                 <select name="time" class="form-control selectpic">
                                                 <option> Select Time</option>
                                                 @foreach(CityClass::orderTimes() as $orderTime)
-                                                <option value="{{ $orderTime->time }}">{{ $orderTime->time }}</option>
+                                                <option value="{{ $orderTime->id}}">{{$orderTime->fromTime }} - {{$orderTime->toTime}}</option>
                                                 @endforeach
-
-
                                                 </select>
                                             </div>
                                         </div>

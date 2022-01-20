@@ -29,7 +29,7 @@ class orderAssign extends Mailable
      */
     public function build()
     {
-        return $this->subject('Mail from Peekinternational.com')
+        return $this->subject('Order Assign Details')
         ->view('emails.orderAssign');
         // return $this->view('email.techmail');
     }

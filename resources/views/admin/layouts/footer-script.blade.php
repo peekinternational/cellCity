@@ -7,7 +7,8 @@
         <script src="{{ URL::asset('admin-assets/libs/simplebar/simplebar.min.js')}}"></script>
         <script src="{{ URL::asset('admin-assets/libs/node-waves/node-waves.min.js')}}"></script>
        <script src="{{ URL::asset('admin-assets/js/select2.min.js')}}"></script>
-        @yield('script')
+       <script src="{{ URL::asset('admin-assets/js/bootstrap-tagsinput.js')}}"></script>
+        
    
         <!-- App js -->
         <script src="{{ URL::asset('admin-assets/js/app.js')}}"></script>
@@ -16,5 +17,14 @@
          <!-- <script src="{{asset('admin-assets/datatable/jquery.dataTables.min.js')}}"></script> -->
          <!-- <script src="{{asset('admin-assets/datatable/dataTables.bootstrap4.min.js')}}"></script> -->
          <script src="{{asset('admin-assets/js/datatable.js')}}"></script>
-
+              <script type="text/javascript">
+                $('#submitLink').click(function(e) {
+                    // e.preventDefault();
+                    $("#testForm").submit();
+                });
+                $('#updateButton').click(function(e) {
+                    // e.preventDefault();
+                    $("#updateForm").submit();
+                });
+            </script>
         @yield('script-bottom')

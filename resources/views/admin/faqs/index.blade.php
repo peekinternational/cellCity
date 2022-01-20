@@ -37,8 +37,10 @@
                                                     <tr>
                                                         <td>{{$index + 1}} </td>
                                                         <td>{{ $faq->question }}</td>
-                                                        <td>
-                                                            <textarea class="form-control" cols="50">{{ $faq->answer }}</textarea></td>
+                                                        <td width="60%">
+                                                         <div class="width: 26%;height: 230px;overflow: auto;">
+                                                            {!! $faq->answer !!}
+                                                        </div></td>
                                                           <td>
                                                             <ul class="list-inline font-size-20 contact-links mb-0">
 
@@ -50,8 +52,7 @@
                                                                     {{csrf_field()}}
                                                                        @method('DELETE')
 
-                                                                       <label for="delZip" data-toggle="tooltip" data-placement="top" title="Delete" style="cursor: pointer;"><i class="mdi mdi-delete-circle-outline"></i></label>
-                                                                       <input id="delZip" type="submit" name="" style="display: none">
+                                                                       <button type="submit" style="border: none;background: white;"><i class="mdi mdi-delete-circle-outline"></i></button>
                                                                    </form>
 
                                                                 </li>

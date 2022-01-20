@@ -1,6 +1,6 @@
 
 <select id="category_id"  name="category_id" class="_3Iq8JGYZpyTj97wvi5Wyu7 eUlOsp7XbB9G1L8SEMMpU baseselect-field">
-    <option selected>Select Category ....</option>
+    <option selected value="">Select Category ....</option>
     @forelse (CityClass::accessCategory() as $category)
     <option value="{{$category->id}}">{{$category->category}}</option>
     @endforeach

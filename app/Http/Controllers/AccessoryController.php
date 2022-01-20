@@ -25,7 +25,7 @@ class AccessoryController extends Controller
      */
     public function index()
     {
-         $accessories = Accessory::all();
+         $accessories = Accessory::orderBy('id','desc')->get();
 
          return view('admin.accessories.index',compact('accessories'));
     }
@@ -52,6 +52,7 @@ class AccessoryController extends Controller
 
         $accessory               = new Accessory;
         $accessory->name         = $request->name;
+        $accessory->brand_id     = $request->brand_id;
         $accessory->model_id     = $request->model_id;
         $accessory->category_id  = $request->category_id;
         $accessory->discount     = $request->discount;
@@ -118,6 +119,7 @@ class AccessoryController extends Controller
     {
         $accessory              = Accessory::find($id);
         $accessory->name        = $request->name;
+        $accessory->brand_id    = $request->brand_id;
         $accessory->model_id    = $request->model_id;
         $accessory->discount     = $request->discount;
         $accessory->category_id = $request->category_id;
@@ -206,7 +208,8 @@ class AccessoryController extends Controller
 
         $id = mt_rand(100, 9000);
 
-
+        if($request->quantity <= $accessory->quantity)
+        {
         if(Auth::check())
         {
             $userID = Auth::user()->id;
@@ -238,11 +241,16 @@ class AccessoryController extends Controller
 
     // dd($items);
       return response()->json(['status'=>'Successfully Accessory add into your cart!']);
+        }
+        else
+        {
+            return response()->json(['status'=>'null']);
+        }
     }
 
     public function accessoryOrder()
     {
-        $accessoryOrder  = AccessoryOrder::orderBy('created_at','asc')->get();
+        $accessoryOrder  = AccessoryOrder::orderBy('created_at','desc')->get();
 
         return view('admin.accessoryOrder.list',compact('accessoryOrder'));
     }
@@ -262,7 +270,7 @@ class AccessoryController extends Controller
     {
         // dd($id);
 
-        $accessories = Accessory::where('model_id',$id)->get();
+        $accessories = Accessory::where('model_id',$id)->orderBy('id','desc')->get();
         return view('frontend.accessoryFilter.getModel',compact('accessories'));
 
 
@@ -271,29 +279,46 @@ class AccessoryController extends Controller
     public function searcAccesory(Request $request)
     {
         // dd($request->all());
-        $accessories =  Accessory::where('model_id',$request->model_id)
-                                    ->where('category_id',$request->category_id)
-                                    ->get();
-                                    // dd($accessories);
+        $query  =  Accessory::query();
+                   if($request->brand_id){
+                       $query->where('brand_id',$request->brand_id);
+                    }
+                    if($request->model_id){
+                       $query->where('model_id',$request->model_id);
+                    }
+                    if($request->category_id){
+                       $query->where('category_id',$request->category_id);
+                    }
+
+       $accessories=   $query->orderBy('id','desc')->get();
+                                   
         return view('frontend.accessoryFilter.getCategory',compact('accessories'));
     }
 
     public function getCategory(Request $request)
     {
         // dd($request->all());
-        $accessories = Accessory::whereIn('category_id',explode(',',$request->getCategory))->get();
+        if(isset($request->getCategory))
+        {
+        $accessories = Accessory::whereIn('category_id',explode(',',$request->getCategory))->orderBy('id','desc')->get();
         return view('frontend.accessoryFilter.getCategory',compact('accessories'));
+        }
+        else
+        {
+            $accessories = Accessory::orderBy('id','desc')->paginate(9);
+            return view('frontend.accessoryFilter.getAll',compact('accessories'));
+        }
 
     }
    public function getPriceFilter(Request $request)
    {
         // dd($request->all());
-             $start = $request->minPrice;
-             $end   = $request->maxPrice;
+             $start = (int)$request->minPrice;
+             $end   = (int)$request->maxPrice;
 
              $accessories = Accessory::whereBetween('sell_price',[$start,$end])
                                         // ->where('sell_price','<=',$end)
-                                        ->get();
+                                        ->orderBy('id','desc')->get();
             //  dd($accessories);
 
             return view('frontend.accessoryFilter.getCategory',compact('accessories'));

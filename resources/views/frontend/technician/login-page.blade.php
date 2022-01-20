@@ -26,11 +26,11 @@
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input class="form-control" value="tech@gmail.com"  name="email" autocomplete="off" data-msg-required="Please enter your username / email." required>
+                        <input class="form-control"  name="email" autocomplete="off" data-msg-required="Please enter your username / email." required>
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
-                        <input id="password" class="form-control" type="password" name="password" minlength="6" value="123456" data-msg-minlength="Password must be 6 characters or more." data-msg-required="Please enter your password." required>
+                        <input id="password" class="form-control" type="password" name="password" minlength="6"  data-msg-minlength="Password must be 6 characters or more." data-msg-required="Please enter your password." required>
                     </div>
                     <div class="form-group">
                         <label class="custom-control custom-control-primary custom-checkbox">
@@ -39,7 +39,7 @@
                             <span class="custom-control-label">Keep me signed in</span>
                         </label>
                         <span aria-hidden="true"> · </span>
-                        <a href="{{ url('admin/forget/passowrd') }}">Forgot password?</a>
+                        <a href="{{ url('forget-password') }}">Forgot password?</a>
                     </div>
                     <button class="btn btn-primary btn-block btn-log-in" type="submit">Sign in</button>
                 </form>

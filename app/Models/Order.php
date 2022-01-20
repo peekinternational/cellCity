@@ -24,4 +24,6 @@ public function shipAddress()
 {
   return $this->belongsTo(ShippingAddr::class,'shipAddress_id','id');
 }
+
+ 
 }

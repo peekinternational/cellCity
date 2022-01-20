@@ -57,14 +57,11 @@
                                                         </td>
                                                        <td>{{ $product->warranty }}</td>
 
-                                                      {{-- <td><a href="{{url('admin/product-condition',$product->id) }}" class="btn btn-primary btn-sm" title="View More"><i class="fa fa-eye"></i></a></td>
-                                                       <td><a href="{{url('admin/product-storage',$product->id) }}" class="btn btn-warning btn-sm" title="View More"><i class="fa fa-eye"></i></a></td>
-                                                         <td><a href="{{url('admin/product-color',$product->id) }}" class="btn btn-success btn-sm" title="View More"><i class="fa fa-eye"></i></a></td> --}}
-
+                                              
                                                         <td>
                                                             <ul class="list-inline font-size-20 contact-links mb-0">
                                                                 <li class="list-inline-item px-2">
-                                                                 <a href="{{url('admin/product-color',$product->id) }}" class="btn btn-success btn-sm" title="View More"><i class="fa fa-eye"></i></a>
+                                                                    <a href="{{url('product-single/'.$product->id) }}" data-toggle="tooltip" data-placement="top" title="View"><i class="mdi mdi-eye"></i></a>
                                                                 </li>
                                                                 <li class="list-inline-item px-2">
                                                                     <a href="{{url('admin/product/'.$product->id.'/edit') }}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="mdi mdi-account-edit-outline"></i></a>
@@ -74,8 +71,8 @@
                                                                     {{csrf_field()}}
                                                                        @method('DELETE')
 
-                                                                       <label for="delZip" data-toggle="tooltip" data-placement="top" title="Delete" style="cursor: pointer;"><i class="mdi mdi-delete-circle-outline"></i></label>
-                                                                       <input id="delZip" type="submit" name="" style="display: none">
+                                                                       <button type="submit" style="border: none;background: white;"><i class="mdi mdi-delete-circle-outline"></i></button>
+                                                                
                                                                    </form>
 
                                                                 </li>

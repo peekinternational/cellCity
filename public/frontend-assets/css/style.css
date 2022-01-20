@@ -326,12 +326,12 @@ ul,li{
 	position:relative;
 	padding:14px 30px;
 	line-height:1em;
-	color:#1b3953 !important;
+	
 	font-size:13px;
 	font-weight:800;
 	text-transform:uppercase;
 	display:inline-block;
-	border:1px solid #1b3953 !important;
+	
 }
 
 .btn-style-two:hover{
@@ -2843,7 +2843,7 @@ ul,li{
 	position:relative;
 	padding-left:100px;
 	min-height:100px;
-    padding-top: 22px;
+       padding-top: 22px;
 }
 
 .services-block-four .inner-box .upper-box .icon-box{
@@ -2935,9 +2935,11 @@ ul,li{
 	position:relative;
 	overflow:hidden;
 	padding: 2rem 2.4rem;
+    box-shadow: 0 1px 1px 0 rgb(0 0 0 / 20%), 0 1px 5px 0 rgb(0 0 0 / 15%);
+    border-radius: 13px;
 }
 .shop-item:hover .inner-box{
-	box-shadow: 0 0.2rem 2rem 3px rgb(0 0 0 / 5%);
+	 box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
     border-radius: 1.2rem;
 }
 .shop-item .inner-box .image-box{
@@ -3010,6 +3012,7 @@ ul,li{
 	background-color:#00bfa5;
 	border-color:#00bfa5 !important;
 	color:#ffffff !important;
+ 	/*box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);*/
 }
 
 /***
@@ -6595,12 +6598,9 @@ ul,li{
     padding: 6px;
   }
   .warrenty-box{
-    background: #fff;
-    margin-bottom: 1rem;
-    padding: 1.5rem;
-    box-shadow: 0 0 0.5rem rgb(0 0 0 / 25%);
-    border-radius: .2rem;
-    margin-top: 1rem;
+    background-color: #FFFFFF;
+    box-shadow: 0.1rem 0.2rem 0.1rem 0.2rem rgb(0 0 0 / 6%);
+    border-radius: 0.6rem;
   }
   .warrenty-box ul {
     padding: 0;
@@ -6627,6 +6627,28 @@ ul,li{
   }
   .select-color input[name="color"]:checked + .color ,.select-color input[name="storage"]:checked + .color ,.select-color input[name="condition"]:checked + .color{
 	border: 1px solid #000;
+}
+/*.bills-section .nav-pills li{
+    background-color: #00bfa5;
+    color: #fff !important;
+}*/
+.bills-section .nav-pills li.active a,.bills-section .nav-pills>li.active>a:focus,.bills-section .nav-pills>li.active>a:hover{
+	background-color: #00bfa5;
+}
+.bills-section .nav-pills li.active a::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    /*left: 5px;*/
+    right: 5px;
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 7px solid #f0f0f0;
+    border-top: 0;
+    left: 50%;
+    margin-left: -15px;
 }
   @media(min-width: 400px){
     .features-list li.price{

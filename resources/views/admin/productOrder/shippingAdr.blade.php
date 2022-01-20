@@ -4,7 +4,7 @@
 
     <div class="col-md-12">
         <div class="address-box">
-            <h6> Name : <strong>   {{ $shippingAddress->name }}  </strong></h6>
+            <h6> Name : <strong>   {{ $shippingAddress->first_name }} {{ $shippingAddress->last_name }}  </strong></h6>
             <p>Contact Number : <i class="fa fa-phone"></i> {{ $shippingAddress->mobileNo }}</p>
             <p>Shipping Address :  <i class="fa fa-map-marker"></i> {{ $shippingAddress->shipaddress }}</p>
             <p>City :  {{ $shippingAddress->city }} </p>

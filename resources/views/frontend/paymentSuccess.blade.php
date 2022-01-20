@@ -34,7 +34,7 @@
 			<div class="order-box">
 				<h2>
 					<span class="check-circle"><i class="fa fa-check"></i></span>
-				 <br> Payment Successfully</h2>
+				 <br> Payment Successfull</h2>
 			</div>
 		</div>
 	</div>

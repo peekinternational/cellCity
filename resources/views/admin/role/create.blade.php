@@ -30,14 +30,21 @@
                                                     @endforeach
                                                 </select>
                                                 </div>
+                                            </div>  
+                                             <div class="form-group row">
+                                            <label for="example-text-input" class="col-md-2 col-form-label">First Name</label>
+                                            <div class="col-md-10">
+                                                <input class="form-control" name="first_name" type="text" placeholder="Enter first name" @if(old('first_name')) value="{{ old('first_name') }}" @endif  name="first_name" id="example-text-input">
+                                                <span class="text-danger">{{ $errors->first('first_name') }}</span>
                                             </div>
-                                            <div class="form-group row">
-                                                <label for="example-text-input" class="col-md-2 col-form-label">Name</label>
-                                                <div class="col-md-10">
-                                                    <input class="form-control" name="name" type="text" placeholder="Enter name" @if(old('name')) value="{{ old('name') }}" @endif  name="name" id="example-text-input">
-                                                    <span class="text-danger">{{ $errors->first('name') }}</span>
-                                                </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="example-text-input" class="col-md-2 col-form-label">Last Name</label>
+                                            <div class="col-md-10">
+                                                <input class="form-control" name="last_name" type="text" placeholder="Enter last name" @if(old('last_name')) value="{{ old('last_name') }}" @endif  name="last_name" id="example-text-input">
+                                                <span class="text-danger">{{ $errors->first('last_name') }}</span>
                                             </div>
+                                        </div>
                                              <div class="form-group row">
                                                 <label for="example-email-input" class="col-md-2 col-form-label">Email</label>
                                                 <div class="col-md-10">
@@ -97,7 +104,7 @@
                                                 <div class="col-md-10">
                                                 <select name="user_id"  class="form-control">
                                                     @foreach (CityClass::allAdmin() as $admin)
-                                                    <option value="{{$admin->id}}">{{$admin->name}}</option>
+                                                    <option value="{{$admin->id}}">{{$admin->first_name}} {{$admin->last_name}}</option>
                                                     @endforeach
                                                 </select>
                                                 </div>
