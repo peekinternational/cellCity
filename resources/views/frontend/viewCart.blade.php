@@ -646,7 +646,7 @@
                                     <button type="submit" class="btn btn-primary btn-style-one">Submit</button>
                                     @if(!Auth::guard('web')->check())
                                     <div class="signed">
-                                      <span>Already a customer?</span><a href="{{url('signin')}}"> Sign In here</a>
+                                      <span>Already a customer?</span><a href="{{url('signin?next=view-cart')}}"> Sign In here</a>
                                     </div>
                                     @endif
                                 </div>

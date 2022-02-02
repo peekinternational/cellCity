@@ -74,7 +74,15 @@ class UserController extends Controller
             // dd(Auth::guard('web')->user()->shippingaddress);
            // $user= User::find(Auth::guard('web')->user()->id);
            //  dd($user->shippingaddress->name);
-            return redirect(RouteServiceProvider::HOME);
+          $next = $request->input('next');
+          
+                  if($next != ''){
+                        return redirect($next);
+                    }
+                    else{
+                        return redirect(RouteServiceProvider::HOME);
+                    }
+          
 
 
                 }

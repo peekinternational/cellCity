@@ -210,22 +210,8 @@ class AccessoryController extends Controller
 
         if($request->quantity <= $accessory->quantity)
         {
-        if(Auth::check())
-        {
-            $userID = Auth::user()->id;
-             $cart= \Cart::session($userID)->add(array(
-            'id'              =>  $id,
-            'name'            =>  $request->brand_name.' '.$request->model_name,
-            'price'           => $request->getprice,
-            'quantity'        => $request->quantity,
-            'attributes'      => array(
-                                'category'=> "accessory",
-                                ),
-            'associatedModel' => $accessory
-        ));
-         }
-         else
-         {
+       
+      
             $cart= \Cart::add(array(
                 'id'              =>  $id,
                 'name'            =>  $request->brand_name.' '.$request->model_name,
@@ -236,7 +222,7 @@ class AccessoryController extends Controller
                                     ),
                 'associatedModel' => $accessory
             ));
-         }
+         
 
 
     // dd($items);

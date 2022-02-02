@@ -34,8 +34,8 @@
           <div class="row clearfix">
 
                 <!--Services Block-->
-                <div class="services-block col-md-3 col-sm-6 col-xs-6">
-                  <div class="inner-box wow fadeIn animated" data-wow-delay="0ms" data-wow-duration="1500ms" style="visibility: visible; animation-duration: 1500ms; animation-delay: 0ms; animation-name: fadeIn;">
+                <div class="services-block col-md-3 col-sm-6 col-xs-6" >
+                  <div class="inner-box wow fadeIn animated" data-wow-delay="0ms" data-wow-duration="1500ms" style="visibility: visible;height: 192px; animation-duration: 1500ms; animation-delay: 0ms; animation-name: fadeIn;">
                       <!--Icon Box-->
                       <a href="https://cellcity.us/repair">
                         <div class="icon-box">
@@ -47,8 +47,8 @@
                 </div>
 
                 <!--Services Block-->
-                <div class="services-block col-md-3 col-sm-6 col-xs-6">
-                  <div class="inner-box wow fadeIn animated" data-wow-delay="300ms" data-wow-duration="1500ms" style="visibility: visible; animation-duration: 1500ms; animation-delay: 300ms; animation-name: fadeIn;">
+                <div class="services-block col-md-3 col-sm-6 col-xs-6" >
+                  <div class="inner-box wow fadeIn animated" data-wow-delay="300ms" data-wow-duration="1500ms" style="visibility: visible;height: 192px; animation-duration: 1500ms; animation-delay: 300ms; animation-name: fadeIn;">
                       <!-- <div class="big-letter">Q</div> -->
                       <!--Icon Box-->
                       <a href="https://cellcity.us/buy-phone">
@@ -61,8 +61,8 @@
                 </div>
 
                 <!--Services Block-->
-                <div class="services-block col-md-3 col-sm-6 col-xs-6">
-                  <div class="inner-box wow fadeIn animated" data-wow-delay="600ms" data-wow-duration="1500ms" style="visibility: visible; animation-duration: 1500ms; animation-delay: 600ms; animation-name: fadeIn;">
+                <div class="services-block col-md-3 col-sm-6 col-xs-6" >
+                  <div class="inner-box wow fadeIn animated" data-wow-delay="600ms" data-wow-duration="1500ms" style="visibility: visible;height: 192px; animation-duration: 1500ms; animation-delay: 600ms; animation-name: fadeIn;">
                       <!-- <div class="big-letter">C</div> -->
                       <!--Icon Box-->
                       <a href="https://cellcity.us/pay-bills">
@@ -75,8 +75,8 @@
                     </div>
                 </div>
                 <!--Services Block-->
-                <div class="services-block col-md-3 col-sm-6 col-xs-6">
-                  <div class="inner-box wow fadeIn animated" data-wow-delay="600ms" data-wow-duration="1500ms" style="visibility: visible; animation-duration: 1500ms; animation-delay: 600ms; animation-name: fadeIn;">
+                <div class="services-block col-md-3 col-sm-6 col-xs-6" >
+                  <div class="inner-box wow fadeIn animated" data-wow-delay="600ms" data-wow-duration="1500ms" style="visibility: visible;height: 192px; animation-duration: 1500ms; animation-delay: 600ms; animation-name: fadeIn;">
                       <!-- <div class="big-letter">C</div> -->
                       <!--Icon Box-->
                       <a href="https://cellcity.us/pay-bills">

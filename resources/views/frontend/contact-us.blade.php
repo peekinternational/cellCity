@@ -16,7 +16,7 @@
 <section class="page-title" style="background-image: url(frontend-assets/images/background/3.jpg);">
 	<div class="auto-container">
 		<ul class="bread-crumb">
-			<li><a href="index-2.html">Home</a></li>
+			<li><a href="/">Home</a></li>
 			<li class="active">Contact</li>
 		</ul>
 		<h1>Contact</h1>
